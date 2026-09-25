@@ -7,19 +7,21 @@
         font-weight: bold;
         letter-spacing: 0.5px;
       }
+      
     </style>
   </defs>
 
   
-  <rect x="1" y="1" width="138" height="24" fill="rgba(0, 240, 255, 0.08)" stroke="#FFE600" stroke-width="1.5"/>
-  <rect x="1" y="1" width="3" height="3" fill="#FFE600"/>
-  <rect x="136" y="1" width="3" height="3" fill="#FFE600"/>
-  <rect x="1" y="22" width="3" height="3" fill="#FFE600"/>
-  <rect x="136" y="22" width="3" height="3" fill="#FFE600"/>
+  <rect x="1" y="1" width="138" height="24" fill="rgba(10, 14, 23, 0.85)"/>
+  <rect x="1" y="1" width="138" height="24" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="#F59E0B"/>
+  <rect x="136" y="1" width="3" height="3" fill="#F59E0B"/>
+  <rect x="1" y="22" width="3" height="3" fill="#F59E0B"/>
+  <rect x="136" y="22" width="3" height="3" fill="#F59E0B"/>
         
 
   <!-- Label Text -->
-  <text x="70" y="17" fill="#FFE600" text-anchor="middle" class="chip-text">
+  <text x="70" y="17" fill="#F59E0B" text-anchor="middle" class="chip-text">
     📦 ПОЛНЫЙ БОКС
   </text>
 </svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 24" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+
+  
+  <!-- UPWARD CATCHING TEETH (RECEIVING CONTENT) -->
+  <line x1="6" y1="0" x2="6" y2="12" stroke="#4F8BFF" stroke-width="2.5"/>
+  <rect x="4" y="0" width="5" height="5" fill="#4F8BFF"/>
+  <line x1="844" y1="0" x2="844" y2="12" stroke="#4F8BFF" stroke-width="2.5"/>
+  <rect x="841" y="0" width="5" height="5" fill="#4F8BFF"/>
+        
+  
+  <!-- Bottom shelf closing bar -->
+  <line x1="6" y1="12" x2="844" y2="12" stroke="rgba(41, 46, 66, 0.85)" stroke-width="3"/>
+  <line x1="12" y1="12" x2="838" y2="12" stroke="#4F8BFF" stroke-width="1.5" opacity="0.85"/>
+  <!-- Bottom inward hooks (└ and ┘) -->
+  <path d="M 6 12 L 6 20 L 20 20" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <rect x="6" y="17" width="4" height="4" fill="#4F8BFF"/>
+  <path d="M 844 12 L 844 20 L 830 20" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <rect x="840" y="17" width="4" height="4" fill="#4F8BFF"/>
+        
+
+  <!-- Center Status Buffer Readout -->
+  <rect x="320" y="4" width="210" height="16" fill="rgba(15, 18, 30, 0.82)" stroke="#4F8BFF" stroke-width="1"/>
+  <text x="425" y="15" fill="#4F8BFF" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
+    ╚═ [SESSION: ACTIVE // LATENCY: 2ms] ═╝
+  </text>
+</svg>

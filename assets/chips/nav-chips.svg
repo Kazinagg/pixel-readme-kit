@@ -7,19 +7,21 @@
         font-weight: bold;
         letter-spacing: 0.5px;
       }
+      
     </style>
   </defs>
 
   
-  <rect x="1" y="1" width="108" height="24" fill="rgba(0, 240, 255, 0.08)" stroke="#39FF14" stroke-width="1.5"/>
-  <rect x="1" y="1" width="3" height="3" fill="#39FF14"/>
-  <rect x="106" y="1" width="3" height="3" fill="#39FF14"/>
-  <rect x="1" y="22" width="3" height="3" fill="#39FF14"/>
-  <rect x="106" y="22" width="3" height="3" fill="#39FF14"/>
+  <rect x="1" y="1" width="108" height="24" fill="rgba(10, 14, 23, 0.85)"/>
+  <rect x="1" y="1" width="108" height="24" fill="rgba(79, 139, 255, 0.12)" stroke="#4F8BFF" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="#4F8BFF"/>
+  <rect x="106" y="1" width="3" height="3" fill="#4F8BFF"/>
+  <rect x="1" y="22" width="3" height="3" fill="#4F8BFF"/>
+  <rect x="106" y="22" width="3" height="3" fill="#4F8BFF"/>
         
 
   <!-- Label Text -->
-  <text x="55" y="17" fill="#39FF14" text-anchor="middle" class="chip-text">
+  <text x="55" y="17" fill="#4F8BFF" text-anchor="middle" class="chip-text">
     💎 ЧИПЫ
   </text>
 </svg>

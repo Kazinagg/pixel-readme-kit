@@ -7,19 +7,21 @@
         font-weight: bold;
         letter-spacing: 0.5px;
       }
+      
     </style>
   </defs>
 
   
-  <rect x="1" y="1" width="98" height="24" fill="rgba(0, 240, 255, 0.08)" stroke="#BD93F9" stroke-width="1.5"/>
-  <rect x="1" y="1" width="3" height="3" fill="#BD93F9"/>
-  <rect x="96" y="1" width="3" height="3" fill="#BD93F9"/>
-  <rect x="1" y="22" width="3" height="3" fill="#BD93F9"/>
-  <rect x="96" y="22" width="3" height="3" fill="#BD93F9"/>
+  <rect x="1" y="1" width="98" height="24" fill="rgba(10, 14, 23, 0.85)"/>
+  <rect x="1" y="1" width="98" height="24" fill="rgba(0, 200, 215, 0.12)" stroke="#A855F7" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="#A855F7"/>
+  <rect x="96" y="1" width="3" height="3" fill="#A855F7"/>
+  <rect x="1" y="22" width="3" height="3" fill="#A855F7"/>
+  <rect x="96" y="22" width="3" height="3" fill="#A855F7"/>
         
 
   <!-- Label Text -->
-  <text x="50" y="17" fill="#BD93F9" text-anchor="middle" class="chip-text">
+  <text x="50" y="17" fill="#A855F7" text-anchor="middle" class="chip-text">
     ⚡ cli.py
   </text>
 </svg>

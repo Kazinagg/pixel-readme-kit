@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 24" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+
+  
+  <path d="M 4 0 L 4 10 L 10 10" fill="none" stroke="#F59E0B" stroke-width="2"/>
+  <path d="M 846 0 L 846 10 L 840 10" fill="none" stroke="#F59E0B" stroke-width="2"/>
+        
+  
+  <polygon points="4 10, 846 10, 836 20, 14 20" fill="rgba(20, 14, 6, 0.82)" stroke="rgba(50, 36, 16, 0.85)" stroke-width="1.5"/>
+  <line x1="14" y1="20" x2="836" y2="20" stroke="#F59E0B" stroke-width="2"/>
+        
+
+  <!-- Center Status Buffer Readout -->
+  <rect x="320" y="4" width="210" height="16" fill="rgba(20, 14, 6, 0.82)" stroke="#F59E0B" stroke-width="1"/>
+  <text x="425" y="15" fill="#F59E0B" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
+    ╚═ [TELEMETRY: NOMINAL // ALL_SYSTEMS_GO] ═╝
+  </text>
+</svg>

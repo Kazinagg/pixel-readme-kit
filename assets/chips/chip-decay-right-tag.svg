@@ -7,29 +7,24 @@
         font-weight: bold;
         letter-spacing: 0.5px;
       }
+      
     </style>
   </defs>
 
   
-  <!-- Left solid box -->
-  <path d="M 85 1 L 1 1 L 1 25 L 85 25" fill="rgba(0, 240, 255, 0.08)" stroke="#BD93F9" stroke-width="1.5"/>
-  <rect x="1" y="1" width="3" height="3" fill="#BD93F9"/>
-  <rect x="1" y="22" width="3" height="3" fill="#BD93F9"/>
+  <path d="M 85 1 L 1 1 L 1 25 L 85 25" fill="rgba(10, 14, 23, 0.85)"/>
+  <path d="M 85 1 L 1 1 L 1 25 L 85 25" fill="rgba(0, 200, 215, 0.12)" stroke="#A855F7" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="#A855F7"/>
+  <rect x="1" y="22" width="3" height="3" fill="#A855F7"/>
 
-  <!-- Right Pixel Decay (Scattered Dithering) -->
-  <g fill="#BD93F9">
-    <!-- Column 1 (dense) -->
+  <g fill="#A855F7">
     <rect x="87" y="3" width="3" height="3"/>
     <rect x="87" y="9" width="3" height="3"/>
     <rect x="87" y="15" width="3" height="3"/>
     <rect x="87" y="20" width="3" height="3"/>
-
-    <!-- Column 2 (medium) -->
     <rect x="92" y="5" width="2" height="2"/>
     <rect x="92" y="12" width="2" height="2"/>
     <rect x="92" y="18" width="2" height="2"/>
-
-    <!-- Column 3 (sparse/scatter) -->
     <rect x="97" y="7" width="2" height="2" opacity="0.6"/>
     <rect x="100" y="14" width="2" height="2" opacity="0.4"/>
     <rect x="103" y="10" width="1" height="1" opacity="0.3"/>
@@ -37,7 +32,7 @@
         
 
   <!-- Label Text -->
-  <text x="44" y="17" fill="#BD93F9" text-anchor="middle" class="chip-text">
+  <text x="44" y="17" fill="#A855F7" text-anchor="middle" class="chip-text">
     🏷️ v2.0
   </text>
 </svg>

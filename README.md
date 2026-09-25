@@ -1,190 +1,227 @@
 <div align="center">
 
-<img src="assets/header.svg" width="100%" alt="PIXEL-KIT TRANSLUCENT HUD" />
+<!-- MAIN 3D CYBERPUNK TERMINAL HEADER (Radar Sweep + Scanline) -->
+<img src="assets/headers/header-terminal-cyberpunk.svg" width="100%" alt="PIXEL-KIT TRANSLUCENT HUD" />
 
 <br/>
 
 <!-- NAVIGATION PILLS -->
-<a href="#mode-a-open-cyber-brackets-hud"><img src="assets/chips/nav-brackets.svg" alt="HUD Brackets" /></a>
-<a href="#mode-b-full-box-enclosure"><img src="assets/chips/nav-enclosure.svg" alt="Full Box" /></a>
-<a href="#holographic-chips-taxonomy"><img src="assets/chips/nav-chips.svg" alt="Chips" /></a>
-<a href="#architecture--translucency"><img src="assets/chips/nav-arch.svg" alt="Architecture" /></a>
+<a href="#mode-a-open-cyber-brackets-green"><img src="assets/chips/nav-brackets.svg" alt="HUD Brackets" /></a>
+<a href="#mode-b-tactical-amber-box"><img src="assets/chips/nav-enclosure.svg" alt="Full Box" /></a>
+<a href="#mode-c-minimal-tokyo-guide-lines"><img src="assets/chips/nav-chips.svg" alt="Chips" /></a>
+<a href="#header-styles-gallery"><img src="assets/chips/nav-arch.svg" alt="Header Gallery" /></a>
 <a href="#quick-start--cli-generator"><img src="assets/chips/nav-guide.svg" alt="Guide" /></a>
 
 <br/><br/>
 
-<img src="assets/divider.svg" width="100%" alt="PCB Divider" />
+<!-- ANIMATED PCB DIVIDER (Traveling Data Packet) -->
+<img src="assets/divider-pcb-cyan.svg" width="100%" alt="PCB Divider" />
 
 </div>
 
 ## 📌 OVERVIEW // О ПРОЕКТЕ
 
-**Pixel Readme Kit** — модульная дизайн-система в эстетике ретро-киберпанка, пиксельных HUD-интерфейсов и полупрозрачных неоновых терминалов. 
+**Pixel Readme Kit v2.0** — модульная дизайн-система в эстетике ретро-киберпанка, тактических HUD-терминалов и полупрозрачного стекла. 
 
 Создана для оформления GitHub профилей и репозиториев без недостатков статических картинок:
-- 🧊 **Полупрозрачный фон (True Alpha Blending)**: `rgba(10, 14, 23, 0.72)` адаптируется к любой теме GitHub (Dark, Dimmed, High Contrast, Light) без неестественных черных прямоугольников.
-- 📋 **100% Копируемый текст и формулы**: Вся важная документация, команды терминала и LaTeX-формулы остаются живым Markdown-текстом внутри визуальных фреймов.
-- 📐 **Два режима обрамления**: 
-  1. *Mode A (Open Cyber Brackets)* — открытые скобы `┌───┐` и `└───┘` с направляющими зубцами.
-  2. *Mode B (Full Box Enclosure)* — полный замкнутый контур с вертикальными рельсами (`rail-left.svg` / `rail-right.svg`).
-- 💫 **Плавное перетекание (Decay Chips)**: Рассеянный дизеринг пикселей (`decay_right` / `decay_left`), позволяющий чипам плавно растворяться в тексте или выходить из него.
+- 🧊 **True Alpha Blending (Контрастность на темной и светлой темах)**: `rgba(10, 14, 23, 0.82)` обеспечивает глубокую затемненную подложку как на черном фоне GitHub Dark (`#0d1117`), так и на чистом белом фоне GitHub Light (`#ffffff`). Текст и границы не выгорают и сохраняют высокую читаемость.
+- 📋 **100% Живой Markdown-текст**: Документация, команды консоли, списки и LaTeX-формулы остаются копируемыми и индексируемыми.
+- 📐 **3 Стиля обрамления**:
+  1. *Mode A (Open Cyber Brackets)* — открытые скобы с направляющими зубцами, открывающимися строго вниз.
+  2. *Mode B (Tactical Full Box)* — тактические скосы 45° с вертикальными рельсами-лестницами.
+  3. *Mode C (Minimal Guide Lines)* — тонкие боковые неоновые направляющие 1px для легкого обрамления.
+- 💫 **Живые SVG CSS-анимации**: Вращающийся луч радара, сканирующие лазерные лучи, бегущие пакеты данных по печатной плате, каскадный импульс по боковым шинам и пульсирующие светодиоды.
+- 💎 **5 типов голографических чипов**: Closed, 45° Chamfer, Decay-Right (растворение в текст), Decay-Left (выход из текста), Pulse (с живым маяком).
 
 ---
 
-<div id="mode-a-open-cyber-brackets-hud"></div>
+<div id="mode-a-open-cyber-brackets-green"></div>
 
-### 📐 MODE A: OPEN CYBER BRACKETS HUD
+### 🟢 1. MODE A: OPEN CYBER BRACKETS // MATRIX THEME
 
-В этом режиме верхний и нижний фреймы имеют выступающие направляющие зубцы (`┌` `┐` и `└` `┘`). Они визуально «обнимают» живой Markdown-текст, создавая эффект терминального экрана без жестких боковых рамок:
+Верхний и нижний фреймы снабжены вертикальными направляющими зубцами (`│` и `│`), которые **смотрят строго вниз и вверх**, открывая окно в живой контент. Текст обернут с боковыми отступами, благодаря чему он **никогда не выходит за габариты уголков**:
 
-<img src="assets/frame-top-brackets.svg" width="100%" alt="Top Bracket" />
-
-> **SYSTEM ARCHITECTURE // RUNTIME KERNEL**
->
-> Live markdown content remains fully interactive, selectable, and screen-reader friendly:
->
-> ```bash
-> # Clone repository and generate custom HUD theme
-> git clone https://github.com/Kazinagg/pixel-readme-kit.git
-> cd pixel-readme-kit
-> python generator/cli.py --theme cyberpunk --title "MY-REPO"
-> ```
->
-> - <img src="assets/chips/chip-closed-core.svg" align="center" /> Modular generator with RLE-compressed 3D pixel font
-> - <img src="assets/chips/chip-closed-cli.svg" align="center" /> Zero external dependencies (pure Python standard library)
-> - <img src="assets/chips/chip-closed-github.svg" align="center" /> GitHub Actions ready for automated profile builds
-
-<img src="assets/frame-bottom.svg" width="100%" alt="Bottom Bracket" />
-
----
-
-<div id="mode-b-full-box-enclosure"></div>
-
-### 📦 MODE B: FULL BOX ENCLOSURE
-
-Для экранов, где требуется полная изоляция контента, верхний и нижний фреймы соединяются боковыми рельсами (`rail-left.svg` и `rail-right.svg`) через чистую HTML-таблицу с прозрачной границей:
-
-<img src="assets/frame-top-enclosure.svg" width="100%" alt="Top Frame" />
+<!-- TOP FRAME (MATRIX GREEN) -->
+<img src="assets/frames/frame-top-brackets-green.svg" width="100%" alt="Matrix Top Bracket" />
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
   <tr>
-    <td width="14" valign="top" align="left">
-      <img src="assets/rail-left.svg" height="160" width="14" />
+    <td width="24">&nbsp;</td>
+    <td>
+
+#### 🧬 SYSTEM ARCHITECTURE // RUNTIME KERNEL
+Живой Markdown-контент находится строго в границах терминала:
+
+```bash
+# Генерация набора в зеленой теме Matrix
+python generator/cli.py --theme matrix --style terminal --title "MATRIX-CORE"
+```
+
+- <img src="assets/chips/chip-pulse-online.svg" align="center" /> ➔ **Ядро системы активно** (живой мерцающий маяк)
+- <img src="assets/chips/chip-chamfer-matrix.svg" align="center" /> ➔ Модуль RLE-сжатия 3D пиксельных шрифтов
+- <img src="assets/chips/chip-closed-core.svg" align="center" /> ➔ Чистый Python 3.8+ без внешних зависимостей
+
+    </td>
+    <td width="24">&nbsp;</td>
+  </tr>
+</table>
+
+<!-- BOTTOM FRAME (MATRIX GREEN) -->
+<img src="assets/frames/frame-bottom-brackets-green.svg" width="100%" alt="Matrix Bottom Bracket" />
+
+---
+
+<div id="mode-b-tactical-amber-box"></div>
+
+### 🟡 2. MODE B: TACTICAL CHAMFER & FULL ENCLOSURE // AMBER CRT THEME
+
+Для изолированных экранов используется полный замкнутый контур: верхняя и нижняя панели со скошенными углами 45° соединяются боковыми шинами данных (`rail-left-ladder-amber.svg` и `rail-right-ladder-amber.svg`) с **каскадной бегущей анимацией световых импульсов**:
+
+<!-- TOP FRAME (AMBER CHAMFER 45°) -->
+<img src="assets/frames/frame-top-chamfer-amber.svg" width="100%" alt="Amber Chamfer Top" />
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td width="14" valign="top" align="left" style="line-height: 0; padding: 0;">
+      <img src="assets/rails/rail-left-ladder-amber.svg" height="175" width="14" />
     </td>
     <td style="padding: 10px 24px;">
 
-#### 🛰️ ENCLOSED TELEMETRY STREAM
-Внутри полного бокса контент защищен от внешних отступов. Здесь можно размещать интерактивные спецификации, таблицы параметров и статус сервисов:
+#### 🛰️ TACTICAL TELEMETRY STREAM
+Внутри замкнутого бокса данные защищены боковыми направляющими. Здесь идеально размещать таблицы параметров и статусов:
 
-| Модуль | Статус | Протокол | Назначение |
+| Подсистема | Режим | Анимация | Статус |
 | :--- | :--- | :--- | :--- |
-| `palettes.py` | `ACTIVE` | `RGBA_v2` | Цветовые токены, неоновые акценты и альфа-прозрачность |
-| `font_engine.py` | `ACTIVE` | `PIXEL_3D` | 3D псевдо-объемный шрифт с двойными тенями (кириллица + латиница) |
-| `builder.py` | `ACTIVE` | `SVG_CRISP` | Генераторы шапок, скоб, боковых рельсов и рассеивающихся чипов |
+| `Radar Monitor` | 360° Sweep | `@keyframes radarSweep` | <img src="assets/chips/chip-pulse-live.svg" align="center" /> |
+| `Laser Scanner` | 4s Traverse | `@keyframes targetScan` | <img src="assets/chips/chip-chamfer-spec.svg" align="center" /> |
+| `Ladder Bus` | Cascade Glow | `@keyframes rungGlow` | `ACTIVE` |
 
     </td>
-    <td width="14" valign="top" align="right">
-      <img src="assets/rail-right.svg" height="160" width="14" />
+    <td width="14" valign="top" align="right" style="line-height: 0; padding: 0;">
+      <img src="assets/rails/rail-right-ladder-amber.svg" height="175" width="14" />
     </td>
   </tr>
 </table>
 
-<img src="assets/frame-bottom.svg" width="100%" alt="Bottom Frame" />
+<!-- BOTTOM FRAME (AMBER CHAMFER 45°) -->
+<img src="assets/frames/frame-bottom-chamfer-amber.svg" width="100%" alt="Amber Chamfer Bottom" />
+
+<br/>
+
+<!-- ANIMATED LASER DIVIDER -->
+<img src="assets/divider-laser-amber.svg" width="100%" alt="Laser Divider" />
 
 ---
 
-<div id="holographic-chips-taxonomy"></div>
+<div id="mode-c-minimal-tokyo-guide-lines"></div>
 
-### 💎 HOLOGRAPHIC CHIPS: CLOSED VS. DECAY DITHERING
+### 🟣 3. MODE C: MINIMAL NEON RAIL & SIDE GUIDE LINES // TOKYO THEME
 
-Вместо монотонных плоских бейджей система предоставляет 3 типа голографических чипов:
+Режим с **тонкими неоновыми линиями по бокам** (как запрошено для аккуратного очерчивания текста) и демонстрацией эффекта **растворения пикселей (Decay Chips)**:
 
-<img src="assets/frame-top-chips.svg" width="100%" alt="Chips Spec" />
+<!-- TOP FRAME (TOKYO NIGHT) -->
+<img src="assets/frames/frame-top-minimal-tokyo.svg" width="100%" alt="Tokyo Top Frame" />
 
-#### 1. Closed Holo-Pills (Замкнутые чипы)
-Классические 4-сторонние капсулы с угловыми засечками для таблиц, кнопок и навигационных панелей:
-- <img src="assets/chips/chip-closed-core.svg" align="center" /> `generator/` — Ядро генератора
-- <img src="assets/chips/chip-closed-cli.svg" align="center" /> `cli.py` — Консольный интерфейс
-- <img src="assets/chips/chip-closed-yaml.svg" align="center" /> `config.yaml` — Конфигурация темы
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td width="14" valign="top" align="left" style="line-height: 0; padding: 0;">
+      <img src="assets/rails/rail-left-laser-cyan.svg" height="165" width="14" />
+    </td>
+    <td style="padding: 10px 24px;">
 
-#### 2. Decay-Right Chips (Растворение в текст)
-Правая грань чипа распадается на матричный дизеринг пикселей, плавно перетекая в следующий за ним текст:
-- <img src="assets/chips/chip-decay-right-src.svg" align="center" /> ➔ `src/core/math_engine.py` — путь к файлу ядра
-- <img src="assets/chips/chip-decay-right-tag.svg" align="center" /> ➔ Релизная ветка со всеми обновлениями
-- <img src="assets/chips/chip-decay-right-done.svg" align="center" /> ➔ Все автоматические тесты успешно пройдены
+#### 💫 DISSOLVING PIXEL DECAY (ПЕРЕТЕКАНИЕ В ТЕКСТ)
+Голографические чипы могут плавно переходить в следующий текст через рассеянный дизеринг пикселей:
 
-#### 3. Decay-Left Chips (Выход из текста)
-Левая грань рассеивается из предшествующего текста или списка:
-- Документация по API сервиса ➔ <img src="assets/chips/chip-decay-left-docs.svg" align="center" />
-- Спецификация сетевых протоколов ➔ <img src="assets/chips/chip-decay-left-spec.svg" align="center" />
+- <img src="assets/chips/chip-decay-right-src.svg" align="center" /> ➔ `src/generator/builder.py` — генератор SVG-компонентов
+- <img src="assets/chips/chip-decay-right-tag.svg" align="center" /> ➔ Релиз v2.0 с поддержкой всех тем и контраста
+- <img src="assets/chips/chip-decay-right-done.svg" align="center" /> ➔ Полная совместимость со светлой и темной темами
+- Документация по установке и настройке ➔ <img src="assets/chips/chip-decay-left-docs.svg" align="center" />
 
-<img src="assets/frame-bottom.svg" width="100%" alt="Bottom Bracket" />
+    </td>
+    <td width="14" valign="top" align="right" style="line-height: 0; padding: 0;">
+      <img src="assets/rails/rail-right-laser-cyan.svg" height="165" width="14" />
+    </td>
+  </tr>
+</table>
+
+<!-- BOTTOM FRAME (TOKYO NIGHT) -->
+<img src="assets/frames/frame-bottom-minimal-tokyo.svg" width="100%" alt="Tokyo Bottom Frame" />
 
 ---
 
-<div id="architecture--translucency"></div>
+<div id="header-styles-gallery"></div>
 
-### 🏛️ ARCHITECTURE & TRANSLUCENCY SPEC
+### 🏛️ HEADER STYLES GALLERY // 3 ВАРИАНТА ШАПОК
 
-<img src="assets/frame-top-architecture.svg" width="100%" alt="Architecture Top" />
+В дизайн-систему включены 3 принципиально разных типа шапок с индивидуальными анимациями:
 
-#### True Alpha Blending (Полупрозрачность)
-Все SVG-элементы построены на базе RGBA-токенов:
-- Основной фон: `rgba(10, 14, 23, 0.72)` (стеклообразная вуаль).
-- Темная обводка сетки: `rgba(30, 41, 59, 0.85)`.
-- Неоновая кайма: `#00F0FF` / `#FF0055` / `#BD93F9` с прозрачностью `0.8`.
+#### Вариант 1: Cyberpunk 3D Workstation (Scanline + Radar Sweep)
+Полная рабочая станция с вращающимся радаром 360°, терминальным вводом `> _`, бегущей CRT-линией сканирования и 3D-шрифтом:
+<img src="assets/headers/header-terminal-cyberpunk.svg" width="100%" alt="Terminal Header" />
 
-Благодаря этому фреймы органично ложатся как на черные темы (`#0d1117`), так и на темно-синие, графитовые или светлые фоны других платформ.
+#### Вариант 2: Tactical Military HUD (Sweeping Laser + Hazard Stripes)
+Боевой тактический интерфейс со скошенными углами 45°, бегущим лучом прицела и блокировкой цели:
+<img src="assets/headers/header-tactical-amber.svg" width="100%" alt="Tactical Header" />
 
-#### Доступные цветовые палитры:
-| Палитра | Описание | Основной цвет | Акцент 1 | Акцент 2 |
+#### Вариант 3: Minimal Glass & Live Equalizer
+Широкий минималистичный неоновый баннер с прыгающими полосами эквалайзера и дышащей каймой:
+<img src="assets/headers/header-minimal-tokyo.svg" width="100%" alt="Minimal Header" />
+
+---
+
+### 🎨 ПАЛИТРЫ И КАЛИБРОВКА КОНТРАСТНОСТИ
+
+Все цвета откалиброваны для одинаковой читаемости на темном (`#0D1117`) и белом (`#FFFFFF`) фонах:
+
+| Палитра | Назначение | Основной цвет | Акцент 1 | Акцент 2 |
 | :--- | :--- | :--- | :--- | :--- |
-| **`cyberpunk`** *(Default)* | Kazinagg Core | `#00F0FF` (Cyan) | `#FF0055` (Pink) | `#BD93F9` (Purple) |
-| **`matrix`** | Emerald Terminal | `#00FF66` (Green) | `#00DD44` (Mid) | `#79FFE1` (Mint) |
-| **`amber`** | Retro CRT Phosphor | `#FFB000` (Amber) | `#FF8800` (Orange)| `#FFE57F` (Light) |
-| **`tokyo`** | Tokyo Night Neon | `#7AA2F7` (Blue) | `#BB9AF7` (Purple)| `#7DCFFF` (Cyan) |
-
-<img src="assets/frame-bottom.svg" width="100%" alt="Bottom Bracket" />
+| **`cyberpunk`** | Kazinagg Core | `#00C8D7` (Electric Cyan) | `#FF0055` (Laser Pink) | `#A855F7` (Cyber Purple) |
+| **`matrix`** | Emerald Terminal | `#00D26A` (Matrix Green) | `#00E5FF` (Teal Link) | `#EAB308` (Cyber Yellow) |
+| **`amber`** | Retro CRT Phosphor | `#F59E0B` (CRT Amber) | `#EA580C` (CRT Orange) | `#10B981` (Retro Mint) |
+| **`tokyo`** | Tokyo Vaporwave | `#4F8BFF` (Tokyo Blue) | `#A855F7` (Tokyo Violet)| `#06B6D4` (Cyan Accent) |
 
 ---
 
 <div id="quick-start--cli-generator"></div>
 
-### 🚀 QUICK START & CLI USAGE
+### 🚀 QUICK START & CLI GENERATOR
 
-<img src="assets/frame-top-guide.svg" width="100%" alt="Guide Top" />
-
-#### 1. Генерация ассетов под свой проект
-Скрипт не требует сторонних библиотек (работает на стандартной библиотеке Python 3.8+):
+Сгенерировать набор под любой проект одной командой (чистый Python, без сторонних библиотек):
 
 ```bash
-# Генерация набора с темой Tokyo Night
-python generator/cli.py --output ./my-profile --theme tokyo --title "KAZINAGG" --subtitle "SECURITY & SYSTEMS ENGINEER"
+# 1. Сгенерировать флагманский терминал в стиле Cyberpunk
+python generator/cli.py --theme cyberpunk --style terminal --title "PROJECT-X"
 
-# Генерация набора в зеленой теме Matrix
-python generator/cli.py --output ./lab-work --theme matrix --title "NUM-PHYS" --subtitle "BSU PHYSICS COMPUTING"
+# 2. Сгенерировать тактический военный HUD в янтарной гамме
+python generator/cli.py --theme amber --style tactical --title "SECURITY"
+
+# 3. Сгенерировать минималистичный баннер Tokyo Night
+python generator/cli.py --theme tokyo --style minimal --title "AUDIO-SYNTH"
 ```
 
-#### 2. Структура проекта
+#### Структура директории `assets/`:
 ```
-pixel-readme-kit/
-├── assets/
-│   ├── header.svg                  # 3D пиксельная полупрозрачная шапка
-│   ├── divider.svg                 # PCB-разделитель печатной платы
-│   ├── frame-top-*.svg             # Верхние скобы окон с направляющими зубцами
-│   ├── frame-bottom.svg            # Нижняя закрывающая скоба
-│   ├── rail-left.svg               # Левый боковой рельс (Mode B)
-│   ├── rail-right.svg              # Правый боковой рельс (Mode B)
-│   └── chips/                      # Голографические чипы (closed, decay_right, decay_left)
-├── generator/
-│   ├── font_engine.py              # 3D пиксельный генератор шрифта (латиница + кириллица)
-│   ├── palettes.py                 # Цветовые матрицы и токены
-│   ├── builder.py                  # Конструкторы SVG компонентов
-│   └── cli.py                      # Консольный CLI билдер
-└── README.md                       # Демонстрационная витрина
+assets/
+├── headers/
+│   ├── header-terminal-cyberpunk.svg    # 3D терминал с радаром и сканирующим лучом
+│   ├── header-tactical-amber.svg        # Тактический 45° HUD с прицелом
+│   └── header-minimal-tokyo.svg         # Минималистичный баннер с эквалайзером
+├── frames/
+│   ├── frame-top-brackets-green.svg     # Скобы с открывающимися вниз зубцами (Mode A)
+│   ├── frame-bottom-brackets-green.svg  # Скобы с подхватывающими зубцами вверх
+│   ├── frame-top-chamfer-amber.svg      # Тактический скос 45° (Mode B)
+│   └── frame-bottom-chamfer-amber.svg   # Тактический поддон 45°
+├── rails/
+│   ├── rail-left-ladder-amber.svg       # Анимированная шина-лестница
+│   ├── rail-left-laser-cyan.svg         # Тонкая неоновая линия 1px для боков
+│   └── rail-left-matrix-green.svg       # Матричный поток точек
+└── chips/
+    ├── chip-closed-*.svg                # Замкнутые капсулы
+    ├── chip-chamfer-*.svg               # 45° тактические бейджи
+    ├── chip-decay-right-*.svg           # Растворение пикселей вправо
+    ├── chip-decay-left-*.svg            # Выход пикселей влево
+    └── chip-pulse-*.svg                 # Чипы с живым мерцающим маяком
 ```
-
-<img src="assets/frame-bottom.svg" width="100%" alt="Bottom Bracket" />
 
 <br/>
 
@@ -194,6 +231,6 @@ pixel-readme-kit/
 
 <br/><br/>
 
-<sub>PIXEL README KIT &bull; CRAFTED FOR TRANSLUCENT RETRO-FUTURISTIC GITHUB PROFILES &bull; 2026</sub>
+<sub>PIXEL README KIT v2.0 &bull; CRAFTED FOR TRANSLUCENT DUAL-THEME GITHUB PROFILES &bull; 2026</sub>
 
 </div>

@@ -5,85 +5,89 @@ Color themes and translucent palette tokens for Pixel Readme Kit
 THEMES = {
     "cyberpunk": {
         "name": "Kazinagg Cyberpunk Core",
-        "bg_glass": "rgba(10, 14, 23, 0.72)",
-        "bg_panel": "rgba(15, 23, 38, 0.65)",
-        "bg_chip": "rgba(0, 240, 255, 0.08)",
+        "bg_glass": "rgba(10, 14, 23, 0.82)",
+        "bg_panel": "rgba(15, 23, 38, 0.78)",
+        "bg_chip": "rgba(0, 200, 215, 0.12)",
         "border_slate": "rgba(30, 41, 59, 0.85)",
-        "primary": "#00F0FF",      # Neon Cyan
-        "primary_glow": "rgba(0, 240, 255, 0.35)",
-        "secondary": "#BD93F9",    # Neon Purple
-        "secondary_glow": "rgba(189, 147, 249, 0.35)",
-        "success": "#39FF14",      # Matrix Green
-        "success_glow": "rgba(57, 255, 20, 0.35)",
-        "warning": "#FFE600",      # Cyber Amber
-        "warning_glow": "rgba(255, 230, 0, 0.35)",
-        "accent": "#FF0055",       # Signal Magenta / Red
+        "primary": "#00C8D7",      # Electric Cyan (High contrast on white & dark)
+        "primary_glow": "rgba(0, 200, 215, 0.35)",
+        "secondary": "#A855F7",    # Neon Cyber Purple
+        "secondary_glow": "rgba(168, 85, 247, 0.35)",
+        "success": "#00D26A",      # Emerald Green
+        "success_glow": "rgba(0, 210, 106, 0.35)",
+        "warning": "#F59E0B",      # Cyber Amber Gold
+        "warning_glow": "rgba(245, 158, 11, 0.35)",
+        "accent": "#FF0055",       # Laser Magenta / Red
         "text_main": "#F8F8F2",
-        "text_dim": "#8892B0",
+        "text_dim": "#94A3B8",
         "shadow_dark": "#050B14",
         "shadow_mid": "#005577",
     },
     "matrix": {
         "name": "Emerald Matrix Terminal",
-        "bg_glass": "rgba(8, 18, 12, 0.75)",
-        "bg_panel": "rgba(13, 28, 18, 0.65)",
-        "bg_chip": "rgba(57, 255, 20, 0.08)",
+        "bg_glass": "rgba(6, 18, 12, 0.82)",
+        "bg_panel": "rgba(12, 28, 18, 0.78)",
+        "bg_chip": "rgba(0, 210, 106, 0.12)",
         "border_slate": "rgba(20, 45, 25, 0.85)",
-        "primary": "#39FF14",
-        "primary_glow": "rgba(57, 255, 20, 0.35)",
-        "secondary": "#00FF88",
-        "secondary_glow": "rgba(0, 255, 136, 0.35)",
-        "success": "#39FF14",
-        "success_glow": "rgba(57, 255, 20, 0.35)",
-        "warning": "#B8FF00",
-        "warning_glow": "rgba(184, 255, 0, 0.35)",
-        "accent": "#FF3366",
+        "primary": "#00D26A",      # Matrix Emerald
+        "primary_glow": "rgba(0, 210, 106, 0.35)",
+        "secondary": "#00E5FF",    # Bright Teal Cyan
+        "secondary_glow": "rgba(0, 229, 255, 0.35)",
+        "success": "#00D26A",
+        "success_glow": "rgba(0, 210, 106, 0.35)",
+        "warning": "#EAB308",      # Cyber Yellow
+        "warning_glow": "rgba(234, 179, 8, 0.35)",
+        "accent": "#FF0055",
         "text_main": "#E8FFE8",
-        "text_dim": "#5C8C65",
+        "text_dim": "#6EE7B7",
         "shadow_dark": "#020A04",
         "shadow_mid": "#0A3D18",
     },
-    "amber_crt": {
+    "amber": {
         "name": "Retro Amber Industrial CRT",
-        "bg_glass": "rgba(18, 14, 6, 0.75)",
-        "bg_panel": "rgba(28, 20, 8, 0.65)",
-        "bg_chip": "rgba(255, 176, 0, 0.08)",
-        "border_slate": "rgba(45, 34, 15, 0.85)",
-        "primary": "#FFB000",
-        "primary_glow": "rgba(255, 176, 0, 0.35)",
-        "secondary": "#FFA040",
-        "secondary_glow": "rgba(255, 160, 64, 0.35)",
-        "success": "#FFD000",
-        "success_glow": "rgba(255, 208, 0, 0.35)",
-        "warning": "#FF7700",
-        "warning_glow": "rgba(255, 119, 0, 0.35)",
-        "accent": "#FF3300",
-        "text_main": "#FFF0D0",
-        "text_dim": "#8C7350",
+        "bg_glass": "rgba(20, 14, 6, 0.82)",
+        "bg_panel": "rgba(30, 22, 10, 0.78)",
+        "bg_chip": "rgba(245, 158, 11, 0.12)",
+        "border_slate": "rgba(50, 36, 16, 0.85)",
+        "primary": "#F59E0B",      # Phosphor Amber
+        "primary_glow": "rgba(245, 158, 11, 0.35)",
+        "secondary": "#EA580C",    # Phosphor Orange
+        "secondary_glow": "rgba(234, 88, 12, 0.35)",
+        "success": "#10B981",      # Retro Mint
+        "success_glow": "rgba(16, 185, 129, 0.35)",
+        "warning": "#D97706",
+        "warning_glow": "rgba(217, 119, 6, 0.35)",
+        "accent": "#EF4444",       # Signal Red
+        "text_main": "#FFFBEB",
+        "text_dim": "#FCD34D",
         "shadow_dark": "#0A0702",
         "shadow_mid": "#4A3305",
     },
-    "tokyo_night": {
+    "tokyo": {
         "name": "Tokyo Night Vaporwave",
-        "bg_glass": "rgba(15, 18, 30, 0.72)",
-        "bg_panel": "rgba(22, 27, 46, 0.65)",
-        "bg_chip": "rgba(122, 162, 247, 0.08)",
+        "bg_glass": "rgba(15, 18, 30, 0.82)",
+        "bg_panel": "rgba(22, 27, 46, 0.78)",
+        "bg_chip": "rgba(79, 139, 255, 0.12)",
         "border_slate": "rgba(41, 46, 66, 0.85)",
-        "primary": "#7AA2F7",
-        "primary_glow": "rgba(122, 162, 247, 0.35)",
-        "secondary": "#BB9AF7",
-        "secondary_glow": "rgba(187, 154, 247, 0.35)",
-        "success": "#9ECE6A",
-        "success_glow": "rgba(158, 206, 106, 0.35)",
-        "warning": "#E0AF68",
-        "warning_glow": "rgba(224, 175, 104, 0.35)",
-        "accent": "#F7768E",
-        "text_main": "#C0CAF5",
-        "text_dim": "#565F89",
+        "primary": "#4F8BFF",      # Tokyo Neon Blue
+        "primary_glow": "rgba(79, 139, 255, 0.35)",
+        "secondary": "#A855F7",    # Tokyo Neon Purple
+        "secondary_glow": "rgba(168, 85, 247, 0.35)",
+        "success": "#10B981",
+        "success_glow": "rgba(16, 185, 129, 0.35)",
+        "warning": "#F59E0B",
+        "warning_glow": "rgba(245, 158, 11, 0.35)",
+        "accent": "#06B6D4",       # Cyan Accent
+        "text_main": "#F1F5F9",
+        "text_dim": "#94A3B8",
         "shadow_dark": "#0A0C14",
         "shadow_mid": "#1A2440",
     }
 }
+
+# Aliases
+THEMES["amber_crt"] = THEMES["amber"]
+THEMES["tokyo_night"] = THEMES["tokyo"]
 
 def get_theme(theme_name="cyberpunk"):
     return THEMES.get(theme_name, THEMES["cyberpunk"])

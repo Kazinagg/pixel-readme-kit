@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pixel Readme Kit Preview</title>
+  <title>Pixel Readme Kit v2.0 Preview</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
@@ -32,6 +32,14 @@
     .controls {
       text-align: center;
       margin-bottom: 25px;
+      position: sticky;
+      top: 10px;
+      z-index: 1000;
+      background: rgba(10, 14, 23, 0.85);
+      padding: 10px;
+      border-radius: 8px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
     button {
       background: #1f6feb;
@@ -66,18 +74,12 @@
       padding: 12px;
       overflow-x: auto;
     }
-    blockquote {
-      border-left: 3px solid #00F0FF;
-      margin: 10px 0;
-      padding: 5px 15px;
-      background: rgba(0, 240, 255, 0.03);
-    }
   </style>
 </head>
 <body class="theme-dark" id="bodyRoot">
 
   <div class="controls">
-    <span style="margin-right: 15px; font-weight: bold; font-family: monospace;">THEME TESTER:</span>
+    <span style="margin-right: 15px; font-weight: bold; font-family: monospace; color: #00C8D7;">THEME SWITCHER:</span>
     <button onclick="setTheme('theme-dark')">GitHub Dark (#0d1117)</button>
     <button onclick="setTheme('theme-dimmed')">GitHub Dimmed (#22272e)</button>
     <button onclick="setTheme('theme-light')">GitHub Light (#ffffff)</button>
@@ -85,60 +87,99 @@
 
   <div class="container">
     <div style="text-align: center;">
-      <img src="assets/header.svg" width="100%" /><br/><br/>
+      <!-- Main Header -->
+      <img src="assets/headers/header-terminal-cyberpunk.svg" width="100%" /><br/><br/>
       <img src="assets/chips/nav-brackets.svg" />
       <img src="assets/chips/nav-enclosure.svg" />
       <img src="assets/chips/nav-chips.svg" />
       <img src="assets/chips/nav-arch.svg" />
       <img src="assets/chips/nav-guide.svg" />
       <br/><br/>
-      <img src="assets/divider.svg" width="100%" />
+      <img src="assets/divider-pcb-cyan.svg" width="100%" />
     </div>
 
-    <h2>Mode A: Open Cyber Brackets HUD</h2>
-    <img src="assets/frame-top-brackets.svg" width="100%" />
-    <blockquote>
-      <strong>SYSTEM ARCHITECTURE // RUNTIME KERNEL</strong><br/><br/>
-      Live markdown content remains fully interactive, selectable, and screen-reader friendly:<br/>
-      <code>python generator/cli.py --theme cyberpunk --title "MY-REPO"</code><br/><br/>
-      <img src="assets/chips/chip-closed-core.svg" style="vertical-align: middle;" /> Modular generator with RLE-compressed 3D pixel font<br/>
-      <img src="assets/chips/chip-closed-cli.svg" style="vertical-align: middle;" /> Zero external dependencies (pure Python standard library)<br/>
-      <img src="assets/chips/chip-closed-github.svg" style="vertical-align: middle;" /> GitHub Actions ready for automated profile builds
-    </blockquote>
-    <img src="assets/frame-bottom.svg" width="100%" />
-
-    <h2>Mode B: Full Box Enclosure (with Side Rails)</h2>
-    <img src="assets/frame-top-enclosure.svg" width="100%" />
+    <!-- 1. Mode A Green Brackets -->
+    <h2>1. Mode A: Open Cyber Brackets (Matrix Theme)</h2>
+    <p><i>Fixed downward opening prongs. Content indented so it stays strictly within the bracket corners:</i></p>
+    <img src="assets/frames/frame-top-brackets-green.svg" width="100%" />
     <table border="0" cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
       <tr style="border: none;">
-        <td width="14" valign="top" align="left" style="border: none; padding: 0;">
-          <img src="assets/rail-left.svg" height="160" width="14" />
+        <td width="24" style="border: none;">&nbsp;</td>
+        <td style="border: none;">
+          <h4>🧬 SYSTEM ARCHITECTURE // RUNTIME KERNEL</h4>
+          <p>Live Markdown text strictly aligned inside brackets:</p>
+          <p><img src="assets/chips/chip-pulse-online.svg" style="vertical-align: middle;" /> Live pulsing beacon chip</p>
+          <p><img src="assets/chips/chip-chamfer-matrix.svg" style="vertical-align: middle;" /> 45° chamfered chip</p>
+        </td>
+        <td width="24" style="border: none;">&nbsp;</td>
+      </tr>
+    </table>
+    <img src="assets/frames/frame-bottom-brackets-green.svg" width="100%" />
+
+    <br/><br/>
+
+    <!-- 2. Mode B Amber Full Box -->
+    <h2>2. Mode B: Tactical 45° Chamfer & Full Enclosure (Amber Theme)</h2>
+    <p><i>Full box with animated cascading ladder side rails:</i></p>
+    <img src="assets/frames/frame-top-chamfer-amber.svg" width="100%" />
+    <table border="0" cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
+      <tr style="border: none;">
+        <td width="14" valign="top" align="left" style="border: none; padding: 0; line-height: 0;">
+          <img src="assets/rails/rail-left-ladder-amber.svg" height="175" width="14" />
         </td>
         <td style="border: none; padding: 10px 24px;">
-          <h4>🛰️ ENCLOSED TELEMETRY STREAM</h4>
-          <p>Внутри полного бокса контент защищен от внешних отступов. Живой текст и таблицы:</p>
+          <h4>🛰️ TACTICAL TELEMETRY STREAM</h4>
           <table>
-            <tr><th>Модуль</th><th>Статус</th><th>Протокол</th></tr>
-            <tr><td>palettes.py</td><td>ACTIVE</td><td>RGBA_v2</td></tr>
-            <tr><td>font_engine.py</td><td>ACTIVE</td><td>PIXEL_3D</td></tr>
-            <tr><td>builder.py</td><td>ACTIVE</td><td>SVG_CRISP</td></tr>
+            <tr><th>Подсистема</th><th>Анимация</th><th>Статус</th></tr>
+            <tr><td>Radar Monitor</td><td>360° Sweep</td><td><img src="assets/chips/chip-pulse-live.svg" style="vertical-align: middle;" /></td></tr>
+            <tr><td>Ladder Bus</td><td>Cascade Glow</td><td>ACTIVE</td></tr>
           </table>
         </td>
-        <td width="14" valign="top" align="right" style="border: none; padding: 0;">
-          <img src="assets/rail-right.svg" height="160" width="14" />
+        <td width="14" valign="top" align="right" style="border: none; padding: 0; line-height: 0;">
+          <img src="assets/rails/rail-right-ladder-amber.svg" height="175" width="14" />
         </td>
       </tr>
     </table>
-    <img src="assets/frame-bottom.svg" width="100%" />
+    <img src="assets/frames/frame-bottom-chamfer-amber.svg" width="100%" />
 
-    <h2>Holographic Chips: Closed vs. Decay Dithering</h2>
-    <img src="assets/frame-top-chips.svg" width="100%" />
-    <div style="padding: 10px 15px;">
-      <p><b>1. Closed Holo-Pill:</b> <img src="assets/chips/chip-closed-core.svg" style="vertical-align: middle;" /> Standard self-contained badge</p>
-      <p><b>2. Decay-Right (Dissolves into text):</b> <img src="assets/chips/chip-decay-right-src.svg" style="vertical-align: middle;" /> ➔ <code>src/core/math_engine.py</code></p>
-      <p><b>3. Decay-Left (Emerges from text):</b> API Documentation stream ➔ <img src="assets/chips/chip-decay-left-docs.svg" style="vertical-align: middle;" /></p>
-    </div>
-    <img src="assets/frame-bottom.svg" width="100%" />
+    <br/>
+    <img src="assets/divider-laser-amber.svg" width="100%" />
+    <br/><br/>
+
+    <!-- 3. Mode C Tokyo Minimal with Laser Lines -->
+    <h2>3. Mode C: Minimal Neon Rail & Side Guide Lines (Tokyo Theme)</h2>
+    <p><i>Subtle 1px neon side guide lines for clean text framing:</i></p>
+    <img src="assets/frames/frame-top-minimal-tokyo.svg" width="100%" />
+    <table border="0" cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
+      <tr style="border: none;">
+        <td width="14" valign="top" align="left" style="border: none; padding: 0; line-height: 0;">
+          <img src="assets/rails/rail-left-laser-cyan.svg" height="165" width="14" />
+        </td>
+        <td style="border: none; padding: 10px 24px;">
+          <h4>💫 DISSOLVING PIXEL DECAY</h4>
+          <p><img src="assets/chips/chip-decay-right-src.svg" style="vertical-align: middle;" /> ➔ <code>src/generator/builder.py</code></p>
+          <p><img src="assets/chips/chip-decay-right-done.svg" style="vertical-align: middle;" /> ➔ Fully verified on dark and light themes</p>
+          <p>Documentation stream ➔ <img src="assets/chips/chip-decay-left-docs.svg" style="vertical-align: middle;" /></p>
+        </td>
+        <td width="14" valign="top" align="right" style="border: none; padding: 0; line-height: 0;">
+          <img src="assets/rails/rail-right-laser-cyan.svg" height="165" width="14" />
+        </td>
+      </tr>
+    </table>
+    <img src="assets/frames/frame-bottom-minimal-tokyo.svg" width="100%" />
+
+    <br/><br/>
+
+    <!-- Header Gallery -->
+    <h2>Header Gallery: All 3 Styles</h2>
+    <p><b>1. Cyberpunk 3D Workstation (Scanline + Radar):</b></p>
+    <img src="assets/headers/header-terminal-cyberpunk.svg" width="100%" />
+
+    <p style="margin-top: 25px;"><b>2. Tactical Military HUD (Hazard Stripes + Sweeping Laser):</b></p>
+    <img src="assets/headers/header-tactical-amber.svg" width="100%" />
+
+    <p style="margin-top: 25px;"><b>3. Minimal Glass & Equalizer:</b></p>
+    <img src="assets/headers/header-minimal-tokyo.svg" width="100%" />
   </div>
 
   <script>

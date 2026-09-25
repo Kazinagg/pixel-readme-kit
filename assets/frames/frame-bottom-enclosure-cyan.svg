@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 24" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+
+  
+  <!-- Flush connector receiving side rails -->
+  <line x1="6" y1="0" x2="6" y2="10" stroke="#00C8D7" stroke-width="3"/>
+  <line x1="844" y1="0" x2="844" y2="10" stroke="#00C8D7" stroke-width="3"/>
+        
+  
+  <rect x="6" y="8" width="838" height="14" fill="rgba(10, 14, 23, 0.82)" stroke="rgba(30, 41, 59, 0.85)" stroke-width="2"/>
+  <line x1="8" y1="10" x2="842" y2="10" stroke="#00C8D7" stroke-width="1.5" opacity="0.85"/>
+  <rect x="6" y="16" width="6" height="6" fill="#00C8D7"/>
+  <rect x="838" y="16" width="6" height="6" fill="#00C8D7"/>
+        
+
+  <!-- Center Status Buffer Readout -->
+  <rect x="320" y="4" width="210" height="16" fill="rgba(10, 14, 23, 0.82)" stroke="#00C8D7" stroke-width="1"/>
+  <text x="425" y="15" fill="#00C8D7" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
+    ╚═ [SYS: OK // BUFFER_END // THREAD_01] ═╝
+  </text>
+</svg>
