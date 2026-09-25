@@ -199,9 +199,9 @@ def build_header_terminal(title, subtitle, specs, theme, width=850, height=260):
   </g>
 
   <!-- BOTTOM STATUS LINE -->
-  <line x1="14" y1="{height-20}" x2="{width-14}" y2="{height-20}" stroke="{border_slate}" stroke-width="1"/>
-  <text x="24" y="{height-8}" fill="{text_dim}" font-size="9" class="font-mono">HUD_ARCH: TRANSLUCENT_V2 // GLASS_RATIO: 0.82 // DUAL_THEME: PASS</text>
-  <text x="{width-24}" y="{height-8}" fill="{primary}" font-size="9" font-weight="bold" text-anchor="end" class="font-mono">READY // ID: 0xDEADBEEF</text>
+  <line x1="14" y1="{height-26}" x2="{width-14}" y2="{height-26}" stroke="{border_slate}" stroke-width="1"/>
+  <text x="24" y="{height-15}" fill="{text_dim}" font-size="9" class="font-mono">HUD_ARCH: TRANSLUCENT_V2 // GLASS_RATIO: 0.82 // DUAL_THEME: PASS</text>
+  <text x="{width-24}" y="{height-15}" fill="{primary}" font-size="9" font-weight="bold" text-anchor="end" class="font-mono">READY // ID: 0xDEADBEEF</text>
 </svg>"""
     return svg
 
@@ -469,8 +469,11 @@ def build_frame_top(title, tag, color, theme, width=850, height=38, style="brack
         """
     elif style == "chamfer":
         teeth_markup = f"""
-  <path d="M 4 28 L 4 38 L 10 38" fill="none" stroke="{color}" stroke-width="2"/>
-  <path d="M {width-4} 28 L {width-4} 38 L {width-10} 38" fill="none" stroke="{color}" stroke-width="2"/>
+  <!-- DOWNWARD PRONGS (OPENING TO SHOULDERS/RAILS - NO CLOSING HOOKS) -->
+  <line x1="4" y1="28" x2="4" y2="38" stroke="{color}" stroke-width="2.5"/>
+  <rect x="2" y="32" width="5" height="6" fill="{color}"/>
+  <line x1="{width-4}" y1="28" x2="{width-4}" y2="38" stroke="{color}" stroke-width="2.5"/>
+  <rect x="{width-7}" y="32" width="5" height="6" fill="{color}"/>
         """
         chassis = f"""
   <polygon points="14 4, {width-14} 4, {width-4} 14, {width-4} 32, 4 32, 4 14"
@@ -547,8 +550,11 @@ def build_frame_bottom(tag, color, theme, width=850, height=24, style="brackets"
         """
     elif style == "chamfer":
         teeth_markup = f"""
-  <path d="M 4 0 L 4 10 L 10 10" fill="none" stroke="{color}" stroke-width="2"/>
-  <path d="M {width-4} 0 L {width-4} 10 L {width-10} 10" fill="none" stroke="{color}" stroke-width="2"/>
+  <!-- UPWARD PRONGS (EMBRACING FROM BOTTOM - NO CLOSING HOOKS) -->
+  <line x1="4" y1="0" x2="4" y2="10" stroke="{color}" stroke-width="2.5"/>
+  <rect x="2" y="0" width="5" height="5" fill="{color}"/>
+  <line x1="{width-4}" y1="0" x2="{width-4}" y2="10" stroke="{color}" stroke-width="2.5"/>
+  <rect x="{width-7}" y="0" width="5" height="5" fill="{color}"/>
         """
         boundary = f"""
   <polygon points="4 10, {width-4} 10, {width-14} 20, 14 20" fill="{bg_glass}" stroke="{border_slate}" stroke-width="1.5"/>

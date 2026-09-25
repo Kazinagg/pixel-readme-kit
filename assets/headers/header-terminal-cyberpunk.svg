@@ -167,7 +167,7 @@
   </g>
 
   <!-- BOTTOM STATUS LINE -->
-  <line x1="14" y1="240" x2="836" y2="240" stroke="rgba(30, 41, 59, 0.85)" stroke-width="1"/>
-  <text x="24" y="252" fill="#94A3B8" font-size="9" class="font-mono">HUD_ARCH: TRANSLUCENT_V2 // GLASS_RATIO: 0.82 // DUAL_THEME: PASS</text>
-  <text x="826" y="252" fill="#00C8D7" font-size="9" font-weight="bold" text-anchor="end" class="font-mono">READY // ID: 0xDEADBEEF</text>
+  <line x1="14" y1="234" x2="836" y2="234" stroke="rgba(30, 41, 59, 0.85)" stroke-width="1"/>
+  <text x="24" y="245" fill="#94A3B8" font-size="9" class="font-mono">HUD_ARCH: TRANSLUCENT_V2 // GLASS_RATIO: 0.82 // DUAL_THEME: PASS</text>
+  <text x="826" y="245" fill="#00C8D7" font-size="9" font-weight="bold" text-anchor="end" class="font-mono">READY // ID: 0xDEADBEEF</text>
 </svg>

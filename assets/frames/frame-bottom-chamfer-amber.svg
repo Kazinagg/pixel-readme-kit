@@ -6,8 +6,11 @@
   </defs>
 
   
-  <path d="M 4 0 L 4 10 L 10 10" fill="none" stroke="#F59E0B" stroke-width="2"/>
-  <path d="M 846 0 L 846 10 L 840 10" fill="none" stroke="#F59E0B" stroke-width="2"/>
+  <!-- UPWARD PRONGS (EMBRACING FROM BOTTOM - NO CLOSING HOOKS) -->
+  <line x1="4" y1="0" x2="4" y2="10" stroke="#F59E0B" stroke-width="2.5"/>
+  <rect x="2" y="0" width="5" height="5" fill="#F59E0B"/>
+  <line x1="846" y1="0" x2="846" y2="10" stroke="#F59E0B" stroke-width="2.5"/>
+  <rect x="843" y="0" width="5" height="5" fill="#F59E0B"/>
         
   
   <polygon points="4 10, 846 10, 836 20, 14 20" fill="rgba(20, 14, 6, 0.82)" stroke="rgba(50, 36, 16, 0.85)" stroke-width="1.5"/>
@@ -17,6 +20,6 @@
   <!-- Center Status Buffer Readout -->
   <rect x="320" y="4" width="210" height="16" fill="rgba(20, 14, 6, 0.82)" stroke="#F59E0B" stroke-width="1"/>
   <text x="425" y="15" fill="#F59E0B" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
-    ╚═ [TELEMETRY: NOMINAL // ALL_SYSTEMS_GO] ═╝
+    ╚═ [ENCLOSURE_BUFFER // ACTIVE] ═╝
   </text>
 </svg>

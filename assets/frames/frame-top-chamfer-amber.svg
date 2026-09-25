@@ -15,8 +15,11 @@
   <line x1="30" y1="32" x2="820" y2="32" stroke="#F59E0B" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
         
   
-  <path d="M 4 28 L 4 38 L 10 38" fill="none" stroke="#F59E0B" stroke-width="2"/>
-  <path d="M 846 28 L 846 38 L 840 38" fill="none" stroke="#F59E0B" stroke-width="2"/>
+  <!-- DOWNWARD PRONGS (OPENING TO SHOULDERS/RAILS - NO CLOSING HOOKS) -->
+  <line x1="4" y1="28" x2="4" y2="38" stroke="#F59E0B" stroke-width="2.5"/>
+  <rect x="2" y="32" width="5" height="6" fill="#F59E0B"/>
+  <line x1="846" y1="28" x2="846" y2="38" stroke="#F59E0B" stroke-width="2.5"/>
+  <rect x="843" y="32" width="5" height="6" fill="#F59E0B"/>
         
 
   <!-- Status LED -->
