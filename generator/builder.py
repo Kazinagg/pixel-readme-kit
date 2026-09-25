@@ -812,3 +812,217 @@ def build_chip(text, color, theme, style="closed", width=None, height=26):
   </text>
 </svg>"""
     return svg
+
+
+# ----------------------------------------------------
+# TRANSITIONAL SHOULDER ADAPTERS & SUB-BLOCK SPLITTERS
+# ----------------------------------------------------
+
+def build_transition_shoulder(theme, width=850, height=32, direction="top_to_table", color=None):
+    if color is None:
+        color = theme.get("primary", "#00C8D7")
+    bg_glass = theme.get("bg_glass", "rgba(10, 14, 23, 0.82)")
+    border_slate = theme.get("border_slate", "rgba(30, 41, 59, 0.85)")
+    warning = theme.get("warning", "#F59E0B")
+
+    if direction == "top_to_table":
+        path_l = "M 6 0 L 6 8 L 1 20 L 1 32"
+        path_r = f"M {width-6} 0 L {width-6} 8 L {width-1} 20 L {width-1} 32"
+        hazard = f'''
+    <polygon points="12 10, 18 10, 10 22, 4 22" fill="{warning}" opacity="0.6"/>
+    <polygon points="24 10, 30 10, 22 22, 16 22" fill="{warning}" opacity="0.6"/>
+    <polygon points="{width-24} 10, {width-18} 10, {width-10} 22, {width-4} 22" fill="{warning}" opacity="0.6"/>
+        '''
+        center_text = "// ADAPTER: EXPAND_BUS // 45°_SHOULDER //"
+    else:
+        path_l = "M 1 0 L 1 12 L 6 24 L 6 32"
+        path_r = f"M {width-1} 0 L {width-1} 12 L {width-6} 24 L {width-6} 32"
+        hazard = f'''
+    <polygon points="4 10, 10 10, 18 22, 12 22" fill="{warning}" opacity="0.6"/>
+    <polygon points="16 10, 22 10, 30 22, 24 22" fill="{warning}" opacity="0.6"/>
+    <polygon points="{width-18} 10, {width-12} 10, {width-4} 22, {width-10} 22" fill="{warning}" opacity="0.6"/>
+        '''
+        center_text = "// ADAPTER: CONTRACT_BUS // CLAMP_OK //"
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; }}
+    </style>
+  </defs>
+  <rect width="{width}" height="{height}" fill="{bg_glass}"/>
+  <path d="{path_l}" fill="none" stroke="{color}" stroke-width="2.5"/>
+  <path d="{path_r}" fill="none" stroke="{color}" stroke-width="2.5"/>
+  <line x1="35" y1="{height//2}" x2="{width-35}" y2="{height//2}" stroke="{border_slate}" stroke-width="1" stroke-dasharray="4,4"/>
+  {hazard}
+  <text x="{width//2}" y="{height//2 + 4}" fill="{color}" font-size="9" font-weight="bold" letter-spacing="1" text-anchor="middle" class="font-mono">
+    {center_text}
+  </text>
+</svg>'''
+    return svg
+
+def build_splitter_terminal(title, theme, width=850, height=30):
+    color = theme.get("primary", "#00C8D7")
+    secondary = theme.get("secondary", "#A855F7")
+    bg_glass = theme.get("bg_glass", "rgba(10, 14, 23, 0.82)")
+    border_slate = theme.get("border_slate", "rgba(30, 41, 59, 0.85)")
+    title_clean = escape_xml(title)
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
+      @keyframes blinkDot {{ 0%, 100% {{ fill: {color}; }} 50% {{ fill: #1E293B; }} }}
+      .dot {{ animation: blinkDot 1.5s infinite steps(1); }}
+    </style>
+  </defs>
+  <rect width="{width}" height="{height}" fill="{bg_glass}"/>
+  <line x1="6" y1="0" x2="6" y2="{height}" stroke="{color}" stroke-width="2"/>
+  <line x1="6" y1="{height//2}" x2="35" y2="{height//2}" stroke="{color}" stroke-width="2"/>
+  <rect x="4" y="{height//2 - 2}" width="5" height="5" fill="{color}"/>
+  <line x1="{width-6}" y1="0" x2="{width-6}" y2="{height}" stroke="{color}" stroke-width="2"/>
+  <line x1="{width-35}" y1="{height//2}" x2="{width-6}" y2="{height//2}" stroke="{color}" stroke-width="2"/>
+  <rect x="{width-9}" y="{height//2 - 2}" width="5" height="5" fill="{color}"/>
+  <g transform="translate({width//2}, {height//2})">
+    <rect x="-160" y="-11" width="320" height="22" fill="rgba(15, 23, 38, 0.9)" stroke="{secondary}" stroke-width="1.5"/>
+    <circle cx="-145" cy="0" r="3" fill="{color}" class="dot"/>
+    <text x="0" y="4" fill="{color}" text-anchor="middle" class="font-mono">
+      ├── {title_clean} ──┤
+    </text>
+  </g>
+  <line x1="35" y1="{height//2}" x2="{width//2 - 165}" y2="{height//2}" stroke="{border_slate}" stroke-width="1" stroke-dasharray="6,4"/>
+  <line x1="{width//2 + 165}" y1="{height//2}" x2="{width-35}" y2="{height//2}" stroke="{border_slate}" stroke-width="1" stroke-dasharray="6,4"/>
+</svg>'''
+    return svg
+
+def build_splitter_tactical(title, theme, width=850, height=32):
+    color = theme.get("primary", "#F59E0B")
+    bg_glass = theme.get("bg_glass", "rgba(10, 14, 23, 0.82)")
+    title_clean = escape_xml(title)
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 1px; }}
+    </style>
+  </defs>
+  <rect width="{width}" height="{height}" fill="{bg_glass}"/>
+  <polygon points="12 8, 22 {height//2}, 12 {height-8}" fill="{color}"/>
+  <polygon points="26 8, 36 {height//2}, 26 {height-8}" fill="{color}" opacity="0.6"/>
+  <polygon points="{width-12} 8, {width-22} {height//2}, {width-12} {height-8}" fill="{color}"/>
+  <polygon points="{width-26} 8, {width-36} {height//2}, {width-26} {height-8}" fill="{color}" opacity="0.6"/>
+  <line x1="42" y1="{height//2 - 2}" x2="{width//2 - 180}" y2="{height//2 - 2}" stroke="{color}" stroke-width="1.5"/>
+  <line x1="42" y1="{height//2 + 2}" x2="{width//2 - 180}" y2="{height//2 + 2}" stroke="{color}" stroke-width="1.5"/>
+  <line x1="{width//2 + 180}" y1="{height//2 - 2}" x2="{width-42}" y2="{height//2 - 2}" stroke="{color}" stroke-width="1.5"/>
+  <line x1="{width//2 + 180}" y1="{height//2 + 2}" x2="{width-42}" y2="{height//2 + 2}" stroke="{color}" stroke-width="1.5"/>
+  <g transform="translate({width//2}, {height//2})">
+    <polygon points="-170 -12, 170 -12, 178 -4, 178 4, 170 12, -170 12, -178 4, -178 -4"
+             fill="rgba(25, 18, 8, 0.92)" stroke="{color}" stroke-width="1.5"/>
+    <text x="0" y="4" fill="{color}" text-anchor="middle" class="font-mono">
+      ▲═══ {title_clean} ═══▲
+    </text>
+  </g>
+</svg>'''
+    return svg
+
+def build_splitter_decay(title, theme, width=850, height=28):
+    color = theme.get("primary", "#4F8BFF")
+    bg_glass = theme.get("bg_glass", "rgba(10, 14, 23, 0.82)")
+    title_clean = escape_xml(title)
+
+    rng = random.Random(42)
+    left_pixels = []
+    for _ in range(25):
+        px = rng.randint(40, width//2 - 160)
+        py = rng.randint(6, height - 6)
+        sz = rng.choice([1.5, 2, 2.5])
+        op = rng.choice([0.3, 0.6, 0.9])
+        left_pixels.append(f'<rect x="{px}" y="{py}" width="{sz}" height="{sz}" fill="{color}" opacity="{op:.2f}"/>')
+
+    right_pixels = []
+    for _ in range(25):
+        px = rng.randint(width//2 + 160, width - 40)
+        py = rng.randint(6, height - 6)
+        sz = rng.choice([1.5, 2, 2.5])
+        op = rng.choice([0.3, 0.6, 0.9])
+        right_pixels.append(f'<rect x="{px}" y="{py}" width="{sz}" height="{sz}" fill="{color}" opacity="{op:.2f}"/>')
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
+    </style>
+  </defs>
+  <rect width="{width}" height="{height}" fill="{bg_glass}"/>
+  <line x1="10" y1="{height//2}" x2="100" y2="{height//2}" stroke="{color}" stroke-width="2"/>
+  <line x1="{width-100}" y1="{height//2}" x2="{width-10}" y2="{height//2}" stroke="{color}" stroke-width="2"/>
+  {''.join(left_pixels)}
+  {''.join(right_pixels)}
+  <g transform="translate({width//2}, {height//2})">
+    <rect x="-150" y="-10" width="300" height="20" fill="rgba(15, 18, 30, 0.92)" stroke="{color}" stroke-width="1.5"/>
+    <text x="0" y="4" fill="{color}" text-anchor="middle" class="font-mono">
+      ░▒▓ {title_clean} ▓▒░
+    </text>
+  </g>
+</svg>'''
+    return svg
+
+def build_gutter_rail(height=200, color="#00C8D7", theme=None, side="left", width=54):
+    bg_glass = "rgba(10, 14, 23, 0.82)" if theme is None else theme.get("bg_glass", "rgba(10, 14, 23, 0.82)")
+    accent = "#FF0055" if theme is None else theme.get("accent", "#FF0055")
+    warning = "#F59E0B" if theme is None else theme.get("warning", "#F59E0B")
+
+    rng = random.Random(42 if side == "left" else 137)
+    elements = []
+
+    line_x = 12 if side == "left" else width - 12
+    curr_y = 8
+    while curr_y < height - 12:
+        seg_len = rng.choice([10, 16, 26, 8])
+        gap = rng.choice([8, 12, 16, 6])
+        elements.append(f'<line x1="{line_x}" y1="{curr_y}" x2="{line_x}" y2="{curr_y + seg_len}" stroke="{color}" stroke-width="2" opacity="0.8"/>')
+        curr_y += seg_len + gap
+
+    num_blocks = max(height // 55, 3)
+    for b in range(num_blocks):
+        block_y = 12 + b * (height // num_blocks) + rng.randint(-4, 4)
+        if block_y + 22 >= height:
+            continue
+        start_x = 18 if side == "left" else 14
+        for row in range(5):
+            for col in range(5):
+                if (row + col) % 2 == 0:
+                    px = start_x + col * 3
+                    py = block_y + row * 3
+                    elements.append(f'<rect x="{px}" y="{py}" width="2.5" height="2.5" fill="{color}" opacity="0.65"/>')
+
+    for _ in range(height // 6):
+        px = rng.randint(8, width - 8)
+        py = rng.randint(6, height - 6)
+        sz = rng.choice([1.5, 2, 2.5, 3])
+        op = rng.choice([0.35, 0.6, 0.85, 1.0])
+        col = rng.choice([color, color, color, accent if rng.random() > 0.8 else warning])
+        elements.append(f'<rect x="{px}" y="{py}" width="{sz}" height="{sz}" fill="{col}" opacity="{op:.2f}"/>')
+
+    ticks = [
+        (22, "0x1A"),
+        (height // 3, "BUS_0"),
+        (2 * height // 3, "0x3F"),
+        (height - 25, "OK_01")
+    ]
+    for ty, txt in ticks:
+        tx = 16 if side == "left" else 8
+        elements.append(f'<rect x="{tx}" y="{ty}" width="8" height="2" fill="{warning}" opacity="0.9"/>')
+        elements.append(f'<text x="{tx + 12}" y="{ty + 3}" fill="{warning}" font-size="7" font-family="monospace" opacity="0.75">{txt}</text>')
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      @keyframes ditherPulse {{ 0%, 100% {{ opacity: 0.35; }} 50% {{ opacity: 0.95; }} }}
+      .pulse-px {{ animation: ditherPulse 2s infinite ease-in-out; }}
+    </style>
+  </defs>
+  <rect width="{width}" height="{height}" fill="{bg_glass}"/>
+  {''.join(elements)}
+</svg>'''
+    return svg

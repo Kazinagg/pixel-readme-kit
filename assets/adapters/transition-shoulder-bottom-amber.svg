@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 32" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+    </style>
+  </defs>
+  <rect width="850" height="32" fill="rgba(20, 14, 6, 0.82)"/>
+  <path d="M 1 0 L 1 12 L 6 24 L 6 32" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+  <path d="M 849 0 L 849 12 L 844 24 L 844 32" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+  <line x1="35" y1="16" x2="815" y2="16" stroke="rgba(50, 36, 16, 0.85)" stroke-width="1" stroke-dasharray="4,4"/>
+  
+    <polygon points="4 10, 10 10, 18 22, 12 22" fill="#D97706" opacity="0.6"/>
+    <polygon points="16 10, 22 10, 30 22, 24 22" fill="#D97706" opacity="0.6"/>
+    <polygon points="832 10, 838 10, 846 22, 840 22" fill="#D97706" opacity="0.6"/>
+        
+  <text x="425" y="20" fill="#F59E0B" font-size="9" font-weight="bold" letter-spacing="1" text-anchor="middle" class="font-mono">
+    // ADAPTER: CONTRACT_BUS // CLAMP_OK //
+  </text>
+</svg>
