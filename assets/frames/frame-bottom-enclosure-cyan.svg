@@ -6,7 +6,6 @@
   </defs>
 
   
-  <!-- Flush connector receiving side rails -->
   <line x1="6" y1="0" x2="6" y2="10" stroke="#00C8D7" stroke-width="3"/>
   <line x1="844" y1="0" x2="844" y2="10" stroke="#00C8D7" stroke-width="3"/>
         

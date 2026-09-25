@@ -1,22 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 26" width="135" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
-      .chip-text {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 10px;
-        font-weight: bold;
-        letter-spacing: 0.5px;
-      }
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
       
-      @keyframes pulseDot {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.3; transform: scale(0.8); }
-      }
+      @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.8); } }
       .beacon { animation: pulseDot 1.4s infinite ease-in-out; transform-origin: 12px 13px; }
         
     </style>
   </defs>
-
   
   <rect x="1" y="1" width="133" height="24" fill="rgba(10, 14, 23, 0.85)"/>
   <rect x="1" y="1" width="133" height="24" fill="rgba(0, 210, 106, 0.12)" stroke="#00D26A" stroke-width="1.5"/>
@@ -26,8 +17,6 @@
   <rect x="131" y="22" width="3" height="3" fill="#00D26A"/>
   <circle cx="12" cy="13" r="3.5" fill="#00D26A" class="beacon"/>
         
-
-  <!-- Label Text -->
   <text x="73" y="17" fill="#00D26A" text-anchor="middle" class="chip-text">
     🟢 SYS: ONLINE
   </text>

@@ -1,16 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 26" width="100" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
-      .chip-text {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 10px;
-        font-weight: bold;
-        letter-spacing: 0.5px;
-      }
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
       
     </style>
   </defs>
-
   
   <rect x="1" y="1" width="98" height="24" fill="rgba(10, 14, 23, 0.85)"/>
   <rect x="1" y="1" width="98" height="24" fill="rgba(0, 200, 215, 0.12)" stroke="#A855F7" stroke-width="1.5"/>
@@ -19,8 +13,6 @@
   <rect x="1" y="22" width="3" height="3" fill="#A855F7"/>
   <rect x="96" y="22" width="3" height="3" fill="#A855F7"/>
         
-
-  <!-- Label Text -->
   <text x="50" y="17" fill="#A855F7" text-anchor="middle" class="chip-text">
     ⚡ cli.py
   </text>

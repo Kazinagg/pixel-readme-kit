@@ -1,16 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 26" width="130" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
-      .chip-text {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 10px;
-        font-weight: bold;
-        letter-spacing: 0.5px;
-      }
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
       
     </style>
   </defs>
-
   
   <rect x="1" y="1" width="128" height="24" fill="rgba(10, 14, 23, 0.85)"/>
   <rect x="1" y="1" width="128" height="24" fill="rgba(0, 200, 215, 0.12)" stroke="#00D26A" stroke-width="1.5"/>
@@ -19,8 +13,6 @@
   <rect x="1" y="22" width="3" height="3" fill="#00D26A"/>
   <rect x="126" y="22" width="3" height="3" fill="#00D26A"/>
         
-
-  <!-- Label Text -->
   <text x="65" y="17" fill="#00D26A" text-anchor="middle" class="chip-text">
     ⚡ GitHub Repo
   </text>

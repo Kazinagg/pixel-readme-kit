@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pixel Readme Kit v2.0 Preview</title>
+  <title>Pixel Readme Kit v2.1 Preview</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
@@ -10,18 +10,9 @@
       margin: 0;
       padding: 40px 20px;
     }
-    .theme-dark {
-      background-color: #0d1117;
-      color: #c9d1d9;
-    }
-    .theme-dimmed {
-      background-color: #22272e;
-      color: #adbac7;
-    }
-    .theme-light {
-      background-color: #ffffff;
-      color: #24292f;
-    }
+    .theme-dark { background-color: #0d1117; color: #c9d1d9; }
+    .theme-dimmed { background-color: #22272e; color: #adbac7; }
+    .theme-light { background-color: #ffffff; color: #24292f; }
     .container {
       max-width: 890px;
       margin: 0 auto;
@@ -42,38 +33,24 @@
       box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
     button {
-      background: #1f6feb;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      margin: 0 5px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: monospace;
-      font-weight: bold;
+      background: #1f6feb; color: white; border: none;
+      padding: 8px 16px; margin: 0 5px; border-radius: 6px;
+      cursor: pointer; font-family: monospace; font-weight: bold;
     }
-    button:hover {
-      background: #388bfd;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
+    button:hover { background: #388bfd; }
+    table { border-collapse: collapse; width: 100%; margin: 15px 0; }
+    th, td { padding: 8px 12px; border: 1px solid rgba(120, 120, 120, 0.2); }
+    blockquote {
+      border-left: 3px solid #00D26A;
       margin: 15px 0;
-    }
-    th, td {
-      padding: 8px 12px;
-      border: 1px solid rgba(120, 120, 120, 0.2);
+      padding: 5px 20px;
+      background: rgba(0, 210, 106, 0.04);
     }
     code, pre {
       background: rgba(110, 118, 129, 0.15);
-      border-radius: 4px;
-      padding: 2px 6px;
-      font-family: monospace;
+      border-radius: 4px; padding: 2px 6px; font-family: monospace;
     }
-    pre {
-      padding: 12px;
-      overflow-x: auto;
-    }
+    pre { padding: 12px; overflow-x: auto; }
   </style>
 </head>
 <body class="theme-dark" id="bodyRoot">
@@ -87,7 +64,7 @@
 
   <div class="container">
     <div style="text-align: center;">
-      <!-- Main Header -->
+      <!-- Flagship Header -->
       <img src="assets/headers/header-terminal-cyberpunk.svg" width="100%" /><br/><br/>
       <img src="assets/chips/nav-brackets.svg" />
       <img src="assets/chips/nav-enclosure.svg" />
@@ -98,29 +75,22 @@
       <img src="assets/divider-pcb-cyan.svg" width="100%" />
     </div>
 
-    <!-- 1. Mode A Green Brackets -->
+    <!-- 1. Mode A Green Brackets (Zero table borders, clean blockquote) -->
     <h2>1. Mode A: Open Cyber Brackets (Matrix Theme)</h2>
-    <p><i>Fixed downward opening prongs. Content indented so it stays strictly within the bracket corners:</i></p>
+    <p><i>Clean blockquote layout without empty table cells or shifting:</i></p>
     <img src="assets/frames/frame-top-brackets-green.svg" width="100%" />
-    <table border="0" cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
-      <tr style="border: none;">
-        <td width="24" style="border: none;">&nbsp;</td>
-        <td style="border: none;">
-          <h4>🧬 SYSTEM ARCHITECTURE // RUNTIME KERNEL</h4>
-          <p>Live Markdown text strictly aligned inside brackets:</p>
-          <p><img src="assets/chips/chip-pulse-online.svg" style="vertical-align: middle;" /> Live pulsing beacon chip</p>
-          <p><img src="assets/chips/chip-chamfer-matrix.svg" style="vertical-align: middle;" /> 45° chamfered chip</p>
-        </td>
-        <td width="24" style="border: none;">&nbsp;</td>
-      </tr>
-    </table>
+    <blockquote>
+      <h4>🧬 SYSTEM ARCHITECTURE // RUNTIME KERNEL</h4>
+      <p>Live Markdown text strictly centered between bracket prongs:</p>
+      <p><img src="assets/chips/chip-pulse-online.svg" style="vertical-align: middle;" /> Live pulsing beacon chip</p>
+      <p><img src="assets/chips/chip-chamfer-matrix.svg" style="vertical-align: middle;" /> 45° chamfered chip</p>
+    </blockquote>
     <img src="assets/frames/frame-bottom-brackets-green.svg" width="100%" />
 
     <br/><br/>
 
     <!-- 2. Mode B Amber Full Box -->
     <h2>2. Mode B: Tactical 45° Chamfer & Full Enclosure (Amber Theme)</h2>
-    <p><i>Full box with animated cascading ladder side rails:</i></p>
     <img src="assets/frames/frame-top-chamfer-amber.svg" width="100%" />
     <table border="0" cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
       <tr style="border: none;">
@@ -142,37 +112,35 @@
     </table>
     <img src="assets/frames/frame-bottom-chamfer-amber.svg" width="100%" />
 
-    <br/>
-    <img src="assets/divider-laser-amber.svg" width="100%" />
     <br/><br/>
 
-    <!-- 3. Mode C Tokyo Minimal with Laser Lines -->
-    <h2>3. Mode C: Minimal Neon Rail & Side Guide Lines (Tokyo Theme)</h2>
-    <p><i>Subtle 1px neon side guide lines for clean text framing:</i></p>
-    <img src="assets/frames/frame-top-minimal-tokyo.svg" width="100%" />
-    <table border="0" cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
-      <tr style="border: none;">
-        <td width="14" valign="top" align="left" style="border: none; padding: 0; line-height: 0;">
-          <img src="assets/rails/rail-left-laser-cyan.svg" height="165" width="14" />
+    <!-- 3. Mode C Checkered & Scattered Gutters -->
+    <h2>3. Mode C: Checkered & Scattered Dither Gutters (Cyberpunk Theme)</h2>
+    <p><i>Embracing GitHub table borders with textured pixel telemetry gutters:</i></p>
+    <img src="assets/frames/frame-top-enclosure-cyan.svg" width="100%" />
+    <table border="0" cellpadding="0" cellspacing="0" style="border: 1px solid rgba(120,120,120,0.3); width: 100%;">
+      <tr>
+        <td width="32" valign="top" align="left" style="padding: 0; line-height: 0;">
+          <img src="assets/rails/gutter-left-cyberpunk.svg" height="185" width="32" />
         </td>
-        <td style="border: none; padding: 10px 24px;">
-          <h4>💫 DISSOLVING PIXEL DECAY</h4>
-          <p><img src="assets/chips/chip-decay-right-src.svg" style="vertical-align: middle;" /> ➔ <code>src/generator/builder.py</code></p>
-          <p><img src="assets/chips/chip-decay-right-done.svg" style="vertical-align: middle;" /> ➔ Fully verified on dark and light themes</p>
-          <p>Documentation stream ➔ <img src="assets/chips/chip-decay-left-docs.svg" style="vertical-align: middle;" /></p>
+        <td style="padding: 10px 24px;">
+          <h4>⚡ RETRO CYBER-GUTTER // DATA BUS ARCHITECTURE</h4>
+          <p>Table borders become intentional structural dividers for side telemetry tracks:</p>
+          <p><img src="assets/chips/chip-decay-right-src.svg" style="vertical-align: middle;" /> ➔ <code>generator/builder.py</code></p>
+          <p><img src="assets/chips/chip-decay-right-done.svg" style="vertical-align: middle;" /> ➔ XML parsed with 0 errors</p>
         </td>
-        <td width="14" valign="top" align="right" style="border: none; padding: 0; line-height: 0;">
-          <img src="assets/rails/rail-right-laser-cyan.svg" height="165" width="14" />
+        <td width="32" valign="top" align="right" style="padding: 0; line-height: 0;">
+          <img src="assets/rails/gutter-right-cyberpunk.svg" height="185" width="32" />
         </td>
       </tr>
     </table>
-    <img src="assets/frames/frame-bottom-minimal-tokyo.svg" width="100%" />
+    <img src="assets/frames/frame-bottom-enclosure-cyan.svg" width="100%" />
 
     <br/><br/>
 
     <!-- Header Gallery -->
     <h2>Header Gallery: All 3 Styles</h2>
-    <p><b>1. Cyberpunk 3D Workstation (Scanline + Radar):</b></p>
+    <p><b>1. Cyberpunk 3D Workstation (Radar 360° + Scanline + Equalizer):</b></p>
     <img src="assets/headers/header-terminal-cyberpunk.svg" width="100%" />
 
     <p style="margin-top: 25px;"><b>2. Tactical Military HUD (Hazard Stripes + Sweeping Laser):</b></p>

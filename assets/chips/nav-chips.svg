@@ -1,16 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 26" width="110" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
-      .chip-text {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 10px;
-        font-weight: bold;
-        letter-spacing: 0.5px;
-      }
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
       
     </style>
   </defs>
-
   
   <rect x="1" y="1" width="108" height="24" fill="rgba(10, 14, 23, 0.85)"/>
   <rect x="1" y="1" width="108" height="24" fill="rgba(79, 139, 255, 0.12)" stroke="#4F8BFF" stroke-width="1.5"/>
@@ -19,8 +13,6 @@
   <rect x="1" y="22" width="3" height="3" fill="#4F8BFF"/>
   <rect x="106" y="22" width="3" height="3" fill="#4F8BFF"/>
         
-
-  <!-- Label Text -->
   <text x="55" y="17" fill="#4F8BFF" text-anchor="middle" class="chip-text">
     💎 ЧИПЫ
   </text>

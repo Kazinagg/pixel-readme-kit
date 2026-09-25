@@ -4,9 +4,7 @@
       
     </style>
   </defs>
-  <!-- Background fill -->
   <rect width="14" height="180" fill="rgba(6, 18, 12, 0.82)"/>
-  <!-- Main vertical rail line (matches x=6 on top frame!) -->
   <line x1="6" y1="0" x2="6" y2="180" stroke="#00D26A" stroke-width="2"/>
   <line x1="12" y1="0" x2="12" y2="180" stroke="rgba(20, 45, 25, 0.85)" stroke-width="1"/>
   <rect x="5" y="6" width="3" height="3" fill="#00D26A" opacity="0.30"/><rect x="5" y="16" width="3" height="3" fill="#00D26A" opacity="0.50"/><rect x="5" y="26" width="3" height="3" fill="#00D26A" opacity="0.70"/><rect x="5" y="36" width="3" height="3" fill="#00D26A" opacity="0.90"/><rect x="5" y="46" width="3" height="3" fill="#00D26A" opacity="0.30"/><rect x="5" y="56" width="3" height="3" fill="#00D26A" opacity="0.50"/><rect x="5" y="66" width="3" height="3" fill="#00D26A" opacity="0.70"/><rect x="5" y="76" width="3" height="3" fill="#00D26A" opacity="0.90"/><rect x="5" y="86" width="3" height="3" fill="#00D26A" opacity="0.30"/><rect x="5" y="96" width="3" height="3" fill="#00D26A" opacity="0.50"/><rect x="5" y="106" width="3" height="3" fill="#00D26A" opacity="0.70"/><rect x="5" y="116" width="3" height="3" fill="#00D26A" opacity="0.90"/><rect x="5" y="126" width="3" height="3" fill="#00D26A" opacity="0.30"/><rect x="5" y="136" width="3" height="3" fill="#00D26A" opacity="0.50"/><rect x="5" y="146" width="3" height="3" fill="#00D26A" opacity="0.70"/><rect x="5" y="156" width="3" height="3" fill="#00D26A" opacity="0.90"/><rect x="5" y="166" width="3" height="3" fill="#00D26A" opacity="0.30"/>

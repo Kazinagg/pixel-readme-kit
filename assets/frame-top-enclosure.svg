@@ -14,7 +14,6 @@
   <rect x="838" y="4" width="6" height="6" fill="#00C8D7"/>
         
   
-  <!-- FLUSH SIDE RAIL SOCKETS (0px OFFSET TO SIDE RAILS) -->
   <line x1="6" y1="26" x2="6" y2="38" stroke="#00C8D7" stroke-width="3"/>
   <line x1="844" y1="26" x2="844" y2="38" stroke="#00C8D7" stroke-width="3"/>
         

@@ -1,16 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 26" width="140" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
-      .chip-text {
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 10px;
-        font-weight: bold;
-        letter-spacing: 0.5px;
-      }
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
       
     </style>
   </defs>
-
   
   <rect x="1" y="1" width="138" height="24" fill="rgba(10, 14, 23, 0.85)"/>
   <rect x="1" y="1" width="138" height="24" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="1.5"/>
@@ -19,8 +13,6 @@
   <rect x="1" y="22" width="3" height="3" fill="#F59E0B"/>
   <rect x="136" y="22" width="3" height="3" fill="#F59E0B"/>
         
-
-  <!-- Label Text -->
   <text x="70" y="17" fill="#F59E0B" text-anchor="middle" class="chip-text">
     📦 ПОЛНЫЙ БОКС
   </text>

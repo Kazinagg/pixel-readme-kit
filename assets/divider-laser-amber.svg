@@ -1,10 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 20" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
-      @keyframes laserPulse {
-        0%, 100% { opacity: 0.9; }
-        50% { opacity: 0.4; }
-      }
+      @keyframes laserPulse { 0%, 100% { opacity: 0.9; } 50% { opacity: 0.4; } }
       .pulse-laser { animation: laserPulse 2s infinite ease-in-out; }
     </style>
   </defs>
@@ -12,7 +9,5 @@
   <line x1="20" y1="10" x2="830" y2="10" stroke="#F59E0B" stroke-width="1" opacity="0.4"/>
   <line x1="60" y1="10" x2="790" y2="10" stroke="#F59E0B" stroke-width="2" class="pulse-laser"/>
   <line x1="325" y1="10" x2="525" y2="10" stroke="#FFFFFF" stroke-width="2.5" class="pulse-laser"/>
-
-  <!-- Center Diamond Sensor -->
   <polygon points="425 4, 431 10, 425 16, 419 10" fill="#EF4444"/>
 </svg>
