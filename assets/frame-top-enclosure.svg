@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 38" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono {
+        font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+      }
+      @keyframes blinkLed {
+        0%, 100% { fill: #FFE600; }
+        50% { fill: #1E293B; }
+      }
+      .led {
+        animation: blinkLed 2s infinite steps(1);
+      }
+    </style>
+  </defs>
+
+  <!-- TRANSLUCENT BACKGROUND -->
+  <rect x="6" y="4" width="838" height="28" fill="rgba(10, 14, 23, 0.72)" stroke="rgba(30, 41, 59, 0.85)" stroke-width="2"/>
+  <rect x="8" y="6" width="834" height="24" fill="none" stroke="#FFE600" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- Corner notches (Top bracket ┌ ┐) -->
+  <rect x="6" y="4" width="5" height="5" fill="#FFE600"/>
+  <rect x="839" y="4" width="5" height="5" fill="#FFE600"/>
+  <rect x="6" y="27" width="5" height="5" fill="#FFE600"/>
+  <rect x="839" y="27" width="5" height="5" fill="#FFE600"/>
+
+  
+  <!-- DOWNWARD EMBRACING BRACKET ACCENTS -->
+  <path d="M 6 30 L 6 38 L 12 38" fill="none" stroke="#FFE600" stroke-width="2"/>
+  <rect x="6" y="34" width="3" height="4" fill="#FFE600"/>
+  <path d="M 844 30 L 844 38 L 838 38" fill="none" stroke="#FFE600" stroke-width="2"/>
+  <rect x="841" y="34" width="3" height="4" fill="#FFE600"/>
+        
+
+  <!-- Status LED -->
+  <circle cx="24" cy="18" r="4" fill="#FFE600" class="led"/>
+
+  <!-- Title Text -->
+  <text x="36" y="22" fill="#FFE600" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">
+    ╔═ HUD.BOX // FULL_ENCLOSURE_SIDE_RAILS.EXE
+  </text>
+
+  <!-- Right Status Tag -->
+  <rect x="670" y="9" width="105" height="18" fill="rgba(15, 23, 38, 0.65)" stroke="#FFE600" stroke-width="1"/>
+  <text x="723" y="22" fill="#FFE600" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[FULL_BOX]</text>
+
+  <!-- Window controls [ _ ] [ □ ] [ × ] -->
+  <rect x="782" y="11" width="14" height="14" fill="rgba(30, 41, 59, 0.85)"/>
+  <text x="786" y="21" fill="#8892B0" font-size="10" font-weight="bold" class="font-mono">_</text>
+  <rect x="800" y="11" width="14" height="14" fill="rgba(30, 41, 59, 0.85)"/>
+  <text x="803" y="22" fill="#8892B0" font-size="10" font-weight="bold" class="font-mono">□</text>
+  <rect x="818" y="11" width="14" height="14" fill="#FF0055"/>
+  <text x="822" y="22" fill="#FFFFFF" font-size="10" font-weight="bold" class="font-mono">×</text>
+</svg>

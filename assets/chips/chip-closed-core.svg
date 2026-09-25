@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 26" width="125" height="26" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .chip-text {
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        font-size: 10px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+      }
+    </style>
+  </defs>
+
+  
+  <rect x="1" y="1" width="123" height="24" fill="rgba(0, 240, 255, 0.08)" stroke="#00F0FF" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="#00F0FF"/>
+  <rect x="121" y="1" width="3" height="3" fill="#00F0FF"/>
+  <rect x="1" y="22" width="3" height="3" fill="#00F0FF"/>
+  <rect x="121" y="22" width="3" height="3" fill="#00F0FF"/>
+        
+
+  <!-- Label Text -->
+  <text x="62" y="17" fill="#00F0FF" text-anchor="middle" class="chip-text">
+    📁 generator/
+  </text>
+</svg>

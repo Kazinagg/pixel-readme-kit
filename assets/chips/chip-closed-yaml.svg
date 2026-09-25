@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 26" width="130" height="26" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .chip-text {
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        font-size: 10px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+      }
+    </style>
+  </defs>
+
+  
+  <rect x="1" y="1" width="128" height="24" fill="rgba(0, 240, 255, 0.08)" stroke="#FFE600" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="#FFE600"/>
+  <rect x="126" y="1" width="3" height="3" fill="#FFE600"/>
+  <rect x="1" y="22" width="3" height="3" fill="#FFE600"/>
+  <rect x="126" y="22" width="3" height="3" fill="#FFE600"/>
+        
+
+  <!-- Label Text -->
+  <text x="65" y="17" fill="#FFE600" text-anchor="middle" class="chip-text">
+    📄 config.yaml
+  </text>
+</svg>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pixel Readme Kit Preview</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    .theme-dark {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    .theme-dimmed {
+      background-color: #22272e;
+      color: #adbac7;
+    }
+    .theme-light {
+      background-color: #ffffff;
+      color: #24292f;
+    }
+    .container {
+      max-width: 890px;
+      margin: 0 auto;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .controls {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    button {
+      background: #1f6feb;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      margin: 0 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: monospace;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #388bfd;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 15px 0;
+    }
+    th, td {
+      padding: 8px 12px;
+      border: 1px solid rgba(120, 120, 120, 0.2);
+    }
+    code, pre {
+      background: rgba(110, 118, 129, 0.15);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: monospace;
+    }
+    pre {
+      padding: 12px;
+      overflow-x: auto;
+    }
+    blockquote {
+      border-left: 3px solid #00F0FF;
+      margin: 10px 0;
+      padding: 5px 15px;
+      background: rgba(0, 240, 255, 0.03);
+    }
+  </style>
+</head>
+<body class="theme-dark" id="bodyRoot">
+
+  <div class="controls">
+    <span style="margin-right: 15px; font-weight: bold; font-family: monospace;">THEME TESTER:</span>
+    <button onclick="setTheme('theme-dark')">GitHub Dark (#0d1117)</button>
+    <button onclick="setTheme('theme-dimmed')">GitHub Dimmed (#22272e)</button>
+    <button onclick="setTheme('theme-light')">GitHub Light (#ffffff)</button>
+  </div>
+
+  <div class="container">
+    <div style="text-align: center;">
+      <img src="assets/header.svg" width="100%" /><br/><br/>
+      <img src="assets/chips/nav-brackets.svg" />
+      <img src="assets/chips/nav-enclosure.svg" />
+      <img src="assets/chips/nav-chips.svg" />
+      <img src="assets/chips/nav-arch.svg" />
+      <img src="assets/chips/nav-guide.svg" />
+      <br/><br/>
+      <img src="assets/divider.svg" width="100%" />
+    </div>
+
+    <h2>Mode A: Open Cyber Brackets HUD</h2>
+    <img src="assets/frame-top-brackets.svg" width="100%" />
+    <blockquote>
+      <strong>SYSTEM ARCHITECTURE // RUNTIME KERNEL</strong><br/><br/>
+      Live markdown content remains fully interactive, selectable, and screen-reader friendly:<br/>
+      <code>python generator/cli.py --theme cyberpunk --title "MY-REPO"</code><br/><br/>
+      <img src="assets/chips/chip-closed-core.svg" style="vertical-align: middle;" /> Modular generator with RLE-compressed 3D pixel font<br/>
+      <img src="assets/chips/chip-closed-cli.svg" style="vertical-align: middle;" /> Zero external dependencies (pure Python standard library)<br/>
+      <img src="assets/chips/chip-closed-github.svg" style="vertical-align: middle;" /> GitHub Actions ready for automated profile builds
+    </blockquote>
+    <img src="assets/frame-bottom.svg" width="100%" />
+
+    <h2>Mode B: Full Box Enclosure (with Side Rails)</h2>
+    <img src="assets/frame-top-enclosure.svg" width="100%" />
+    <table border="0" cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
+      <tr style="border: none;">
+        <td width="14" valign="top" align="left" style="border: none; padding: 0;">
+          <img src="assets/rail-left.svg" height="160" width="14" />
+        </td>
+        <td style="border: none; padding: 10px 24px;">
+          <h4>🛰️ ENCLOSED TELEMETRY STREAM</h4>
+          <p>Внутри полного бокса контент защищен от внешних отступов. Живой текст и таблицы:</p>
+          <table>
+            <tr><th>Модуль</th><th>Статус</th><th>Протокол</th></tr>
+            <tr><td>palettes.py</td><td>ACTIVE</td><td>RGBA_v2</td></tr>
+            <tr><td>font_engine.py</td><td>ACTIVE</td><td>PIXEL_3D</td></tr>
+            <tr><td>builder.py</td><td>ACTIVE</td><td>SVG_CRISP</td></tr>
+          </table>
+        </td>
+        <td width="14" valign="top" align="right" style="border: none; padding: 0;">
+          <img src="assets/rail-right.svg" height="160" width="14" />
+        </td>
+      </tr>
+    </table>
+    <img src="assets/frame-bottom.svg" width="100%" />
+
+    <h2>Holographic Chips: Closed vs. Decay Dithering</h2>
+    <img src="assets/frame-top-chips.svg" width="100%" />
+    <div style="padding: 10px 15px;">
+      <p><b>1. Closed Holo-Pill:</b> <img src="assets/chips/chip-closed-core.svg" style="vertical-align: middle;" /> Standard self-contained badge</p>
+      <p><b>2. Decay-Right (Dissolves into text):</b> <img src="assets/chips/chip-decay-right-src.svg" style="vertical-align: middle;" /> ➔ <code>src/core/math_engine.py</code></p>
+      <p><b>3. Decay-Left (Emerges from text):</b> API Documentation stream ➔ <img src="assets/chips/chip-decay-left-docs.svg" style="vertical-align: middle;" /></p>
+    </div>
+    <img src="assets/frame-bottom.svg" width="100%" />
+  </div>
+
+  <script>
+    function setTheme(cls) {
+      document.getElementById('bodyRoot').className = cls;
+    }
+  </script>
+</body>
+</html>

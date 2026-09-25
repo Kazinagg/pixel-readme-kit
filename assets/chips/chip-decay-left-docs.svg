@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 26" width="110" height="26" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .chip-text {
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
+        font-size: 10px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+      }
+    </style>
+  </defs>
+
+  
+  <!-- Right solid box -->
+  <path d="M 20 1 L 109 1 L 109 25 L 20 25" fill="rgba(0, 240, 255, 0.08)" stroke="#00F0FF" stroke-width="1.5"/>
+  <rect x="106" y="1" width="3" height="3" fill="#00F0FF"/>
+  <rect x="106" y="22" width="3" height="3" fill="#00F0FF"/>
+
+  <!-- Left Pixel Decay (Scattered Dithering) -->
+  <g fill="#00F0FF">
+    <!-- Column 1 (dense) -->
+    <rect x="15" y="3" width="3" height="3"/>
+    <rect x="15" y="9" width="3" height="3"/>
+    <rect x="15" y="15" width="3" height="3"/>
+    <rect x="15" y="20" width="3" height="3"/>
+
+    <!-- Column 2 (medium) -->
+    <rect x="10" y="5" width="2" height="2"/>
+    <rect x="10" y="12" width="2" height="2"/>
+    <rect x="10" y="18" width="2" height="2"/>
+
+    <!-- Column 3 (sparse/scatter) -->
+    <rect x="6" y="7" width="2" height="2" opacity="0.6"/>
+    <rect x="3" y="14" width="2" height="2" opacity="0.4"/>
+    <rect x="1" y="10" width="1" height="1" opacity="0.3"/>
+  </g>
+        
+
+  <!-- Label Text -->
+  <text x="65" y="17" fill="#00F0FF" text-anchor="middle" class="chip-text">
+    📄 DOCS
+  </text>
+</svg>
