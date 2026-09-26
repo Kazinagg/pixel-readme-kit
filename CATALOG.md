@@ -528,42 +528,61 @@ git clone https://github.com/Kazinagg/pixel-readme-kit.git
 
 <div id="9-голографические-чипы-и-бейджи-chips--pills"></div>
 
-## 9. 💎 Голографические чипы и бейджи (Chips & Pills)
+## 9. 💎 Голографические чипы и бейджи (Chips & Pills — 3 стиля формы и распада)
 
-Компактные бейджи со стеклянным фоном для папок, тегов, версий и ссылок.
+Компактные полупрозрачные бейджи для статусов, тегов, веток и ссылок.  
+Каждый стиль обладает **собственной уникальной геометрией формы корпуса** и **собственным алгоритмом распада/растворения (Decay)**:
 
-<table width="100%">
-  <tr>
-    <th width="15%">Тип</th>
-    <th width="30%">Превью</th>
-    <th width="30%">Файл</th>
-    <th width="25%">Стиль формы</th>
-  </tr>
-  <tr>
-    <td><b>Closed Pill</b></td>
-    <td><img src="assets/chips/chip-closed-core.svg" /></td>
-    <td><code>chip-closed-core.svg</code></td>
-    <td>Cyberpunk (скругление 2px)</td>
-  </tr>
-  <tr>
-    <td><b>Chamfer 45°</b></td>
-    <td><img src="assets/chips/chip-chamfer-spec.svg" /></td>
-    <td><code>chip-chamfer-spec.svg</code></td>
-    <td>Tactical (срез 45°)</td>
-  </tr>
-  <tr>
-    <td><b>Decay Right</b></td>
-    <td><img src="assets/chips/chip-decay-right-done.svg" /></td>
-    <td><code>chip-decay-right-done.svg</code></td>
-    <td>Minimal Glass (растворение)</td>
-  </tr>
-  <tr>
-    <td><b>Pulse Beacon</b></td>
-    <td><img src="assets/chips/chip-pulse-online.svg" /></td>
-    <td><code>chip-pulse-online.svg</code></td>
-    <td>Cyberpunk (живой маяк)</td>
-  </tr>
-</table>
+### 9.1 Архитектурная матрица чипов
+
+| Элемент / Характеристика | 🟢 Cyberpunk Terminal | 🟡 Tactical Military HUD | 🟣 Minimal Glass |
+| :--- | :--- | :--- | :--- |
+| **Геометрия формы** | Прямые углы, пиксельные замки `3×3`, открытые скобы | 45° срезанные фаски (Chamfers), октагон, шевроны `▲` | Волосяная рамка 1px (Hairline), угловые зацепы `┌ ┐` и `└ ┘` |
+| **Физика распада (Decay)** | **Матричный пиксельный дизеринг**: блоки пикселей `3×3`, `2×2`, `1×1` отлетают как цифровой глитч | **Диагональные полосы фасок `///`**: 45° наклонные зубчатые сегменты, убывающие по высоте и alpha | **Микроточечное рассеивание**: матрица микро-stipple точек 1px и тающая пунктирная шина стекла |
+| **1. Замкнутый блок** | <img src="assets/chips/chip-cyberpunk-closed.svg" /> | <img src="assets/chips/chip-tactical-closed.svg" /> | <img src="assets/chips/chip-minimal-closed.svg" /> |
+| **2. Блок с распадом** | <img src="assets/chips/chip-cyberpunk-decay.svg" /> | <img src="assets/chips/chip-tactical-decay.svg" /> | <img src="assets/chips/chip-minimal-decay.svg" /> |
+| **3. Живой статус / Маяк** | <img src="assets/chips/chip-cyberpunk-pulse.svg" /> | <img src="assets/chips/chip-tactical-pulse.svg" /> | <img src="assets/chips/chip-minimal-pulse.svg" /> |
+
+<br/>
+
+### 9.2 Разбор стилей и примеры кода
+
+#### 1. Cyberpunk Chips (Скобы, угловые пиксели и матричный дизеринг)
+- **Замкнутый**: `assets/chips/chip-cyberpunk-closed.svg` — классический терминальный чип с пиксельными замками `3×3` по углам.
+- **Распад**: `assets/chips/chip-cyberpunk-decay.svg` — правый край растворяется в матричный дизеринг `3×3 ➔ 2×2 ➔ 1×1`.
+- **Маяк**: `assets/chips/chip-cyberpunk-pulse.svg` — активный пульсирующий LED-индикатор узла.
+
+```markdown
+<img src="assets/chips/chip-cyberpunk-closed.svg" />
+<img src="assets/chips/chip-cyberpunk-decay.svg" />
+<img src="assets/chips/chip-cyberpunk-pulse.svg" />
+```
+
+<br/>
+
+#### 2. Tactical Military Chips (45° фаски, шевроны и диагональные срезы `///`)
+- **Замкнутый**: `assets/chips/chip-tactical-closed.svg` — 45° срезанные углы с центральными тактическими насечками.
+- **Распад**: `assets/chips/chip-tactical-decay.svg` — правый край рассекается наклонными полосами фасок под 45° (`opacity: 0.9 ➔ 0.65 ➔ 0.4 ➔ 0.2`).
+- **Маяк**: `assets/chips/chip-tactical-pulse.svg` — прицельный маркер целеуказания с пульсирующим лазером.
+
+```markdown
+<img src="assets/chips/chip-tactical-closed.svg" />
+<img src="assets/chips/chip-tactical-decay.svg" />
+<img src="assets/chips/chip-tactical-pulse.svg" />
+```
+
+<br/>
+
+#### 3. Minimal Glass Chips (Волосяная шина, зацепы `┌ ┐` и микро-точки стекла)
+- **Замкнутый**: `assets/chips/chip-minimal-closed.svg` — тончайшая рамка 1px с угловыми насечками `┌ ┐ └ ┘`.
+- **Распад**: `assets/chips/chip-minimal-decay.svg` — шина переходит в пунктир и растворяется созвездием микроточек матированного стекла.
+- **Маяк**: `assets/chips/chip-minimal-pulse.svg` — плавный «дышащий» маяк фоновой синхронизации.
+
+```markdown
+<img src="assets/chips/chip-minimal-closed.svg" />
+<img src="assets/chips/chip-minimal-decay.svg" />
+<img src="assets/chips/chip-minimal-pulse.svg" />
+```
 
 ---
 

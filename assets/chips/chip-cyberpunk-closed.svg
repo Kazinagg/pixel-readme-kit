@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 26" width="125" height="26" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
+    </style>
+  </defs>
+  <!-- Background Glass -->
+  <rect x="1" y="1" width="123" height="24" fill="rgba(10, 14, 23, 0.85)"/>
+  <rect x="1" y="1" width="123" height="24" fill="rgba(0, 200, 215, 0.12)" stroke="#00C8D7" stroke-width="1.5"/>
+  <!-- Cyber Corner Pixels -->
+  <rect x="1" y="1" width="3" height="3" fill="#00C8D7"/>
+  <rect x="121" y="1" width="3" height="3" fill="#00C8D7"/>
+  <rect x="1" y="22" width="3" height="3" fill="#00C8D7"/>
+  <rect x="121" y="22" width="3" height="3" fill="#00C8D7"/>
+  <!-- Status Marker -->
+  <rect x="8" y="8" width="4" height="10" fill="#00C8D7"/>
+  <!-- Title Text -->
+  <text x="66" y="17" fill="#00C8D7" text-anchor="middle" class="chip-text">
+    CORE_SYS
+  </text>
+</svg>
