@@ -455,43 +455,65 @@ def build_frame_top(title, tag, color, theme, width=850, height=38, style="brack
 
     if style == "brackets":
         teeth_markup = f"""
-  <!-- DOWNWARD EMBRACING PRONGS (OPENING INTO CONTENT) -->
-  <line x1="6" y1="24" x2="6" y2="38" stroke="{color}" stroke-width="2.5"/>
-  <rect x="4" y="32" width="5" height="6" fill="{color}"/>
-  <line x1="{width-6}" y1="24" x2="{width-6}" y2="38" stroke="{color}" stroke-width="2.5"/>
-  <rect x="{width-9}" y="32" width="5" height="6" fill="{color}"/>
+  <!-- DOWNWARD EMBRACING PRONGS (FLUSH TO EDGES x=1..{width-1}) -->
+  <line x1="1" y1="24" x2="1" y2="38" stroke="{color}" stroke-width="2.5"/>
+  <rect x="0" y="32" width="4" height="6" fill="{color}"/>
+  <line x1="{width-1}" y1="24" x2="{width-1}" y2="38" stroke="{color}" stroke-width="2.5"/>
+  <rect x="{width-4}" y="32" width="4" height="6" fill="{color}"/>
         """
         chassis = f"""
-  <rect x="6" y="4" width="{width-12}" height="28" fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
-  <rect x="8" y="6" width="{width-16}" height="24" fill="none" stroke="{color}" stroke-width="1.5" opacity="0.85"/>
-  <rect x="6" y="4" width="5" height="5" fill="{color}"/>
-  <rect x="{width-11}" y="4" width="5" height="5" fill="{color}"/>
+  <rect x="1" y="4" width="{width-2}" height="28" fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
+  <rect x="3" y="6" width="{width-6}" height="24" fill="none" stroke="{color}" stroke-width="1.5" opacity="0.85"/>
+  <rect x="1" y="4" width="5" height="5" fill="{color}"/>
+  <rect x="{width-6}" y="4" width="5" height="5" fill="{color}"/>
         """
     elif style == "chamfer":
         teeth_markup = f"""
-  <!-- DOWNWARD PRONGS (OPENING TO SHOULDERS/RAILS - NO CLOSING HOOKS) -->
-  <line x1="4" y1="28" x2="4" y2="38" stroke="{color}" stroke-width="2.5"/>
-  <rect x="2" y="32" width="5" height="6" fill="{color}"/>
-  <line x1="{width-4}" y1="28" x2="{width-4}" y2="38" stroke="{color}" stroke-width="2.5"/>
-  <rect x="{width-7}" y="32" width="5" height="6" fill="{color}"/>
+  <!-- DOWNWARD PRONGS (FLUSH TO EDGES x=1..{width-1}) -->
+  <line x1="1" y1="26" x2="1" y2="38" stroke="{color}" stroke-width="2.5"/>
+  <rect x="0" y="32" width="4" height="6" fill="{color}"/>
+  <line x1="{width-1}" y1="26" x2="{width-1}" y2="38" stroke="{color}" stroke-width="2.5"/>
+  <rect x="{width-4}" y="32" width="4" height="6" fill="{color}"/>
         """
         chassis = f"""
-  <polygon points="14 4, {width-14} 4, {width-4} 14, {width-4} 32, 4 32, 4 14"
+  <polygon points="12 4, {width-12} 4, {width-1} 15, {width-1} 32, 1 32, 1 15"
            fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
-  <polygon points="16 7, {width-16} 7, {width-7} 16, {width-7} 29, 7 29, 7 16"
+  <polygon points="14 7, {width-14} 7, {width-4} 16, {width-4} 29, 4 29, 4 16"
            fill="none" stroke="{color}" stroke-width="1.5" opacity="0.85"/>
-  <line x1="30" y1="32" x2="{width-30}" y2="32" stroke="{color}" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
+  <line x1="20" y1="32" x2="{width-20}" y2="32" stroke="{color}" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
+        """
+    elif style == "minimal":
+        teeth_markup = f"""
+  <line x1="1" y1="26" x2="1" y2="38" stroke="{color}" stroke-width="2"/>
+  <line x1="{width-1}" y1="26" x2="{width-1}" y2="38" stroke="{color}" stroke-width="2"/>
+        """
+        chassis = f"""
+  <rect x="1" y="4" width="{width-2}" height="28" fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
+  <line x1="1" y1="32" x2="{width-1}" y2="32" stroke="{color}" stroke-width="1.5" opacity="0.85"/>
+  <rect x="1" y="4" width="4" height="4" fill="{color}"/>
+  <rect x="{width-5}" y="4" width="4" height="4" fill="{color}"/>
+        """
+    elif style == "table_minimal":
+        # TRIAL STYLE FOR VARIANT 2B: Integrated Table HUD Header (No outer box, plays off native table border)
+        teeth_markup = ""
+        chassis = f"""
+  <rect x="0" y="0" width="{width}" height="{height}" fill="{bg_panel}" opacity="0.45"/>
+  <!-- Table-Corner Hugging Ticks (Aligns with table cell) -->
+  <path d="M 4 14 L 4 4 L 14 4" fill="none" stroke="{color}" stroke-width="1.5"/>
+  <path d="M {width-4} 14 L {width-4} 4 L {width-14} 4" fill="none" stroke="{color}" stroke-width="1.5"/>
+  <!-- Subtle Internal Tech Guideline -->
+  <line x1="8" y1="{height-2}" x2="{width-8}" y2="{height-2}" stroke="{color}" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
         """
     else:  # enclosure
         teeth_markup = f"""
-  <line x1="6" y1="26" x2="6" y2="38" stroke="{color}" stroke-width="3"/>
-  <line x1="{width-6}" y1="26" x2="{width-6}" y2="38" stroke="{color}" stroke-width="3"/>
+  <line x1="1" y1="24" x2="1" y2="38" stroke="{color}" stroke-width="3"/>
+  <line x1="{width-1}" y1="24" x2="{width-1}" y2="38" stroke="{color}" stroke-width="3"/>
         """
         chassis = f"""
-  <rect x="6" y="4" width="{width-12}" height="28" fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
-  <rect x="8" y="6" width="{width-16}" height="24" fill="none" stroke="{color}" stroke-width="1.5" opacity="0.85"/>
-  <rect x="6" y="4" width="6" height="6" fill="{color}"/>
-  <rect x="{width-12}" y="4" width="6" height="6" fill="{color}"/>
+  <rect x="1" y="4" width="{width-2}" height="28" fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
+  <rect x="3" y="6" width="{width-6}" height="24" fill="none" stroke="{color}" stroke-width="1.5" opacity="0.85"/>
+  <rect x="1" y="4" width="5" height="5" fill="{color}"/>
+  <rect x="{width-6}" y="4" width="5" height="5" fill="{color}"/>
         """
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
@@ -530,46 +552,102 @@ def build_frame_top(title, tag, color, theme, width=850, height=38, style="brack
 
 def build_frame_bottom(tag, color, theme, width=850, height=24, style="brackets"):
     bg_glass = theme.get("bg_glass", "rgba(10, 14, 23, 0.82)")
+    bg_panel = theme.get("bg_panel", "rgba(15, 23, 38, 0.78)")
     border_slate = theme.get("border_slate", "rgba(30, 41, 59, 0.85)")
     tag_clean = escape_xml(tag)
 
     if style == "brackets":
         teeth_markup = f"""
-  <line x1="6" y1="0" x2="6" y2="12" stroke="{color}" stroke-width="2.5"/>
-  <rect x="4" y="0" width="5" height="5" fill="{color}"/>
-  <line x1="{width-6}" y1="0" x2="{width-6}" y2="12" stroke="{color}" stroke-width="2.5"/>
-  <rect x="{width-9}" y="0" width="5" height="5" fill="{color}"/>
+  <line x1="1" y1="0" x2="1" y2="12" stroke="{color}" stroke-width="2.5"/>
+  <rect x="0" y="0" width="4" height="5" fill="{color}"/>
+  <line x1="{width-1}" y1="0" x2="{width-1}" y2="12" stroke="{color}" stroke-width="2.5"/>
+  <rect x="{width-4}" y="0" width="4" height="5" fill="{color}"/>
         """
         boundary = f"""
-  <line x1="6" y1="12" x2="{width-6}" y2="12" stroke="{border_slate}" stroke-width="3"/>
-  <line x1="12" y1="12" x2="{width-12}" y2="12" stroke="{color}" stroke-width="1.5" opacity="0.85"/>
-  <path d="M 6 12 L 6 20 L 20 20" fill="none" stroke="{color}" stroke-width="1.5"/>
-  <rect x="6" y="17" width="4" height="4" fill="{color}"/>
-  <path d="M {width-6} 12 L {width-6} 20 L {width-20} 20" fill="none" stroke="{color}" stroke-width="1.5"/>
-  <rect x="{width-10}" y="17" width="4" height="4" fill="{color}"/>
+  <line x1="1" y1="12" x2="{width-1}" y2="12" stroke="{border_slate}" stroke-width="3"/>
+  <line x1="6" y1="12" x2="{width-6}" y2="12" stroke="{color}" stroke-width="1.5" opacity="0.85"/>
+  <path d="M 1 12 L 1 20 L 16 20" fill="none" stroke="{color}" stroke-width="1.5"/>
+  <rect x="1" y="17" width="4" height="4" fill="{color}"/>
+  <path d="M {width-1} 12 L {width-1} 20 L {width-16} 20" fill="none" stroke="{color}" stroke-width="1.5"/>
+  <rect x="{width-5}" y="17" width="4" height="4" fill="{color}"/>
+        """
+        center_readout = f"""
+  <!-- Center Status Buffer Readout -->
+  <rect x="{width//2 - 105}" y="4" width="210" height="16" fill="{bg_glass}" stroke="{color}" stroke-width="1"/>
+  <text x="{width//2}" y="15" fill="{color}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
+    ╚═ [{tag_clean}] ═╝
+  </text>
         """
     elif style == "chamfer":
         teeth_markup = f"""
-  <!-- UPWARD PRONGS (EMBRACING FROM BOTTOM - NO CLOSING HOOKS) -->
-  <line x1="4" y1="0" x2="4" y2="10" stroke="{color}" stroke-width="2.5"/>
-  <rect x="2" y="0" width="5" height="5" fill="{color}"/>
-  <line x1="{width-4}" y1="0" x2="{width-4}" y2="10" stroke="{color}" stroke-width="2.5"/>
-  <rect x="{width-7}" y="0" width="5" height="5" fill="{color}"/>
+  <!-- UPWARD PRONGS (FLUSH TO EDGES x=1..{width-1}) -->
+  <line x1="1" y1="0" x2="1" y2="10" stroke="{color}" stroke-width="2.5"/>
+  <rect x="0" y="0" width="4" height="5" fill="{color}"/>
+  <line x1="{width-1}" y1="0" x2="{width-1}" y2="10" stroke="{color}" stroke-width="2.5"/>
+  <rect x="{width-4}" y="0" width="4" height="5" fill="{color}"/>
         """
         boundary = f"""
-  <polygon points="4 10, {width-4} 10, {width-14} 20, 14 20" fill="{bg_glass}" stroke="{border_slate}" stroke-width="1.5"/>
-  <line x1="14" y1="20" x2="{width-14}" y2="20" stroke="{color}" stroke-width="2"/>
+  <polygon points="1 10, {width-1} 10, {width-12} 20, 12 20" fill="{bg_glass}" stroke="{border_slate}" stroke-width="1.5"/>
+  <line x1="12" y1="20" x2="{width-12}" y2="20" stroke="{color}" stroke-width="2"/>
+        """
+        center_readout = f"""
+  <!-- Center Status Buffer Readout -->
+  <rect x="{width//2 - 105}" y="4" width="210" height="16" fill="{bg_glass}" stroke="{color}" stroke-width="1"/>
+  <text x="{width//2}" y="15" fill="{color}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
+    ╚═ [{tag_clean}] ═╝
+  </text>
+        """
+    elif style == "minimal":
+        teeth_markup = f"""
+  <line x1="1" y1="0" x2="1" y2="10" stroke="{color}" stroke-width="2"/>
+  <line x1="{width-1}" y1="0" x2="{width-1}" y2="10" stroke="{color}" stroke-width="2"/>
+        """
+        boundary = f"""
+  <rect x="1" y="8" width="{width-2}" height="14" fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
+  <line x1="3" y1="10" x2="{width-3}" y2="10" stroke="{color}" stroke-width="1.5" opacity="0.85"/>
+  <rect x="1" y="16" width="5" height="5" fill="{color}"/>
+  <rect x="{width-6}" y="16" width="5" height="5" fill="{color}"/>
+        """
+        center_readout = f"""
+  <rect x="{width//2 - 105}" y="4" width="210" height="16" fill="{bg_glass}" stroke="{color}" stroke-width="1"/>
+  <text x="{width//2}" y="15" fill="{color}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
+    ╚═ [{tag_clean}] ═╝
+  </text>
+        """
+    elif style == "table_minimal":
+        # TRIAL STYLE FOR VARIANT 2B: Integrated Table HUD Footer (No outer box, plays off native table border)
+        teeth_markup = ""
+        boundary = f"""
+  <rect x="0" y="0" width="{width}" height="{height}" fill="{bg_panel}" opacity="0.35"/>
+  <!-- Table-Corner Hugging Bottom Ticks -->
+  <path d="M 4 8 L 4 18 L 14 18" fill="none" stroke="{color}" stroke-width="1.5"/>
+  <path d="M {width-4} 8 L {width-4} 18 L {width-14} 18" fill="none" stroke="{color}" stroke-width="1.5"/>
+  <line x1="8" y1="2" x2="{width-8}" y2="2" stroke="{color}" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
+        """
+        center_readout = f"""
+  <text x="24" y="14" fill="{theme.get('text_dim', '#8892B0')}" font-size="8.5" class="font-mono">BUFFER: STREAM_OK</text>
+  <text x="{width//2}" y="14" fill="{color}" font-size="9" font-weight="bold" letter-spacing="1.5" text-anchor="middle" class="font-mono">
+    ╚═ [{tag_clean}] ═╝
+  </text>
+  <text x="{width-24}" y="14" fill="{theme.get('text_dim', '#8892B0')}" font-size="8.5" text-anchor="end" class="font-mono">TABLE_SEAM: OK</text>
         """
     else:  # enclosure
         teeth_markup = f"""
-  <line x1="6" y1="0" x2="6" y2="10" stroke="{color}" stroke-width="3"/>
-  <line x1="{width-6}" y1="0" x2="{width-6}" y2="10" stroke="{color}" stroke-width="3"/>
+  <line x1="1" y1="0" x2="1" y2="10" stroke="{color}" stroke-width="3"/>
+  <line x1="{width-1}" y1="0" x2="{width-1}" y2="10" stroke="{color}" stroke-width="3"/>
         """
         boundary = f"""
-  <rect x="6" y="8" width="{width-12}" height="14" fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
-  <line x1="8" y1="10" x2="{width-8}" y2="10" stroke="{color}" stroke-width="1.5" opacity="0.85"/>
-  <rect x="6" y="16" width="6" height="6" fill="{color}"/>
-  <rect x="{width-12}" y="16" width="6" height="6" fill="{color}"/>
+  <rect x="1" y="8" width="{width-2}" height="14" fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
+  <line x1="3" y1="10" x2="{width-3}" y2="10" stroke="{color}" stroke-width="1.5" opacity="0.85"/>
+  <rect x="1" y="16" width="5" height="5" fill="{color}"/>
+  <rect x="{width-6}" y="16" width="5" height="5" fill="{color}"/>
+        """
+        center_readout = f"""
+  <!-- Center Status Buffer Readout -->
+  <rect x="{width//2 - 105}" y="4" width="210" height="16" fill="{bg_glass}" stroke="{color}" stroke-width="1"/>
+  <text x="{width//2}" y="15" fill="{color}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
+    ╚═ [{tag_clean}] ═╝
+  </text>
         """
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
@@ -581,12 +659,7 @@ def build_frame_bottom(tag, color, theme, width=850, height=24, style="brackets"
 
   {teeth_markup}
   {boundary}
-
-  <!-- Center Status Buffer Readout -->
-  <rect x="{width//2 - 105}" y="4" width="210" height="16" fill="{bg_glass}" stroke="{color}" stroke-width="1"/>
-  <text x="{width//2}" y="15" fill="{color}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
-    ╚═ [{tag_clean}] ═╝
-  </text>
+  {center_readout}
 </svg>"""
     return svg
 

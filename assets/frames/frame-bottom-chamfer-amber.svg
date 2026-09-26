@@ -6,20 +6,21 @@
   </defs>
 
   
-  <!-- UPWARD PRONGS (EMBRACING FROM BOTTOM - NO CLOSING HOOKS) -->
-  <line x1="4" y1="0" x2="4" y2="10" stroke="#F59E0B" stroke-width="2.5"/>
-  <rect x="2" y="0" width="5" height="5" fill="#F59E0B"/>
-  <line x1="846" y1="0" x2="846" y2="10" stroke="#F59E0B" stroke-width="2.5"/>
-  <rect x="843" y="0" width="5" height="5" fill="#F59E0B"/>
+  <!-- UPWARD PRONGS (FLUSH TO EDGES x=1..849) -->
+  <line x1="1" y1="0" x2="1" y2="10" stroke="#F59E0B" stroke-width="2.5"/>
+  <rect x="0" y="0" width="4" height="5" fill="#F59E0B"/>
+  <line x1="849" y1="0" x2="849" y2="10" stroke="#F59E0B" stroke-width="2.5"/>
+  <rect x="846" y="0" width="4" height="5" fill="#F59E0B"/>
         
   
-  <polygon points="4 10, 846 10, 836 20, 14 20" fill="rgba(20, 14, 6, 0.82)" stroke="rgba(50, 36, 16, 0.85)" stroke-width="1.5"/>
-  <line x1="14" y1="20" x2="836" y2="20" stroke="#F59E0B" stroke-width="2"/>
+  <polygon points="1 10, 849 10, 838 20, 12 20" fill="rgba(20, 14, 6, 0.82)" stroke="rgba(50, 36, 16, 0.85)" stroke-width="1.5"/>
+  <line x1="12" y1="20" x2="838" y2="20" stroke="#F59E0B" stroke-width="2"/>
         
-
+  
   <!-- Center Status Buffer Readout -->
   <rect x="320" y="4" width="210" height="16" fill="rgba(20, 14, 6, 0.82)" stroke="#F59E0B" stroke-width="1"/>
   <text x="425" y="15" fill="#F59E0B" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
     ╚═ [ENCLOSURE_BUFFER // ACTIVE] ═╝
   </text>
+        
 </svg>

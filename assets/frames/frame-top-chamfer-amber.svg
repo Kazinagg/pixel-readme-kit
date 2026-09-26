@@ -8,18 +8,18 @@
   </defs>
 
   
-  <polygon points="14 4, 836 4, 846 14, 846 32, 4 32, 4 14"
+  <polygon points="12 4, 838 4, 849 15, 849 32, 1 32, 1 15"
            fill="rgba(20, 14, 6, 0.82)" stroke="rgba(50, 36, 16, 0.85)" stroke-width="2"/>
-  <polygon points="16 7, 834 7, 843 16, 843 29, 7 29, 7 16"
+  <polygon points="14 7, 836 7, 846 16, 846 29, 4 29, 4 16"
            fill="none" stroke="#F59E0B" stroke-width="1.5" opacity="0.85"/>
-  <line x1="30" y1="32" x2="820" y2="32" stroke="#F59E0B" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
+  <line x1="20" y1="32" x2="830" y2="32" stroke="#F59E0B" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
         
   
-  <!-- DOWNWARD PRONGS (OPENING TO SHOULDERS/RAILS - NO CLOSING HOOKS) -->
-  <line x1="4" y1="28" x2="4" y2="38" stroke="#F59E0B" stroke-width="2.5"/>
-  <rect x="2" y="32" width="5" height="6" fill="#F59E0B"/>
-  <line x1="846" y1="28" x2="846" y2="38" stroke="#F59E0B" stroke-width="2.5"/>
-  <rect x="843" y="32" width="5" height="6" fill="#F59E0B"/>
+  <!-- DOWNWARD PRONGS (FLUSH TO EDGES x=1..849) -->
+  <line x1="1" y1="26" x2="1" y2="38" stroke="#F59E0B" stroke-width="2.5"/>
+  <rect x="0" y="32" width="4" height="6" fill="#F59E0B"/>
+  <line x1="849" y1="26" x2="849" y2="38" stroke="#F59E0B" stroke-width="2.5"/>
+  <rect x="846" y="32" width="4" height="6" fill="#F59E0B"/>
         
 
   <!-- Status LED -->

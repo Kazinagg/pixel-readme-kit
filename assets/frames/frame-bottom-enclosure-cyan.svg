@@ -6,19 +6,20 @@
   </defs>
 
   
-  <line x1="6" y1="0" x2="6" y2="10" stroke="#00C8D7" stroke-width="3"/>
-  <line x1="844" y1="0" x2="844" y2="10" stroke="#00C8D7" stroke-width="3"/>
+  <line x1="1" y1="0" x2="1" y2="10" stroke="#00C8D7" stroke-width="3"/>
+  <line x1="849" y1="0" x2="849" y2="10" stroke="#00C8D7" stroke-width="3"/>
         
   
-  <rect x="6" y="8" width="838" height="14" fill="rgba(10, 14, 23, 0.82)" stroke="rgba(30, 41, 59, 0.85)" stroke-width="2"/>
-  <line x1="8" y1="10" x2="842" y2="10" stroke="#00C8D7" stroke-width="1.5" opacity="0.85"/>
-  <rect x="6" y="16" width="6" height="6" fill="#00C8D7"/>
-  <rect x="838" y="16" width="6" height="6" fill="#00C8D7"/>
+  <rect x="1" y="8" width="848" height="14" fill="rgba(10, 14, 23, 0.82)" stroke="rgba(30, 41, 59, 0.85)" stroke-width="2"/>
+  <line x1="3" y1="10" x2="847" y2="10" stroke="#00C8D7" stroke-width="1.5" opacity="0.85"/>
+  <rect x="1" y="16" width="5" height="5" fill="#00C8D7"/>
+  <rect x="844" y="16" width="5" height="5" fill="#00C8D7"/>
         
-
+  
   <!-- Center Status Buffer Readout -->
   <rect x="320" y="4" width="210" height="16" fill="rgba(10, 14, 23, 0.82)" stroke="#00C8D7" stroke-width="1"/>
   <text x="425" y="15" fill="#00C8D7" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
     ╚═ [SYS: OK // BUFFER_END // THREAD_01] ═╝
   </text>
+        
 </svg>

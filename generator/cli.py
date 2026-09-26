@@ -93,22 +93,57 @@ def build_kit(output_dir, theme_name="cyberpunk", title="PIXEL-KIT", subtitle="T
         f.write(div_laser)
     print("  [+] Generated divider.svg & divider-laser.svg")
 
-    # 3. Window Frames: Brackets, Chamfer, Enclosure
-    # Mode A: Cyber Brackets (Fixed downward vertical prongs)
+    # 3. Window Frames: Brackets, Chamfer, Enclosure, Minimal, Table Minimal
+    # Root assets
     fb_top = build_frame_top("╔═ SYSTEM.CORE // RUNTIME_KERNEL.SYS", "OPEN_HUD", primary, theme, style="brackets")
     fb_bot = build_frame_bottom("SYS: OK // BUFFER_STREAM_ACTIVE", primary, theme, style="brackets")
+    fe_top = build_frame_top("╔═ HUD.BOX // FULL_ENCLOSURE_SIDE_RAILS.EXE", "FULL_BOX", warning, theme, style="enclosure")
+    fa_top = build_frame_top("╔═ SYSTEM.CORE // ARCHITECTURE_SPEC.SYS", "TRANSLUCENT", "#00F0FF", get_theme("cyberpunk"), style="brackets")
+    fc_top = build_frame_top("╔═ INVENTORY // HOLOGRAPHIC_CHIP_VARIANTS.SYS", "CHIPS_V2", "#39FF14", get_theme("matrix"), style="brackets")
+    fg_top = build_frame_top("╔═ DEPLOYMENT // SYSTEM_INTEGRATION_GUIDE.SYS", "GUIDE_V2", "#FF0055", get_theme("cyberpunk"), style="brackets")
+
     with open(os.path.join(assets_dir, "frame-top-brackets.svg"), "w", encoding="utf-8") as f:
         f.write(fb_top)
     with open(os.path.join(assets_dir, "frame-bottom.svg"), "w", encoding="utf-8") as f:
         f.write(fb_bot)
-
-    # Mode B: Full Box Enclosure (Flush sockets)
-    fe_top = build_frame_top("╔═ HUD.BOX // FULL_ENCLOSURE_SIDE_RAILS.EXE", "FULL_BOX", warning, theme, style="enclosure")
-    fe_bot = build_frame_bottom("TELEMETRY: NOMINAL // ALL_SYSTEMS_GO", warning, theme, style="enclosure")
     with open(os.path.join(assets_dir, "frame-top-enclosure.svg"), "w", encoding="utf-8") as f:
         f.write(fe_top)
+    with open(os.path.join(assets_dir, "frame-top-architecture.svg"), "w", encoding="utf-8") as f:
+        f.write(fa_top)
+    with open(os.path.join(assets_dir, "frame-top-chips.svg"), "w", encoding="utf-8") as f:
+        f.write(fc_top)
+    with open(os.path.join(assets_dir, "frame-top-guide.svg"), "w", encoding="utf-8") as f:
+        f.write(fg_top)
 
-    print("  [+] Generated frame-top-brackets.svg, frame-top-enclosure.svg, frame-bottom.svg")
+    # Suite of themed frames in assets/frames/
+    frames_catalog = [
+        ("frame-top-brackets-green.svg", "╔═ SYSTEM.CORE // MATRIX_STREAM.SYS", "MATRIX_HUD", "#00D26A", get_theme("matrix"), "brackets", True),
+        ("frame-bottom-brackets-green.svg", "", "SYS: ONLINE // BUFFER_STREAM_ACTIVE", "#00D26A", get_theme("matrix"), "brackets", False),
+        ("frame-top-chamfer-amber.svg", "╔═ HUD.CHAMFER // TACTICAL_ENCLOSURE.EXE", "TACTICAL", "#F59E0B", get_theme("amber"), "chamfer", True),
+        ("frame-bottom-chamfer-amber.svg", "", "ENCLOSURE_BUFFER // ACTIVE", "#F59E0B", get_theme("amber"), "chamfer", False),
+        ("frame-top-enclosure-cyan.svg", "╔═ HUD.BOX // FULL_ENCLOSURE_SIDE_RAILS.EXE", "FULL_BOX", "#00C8D7", get_theme("cyberpunk"), "enclosure", True),
+        ("frame-bottom-enclosure-cyan.svg", "", "SYS: OK // BUFFER_END // THREAD_01", "#00C8D7", get_theme("cyberpunk"), "enclosure", False),
+        ("frame-top-minimal-tokyo.svg", "╔═ SYNTH.RAIL // TOKYO_NIGHT_SESSION.SYS", "SESSION", "#4F8BFF", get_theme("tokyo"), "minimal", True),
+        ("frame-bottom-minimal-tokyo.svg", "", "TOKYO_HUD // BUFFER_SYNC_OK", "#4F8BFF", get_theme("tokyo"), "minimal", False),
+        # Trial Table-Minimal style for Variant 2B (Integrated Table HUD Plate)
+        ("frame-top-table-minimal.svg", "╔═ HUD.TABLE // INTEGRATED_MONOLITH.SYS", "TABLE_HUD", "#00D26A", get_theme("matrix"), "table_minimal", True),
+        ("frame-bottom-table-minimal.svg", "", "INTEGRATED_TABLE // BUFFER_PASS", "#00D26A", get_theme("matrix"), "table_minimal", False),
+        ("frame-top-table-minimal-cyan.svg", "╔═ HUD.TABLE // INTEGRATED_MONOLITH.SYS", "CYBER_TABLE", "#00C8D7", get_theme("cyberpunk"), "table_minimal", True),
+        ("frame-bottom-table-minimal-cyan.svg", "", "INTEGRATED_TABLE // BUFFER_PASS", "#00C8D7", get_theme("cyberpunk"), "table_minimal", False),
+        ("frame-top-table-minimal-amber.svg", "╔═ HUD.TABLE // INTEGRATED_MONOLITH.SYS", "TACTICAL_TABLE", "#F59E0B", get_theme("amber"), "table_minimal", True),
+        ("frame-bottom-table-minimal-amber.svg", "", "INTEGRATED_TABLE // BUFFER_PASS", "#F59E0B", get_theme("amber"), "table_minimal", False),
+    ]
+
+    for fname, ftitle, ftag, fcol, ftheme, fstyle, is_top in frames_catalog:
+        if is_top:
+            fsvg = build_frame_top(ftitle, ftag, fcol, ftheme, style=fstyle)
+        else:
+            fsvg = build_frame_bottom(ftag, fcol, ftheme, style=fstyle)
+        with open(os.path.join(frames_dir, fname), "w", encoding="utf-8") as f:
+            f.write(fsvg)
+        print(f"  [+] Generated frame: {fname} ({fstyle})")
+
+    print("  [+] Generated all root & themed frame assets")
 
     # 4. Side Rails: Ladder & Laser
     rail_l = build_side_rail(180, color=warning, theme=theme, side="left", style="ladder")

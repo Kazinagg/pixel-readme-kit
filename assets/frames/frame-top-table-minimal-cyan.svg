@@ -8,27 +8,26 @@
   </defs>
 
   
-  <rect x="1" y="4" width="848" height="28" fill="rgba(10, 14, 23, 0.82)" stroke="rgba(30, 41, 59, 0.85)" stroke-width="2"/>
-  <rect x="3" y="6" width="844" height="24" fill="none" stroke="#00C8D7" stroke-width="1.5" opacity="0.85"/>
-  <rect x="1" y="4" width="5" height="5" fill="#00C8D7"/>
-  <rect x="844" y="4" width="5" height="5" fill="#00C8D7"/>
+  <rect x="0" y="0" width="850" height="38" fill="rgba(15, 23, 38, 0.78)" opacity="0.45"/>
+  <!-- Table-Corner Hugging Ticks (Aligns with table cell) -->
+  <path d="M 4 14 L 4 4 L 14 4" fill="none" stroke="#00C8D7" stroke-width="1.5"/>
+  <path d="M 846 14 L 846 4 L 836 4" fill="none" stroke="#00C8D7" stroke-width="1.5"/>
+  <!-- Subtle Internal Tech Guideline -->
+  <line x1="8" y1="36" x2="842" y2="36" stroke="#00C8D7" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
         
   
-  <line x1="1" y1="24" x2="1" y2="38" stroke="#00C8D7" stroke-width="3"/>
-  <line x1="849" y1="24" x2="849" y2="38" stroke="#00C8D7" stroke-width="3"/>
-        
 
   <!-- Status LED -->
   <circle cx="24" cy="18" r="4" fill="#00C8D7" class="led"/>
 
   <!-- Title Text -->
   <text x="36" y="22" fill="#00C8D7" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">
-    ╔═ HUD.BOX // FULL_ENCLOSURE_SIDE_RAILS.EXE
+    ╔═ HUD.TABLE // INTEGRATED_MONOLITH.SYS
   </text>
 
   <!-- Right Status Tag -->
   <rect x="670" y="9" width="105" height="18" fill="rgba(15, 23, 38, 0.78)" stroke="#00C8D7" stroke-width="1"/>
-  <text x="723" y="22" fill="#00C8D7" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[FULL_BOX]</text>
+  <text x="723" y="22" fill="#00C8D7" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[CYBER_TABLE]</text>
 
   <!-- Window controls [ _ ] [ □ ] [ × ] -->
   <rect x="782" y="11" width="14" height="14" fill="rgba(30, 41, 59, 0.85)"/>
