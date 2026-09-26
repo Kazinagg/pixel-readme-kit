@@ -130,8 +130,10 @@ def build_kit(output_dir, theme_name="cyberpunk", title="PIXEL-KIT", subtitle="T
         ("frame-bottom-table-minimal.svg", "", "INTEGRATED_TABLE // BUFFER_PASS", "#00D26A", get_theme("matrix"), "table_minimal", False),
         ("frame-top-table-minimal-cyan.svg", "╔═ HUD.TABLE // INTEGRATED_MONOLITH.SYS", "CYBER_TABLE", "#00C8D7", get_theme("cyberpunk"), "table_minimal", True),
         ("frame-bottom-table-minimal-cyan.svg", "", "INTEGRATED_TABLE // BUFFER_PASS", "#00C8D7", get_theme("cyberpunk"), "table_minimal", False),
-        ("frame-top-table-minimal-amber.svg", "╔═ HUD.TABLE // INTEGRATED_MONOLITH.SYS", "TACTICAL_TABLE", "#F59E0B", get_theme("amber"), "table_minimal", True),
-        ("frame-bottom-table-minimal-amber.svg", "", "INTEGRATED_TABLE // BUFFER_PASS", "#F59E0B", get_theme("amber"), "table_minimal", False),
+        # Interactive Collapsible Drawer Style for <details><summary> (Architecture IV)
+        ("frame-top-collapsible-cyan.svg", "╔═ INTERACTIVE.TERMINAL // CLICK_TO_TOGGLE.SYS", "▶ TOGGLE", "#00C8D7", get_theme("cyberpunk"), "collapsible", True),
+        ("frame-top-collapsible-amber.svg", "╔═ TACTICAL.DRAWER // CLICK_TO_TOGGLE.SYS", "▶ TOGGLE", "#F59E0B", get_theme("amber"), "collapsible", True),
+        ("frame-top-collapsible-green.svg", "╔═ MATRIX.DRAWER // CLICK_TO_TOGGLE.SYS", "▶ TOGGLE", "#00D26A", get_theme("matrix"), "collapsible", True),
     ]
 
     for fname, ftitle, ftag, fcol, ftheme, fstyle, is_top in frames_catalog:

@@ -504,6 +504,16 @@ def build_frame_top(title, tag, color, theme, width=850, height=38, style="brack
   <!-- Subtle Internal Tech Guideline -->
   <line x1="8" y1="{height-2}" x2="{width-8}" y2="{height-2}" stroke="{color}" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
         """
+    elif style == "collapsible":
+        # Interactive Summary Drawer Header for <details><summary> (zero scroll jump)
+        teeth_markup = ""
+        chassis = f"""
+  <rect x="1" y="2" width="{width-2}" height="{height-4}" fill="{bg_panel}" opacity="0.75" stroke="{color}" stroke-width="1.5"/>
+  <polygon points="12 13, 19 18, 12 23" fill="{color}"/>
+  <path d="M 6 12 L 6 6 L 14 6" fill="none" stroke="{color}" stroke-width="1.5"/>
+  <path d="M {width-6} 12 L {width-6} 6 L {width-14} 6" fill="none" stroke="{color}" stroke-width="1.5"/>
+  <line x1="8" y1="{height-3}" x2="{width-8}" y2="{height-3}" stroke="{color}" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
+        """
     else:  # enclosure
         teeth_markup = f"""
   <line x1="1" y1="24" x2="1" y2="38" stroke="{color}" stroke-width="3"/>
