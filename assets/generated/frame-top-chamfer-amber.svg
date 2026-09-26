@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 38" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+  <polygon points="12 2, 838 2, 849 13, 849 38, 1 38, 1 13" fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="1.5"/>
+  <polygon points="10 6, 16 6, 8 18, 2 18" fill="#F59E0B" opacity="0.6"/>
+  <polygon points="20 6, 26 6, 14 18, 8 18" fill="#F59E0B" opacity="0.6"/>
+  <text x="36" y="23" fill="#F59E0B" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">╔═ HUD.CHAMFER // TACTICAL_ENCLOSURE.EXE</text>
+  <rect x="670" y="9" width="105" height="20" fill="rgba(20, 14, 6, 0.85)" stroke="#F59E0B" stroke-width="1"/>
+  <text x="722" y="23" fill="#F59E0B" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[TACTICAL]</text>
+  <rect x="782" y="11" width="14" height="14" fill="rgba(40, 30, 15, 0.85)"/><text x="786" y="21" fill="#8892B0" font-size="10" class="font-mono">_</text>
+  <rect x="800" y="11" width="14" height="14" fill="rgba(40, 30, 15, 0.85)"/><text x="803" y="22" fill="#8892B0" font-size="10" class="font-mono">□</text>
+  <rect x="818" y="11" width="14" height="14" fill="#FF0055"/><text x="822" y="22" fill="#FFFFFF" font-size="10" class="font-mono">×</text>
+</svg>

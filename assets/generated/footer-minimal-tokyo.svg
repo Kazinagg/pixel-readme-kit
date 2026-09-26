@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 54" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+  <!-- Hairline Glass Footer Panel -->
+  <rect x="1" y="2" width="848" height="50" fill="rgba(15, 18, 30, 0.82)" stroke="rgba(41, 46, 66, 0.85)" stroke-width="1.5"/>
+  <path d="M 6 12 L 6 6 L 16 6" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <path d="M 844 12 L 844 6 L 834 6" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <path d="M 6 42 L 6 48 L 16 48" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <path d="M 844 42 L 844 48 L 834 48" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <!-- Status Readout -->
+  <text x="35" y="32" fill="#94A3B8" font-size="11" class="font-mono">STATUS: <tspan fill="#4F8BFF" font-weight="bold">TOKYO_VAPORWAVE // HUD v2.2</tspan></text>
+  <!-- Return to top link button -->
+  <rect x="665" y="12" width="160" height="30" fill="rgba(79, 139, 255, 0.12)" stroke="#4F8BFF" stroke-width="1"/>
+  <text x="745" y="31" fill="#4F8BFF" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">[ ▲ RETURN TO TOP ]</text>
+</svg>

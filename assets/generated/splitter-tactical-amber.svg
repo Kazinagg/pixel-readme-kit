@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 22" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }
+    </style>
+  </defs>
+  <line x1="1" y1="11" x2="330" y2="11" stroke="#F59E0B" stroke-width="1.5"/>
+  <line x1="520" y1="11" x2="849" y2="11" stroke="#F59E0B" stroke-width="1.5"/>
+  <polygon points="1 11, 8 7, 8 15" fill="#F59E0B"/>
+  <polygon points="849 11, 842 7, 842 15" fill="#F59E0B"/>
+  <polygon points="340 3, 510 3, 516 11, 510 19, 340 19, 334 11" fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="1"/>
+  <text x="425" y="14" fill="#F59E0B" text-anchor="middle" class="font-mono">▲ [TACTICAL: SECURITY_LAYER] ▲</text>
+</svg>

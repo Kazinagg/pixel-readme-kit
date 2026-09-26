@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 26" width="125" height="26" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
+    </style>
+  </defs>
+  <polygon points="7 1, 117 1, 123 7, 123 19, 117 25, 7 25, 1 19, 1 7" fill="rgba(20, 14, 6, 0.88)"/>
+  <polygon points="7 1, 117 1, 123 7, 123 19, 117 25, 7 25, 1 19, 1 7" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="1.5"/>
+  <polygon points="60 1, 64 1, 62 4" fill="#F59E0B"/>
+  <polygon points="60 25, 64 25, 62 22" fill="#F59E0B"/>
+  <polygon points="10 13, 15 9, 15 17" fill="#F59E0B"/>
+  <text x="68" y="17" fill="#F59E0B" text-anchor="middle" class="chip-text">SECTOR_01</text>
+</svg>

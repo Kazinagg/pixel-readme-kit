@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 135" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+      @keyframes breathe { 0%, 100% { opacity: 0.95; } 50% { opacity: 0.35; } }
+      .beacon { animation: breathe 2s infinite ease-in-out; }
+    </style>
+  </defs>
+  <!-- Minimal Hairline Glass Frame -->
+  <rect x="1" y="2" width="848" height="131" fill="rgba(15, 18, 30, 0.82)" stroke="rgba(41, 46, 66, 0.9)" stroke-width="1.5"/>
+  <!-- Corner Hugger Ticks ┌ ┐ └ ┘ -->
+  <path d="M 6 16 L 6 6 L 16 6" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <path d="M 844 16 L 844 6 L 834 6" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <path d="M 6 119 L 6 129 L 16 129" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <path d="M 844 119 L 844 129 L 834 129" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <!-- Status Badge -->
+  <rect x="25" y="16" width="130" height="22" fill="rgba(79, 139, 255, 0.12)" stroke="#4F8BFF" stroke-width="1"/>
+  <circle cx="36" cy="27" r="3" fill="#4F8BFF" class="beacon"/>
+  <text x="88" y="31" fill="#4F8BFF" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">CATALOG_v2.2</text>
+  <!-- Main Title -->
+  <text x="25" y="74" fill="#F8F8F2" font-size="24" font-weight="bold" letter-spacing="1.5" class="font-mono">PIXEL README KIT</text>
+  <text x="25" y="98" fill="#A855F7" font-size="11" class="font-mono">MODULAR HUD DESIGN SYSTEM // 3 GLOBAL STYLES</text>
+  <!-- Mini Equalizer on Right -->
+  <rect x="650" y="69" width="5" height="6" fill="#4F8BFF" opacity="0.8"/><rect x="661" y="62" width="5" height="13" fill="#A855F7" opacity="0.8"/><rect x="672" y="55" width="5" height="20" fill="#4F8BFF" opacity="0.8"/><rect x="683" y="48" width="5" height="27" fill="#A855F7" opacity="0.8"/><rect x="694" y="63" width="5" height="12" fill="#4F8BFF" opacity="0.8"/><rect x="705" y="56" width="5" height="19" fill="#A855F7" opacity="0.8"/><rect x="716" y="49" width="5" height="26" fill="#4F8BFF" opacity="0.8"/><rect x="727" y="64" width="5" height="11" fill="#A855F7" opacity="0.8"/><rect x="738" y="57" width="5" height="18" fill="#4F8BFF" opacity="0.8"/><rect x="749" y="50" width="5" height="25" fill="#A855F7" opacity="0.8"/><rect x="760" y="65" width="5" height="10" fill="#4F8BFF" opacity="0.8"/><rect x="771" y="58" width="5" height="17" fill="#A855F7" opacity="0.8"/><rect x="782" y="51" width="5" height="24" fill="#4F8BFF" opacity="0.8"/><rect x="793" y="66" width="5" height="9" fill="#A855F7" opacity="0.8"/><rect x="804" y="59" width="5" height="16" fill="#4F8BFF" opacity="0.8"/>
+  <text x="730" y="95" fill="#4F8BFF" font-size="9" text-anchor="middle" class="font-mono">// 44.1 kHz SPECTRUM //</text>
+</svg>

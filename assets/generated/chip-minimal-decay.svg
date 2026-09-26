@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 26" width="125" height="26" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
+    </style>
+  </defs>
+  <path d="M 88 1 L 1 1 L 1 25 L 88 25" fill="rgba(15, 18, 30, 0.82)"/>
+  <path d="M 88 1 L 1 1 L 1 25 L 88 25" fill="rgba(79, 139, 255, 0.12)" stroke="#4F8BFF" stroke-width="1"/>
+  <path d="M 4 8 L 4 4 L 8 4" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <path d="M 4 18 L 4 22 L 8 22" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <line x1="88" y1="1" x2="104" y2="1" stroke="#4F8BFF" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  <line x1="88" y1="25" x2="104" y2="25" stroke="#4F8BFF" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  <g fill="#4F8BFF">
+    <circle cx="95" cy="6" r="1.2" opacity="0.8"/><circle cx="95" cy="11" r="1.2" opacity="0.8"/><circle cx="95" cy="15" r="1.2" opacity="0.8"/><circle cx="95" cy="20" r="1.2" opacity="0.8"/>
+    <circle cx="102" cy="8" r="1.1" opacity="0.55"/><circle cx="102" cy="13" r="1.1" opacity="0.55"/><circle cx="102" cy="18" r="1.1" opacity="0.55"/>
+    <circle cx="109" cy="10" r="1" opacity="0.35"/><circle cx="109" cy="16" r="1" opacity="0.35"/>
+    <circle cx="116" cy="7" r="0.8" opacity="0.2"/><circle cx="116" cy="14" r="0.8" opacity="0.2"/>
+  </g>
+  <text x="47" y="17" fill="#4F8BFF" text-anchor="middle" class="chip-text">FROST_PASS</text>
+</svg>

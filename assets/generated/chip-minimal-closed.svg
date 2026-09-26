@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 26" width="125" height="26" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
+    </style>
+  </defs>
+  <rect x="1" y="1" width="123" height="24" fill="rgba(15, 18, 30, 0.82)"/>
+  <rect x="1" y="1" width="123" height="24" fill="rgba(79, 139, 255, 0.12)" stroke="#4F8BFF" stroke-width="1"/>
+  <path d="M 4 8 L 4 4 L 8 4" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <path d="M 121 8 L 121 4 L 117 4" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <path d="M 4 18 L 4 22 L 8 22" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <path d="M 121 18 L 121 22 L 117 22" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <circle cx="15" cy="13" r="2" fill="#4F8BFF"/>
+  <text x="68" y="17" fill="#4F8BFF" text-anchor="middle" class="chip-text">TOKYO_GLS</text>
+</svg>

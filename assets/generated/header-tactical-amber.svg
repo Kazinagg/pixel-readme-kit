@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 220" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+      @keyframes laserScan {
+        0% { transform: translateY(0px); opacity: 0.1; }
+        50% { opacity: 0.85; }
+        100% { transform: translateY(220px); opacity: 0.1; }
+      }
+      .laser-beam { animation: laserScan 2.4s infinite linear; }
+      @keyframes reticlePulse { 0%, 100% { opacity: 0.9; } 50% { opacity: 0.3; } }
+      .reticle { animation: reticlePulse 1.8s infinite ease-in-out; }
+    </style>
+  </defs>
+  <!-- Background Tactical Hull (45° Chamfered Corners) -->
+  <polygon points="16 2, 834 2, 848 16, 848 204, 834 218, 16 218, 2 204, 2 16"
+           fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="2"/>
+  <!-- Hazard Corner Stripes -->
+  <polygon points="14 10, 22 10, 10 22, 2 22" fill="#F59E0B" opacity="0.6"/>
+  <polygon points="26 10, 34 10, 14 30, 6 30" fill="#F59E0B" opacity="0.6"/>
+  <!-- Aiming Laser Line -->
+  <line x1="4" y1="0" x2="846" y2="0" stroke="#EA580C" stroke-width="1.5" class="laser-beam"/>
+  <!-- Status Badge -->
+  <polygon points="45 20, 210 20, 218 28, 218 42, 210 50, 45 50" fill="rgba(245, 158, 11, 0.15)" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="128" y="38" fill="#F59E0B" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ TACTICAL_v2.2 ▲</text>
+  <!-- Main Title -->
+  <text x="45" y="92" fill="#F8F8F2" font-size="28" font-weight="bold" letter-spacing="2" class="font-mono">TACTICAL MILITARY HUD</text>
+  <text x="45" y="118" fill="#F59E0B" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">&gt; AIMING LASER // 45 DEG CHAMFERS // DEF_GRID</text>
+  <!-- Telemetry Specs -->
+  
+            <text x="45" y="150" fill="#F59E0B" font-size="10" font-weight="bold" class="font-mono">▲</text>
+            <text x="65" y="150" fill="#FFFBEB" font-size="10" font-weight="bold" class="font-mono">HUD ARCHITECTURE:</text>
+            <text x="215" y="150" fill="#EA580C" font-size="10" class="font-mono">TRANSLUCENT GLASS // ZERO ADAPTERS</text>
+            
+            <text x="45" y="170" fill="#F59E0B" font-size="10" font-weight="bold" class="font-mono">▲</text>
+            <text x="65" y="170" fill="#FFFBEB" font-size="10" font-weight="bold" class="font-mono">TEXT INTEGRATION:</text>
+            <text x="215" y="170" fill="#EA580C" font-size="10" class="font-mono">100% COPYABLE MARKDOWN &amp; MATH</text>
+            
+            <text x="45" y="190" fill="#F59E0B" font-size="10" font-weight="bold" class="font-mono">▲</text>
+            <text x="65" y="190" fill="#FFFBEB" font-size="10" font-weight="bold" class="font-mono">ANIMATION SUITE:</text>
+            <text x="215" y="190" fill="#EA580C" font-size="10" class="font-mono">LIVE RADAR // SCANLINE // EQUALIZER</text>
+            
+  <!-- Right Reticle Target -->
+  <circle cx="740" cy="90" r="45" fill="none" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="10,6" opacity="0.75" class="reticle"/>
+  <circle cx="740" cy="90" r="18" fill="none" stroke="#EA580C" stroke-width="1.5"/>
+  <circle cx="740" cy="90" r="3" fill="#F59E0B"/>
+  <line x1="685" y1="90" x2="795" y2="90" stroke="#F59E0B" stroke-width="1" opacity="0.5"/>
+  <line x1="740" y1="35" x2="740" y2="145" stroke="#F59E0B" stroke-width="1" opacity="0.5"/>
+  <text x="740" y="152" fill="#F59E0B" font-size="9" text-anchor="middle" class="font-mono">[TARGET_LOCK]</text>
+</svg>
