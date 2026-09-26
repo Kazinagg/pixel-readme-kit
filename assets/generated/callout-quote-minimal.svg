@@ -4,15 +4,16 @@
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
     </style>
   </defs>
-  <!-- Background Glass (Flush left to connect with > border-left) -->
+  <!-- Background Glass (Flush left to connect with markdown quote border) -->
   <rect x="0" y="0" width="850" height="42" fill="rgba(15, 18, 30, 0.82)"/>
   <!-- Top Rail -->
   <line x1="0" y1="2" x2="849" y2="2" stroke="#4F8BFF" stroke-width="1.5"/><path d="M 849 2 L 849 14" fill="none" stroke="#4F8BFF" stroke-width="1.5"/><rect x="846" y="2" width="4" height="4" fill="#A855F7"/>
   <!-- Badge -->
   <rect x="8" y="8" width="115" height="24" fill="rgba(79, 139, 255, 0.15)" stroke="#4F8BFF" stroke-width="1"/><text x="65" y="23" fill="#4F8BFF" font-size="9.5" font-weight="bold" text-anchor="middle" class="font-mono">INFO // MINIMAL</text>
-  <!-- Title & Subtitle -->
-  <text x="145" y="20" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">MINIMAL GLASS SPECIFICATION // ZERO REDUNDANT BORDERS</text>
-  <text x="145" y="33" fill="#A855F7" font-size="8.5" class="font-mono">Dotted baseline guides reader into living documentation</text>
+  <!-- Title & Subtitle (Properly offset past badge edge) -->
+  <text x="136" y="20" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">MINIMAL GLASS SPECIFICATION // ZERO REDUNDANT BORDERS</text>
+  <text x="136" y="33" fill="#A855F7" font-size="8.5" class="font-mono">Dotted baseline guides reader into living documentation</text>
   <!-- DASHED BOTTOM LINE: Bridges into live markdown text -->
   <line x1="0" y1="41" x2="845" y2="41" stroke="#4F8BFF" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.75"/>
+  
 </svg>

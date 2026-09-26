@@ -9,6 +9,6 @@
   <line x1="10" y1="14" x2="840" y2="14" stroke="rgba(30, 41, 59, 0.85)" stroke-width="2"/>
   <line x1="10" y1="14" x2="840" y2="14" stroke="#00C8D7" stroke-width="2" class="packet"/>
   <circle cx="20" cy="14" r="4" fill="#00C8D7"/><circle cx="830" cy="14" r="4" fill="#00C8D7"/>
-  <rect x="335" y="4" width="180" height="20" fill="rgba(10, 14, 23, 0.85)" stroke="#00C8D7" stroke-width="1.5"/>
+  <rect x="335" y="4" width="180" height="20" fill="rgba(10, 14, 23, 0.82)" stroke="#00C8D7" stroke-width="1.5"/>
   <text x="425" y="17" fill="#00C8D7" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[PCB: DATA_PACKET_FLOW]</text>
 </svg>

@@ -6,7 +6,7 @@
       .led { animation: blinkLed 1.4s infinite steps(1); }
     </style>
   </defs>
-  <rect x="1" y="1" width="123" height="24" fill="rgba(10, 14, 23, 0.85)"/>
+  <rect x="1" y="1" width="123" height="24" fill="rgba(10, 14, 23, 0.82)"/>
   <rect x="1" y="1" width="123" height="24" fill="rgba(0, 200, 215, 0.12)" stroke="#00C8D7" stroke-width="1.5"/>
   <rect x="1" y="1" width="3" height="3" fill="#00C8D7"/>
   <rect x="121" y="1" width="3" height="3" fill="#00C8D7"/>

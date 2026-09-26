@@ -9,7 +9,7 @@
   <!-- Badges & Accents -->
   <rect x="16" y="11" width="130" height="26" fill="rgba(79, 139, 255, 0.12)" stroke="#4F8BFF" stroke-width="1"/><text x="81" y="28" fill="#4F8BFF" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">INFO // MINIMAL</text>
   <path d="M 5 12 L 5 5 L 14 5" fill="none" stroke="#4F8BFF" stroke-width="1.5"/><path d="M 845 12 L 845 5 L 836 5" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
-  <!-- Text Content -->
-  <text x="180" y="22" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">MINIMAL GLASS SPECIFICATION // ZERO DOUBLE BORDERS</text>
-  <text x="180" y="36" fill="#A855F7" font-size="9" class="font-mono">Seamless integration with GitHub blockquote and monolith tables</text>
+  <!-- Text Content (Properly offset past badge edge) -->
+  <text x="158" y="22" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">MINIMAL GLASS SPECIFICATION // ZERO DOUBLE BORDERS</text>
+  <text x="158" y="36" fill="#A855F7" font-size="9" class="font-mono">Seamless integration with GitHub blockquote and monolith tables</text>
 </svg>

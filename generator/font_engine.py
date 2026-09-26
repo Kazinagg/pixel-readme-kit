@@ -85,8 +85,26 @@ GLYPHS = {
     '-': ["......", "......", "......", "XXXXXX", "XXXXXX", "......", "......", "......", "......"],
     '_': ["......", "......", "......", "......", "......", "......", "......", "XXXXXX", "XXXXXX"],
     '/': ["....XX", "...XX.", "...XX.", "..XX..", "..XX..", ".XX...", ".XX...", "XX....", "XX...."],
+    '\\': ["XX....", "XX....", ".XX...", ".XX...", "..XX..", "..XX..", "...XX.", "...XX.", "....XX"],
     ':': ["......", "..XX..", "..XX..", "......", "......", "..XX..", "..XX..", "......", "......"],
     '.': ["......", "......", "......", "......", "......", "......", "..XX..", "..XX..", "......"],
+    ',': ["......", "......", "......", "......", "......", "......", "..XX..", "..XX..", ".XX..."],
+    '!': ["..XX..", "..XX..", "..XX..", "..XX..", "..XX..", "......", "..XX..", "..XX..", "......"],
+    '?': [".XXXX.", "XX..XX", "....XX", "...XX.", "..XX..", "......", "..XX..", "..XX..", "......"],
+    '+': ["......", "..XX..", "..XX..", "XXXXXX", "XXXXXX", "..XX..", "..XX..", "......", "......"],
+    '=': ["......", "......", "XXXXXX", "XXXXXX", "......", "XXXXXX", "XXXXXX", "......", "......"],
+    '&': [".XX...", "XX.XX.", "XX.XX.", ".XXXX.", "XX..XX", "XX.XXX", "XX..XX", ".XXXX.", "....XX"],
+    '[': ["XXXX..", "XX....", "XX....", "XX....", "XX....", "XX....", "XX....", "XX....", "XXXX.."],
+    ']': ["..XXXX", "....XX", "....XX", "....XX", "....XX", "....XX", "....XX", "....XX", "..XXXX"],
+    '(': ["...XX.", "..XX..", ".XX...", ".XX...", ".XX...", ".XX...", ".XX...", "..XX..", "...XX."],
+    ')': [".XX...", "..XX..", "...XX.", "...XX.", "...XX.", "...XX.", "...XX.", "..XX..", ".XX..."],
+    '|': ["..XX..", "..XX..", "..XX..", "..XX..", "..XX..", "..XX..", "..XX..", "..XX..", "..XX.."],
+    '#': [".X..X.", "XXXXXX", ".X..X.", ".X..X.", "XXXXXX", ".X..X.", ".X..X.", "......", "......"],
+    '*': ["......", ".X..X.", "..XX..", "XXXXXX", "..XX..", ".X..X.", "......", "......", "......"],
+    '>': ["XX....", ".XX...", "..XX..", "...XX.", "....XX", "...XX.", "..XX..", ".XX...", "XX...."],
+    '<': ["....XX", "...XX.", "..XX..", ".XX...", "XX....", ".XX...", "..XX..", "...XX.", "....XX"],
+    '\'': ["..XX..", "..XX..", ".XX...", "......", "......", "......", "......", "......", "......"],
+    '"': [".XX.XX", ".XX.XX", ".XX.XX", "......", "......", "......", "......", "......", "......"],
 }
 
 def matrix_to_rects(matrix, char_symbol, color, px_size, offset_x, offset_y):
@@ -108,7 +126,21 @@ def matrix_to_rects(matrix, char_symbol, color, px_size, offset_x, offset_y):
                 col_idx += 1
     return "".join(rects)
 
-def render_3d_text(text, x, y, px_size, front_color, mid_shadow, dark_shadow, spacing=2):
+def calculate_px_size(text, max_width=520, spacing=2, default_px_size=6, min_px_size=3):
+    total_cols = 0
+    for char in text.upper():
+        glyph = GLYPHS.get(char, GLYPHS[' '])
+        w = len(glyph[0])
+        total_cols += (w + spacing)
+    if total_cols == 0:
+        return default_px_size
+    px = max_width // total_cols
+    return max(min_px_size, min(default_px_size, px))
+
+def render_3d_text(text, x, y, px_size=None, front_color="#00C8D7", mid_shadow="#005577", dark_shadow="#050B14", spacing=2, max_width=520):
+    if px_size is None or px_size == "auto":
+        px_size = calculate_px_size(text, max_width=max_width, spacing=spacing, default_px_size=6, min_px_size=3)
+
     shadow_dark_rects = []
     shadow_mid_rects = []
     front_rects = []

@@ -4,7 +4,7 @@
       .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
     </style>
   </defs>
-  <path d="M 92 1 L 1 1 L 1 25 L 92 25" fill="rgba(10, 14, 23, 0.85)"/>
+  <path d="M 92 1 L 1 1 L 1 25 L 92 25" fill="rgba(10, 14, 23, 0.82)"/>
   <path d="M 92 1 L 1 1 L 1 25 L 92 25" fill="rgba(0, 200, 215, 0.12)" stroke="#00C8D7" stroke-width="1.5"/>
   <rect x="1" y="1" width="3" height="3" fill="#00C8D7"/>
   <rect x="1" y="22" width="3" height="3" fill="#00C8D7"/>

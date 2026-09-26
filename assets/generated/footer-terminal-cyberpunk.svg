@@ -7,7 +7,7 @@
     </style>
   </defs>
   <!-- Cyberpunk Chassis -->
-  <rect x="1" y="2" width="848" height="50" fill="rgba(10, 14, 23, 0.85)" stroke="rgba(30, 41, 59, 0.85)" stroke-width="2"/>
+  <rect x="1" y="2" width="848" height="50" fill="rgba(10, 14, 23, 0.82)" stroke="rgba(30, 41, 59, 0.85)" stroke-width="2"/>
   <rect x="4" y="5" width="842" height="44" fill="none" stroke="#00C8D7" stroke-width="1" opacity="0.75"/>
   <rect x="1" y="2" width="5" height="5" fill="#00C8D7"/>
   <rect x="844" y="2" width="5" height="5" fill="#00C8D7"/>
