@@ -109,31 +109,33 @@
     </text>
   </g>
 
+  
   <!-- TELETYPE TELEMETRY LINES -->
   <g>
     
-    <text x="42" y="170" fill="#00D26A" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
-    <text x="60" y="170" fill="#F8F8F2" font-size="11" class="font-mono">HUD ARCHITECTURE:</text>
-    <text x="210" y="170" fill="#00C8D7" font-size="11" font-weight="bold" class="font-mono">TRANSLUCENT GLASS &amp; CYBER BRACKETS</text>
-            
-    <text x="42" y="192" fill="#00D26A" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
-    <text x="60" y="192" fill="#F8F8F2" font-size="11" class="font-mono">TEXT INTEGRATION:</text>
-    <text x="210" y="192" fill="#A855F7" font-size="11" font-weight="bold" class="font-mono">100% COPYABLE MARKDOWN &amp; MATH</text>
-            
-    <text x="42" y="214" fill="#00D26A" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
-    <text x="60" y="214" fill="#F8F8F2" font-size="11" class="font-mono">ANIMATION SUITE:</text>
-    <text x="210" y="214" fill="#00D26A" font-size="11" font-weight="bold" class="font-mono">RADAR // SCANLINE // LADDER CASCADE</text>
-            
-    <rect x="500" y="214" width="8" height="12" fill="#00C8D7" class="cursor-blink"/>
+    <text x="42" y="182" fill="#00D26A" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
+    <text x="60" y="182" fill="#F8F8F2" font-size="11" class="font-mono">RADAR SWEEP:</text>
+    <text x="210" y="182" fill="#00C8D7" font-size="11" font-weight="bold" class="font-mono">360° ACTIVE INDEFINITE</text>
+
+    <text x="42" y="202" fill="#00D26A" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
+    <text x="60" y="202" fill="#F8F8F2" font-size="11" class="font-mono">CRT SCANLINE:</text>
+    <text x="210" y="202" fill="#A855F7" font-size="11" font-weight="bold" class="font-mono">HARDWARE ACCELERATED</text>
+
+    <text x="42" y="222" fill="#00D26A" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
+    <text x="60" y="222" fill="#F8F8F2" font-size="11" class="font-mono">CHASSIS:</text>
+    <text x="210" y="222" fill="#00D26A" font-size="11" font-weight="bold" class="font-mono">TRANSLUCENT GLASS MATRIX</text>
+
+    <rect x="500" y="212" width="8" height="12" fill="#00C8D7" class="cursor-blink"/>
   </g>
 
   <!-- MINI SPECTRUM EQUALIZER -->
-  <g transform="translate(525, 0)">
+  <g transform="translate(525, 12)">
     <rect x="0" y="198" width="5" height="6" fill="#00C8D7" class="w1"/>
     <rect x="8" y="186" width="5" height="18" fill="#A855F7" class="w2"/>
     <rect x="16" y="192" width="5" height="12" fill="#FF0055" class="w3"/>
     <rect x="24" y="182" width="5" height="22" fill="#F59E0B" class="w4"/>
   </g>
+
 
   <!-- RIGHT SIDE: RETRO SCI-FI WORKBENCH / MONITOR HUD (RADAR) -->
   <g transform="translate(630, 60)">

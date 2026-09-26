@@ -46,8 +46,10 @@ python -m generator.cli compile --input README.template.md --output README.md --
 
 #### 1. Заглавная шапка (Header)
 ```markdown
-<!-- pixel-kit:header style="cyberpunk" title="PROJECT NAME" subtitle="SYSTEM SPECIFICATION" tag="v2.2" out="assets/header.svg" -->
+<!-- pixel-kit:header style="cyberpunk" title="PROJECT NAME" subtitle="SYSTEM SPECIFICATION" tag="v2.2" spec1="HUD ARCHITECTURE: TRANSLUCENT GLASS" spec2="TEXT INTEGRATION: 100% COPYABLE MARKDOWN" spec3="ANIMATION SUITE: RADAR // SCANLINE" out="assets/header.svg" -->
 ```
+> [!NOTE]
+> Теги 3-го уровня телеметрии (`spec1`, `spec2`, `spec3` или `specs="A: 1 | B: 2 | C: 3"`) опциональны (максимум 3 штуки). Если их не указать, область под подзаголовком остаётся чистой во всех трёх стилях (`cyberpunk`, `tactical`, `minimal`).
 
 #### 2. Окно с контентом (Window Container)
 ```markdown

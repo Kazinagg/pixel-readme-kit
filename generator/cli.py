@@ -40,7 +40,11 @@ def cmd_header(args):
         accent=args.accent,
         title=args.title,
         subtitle=args.subtitle,
-        tag=args.tag
+        tag=args.tag,
+        spec1=args.spec1,
+        spec2=args.spec2,
+        spec3=args.spec3,
+        specs=args.specs
     )
     save_output(svg, args.output, f"assets/header-{args.style}.svg")
 
@@ -140,6 +144,10 @@ def main():
     p_hdr.add_argument("--title", default="PIXEL-KIT", help="Main title text")
     p_hdr.add_argument("--subtitle", default="TRANSLUCENT HUD DESIGN SYSTEM", help="Subtitle description text")
     p_hdr.add_argument("--tag", default="SYSTEM_ACTIVE", help="Top badge tag text")
+    p_hdr.add_argument("--spec1", help="Level 3 spec line 1 (e.g. 'HUD ARCHITECTURE: TRANSLUCENT GLASS')")
+    p_hdr.add_argument("--spec2", help="Level 3 spec line 2 (e.g. 'TEXT INTEGRATION: 100%% COPYABLE MARKDOWN')")
+    p_hdr.add_argument("--spec3", help="Level 3 spec line 3 (e.g. 'ANIMATION SUITE: RADAR // SCANLINE')")
+    p_hdr.add_argument("--specs", help="Combined level 3 specs separated by '|' (max 3 items)")
     p_hdr.add_argument("--output", "-o", help="Target SVG destination path")
     p_hdr.set_defaults(func=cmd_header)
 

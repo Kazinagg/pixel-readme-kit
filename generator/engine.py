@@ -92,13 +92,60 @@ def get_shadow_colors(primary_hex, style="cyberpunk"):
     return darken_hex(primary_hex, 0.45), darken_hex(primary_hex, 0.15)
 
 
+def normalize_specs(specs=None, spec1=None, spec2=None, spec3=None, default_color=None):
+    """
+    Normalizes specifications (level-3 header telemetry tags).
+    Accepts:
+    - spec1, spec2, spec3 strings
+    - specs: list of tuples/strings, or pipe/semicolon/newline-delimited string
+    Returns list of tuples: [(label, value, color), ...] with at most 3 items.
+    If nothing is specified, returns an empty list [].
+    """
+    items = []
+    # 1. Check individual spec1, spec2, spec3
+    for s in (spec1, spec2, spec3):
+        if s and str(s).strip():
+            items.append(str(s).strip())
+
+    # 2. Check specs if items is empty
+    if not items and specs:
+        if isinstance(specs, str):
+            delim = "|" if "|" in specs else (";" if ";" in specs else "\n")
+            raw_items = [p.strip() for p in specs.split(delim) if p.strip()]
+            items.extend(raw_items)
+        elif isinstance(specs, (list, tuple)):
+            for item in specs:
+                if item:
+                    items.append(item)
+
+    normalized = []
+    for item in items[:3]:
+        if isinstance(item, (list, tuple)):
+            lbl = str(item[0]).strip()
+            val = str(item[1]).strip() if len(item) > 1 else ""
+            col = str(item[2]).strip() if len(item) > 2 and item[2] else default_color
+            normalized.append((lbl, val, col))
+        elif isinstance(item, str):
+            if ":" in item:
+                parts = item.split(":", 1)
+                lbl = parts[0].strip()
+                val = parts[1].strip()
+            else:
+                lbl = item.strip()
+                val = ""
+            normalized.append((lbl, val, default_color))
+
+    return normalized[:3]
+
+
 # ---------------------------------------------------------------------------
 # 1. HEADERS (MASTER WORKSTATIONS)
 # ---------------------------------------------------------------------------
 
 def generate_header(style="cyberpunk", primary=None, accent=None,
                     title="PIXEL-KIT", subtitle="TRANSLUCENT HUD DESIGN SYSTEM",
-                    specs=None, tag="SYSTEM_ACTIVE", width=850, height=None):
+                    specs=None, spec1=None, spec2=None, spec3=None,
+                    tag="SYSTEM_ACTIVE", width=850, height=None):
     prim, acc, bg = resolve_colors(style, primary, accent)
     title_clean = escape_xml(title)
     sub_clean = escape_xml(subtitle)
@@ -106,12 +153,8 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
     st = style.lower()
     mid_shadow, dark_shadow = get_shadow_colors(prim, st)
 
-    if specs is None:
-        specs = [
-            ("HUD ARCHITECTURE", "TRANSLUCENT GLASS & CYBER BRACKETS", prim),
-            ("TEXT INTEGRATION", "100% COPYABLE MARKDOWN & MATH", acc),
-            ("ANIMATION SUITE", "RADAR // SCANLINE // LADDER CASCADE", "#00D26A")
-        ]
+    # Normalize specs (max 3 items, [] if omitted)
+    norm_specs = normalize_specs(specs=specs, spec1=spec1, spec2=spec2, spec3=spec3, default_color=None)
 
     if st == "tactical":
         h = height if height else 220
@@ -124,16 +167,19 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
             spacing=2, max_width=520
         )
         y_sub = y_title + t_h + 8
-        y_specs_start = y_sub + 32
+        # Lowered specs start slightly for balanced vertical spacing
+        y_specs_start = y_sub + 40
 
         spec_lines = []
-        for i, spec in enumerate(specs[:3]):
-            lbl = spec[0]
-            val = spec[1]
-            y = y_specs_start + i * 20
-            spec_lines.append(f"""
-            <text x="42" y="{y}" fill="{prim}" font-size="11" class="font-mono">&gt; {escape_xml(lbl)}: <tspan fill="#F8F8F2">{escape_xml(val)}</tspan></text>
-            """)
+        if norm_specs:
+            for i, spec in enumerate(norm_specs[:3]):
+                lbl = spec[0]
+                val = spec[1]
+                val_col = spec[2] if (len(spec) > 2 and spec[2]) else "#F8F8F2"
+                y = y_specs_start + i * 20
+                spec_lines.append(f"""
+  <text x="42" y="{y}" fill="{prim}" font-size="11" class="font-mono">&gt; {escape_xml(lbl)}: <tspan fill="{val_col}">{escape_xml(val)}</tspan></text>
+""")
         specs_markup = "".join(spec_lines)
 
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
@@ -185,7 +231,6 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
 
   <!-- SPECS TELEMETRY -->
   {specs_markup}
-  <text x="42" y="{y_specs_start + 60}" fill="{prim}" font-size="11" font-weight="bold" class="font-mono">&gt; STATUS: [ONLINE // LOCKED]</text>
 
   <!-- RIGHT SIDE: TARGET LOCK-ON CROSSHAIR RETICLE -->
   <g class="reticle-pulse">
@@ -212,7 +257,6 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
 </svg>"""
 
     elif st == "minimal":
-        h = height if height else 135
         px_size = calculate_px_size(title, max_width=540, spacing=2, default_px_size=4, min_px_size=3)
         y_title = 38 if px_size <= 3 else 36
         pixel_markup, t_w, t_h = render_3d_text(
@@ -221,6 +265,22 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
             spacing=2, max_width=540
         )
         y_sub = y_title + t_h + 8
+
+        default_h = 135 if not norm_specs else (140 + len(norm_specs) * 18)
+        h = height if height else default_h
+
+        spec_lines = []
+        if norm_specs:
+            y_specs_start = y_sub + 38
+            for i, spec in enumerate(norm_specs[:3]):
+                lbl = spec[0]
+                val = spec[1]
+                col = spec[2] if (len(spec) > 2 and spec[2]) else "#F8F8F2"
+                y = y_specs_start + i * 18
+                spec_lines.append(f"""
+  <text x="42" y="{y}" fill="{prim}" font-size="10" class="font-mono">// {escape_xml(lbl)}: <tspan fill="{col}">{escape_xml(val)}</tspan></text>
+""")
+        specs_markup = "".join(spec_lines)
 
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
@@ -264,6 +324,9 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
     <text x="12" y="15" fill="#F1F5F9" font-size="11" font-weight="bold" class="font-mono">⚡ {sub_clean}</text>
   </g>
 
+  <!-- SPECS TELEMETRY -->
+  {specs_markup}
+
   <!-- EQUALIZER BARS (RIGHT SIDE) -->
   <g transform="translate({width-120}, 45)">
     <rect x="0" y="28" width="8" height="12" fill="{prim}" class="eq1"/>
@@ -293,18 +356,40 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
         )
         y_sub = y_title + t_h + 8
 
-        teletype_svg = []
-        y_teletype_start = max(170, y_sub + 36)
-        for i, spec in enumerate(specs[:3]):
-            lbl = spec[0]
-            val = spec[1]
-            col = spec[2] if len(spec) > 2 else prim
-            y_pos = y_teletype_start + i * 22
-            teletype_svg.append(f"""
+        teletype_block = ""
+        if norm_specs:
+            teletype_svg = []
+            # Lowered slightly for breathing room below subtitle box
+            y_teletype_start = max(182, y_sub + 36)
+            default_colors = [prim, acc, "#00D26A"]
+            for i, spec in enumerate(norm_specs[:3]):
+                lbl = spec[0]
+                val = spec[1]
+                col = spec[2] if (len(spec) > 2 and spec[2]) else default_colors[i % 3]
+                y_pos = y_teletype_start + i * 20
+                teletype_svg.append(f"""
     <text x="42" y="{y_pos}" fill="#00D26A" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="{y_pos}" fill="#F8F8F2" font-size="11" class="font-mono">{escape_xml(lbl)}:</text>
     <text x="210" y="{y_pos}" fill="{col}" font-size="11" font-weight="bold" class="font-mono">{escape_xml(val)}</text>
-            """)
+""")
+
+            last_y = y_teletype_start + (len(norm_specs) - 1) * 20
+            eq_offset = last_y - 210
+            teletype_block = f"""
+  <!-- TELETYPE TELEMETRY LINES -->
+  <g>
+    {''.join(teletype_svg)}
+    <rect x="500" y="{last_y - 10}" width="8" height="12" fill="{prim}" class="cursor-blink"/>
+  </g>
+
+  <!-- MINI SPECTRUM EQUALIZER -->
+  <g transform="translate(525, {eq_offset})">
+    <rect x="0" y="198" width="5" height="6" fill="{prim}" class="w1"/>
+    <rect x="8" y="186" width="5" height="18" fill="{acc}" class="w2"/>
+    <rect x="16" y="192" width="5" height="12" fill="#FF0055" class="w3"/>
+    <rect x="24" y="182" width="5" height="22" fill="#F59E0B" class="w4"/>
+  </g>
+"""
 
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
@@ -410,19 +495,7 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
     </text>
   </g>
 
-  <!-- TELETYPE TELEMETRY LINES -->
-  <g>
-    {''.join(teletype_svg)}
-    <rect x="500" y="{y_teletype_start + 44}" width="8" height="12" fill="{prim}" class="cursor-blink"/>
-  </g>
-
-  <!-- MINI SPECTRUM EQUALIZER -->
-  <g transform="translate(525, 0)">
-    <rect x="0" y="198" width="5" height="6" fill="{prim}" class="w1"/>
-    <rect x="8" y="186" width="5" height="18" fill="{acc}" class="w2"/>
-    <rect x="16" y="192" width="5" height="12" fill="#FF0055" class="w3"/>
-    <rect x="24" y="182" width="5" height="22" fill="#F59E0B" class="w4"/>
-  </g>
+  {teletype_block}
 
   <!-- RIGHT SIDE: RETRO SCI-FI WORKBENCH / MONITOR HUD (RADAR) -->
   <g transform="translate({width-220}, 60)">

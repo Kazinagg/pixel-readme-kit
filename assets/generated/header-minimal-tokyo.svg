@@ -47,6 +47,9 @@
     <text x="12" y="15" fill="#F1F5F9" font-size="11" font-weight="bold" class="font-mono">⚡ MODULAR HUD DESIGN SYSTEM // 3 GLOBAL STYLES</text>
   </g>
 
+  <!-- SPECS TELEMETRY -->
+  
+
   <!-- EQUALIZER BARS (RIGHT SIDE) -->
   <g transform="translate(730, 45)">
     <rect x="0" y="28" width="8" height="12" fill="#4F8BFF" class="eq1"/>

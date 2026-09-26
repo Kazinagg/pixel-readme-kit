@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="NEO-CORE" subtitle="CYBER-HUD AUTOMATION & KERNEL RUNTIME" tag="SYS_v2.2_ONLINE" out="assets/example/neo-header.svg" -->
+<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="NEO-CORE" subtitle="CYBER-HUD AUTOMATION & KERNEL RUNTIME" spec1="HUD ARCHITECTURE: TRANSLUCENT GLASS & CYBER BRACKETS" spec2="TEXT INTEGRATION: 100% COPYABLE MARKDOWN & MATH" spec3="ANIMATION SUITE: RADAR // SCANLINE // LADDER CASCADE" tag="SYS_v2.2_ONLINE" out="assets/example/neo-header.svg" -->
 
 <br/><br/>
 

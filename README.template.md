@@ -31,17 +31,17 @@
 ## 1. 🏛️ Заглавные шапки (Master Headers — 3 стиля)
 
 ### 1.1 Cyberpunk 3D Workstation (Радар 360° + CRT Scanline)
-<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="CYBERPUNK TERMINAL" subtitle="RADAR 360 // CRT SCANLINE // SPEC MATRIX" tag="SYS_CORE_v2.2" out="assets/generated/header-terminal-cyberpunk.svg" -->
+<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="CYBERPUNK TERMINAL" subtitle="RADAR 360 // CRT SCANLINE // SPEC MATRIX" spec1="RADAR SWEEP: 360° ACTIVE INDEFINITE" spec2="CRT SCANLINE: HARDWARE ACCELERATED" spec3="CHASSIS: TRANSLUCENT GLASS MATRIX" tag="SYS_CORE_v2.2" out="assets/generated/header-terminal-cyberpunk.svg" -->
 
 <br/>
 
 ### 1.2 Tactical Military HUD (Прицельный лазер + Скосы 45°)
-<!-- pixel-kit:header style="tactical" primary="#F59E0B" accent="#EA580C" title="TACTICAL MILITARY HUD" subtitle="AIMING LASER // 45 DEG CHAMFERS // DEF_GRID" tag="TACTICAL_v2.2" out="assets/generated/header-tactical-amber.svg" -->
+<!-- pixel-kit:header style="tactical" primary="#F59E0B" accent="#EA580C" title="TACTICAL MILITARY HUD" subtitle="AIMING LASER // 45 DEG CHAMFERS // DEF_GRID" spec1="AIMING LASER: 4s TARGET LOCK" spec2="CHASSIS: 45° CHAMFER PLATE" spec3="STATUS: ALL SYSTEMS ENGAGED" tag="TACTICAL_v2.2" out="assets/generated/header-tactical-amber.svg" -->
 
 <br/>
 
 ### 1.3 Minimal Glass & Live Equalizer
-<!-- pixel-kit:header style="minimal" primary="#4F8BFF" accent="#A855F7" title="MINIMAL GLASS WORKSPACE" subtitle="LIVE FREQUENCY SPECTRUM // TOKYO BLUE" tag="MINIMAL_v2.2" out="assets/generated/header-minimal-workspace.svg" -->
+<!-- pixel-kit:header style="minimal" primary="#4F8BFF" accent="#A855F7" title="MINIMAL GLASS WORKSPACE" subtitle="LIVE FREQUENCY SPECTRUM // TOKYO BLUE" spec1="SPECTRUM: 5-BAND REALTIME AUDIO" spec2="THEME: TOKYO NIGHT DUAL-TONE" spec3="LATENCY: 0.12ms ULTRA-LOW" tag="MINIMAL_v2.2" out="assets/generated/header-minimal-workspace.svg" -->
 
 ---
 

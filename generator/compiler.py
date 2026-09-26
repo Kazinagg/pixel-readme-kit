@@ -239,7 +239,23 @@ class MarkdownCompiler:
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
 
-            h_svg = generate_header(style=style, primary=prim, accent=acc, title=title, subtitle=sub, tag=tag)
+            spec1 = attrs.get("spec1", None)
+            spec2 = attrs.get("spec2", None)
+            spec3 = attrs.get("spec3", None)
+            specs = attrs.get("specs", None)
+
+            h_svg = generate_header(
+                style=style,
+                primary=prim,
+                accent=acc,
+                title=title,
+                subtitle=sub,
+                tag=tag,
+                spec1=spec1,
+                spec2=spec2,
+                spec3=spec3,
+                specs=specs
+            )
             url_h = self._save_svg(h_svg, attrs.get("out"), f"header-{style}")
             return f'<img src="{url_h}" width="100%" alt="{escape_xml(title)}" />'
 
