@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 38" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+      @keyframes blinkLed { 0%, 100% { fill: #F59E0B; } 50% { fill: #1E293B; } }
+      .led { animation: blinkLed 1.8s infinite steps(1); }
+    </style>
+  </defs>
+
+  <!-- DUAL TACTICAL CHASSIS -->
+  <polygon points="12 4, 838 4, 849 15, 849 32, 1 32, 1 15"
+           fill="rgba(20, 14, 6, 0.88)" stroke="rgba(50, 36, 16, 0.85)" stroke-width="2"/>
+  <polygon points="14 7, 836 7, 846 16, 846 29, 4 29, 4 16"
+           fill="none" stroke="#F59E0B" stroke-width="1.5" opacity="0.85"/>
+  <line x1="20" y1="32" x2="830" y2="32" stroke="#F59E0B" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
+
+  <!-- DOWNWARD PRONGS (FLUSH TO EDGES x=1..849) -->
+  <line x1="1" y1="26" x2="1" y2="38" stroke="#F59E0B" stroke-width="2.5"/>
+  <rect x="0" y="32" width="4" height="6" fill="#F59E0B"/>
+  <line x1="849" y1="26" x2="849" y2="38" stroke="#F59E0B" stroke-width="2.5"/>
+  <rect x="846" y="32" width="4" height="6" fill="#F59E0B"/>
+
+  <!-- Status LED -->
+  <circle cx="24" cy="18" r="4" fill="#F59E0B" class="led"/>
+
+  <!-- Title Text -->
+  <text x="36" y="22" fill="#F59E0B" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">
+    ╔═ SEC.DEFENSE // SECTOR_LOCK_ALPHA.EXE
+  </text>
+
+  <!-- Right Status Tag -->
+  <rect x="670" y="9" width="105" height="18" fill="rgba(30, 22, 10, 0.78)" stroke="#F59E0B" stroke-width="1"/>
+  <text x="723" y="22" fill="#F59E0B" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[TACTICAL]</text>
+
+  <!-- Window controls [ _ ] [ □ ] [ × ] -->
+  <rect x="782" y="11" width="14" height="14" fill="rgba(50, 36, 16, 0.85)"/>
+  <text x="786" y="21" fill="#8892B0" font-size="10" font-weight="bold" class="font-mono">_</text>
+  <rect x="800" y="11" width="14" height="14" fill="rgba(50, 36, 16, 0.85)"/>
+  <text x="803" y="22" fill="#8892B0" font-size="10" font-weight="bold" class="font-mono">□</text>
+  <rect x="818" y="11" width="14" height="14" fill="#FF0055"/>
+  <text x="822" y="22" fill="#FFFFFF" font-size="10" font-weight="bold" class="font-mono">×</text>
+</svg>

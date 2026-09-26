@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125 26" width="125" height="26" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
+    </style>
+  </defs>
+  <polygon points="7 1, 82 1, 68 25, 7 25, 1 19, 1 7" fill="rgba(20, 14, 6, 0.88)"/>
+  <polygon points="7 1, 82 1, 68 25, 7 25, 1 19, 1 7" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="1.5"/>
+  <polygon points="8 13, 13 9, 13 17" fill="#F59E0B"/>
+  <polygon points="87 1, 91 1, 77 25, 73 25" fill="#F59E0B" opacity="0.9"/>
+  <polygon points="96 3, 99.5 3, 87.5 23, 84 23" fill="#F59E0B" opacity="0.65"/>
+  <polygon points="104 6, 107 6, 97.5 20, 94.5 20" fill="#F59E0B" opacity="0.4"/>
+  <polygon points="112 9, 114 9, 107 17, 105 17" fill="#F59E0B" opacity="0.2"/>
+  <text x="44" y="17" fill="#F59E0B" text-anchor="middle" class="chip-text">SEC: CLEAR</text>
+</svg>
