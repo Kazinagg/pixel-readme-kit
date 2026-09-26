@@ -88,7 +88,8 @@ def cmd_chip(args):
         primary=args.primary,
         accent=args.accent,
         chip_type=args.type,
-        text=args.text
+        text=args.text,
+        width=args.width
     )
     save_output(svg, args.output, f"assets/chip-{args.style}-{args.type}.svg")
 
@@ -191,6 +192,7 @@ def main():
     p_chp.add_argument("--primary", help="Primary brand hex color")
     p_chp.add_argument("--accent", help="Secondary accent hex color")
     p_chp.add_argument("--text", default="CHIP_TAG", help="Text label inside the chip")
+    p_chp.add_argument("--width", type=int, help="Optional manual width override in px (default: auto-calculated from text)")
     p_chp.add_argument("--output", "-o", help="Target SVG destination path")
     p_chp.set_defaults(func=cmd_chip)
 

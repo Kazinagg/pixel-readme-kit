@@ -907,34 +907,64 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
 # 5. CHIPS & PILLS
 # ---------------------------------------------------------------------------
 
+def estimate_chip_width(text, font_size=10, char_w=7.0):
+    w = 0
+    for char in text:
+        code = ord(char)
+        if code > 0x2000 or char in "⚡●▲■◆★🏛️🧬":
+            w += font_size * 1.35
+        else:
+            w += char_w
+    return max(w, 20)
+
+
 def generate_chip(style="cyberpunk", primary=None, accent=None,
-                  chip_type="closed", text="CHIP_LABEL", width=125, height=26):
+                  chip_type="closed", text="CHIP_LABEL", width=None, height=26):
     prim, acc, bg = resolve_colors(style, primary, accent)
     text_clean = escape_xml(text)
     st = style.lower()
     ct = chip_type.lower()
+    text_w = estimate_chip_width(text)
 
     if st == "tactical":
         if ct == "decay":
             # Tactical Hazard Slash Decay (45° diagonal slashes fading out)
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}" shape-rendering="crispEdges">
+            left_pad = 22  # Chamfer (7px) + arrow (8..13px) + padding
+            right_pad = 14 # Padding before 45° slant
+            box_bot_r = int(left_pad + text_w + right_pad)
+            box_top_r = box_bot_r + 14
+            s1_t, s1_b = box_top_r + 5, box_bot_r + 5
+            s2_t, s2_b = s1_t + 9, s1_b + 9
+            s3_t, s3_b = s2_t + 8, s2_b + 8
+            s4_t, s4_b = s3_t + 8, s3_b + 8
+            calc_w = s4_t + 6
+            w = width if width is not None else calc_w
+            text_x = left_pad + int(text_w / 2)
+
+            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
     </style>
   </defs>
-  <polygon points="7 1, 82 1, 68 25, 7 25, 1 19, 1 7" fill="{bg}"/>
-  <polygon points="7 1, 82 1, 68 25, 7 25, 1 19, 1 7" fill="rgba(245, 158, 11, 0.12)" stroke="{prim}" stroke-width="1.5"/>
+  <polygon points="7 1, {box_top_r} 1, {box_bot_r} 25, 7 25, 1 19, 1 7" fill="{bg}"/>
+  <polygon points="7 1, {box_top_r} 1, {box_bot_r} 25, 7 25, 1 19, 1 7" fill="rgba(245, 158, 11, 0.12)" stroke="{prim}" stroke-width="1.5"/>
   <polygon points="8 13, 13 9, 13 17" fill="{prim}"/>
-  <polygon points="87 1, 91 1, 77 25, 73 25" fill="{prim}" opacity="0.9"/>
-  <polygon points="96 3, 99.5 3, 87.5 23, 84 23" fill="{prim}" opacity="0.65"/>
-  <polygon points="104 6, 107 6, 97.5 20, 94.5 20" fill="{prim}" opacity="0.4"/>
-  <polygon points="112 9, 114 9, 107 17, 105 17" fill="{prim}" opacity="0.2"/>
-  <text x="44" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+  <polygon points="{s1_t} 1, {s1_t+4} 1, {s1_b+4} 25, {s1_b} 25" fill="{prim}" opacity="0.9"/>
+  <polygon points="{s2_t} 3, {s2_t+3.5} 3, {s2_b+3.5} 23, {s2_b} 23" fill="{prim}" opacity="0.65"/>
+  <polygon points="{s3_t} 6, {s3_t+3} 6, {s3_b+3} 20, {s3_b} 20" fill="{prim}" opacity="0.4"/>
+  <polygon points="{s4_t} 9, {s4_t+2} 9, {s4_b+2} 17, {s4_b} 17" fill="{prim}" opacity="0.2"/>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
 </svg>"""
         elif ct == "pulse":
             # Tactical Targeting Reticle Pulse
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}" shape-rendering="crispEdges">
+            left_pad = 26  # Chamfer (7px) + reticle (cx=14, r=4.5) + padding
+            right_pad = 16
+            calc_w = int(left_pad + text_w + right_pad)
+            w = width if width is not None else calc_w
+            text_x = left_pad + int(text_w / 2)
+
+            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
@@ -942,54 +972,76 @@ def generate_chip(style="cyberpunk", primary=None, accent=None,
       .laser {{ animation: targetPulse 1.2s infinite ease-in-out; }}
     </style>
   </defs>
-  <polygon points="7 1, {width-8} 1, {width-2} 7, {width-2} 19, {width-8} 25, 7 25, 1 19, 1 7" fill="{bg}"/>
-  <polygon points="7 1, {width-8} 1, {width-2} 7, {width-2} 19, {width-8} 25, 7 25, 1 19, 1 7" fill="rgba(245, 158, 11, 0.12)" stroke="{prim}" stroke-width="1.5"/>
+  <polygon points="7 1, {w-8} 1, {w-2} 7, {w-2} 19, {w-8} 25, 7 25, 1 19, 1 7" fill="{bg}"/>
+  <polygon points="7 1, {w-8} 1, {w-2} 7, {w-2} 19, {w-8} 25, 7 25, 1 19, 1 7" fill="rgba(245, 158, 11, 0.12)" stroke="{prim}" stroke-width="1.5"/>
   <circle cx="14" cy="13" r="4.5" fill="none" stroke="{prim}" stroke-width="1"/>
   <circle cx="14" cy="13" r="2.5" fill="{prim}" class="laser"/>
-  <text x="68" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
 </svg>"""
         else:
             # Tactical Closed 45° Chamfer
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}" shape-rendering="crispEdges">
+            left_pad = 24  # Chamfer + arrow (10..15) + padding
+            right_pad = 16
+            calc_w = int(left_pad + text_w + right_pad)
+            w = width if width is not None else calc_w
+            text_x = left_pad + int(text_w / 2)
+            mid_x = int(w / 2)
+
+            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
     </style>
   </defs>
-  <polygon points="7 1, {width-8} 1, {width-2} 7, {width-2} 19, {width-8} 25, 7 25, 1 19, 1 7" fill="{bg}"/>
-  <polygon points="7 1, {width-8} 1, {width-2} 7, {width-2} 19, {width-8} 25, 7 25, 1 19, 1 7" fill="rgba(245, 158, 11, 0.12)" stroke="{prim}" stroke-width="1.5"/>
-  <polygon points="60 1, 64 1, 62 4" fill="{prim}"/>
-  <polygon points="60 25, 64 25, 62 22" fill="{prim}"/>
+  <polygon points="7 1, {w-8} 1, {w-2} 7, {w-2} 19, {w-8} 25, 7 25, 1 19, 1 7" fill="{bg}"/>
+  <polygon points="7 1, {w-8} 1, {w-2} 7, {w-2} 19, {w-8} 25, 7 25, 1 19, 1 7" fill="rgba(245, 158, 11, 0.12)" stroke="{prim}" stroke-width="1.5"/>
+  <polygon points="{mid_x-2} 1, {mid_x+2} 1, {mid_x} 4" fill="{prim}"/>
+  <polygon points="{mid_x-2} 25, {mid_x+2} 25, {mid_x} 22" fill="{prim}"/>
   <polygon points="10 13, 15 9, 15 17" fill="{prim}"/>
-  <text x="68" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
 </svg>"""
 
     elif st == "minimal":
         if ct == "decay":
             # Minimal Glass Micro-Stipple Dissolution
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}" shape-rendering="crispEdges">
+            left_pad = 16  # Corner bracket (4..8) + padding
+            right_pad = 14
+            box_r = int(left_pad + text_w + right_pad)
+            dash_end = box_r + 16
+            c1, c2, c3, c4 = box_r + 7, box_r + 14, box_r + 21, box_r + 28
+            calc_w = box_r + 34
+            w = width if width is not None else calc_w
+            text_x = left_pad + int(text_w / 2)
+
+            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
     </style>
   </defs>
-  <path d="M 88 1 L 1 1 L 1 25 L 88 25" fill="{bg}"/>
-  <path d="M 88 1 L 1 1 L 1 25 L 88 25" fill="rgba(79, 139, 255, 0.12)" stroke="{prim}" stroke-width="1"/>
+  <path d="M {box_r} 1 L 1 1 L 1 25 L {box_r} 25" fill="{bg}"/>
+  <path d="M {box_r} 1 L 1 1 L 1 25 L {box_r} 25" fill="rgba(79, 139, 255, 0.12)" stroke="{prim}" stroke-width="1"/>
   <path d="M 4 8 L 4 4 L 8 4" fill="none" stroke="{prim}" stroke-width="1.5"/>
   <path d="M 4 18 L 4 22 L 8 22" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <line x1="88" y1="1" x2="104" y2="1" stroke="{prim}" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
-  <line x1="88" y1="25" x2="104" y2="25" stroke="{prim}" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  <line x1="{box_r}" y1="1" x2="{dash_end}" y2="1" stroke="{prim}" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  <line x1="{box_r}" y1="25" x2="{dash_end}" y2="25" stroke="{prim}" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
   <g fill="{prim}">
-    <circle cx="95" cy="6" r="1.2" opacity="0.8"/><circle cx="95" cy="11" r="1.2" opacity="0.8"/><circle cx="95" cy="15" r="1.2" opacity="0.8"/><circle cx="95" cy="20" r="1.2" opacity="0.8"/>
-    <circle cx="102" cy="8" r="1.1" opacity="0.55"/><circle cx="102" cy="13" r="1.1" opacity="0.55"/><circle cx="102" cy="18" r="1.1" opacity="0.55"/>
-    <circle cx="109" cy="10" r="1" opacity="0.35"/><circle cx="109" cy="16" r="1" opacity="0.35"/>
-    <circle cx="116" cy="7" r="0.8" opacity="0.2"/><circle cx="116" cy="14" r="0.8" opacity="0.2"/>
+    <circle cx="{c1}" cy="6" r="1.2" opacity="0.8"/><circle cx="{c1}" cy="11" r="1.2" opacity="0.8"/><circle cx="{c1}" cy="15" r="1.2" opacity="0.8"/><circle cx="{c1}" cy="20" r="1.2" opacity="0.8"/>
+    <circle cx="{c2}" cy="8" r="1.1" opacity="0.55"/><circle cx="{c2}" cy="13" r="1.1" opacity="0.55"/><circle cx="{c2}" cy="18" r="1.1" opacity="0.55"/>
+    <circle cx="{c3}" cy="10" r="1" opacity="0.35"/><circle cx="{c3}" cy="16" r="1" opacity="0.35"/>
+    <circle cx="{c4}" cy="7" r="0.8" opacity="0.2"/><circle cx="{c4}" cy="14" r="0.8" opacity="0.2"/>
   </g>
-  <text x="47" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
 </svg>"""
         elif ct == "pulse":
             # Minimal Glass Breathing Beacon
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}" shape-rendering="crispEdges">
+            left_pad = 26  # Beacon cx=15, r=3 + padding
+            right_pad = 16
+            calc_w = int(left_pad + text_w + right_pad)
+            w = width if width is not None else calc_w
+            text_x = left_pad + int(text_w / 2)
+
+            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
@@ -997,59 +1049,79 @@ def generate_chip(style="cyberpunk", primary=None, accent=None,
       .breathe {{ animation: breatheBeacon 2s infinite ease-in-out; }}
     </style>
   </defs>
-  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="{bg}"/>
-  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="rgba(79, 139, 255, 0.12)" stroke="{prim}" stroke-width="1"/>
+  <rect x="1" y="1" width="{w-2}" height="{height-2}" fill="{bg}"/>
+  <rect x="1" y="1" width="{w-2}" height="{height-2}" fill="rgba(79, 139, 255, 0.12)" stroke="{prim}" stroke-width="1"/>
   <path d="M 4 8 L 4 4 L 8 4" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <path d="M {width-4} 8 L {width-4} 4 L {width-8} 4" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M {w-4} 8 L {w-4} 4 L {w-8} 4" fill="none" stroke="{prim}" stroke-width="1.5"/>
   <path d="M 4 18 L 4 22 L 8 22" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <path d="M {width-4} 18 L {width-4} 22 L {width-8} 22" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M {w-4} 18 L {w-4} 22 L {w-8} 22" fill="none" stroke="{prim}" stroke-width="1.5"/>
   <circle cx="15" cy="13" r="3" fill="{prim}" class="breathe"/>
-  <text x="68" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
 </svg>"""
         else:
             # Minimal Glass Closed Hairline
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}" shape-rendering="crispEdges">
+            left_pad = 24  # Dot cx=15 + padding
+            right_pad = 16
+            calc_w = int(left_pad + text_w + right_pad)
+            w = width if width is not None else calc_w
+            text_x = left_pad + int(text_w / 2)
+
+            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
     </style>
   </defs>
-  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="{bg}"/>
-  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="rgba(79, 139, 255, 0.12)" stroke="{prim}" stroke-width="1"/>
+  <rect x="1" y="1" width="{w-2}" height="{height-2}" fill="{bg}"/>
+  <rect x="1" y="1" width="{w-2}" height="{height-2}" fill="rgba(79, 139, 255, 0.12)" stroke="{prim}" stroke-width="1"/>
   <path d="M 4 8 L 4 4 L 8 4" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <path d="M {width-4} 8 L {width-4} 4 L {width-8} 4" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M {w-4} 8 L {w-4} 4 L {w-8} 4" fill="none" stroke="{prim}" stroke-width="1.5"/>
   <path d="M 4 18 L 4 22 L 8 22" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <path d="M {width-4} 18 L {width-4} 22 L {width-8} 22" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M {w-4} 18 L {w-4} 22 L {w-8} 22" fill="none" stroke="{prim}" stroke-width="1.5"/>
   <circle cx="15" cy="13" r="2" fill="{prim}"/>
-  <text x="68" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
 </svg>"""
 
     else:
         # Cyberpunk Chips
         if ct == "decay":
             # Pixel Matrix Dither Decay
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}" shape-rendering="crispEdges">
+            left_pad = 18  # Corner pixels + vertical bar (7..10) + padding
+            right_pad = 14
+            box_r = int(left_pad + text_w + right_pad)
+            d1, d2, d3, d4, d5 = box_r + 2, box_r + 8, box_r + 14, box_r + 20, box_r + 24
+            calc_w = box_r + 28
+            w = width if width is not None else calc_w
+            text_x = left_pad + int(text_w / 2)
+
+            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
     </style>
   </defs>
-  <path d="M 92 1 L 1 1 L 1 25 L 92 25" fill="{bg}"/>
-  <path d="M 92 1 L 1 1 L 1 25 L 92 25" fill="rgba(0, 200, 215, 0.12)" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M {box_r} 1 L 1 1 L 1 25 L {box_r} 25" fill="{bg}"/>
+  <path d="M {box_r} 1 L 1 1 L 1 25 L {box_r} 25" fill="rgba(0, 200, 215, 0.12)" stroke="{prim}" stroke-width="1.5"/>
   <rect x="1" y="1" width="3" height="3" fill="{prim}"/>
   <rect x="1" y="22" width="3" height="3" fill="{prim}"/>
   <rect x="7" y="8" width="3" height="10" fill="{prim}"/>
   <g fill="{prim}">
-    <rect x="94" y="3" width="3" height="3"/><rect x="94" y="9" width="3" height="3"/><rect x="94" y="15" width="3" height="3"/><rect x="94" y="20" width="3" height="3"/>
-    <rect x="100" y="5" width="2" height="2"/><rect x="100" y="12" width="2" height="2"/><rect x="100" y="18" width="2" height="2"/>
-    <rect x="106" y="7" width="2" height="2" opacity="0.7"/><rect x="106" y="15" width="2" height="2" opacity="0.7"/>
-    <rect x="112" y="10" width="1.5" height="1.5" opacity="0.45"/><rect x="116" y="6" width="1" height="1" opacity="0.3"/>
+    <rect x="{d1}" y="3" width="3" height="3"/><rect x="{d1}" y="9" width="3" height="3"/><rect x="{d1}" y="15" width="3" height="3"/><rect x="{d1}" y="20" width="3" height="3"/>
+    <rect x="{d2}" y="5" width="2" height="2"/><rect x="{d2}" y="12" width="2" height="2"/><rect x="{d2}" y="18" width="2" height="2"/>
+    <rect x="{d3}" y="7" width="2" height="2" opacity="0.7"/><rect x="{d3}" y="15" width="2" height="2" opacity="0.7"/>
+    <rect x="{d4}" y="10" width="1.5" height="1.5" opacity="0.45"/><rect x="{d5}" y="6" width="1" height="1" opacity="0.3"/>
   </g>
-  <text x="48" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
 </svg>"""
         elif ct == "pulse":
             # Cyberpunk Blinking Square LED Beacon
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}" shape-rendering="crispEdges">
+            left_pad = 25  # LED cx=14, r=3.5 + padding
+            right_pad = 16
+            calc_w = int(left_pad + text_w + right_pad)
+            w = width if width is not None else calc_w
+            text_x = left_pad + int(text_w / 2)
+
+            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
@@ -1057,31 +1129,37 @@ def generate_chip(style="cyberpunk", primary=None, accent=None,
       .led {{ animation: blinkLed 1.4s infinite steps(1); }}
     </style>
   </defs>
-  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="{bg}"/>
-  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="rgba(0, 200, 215, 0.12)" stroke="{prim}" stroke-width="1.5"/>
+  <rect x="1" y="1" width="{w-2}" height="{height-2}" fill="{bg}"/>
+  <rect x="1" y="1" width="{w-2}" height="{height-2}" fill="rgba(0, 200, 215, 0.12)" stroke="{prim}" stroke-width="1.5"/>
   <rect x="1" y="1" width="3" height="3" fill="{prim}"/>
-  <rect x="{width-4}" y="1" width="3" height="3" fill="{prim}"/>
+  <rect x="{w-4}" y="1" width="3" height="3" fill="{prim}"/>
   <rect x="1" y="{height-4}" width="3" height="3" fill="{prim}"/>
-  <rect x="{width-4}" y="{height-4}" width="3" height="3" fill="{prim}"/>
+  <rect x="{w-4}" y="{height-4}" width="3" height="3" fill="{prim}"/>
   <circle cx="14" cy="13" r="3.5" fill="{prim}" class="led"/>
-  <text x="68" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
 </svg>"""
         else:
             # Cyberpunk Closed Corner Pixels
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}" shape-rendering="crispEdges">
+            left_pad = 22  # Corner pixels + bar (8..12) + padding
+            right_pad = 16
+            calc_w = int(left_pad + text_w + right_pad)
+            w = width if width is not None else calc_w
+            text_x = left_pad + int(text_w / 2)
+
+            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
     </style>
   </defs>
-  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="{bg}"/>
-  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="rgba(0, 200, 215, 0.12)" stroke="{prim}" stroke-width="1.5"/>
+  <rect x="1" y="1" width="{w-2}" height="{height-2}" fill="{bg}"/>
+  <rect x="1" y="1" width="{w-2}" height="{height-2}" fill="rgba(0, 200, 215, 0.12)" stroke="{prim}" stroke-width="1.5"/>
   <rect x="1" y="1" width="3" height="3" fill="{prim}"/>
-  <rect x="{width-4}" y="1" width="3" height="3" fill="{prim}"/>
+  <rect x="{w-4}" y="1" width="3" height="3" fill="{prim}"/>
   <rect x="1" y="{height-4}" width="3" height="3" fill="{prim}"/>
-  <rect x="{width-4}" y="{height-4}" width="3" height="3" fill="{prim}"/>
+  <rect x="{w-4}" y="{height-4}" width="3" height="3" fill="{prim}"/>
   <rect x="8" y="8" width="4" height="10" fill="{prim}"/>
-  <text x="66" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
 </svg>"""
 
     validate_svg(svg)

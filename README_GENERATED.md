@@ -8,9 +8,9 @@
 
 <br/><br/>
 
-<img src="assets/generated/chip-nav-showcase.svg" />
+<img src="assets/generated/chip-nav-showcase.svg" alt="🏛️ SHOWCASE" />
 &nbsp;&nbsp;
-<img src="assets/generated/chip-nav-top.svg" />
+<img src="assets/generated/chip-nav-top.svg" alt="▲ TOP" />
 
 <br/><br/>
 
@@ -265,9 +265,9 @@ git clone https://github.com/Kazinagg/pixel-readme-kit.git
 | :--- | :--- | :--- | :--- |
 | **Геометрия формы** | Прямые углы, пиксельные замки `3×3`, открытые скобы | 45° срезанные фаски (Chamfers), октагон, шевроны `▲` | Волосяная рамка 1px (Hairline), угловые зацепы `┌ ┐` и `└ ┘` |
 | **Физика распада (Decay)** | **Матричный пиксельный дизеринг**: блоки пикселей `3×3`, `2×2`, `1×1` отлетают как цифровой глитч | **Диагональные полосы фасок `///`**: 45° наклонные зубчатые сегменты, убывающие по высоте и alpha | **Микроточечное рассеивание**: матрица микро-stipple точек 1px и тающая пунктирная шина стекла |
-| **1. Замкнутый блок** | <img src="assets/generated/chip-cyberpunk-closed.svg" /> | <img src="assets/generated/chip-tactical-closed.svg" /> | <img src="assets/generated/chip-minimal-closed.svg" /> |
-| **2. Блок с распадом** | <img src="assets/generated/chip-cyberpunk-decay.svg" /> | <img src="assets/generated/chip-tactical-decay.svg" /> | <img src="assets/generated/chip-minimal-decay.svg" /> |
-| **3. Живой статус / Маяк** | <img src="assets/generated/chip-cyberpunk-pulse.svg" /> | <img src="assets/generated/chip-tactical-pulse.svg" /> | <img src="assets/generated/chip-minimal-pulse.svg" /> |
+| **1. Замкнутый блок** | <img src="assets/generated/chip-cyberpunk-closed.svg" alt="CORE_SYS" /> | <img src="assets/generated/chip-tactical-closed.svg" alt="SECTOR_01" /> | <img src="assets/generated/chip-minimal-closed.svg" alt="TOKYO_GLS" /> |
+| **2. Блок с распадом** | <img src="assets/generated/chip-cyberpunk-decay.svg" alt="CYBER_TAG" /> | <img src="assets/generated/chip-tactical-decay.svg" alt="DEF_ALERT" /> | <img src="assets/generated/chip-minimal-decay.svg" alt="FROST_PASS" /> |
+| **3. Живой статус / Маяк** | <img src="assets/generated/chip-cyberpunk-pulse.svg" alt="LIVE_NODE" /> | <img src="assets/generated/chip-tactical-pulse.svg" alt="TARGET_LOCK" /> | <img src="assets/generated/chip-minimal-pulse.svg" alt="SYNC_IDLE" /> |
 
 ---
 

@@ -6,13 +6,13 @@
 
 <br/><br/>
 
-<img src="assets/example/chip-version.svg" />
+<img src="assets/example/chip-version.svg" alt="⚡ v2.2.0" />
 &nbsp;&nbsp;
-<img src="assets/example/chip-status.svg" />
+<img src="assets/example/chip-status.svg" alt="● LIVE_NODE" />
 &nbsp;&nbsp;
-<img src="assets/example/chip-license.svg" />
+<img src="assets/example/chip-license.svg" alt="LICENSE // MIT" />
 &nbsp;&nbsp;
-<img src="assets/example/chip-security.svg" />
+<img src="assets/example/chip-security.svg" alt="SEC: CLEAR" />
 
 <br/><br/>
 

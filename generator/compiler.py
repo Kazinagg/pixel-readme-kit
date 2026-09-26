@@ -353,9 +353,15 @@ class MarkdownCompiler:
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
 
-            ch_svg = generate_chip(style=style, primary=prim, accent=acc, chip_type=ctype, text=text_val)
+            w_val = int(attrs["width"]) if "width" in attrs and attrs["width"].isdigit() else None
+            link_url = attrs.get("url") or attrs.get("href") or attrs.get("link")
+
+            ch_svg = generate_chip(style=style, primary=prim, accent=acc, chip_type=ctype, text=text_val, width=w_val)
             url_ch = self._save_svg(ch_svg, attrs.get("out"), f"chip-{style}-{ctype}")
-            return f'<img src="{url_ch}" />'
+            img_tag = f'<img src="{url_ch}" alt="{escape_xml(text_val)}" />'
+            if link_url:
+                return f'<a href="{link_url}">{img_tag}</a>'
+            return img_tag
 
         text = chip_regex.sub(repl_chip, text)
 
