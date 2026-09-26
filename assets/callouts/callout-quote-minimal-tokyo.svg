@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 42" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+      @keyframes breatheLed { 0%, 100% { opacity: 0.9; } 50% { opacity: 0.3; } }
+      .breathe { animation: breatheLed 2.2s infinite ease-in-out; }
+    </style>
+  </defs>
+  <!-- Flat Glass Background -->
+  <rect x="0" y="0" width="850" height="42" fill="rgba(15, 18, 30, 0.75)"/>
+  <!-- Top Hairline (Open left, capped right) -->
+  <line x1="0" y1="2" x2="849" y2="2" stroke="#4F8BFF" stroke-width="1.5"/>
+  <path d="M 849 2 L 849 14" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
+  <rect x="846" y="2" width="4" height="4" fill="#A855F7"/>
+  <!-- Minimal Badge -->
+  <rect x="8" y="8" width="115" height="24" fill="rgba(79, 139, 255, 0.15)" stroke="#4F8BFF" stroke-width="1"/>
+  <text x="65" y="23" fill="#4F8BFF" font-size="9.5" font-weight="bold" text-anchor="middle" class="font-mono">INFO // MINIMAL</text>
+  <!-- Title -->
+  <text x="135" y="20" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">
+    MINIMAL GLASS SPECIFICATION // ZERO REDUNDANT BORDERS
+  </text>
+  <text x="135" y="33" fill="#A855F7" font-size="8.5" class="font-mono">Dotted baseline guides reader into living documentation</text>
+  <!-- DASHED BOTTOM LINE -->
+  <line x1="0" y1="41" x2="845" y2="41" stroke="#4F8BFF" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.7"/>
+  <text x="840" y="32" fill="#4F8BFF" font-size="8" text-anchor="end" class="font-mono breathe">▼ FLOW</text>
+</svg>

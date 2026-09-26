@@ -21,8 +21,11 @@
 
 > [!IMPORTANT]
 > 📐 **ФУНДАМЕНТАЛЬНЫЙ ПРИНЦИП ДИЗАЙН-СИСТЕМЫ**:
-> 1. **Стиль (Форма и Геометрия)**: существует ровно **3 канонических стиля** — **Cyberpunk**, **Tactical Military** и **Minimal Glass**. Стиль определяет скосы, фаски, зацепы и анимации.
-> 2. **Цветовая палитра (`primary` + `accent`)**: полностью независима от формы. Пользователь может взять тактическую форму и покрасить её в синий, или взять минималистичную форму и сделать матрично-зеленой.
+> 1. **Стиль (Форма и Геометрия)**: существует ровно **3 канонических стиля** — **Cyberpunk**, **Tactical Military** и **Minimal Glass**.
+> 2. **Цветовая палитра (`primary` + `accent`)**: полностью независима от формы. В каталоге стили демонстрируются в канонических цветах:
+>    - 🟢 **Cyberpunk** ➔ Neon Cyan (`#00C8D7`) / Purple (`#A855F7`)
+>    - 🟡 **Tactical Military** ➔ Amber Phoshor (`#F59E0B`) / Alert Orange (`#EA580C`)
+>    - 🟣 **Minimal Glass** ➔ Tokyo Neon Blue (`#4F8BFF`) / Magenta (`#A855F7`)
 
 ---
 
@@ -30,11 +33,18 @@
 
 1. [Три глобальных стиля: архитектурная матрица](#1-три-глобальных-стиля-архитектурная-матрица)
 2. [Заглавные шапки (Master Headers — 3 стиля)](#2-заглавные-шапки-master-headers--3-стиля)
-3. [Закрывающие пластины (Master Footers — 3 стиля)](#3-закрывающие-пластины-master-footers--3-стиля)
-4. [Инлайн-плашки и алерты (Callouts — 3 стиля геометрии)](#4-инлайн-плашки-и-алерты-callouts--3-стиля-геометрии)
+3. [Закрывающие пластины (Master Footers — 3 стиля во всю ширину)](#3-закрывающие-пластины-master-footers--3-стиля-во-всю-ширину)
+4. [Инлайн-плашки и алерты (Callouts)](#4-инлайн-плашки-и-алерты-callouts)
+   - [4.1 Автономные плашки (3 стиля геометрии)](#41-автономные-плашки-3-стиля-геометрии)
+   - [4.2 Подкласс: Плашки для цитат `> ` (Открытый левый край + пунктирный низ)](#42-подкласс-плашки-для-цитат---открытый-левый-край--пунктирный-низ)
 5. [Рамки окон (Window Frames — 3 стиля без прокладок)](#5-рамки-окон-window-frames--3-стиля-без-прокладок)
-6. [Интерактивный терминал `<details><summary>` (SVG-кнопка без прыжков)](#6-интерактивный-терминал-detailssummary-svg-кнопка-без-прыжков)
+   - [5.1 Cyberpunk Brackets (Cyan)](#51-cyberpunk-brackets-cyan)
+   - [5.2 Tactical Chamfer 45° (Amber)](#52-tactical-chamfer-45-amber)
+   - [5.3 Minimal Glass Monolith (Tokyo Blue)](#53-minimal-glass-monolith-tokyo-blue)
+6. [Интерактивный терминал `<details><summary>` (Надежный триггер без сбоев)](#6-интерактивный-терминал-detailssummary-надежный-триггер-без-сбоев)
 7. [Разделители глав и сплиттеры (Dividers & Splitters — 3 стиля)](#7-разделители-глав-и-сплиттеры-dividers--splitters--3-стиля)
+   - [7.1 Глобальные разделители (PCB, Laser, Frequency Spectrum)](#71-глобальные-разделители-между-главами--3-стиля)
+   - [7.2 Внутренние сплиттеры подмодулей (Flush x=1..849)](#72-внутренние-сплиттеры-подмодулей-flush-x1849-без-боковых-щелей)
 8. [Пиксельные маркеры списков (Pixel Bullets 14×14)](#8-пиксельные-маркеры-списков-pixel-bullets-1414)
 9. [Голографические чипы и бейджи (Chips & Pills)](#9-голографические-чипы-и-бейджи-chips--pills)
 
@@ -49,7 +59,7 @@
 | **Геометрия формы** | Прямые углы, открытые скобы (Brackets), направляющие зубцы | 45° срезанные фаски (Chamfers), шевроны `▲ / ▼` | Ультратонкие шины, угловые зацепы `┌ ┐` и `└ ┘` |
 | **Анимация** | 360° радар, CRT-сканлайн, бегущий по плате PCB-пакет | Пульсирующий прицельный лазер, маркеры целей | Спектральный частотный эквалайзер, точечные маяки |
 | **Интеграция с таблицей** | Прямое накрытие 1-ячеечной таблицы зубцами `x=1..849` | Прямое накрытие таблицы фасками без переходных прокладок | Монолитная 3-строчная таблица без двойных рамок (`table_minimal`) |
-| **Базовая палитра** | Неоновый бирюзовый (`#00C8D7`) + Пурпур (`#A855F7`) | Янтарный фосфор (`#F59E0B`) + Сигнальный оранж (`#EA580C`) | Токио неон (`#4F8BFF`) + Фиолетовый / Монохром |
+| **Цвет в каталоге** | Неоновый бирюзовый (`#00C8D7`) + Пурпур (`#A855F7`) | Янтарный фосфор (`#F59E0B`) + Сигнальный оранж (`#EA580C`) | Токио неон (`#4F8BFF`) + Фиолетовый / Монохром |
 
 ---
 
@@ -95,107 +105,138 @@
 
 ---
 
-<div id="3-закрывающие-пластины-master-footers--3-стиля"></div>
+<div id="3-закрывающие-пластины-master-footers--3-стиля-во-всю-ширину"></div>
 
-## 3. 🏁 Закрывающие пластины (Master Footers — 3 стиля)
+## 3. 🏁 Закрывающие пластины (Master Footers — 3 стиля во всю ширину)
 
-Монументальные завершающие пластины профиля со статусом сессии и навигационной кнопкой возврата наверх `[ ▲ RETURN TO TOP ]`.
+Монументальные завершающие пластины профиля со статусом сессии и навигационной кнопкой возврата наверх `[ ▲ RETURN TO TOP ]`.  
+Отображаются на полную ширину `100%` без табличных рамок:
 
-<table width="100%">
-  <tr>
-    <th width="22%">Стиль</th>
-    <th width="48%">Превью</th>
-    <th width="30%">Путь и код</th>
-  </tr>
-  <tr>
-    <td><b>1. Cyberpunk Core</b></td>
-    <td>
-      <a href="#top"><img src="assets/footers/footer-terminal-cyberpunk.svg" width="100%" /></a>
-    </td>
-    <td>
-      <code>assets/footers/footer-terminal-cyberpunk.svg</code><br/><br/>
-      <code>&lt;a href="#top"&gt;&lt;img src="assets/footers/footer-terminal-cyberpunk.svg" width="100%" /&gt;&lt;/a&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td><b>2. Tactical Military</b></td>
-    <td>
-      <a href="#top"><img src="assets/footers/footer-tactical-amber.svg" width="100%" /></a>
-    </td>
-    <td>
-      <code>assets/footers/footer-tactical-amber.svg</code><br/><br/>
-      <code>&lt;a href="#top"&gt;&lt;img src="assets/footers/footer-tactical-amber.svg" width="100%" /&gt;&lt;/a&gt;</code>
-    </td>
-  </tr>
-  <tr>
-    <td><b>3. Minimal Glass</b></td>
-    <td>
-      <a href="#top"><img src="assets/footers/footer-minimal-tokyo.svg" width="100%" /></a>
-    </td>
-    <td>
-      <code>assets/footers/footer-minimal-tokyo.svg</code><br/><br/>
-      <code>&lt;a href="#top"&gt;&lt;img src="assets/footers/footer-minimal-tokyo.svg" width="100%" /&gt;&lt;/a&gt;</code>
-    </td>
-  </tr>
-</table>
+### 3.1 Cyberpunk Terminal Footer
+- **Файл**: `assets/footers/footer-terminal-cyberpunk.svg`
+- **Размер**: `850×54` (адаптивный `100%`)
+
+<a href="#top"><img src="assets/footers/footer-terminal-cyberpunk.svg" width="100%" alt="Cyberpunk Terminal Footer" /></a>
+
+```html
+<a href="#top"><img src="assets/footers/footer-terminal-cyberpunk.svg" width="100%" alt="Return to top" /></a>
+```
+
+<br/>
+
+### 3.2 Tactical Military Footer
+- **Файл**: `assets/footers/footer-tactical-amber.svg`
+- **Размер**: `850×54` (адаптивный `100%`)
+
+<a href="#top"><img src="assets/footers/footer-tactical-amber.svg" width="100%" alt="Tactical Military Footer" /></a>
+
+```html
+<a href="#top"><img src="assets/footers/footer-tactical-amber.svg" width="100%" alt="Return to top" /></a>
+```
+
+<br/>
+
+### 3.3 Minimal Glass Footer
+- **Файл**: `assets/footers/footer-minimal-tokyo.svg`
+- **Размер**: `850×54` (адаптивный `100%`)
+
+<a href="#top"><img src="assets/footers/footer-minimal-tokyo.svg" width="100%" alt="Minimal Glass Footer" /></a>
+
+```html
+<a href="#top"><img src="assets/footers/footer-minimal-tokyo.svg" width="100%" alt="Return to top" /></a>
+```
 
 ---
 
-<div id="4-инлайн-плашки-и-алерты-callouts--3-стиля-геометрии"></div>
+<div id="4-инлайн-плашки-и-алерты-callouts"></div>
 
-## 4. 💬 Инлайн-плашки и алерты (Callouts — 3 стиля геометрии)
+## 4. 💬 Инлайн-плашки и алерты (Callouts)
 
-Плашки служат для акцентирования важной документации, предупреждений и критических ошибок.  
-Каждый из 3 стилей имеет уникальную форму корпуса, на которую накладывается сигнал:
+### 4.1 Автономные плашки (3 стиля геометрии)
 
-### 4.1 Cyberpunk Callout (Клеммы, угловые пиксели и LED)
+Полностью закрытые независимые плашки для размещения в основном тексте:
+
+#### 1. Cyberpunk Callout (Клеммы, угловые пиксели и LED)
 - **Файл**: `assets/callouts/callout-cyberpunk-note.svg`
-- **Геометрия**: прямые клеммы, угловые пиксели `5×5`, статус `NOTE // 0x01`.
-
 <img src="assets/callouts/callout-cyberpunk-note.svg" width="100%" />
 
 ```html
 <img src="assets/callouts/callout-cyberpunk-note.svg" width="100%" />
-
-> **ПРИМЕЧАНИЕ**: Описание системного требования или спецификации...
 ```
 
 <br/>
 
-### 4.2 Tactical Military Callout (Фаски 45°, шевроны и сигнальные полосы)
+#### 2. Tactical Military Callout (Фаски 45°, шевроны и сигнальные полосы)
 - **Файл**: `assets/callouts/callout-tactical-warning.svg`
-- **Геометрия**: 45° срез углов, двойные сигнальные полосы, прицельный маркер справа.
-
 <img src="assets/callouts/callout-tactical-warning.svg" width="100%" />
 
 ```html
 <img src="assets/callouts/callout-tactical-warning.svg" width="100%" />
-
-> **ВНИМАНИЕ**: Предупреждение об ограничениях окружения или безопасности...
 ```
 
 <br/>
 
-### 4.3 Minimal Glass Callout (Тонкая рамка и угловые маркеры)
+#### 3. Minimal Glass Callout (Тонкая рамка и угловые маркеры)
 - **Файл**: `assets/callouts/callout-minimal-note.svg`
-- **Геометрия**: тонкая hairline-рамка, маркеры `┌ ┐` и `└ ┘`, пульсирующий статус `OK // 0x4F`.
-
 <img src="assets/callouts/callout-minimal-note.svg" width="100%" />
 
 ```html
 <img src="assets/callouts/callout-minimal-note.svg" width="100%" />
-
-> **ИНФОРМАЦИЯ**: Лаконичное описание функционала в минималистичном стиле...
 ```
 
 <br/>
 
-### 4.4 Использование плашек внутри цитаты `> ` (Совмещение с полосой GitHub)
-Плашки адаптированы для вставки внутрь цитаты `> ` — они автоматически сжимаются под ширину цитаты и выравниваются рядом с левой акцентной линией:
+---
 
-> <img src="assets/callouts/callout-cyberpunk-note.svg" width="100%" />
+### 4.2 Подкласс: Плашки для цитат `> ` (Открытый левый край + пунктирный низ)
+
+> [!TIP]
+> **ОСОБЕННОСТЬ ПОДКЛАССА**:
+> 1. **Левая грань убрана**: плашка не создает двойную линию, а бесшовно открывается навстречу вертикальной линии цитаты `border-left` от GitHub.
+> 2. **Нижняя грань сделана пунктирной**: визуальный мост показывает, что важная информация — это не только плашка, но и весь живой текст, идущий ниже внутри цитаты.
+
+#### 1. Cyberpunk Quote Header
+- **Файл**: `assets/callouts/callout-quote-cyberpunk-cyan.svg`
+
+> <img src="assets/callouts/callout-quote-cyberpunk-cyan.svg" width="100%" />
 >
-> **Живой текст внутри цитаты**: плашка гармонично венчает блок цитаты, а текст продолжается под ней с сохранением левой цветной шины.
+> **Живой текст внутри цитаты**: плашка бесшовно открыта слева к полосе цитаты, а нижняя пунктирная линия мягко направляет внимание на текстовое содержимое ниже.
+
+```markdown
+> <img src="assets/callouts/callout-quote-cyberpunk-cyan.svg" width="100%" />
+>
+> **Живой текст цитаты**: описание спецификации или правила...
+```
+
+<br/>
+
+#### 2. Tactical Military Quote Header
+- **Файл**: `assets/callouts/callout-quote-tactical-amber.svg`
+
+> <img src="assets/callouts/callout-quote-tactical-amber.svg" width="100%" />
+>
+> **Критическое предупреждение**: тактическая сигнальная линия открыта слева и направляет поток внимания на важные эксплуатационные ограничения ниже.
+
+```markdown
+> <img src="assets/callouts/callout-quote-tactical-amber.svg" width="100%" />
+>
+> **Внимание**: текст предупреждения об ограничениях...
+```
+
+<br/>
+
+#### 3. Minimal Glass Quote Header
+- **Файл**: `assets/callouts/callout-quote-minimal-tokyo.svg`
+
+> <img src="assets/callouts/callout-quote-minimal-tokyo.svg" width="100%" />
+>
+> **Минималистичная справка**: тонкая стеклянная направляющая с точечным пунктиром, плавно перетекающим в текст документации.
+
+```markdown
+> <img src="assets/callouts/callout-quote-minimal-tokyo.svg" width="100%" />
+>
+> **Информация**: текст пояснения архитектуры...
+```
 
 ---
 
@@ -203,32 +244,39 @@
 
 ## 5. 🪟 Рамки окон (Window Frames — 3 стиля без прокладок)
 
-> [!NOTE]
-> Все направляющие зубцы и внешние контуры фреймов выведены строго на **`x=1` и `x=849`**.  
-> **Переходные прокладки больше не требуются**: фреймы накрывают таблицу напрямую!
+Все направляющие зубцы и внешние контуры фреймов выведены строго на **`x=1` и `x=849`**.  
+Фреймы накрывают 100% ширины таблицы напрямую без адаптеров-прокладок:
 
-### 5.1 Cyberpunk Brackets (Открытые скобы с направляющими зубцами)
-- **Верх**: `assets/frames/frame-top-brackets-green.svg`
-- **Низ**: `assets/frames/frame-bottom-brackets-green.svg`
+### 5.1 Cyberpunk Brackets (Cyan)
+- **Верх**: `assets/frames/frame-top-brackets-cyan.svg`
+- **Низ**: `assets/frames/frame-bottom-brackets-cyan.svg`
 
-<img src="assets/frames/frame-top-brackets-green.svg" width="100%" />
+<img src="assets/frames/frame-top-brackets-cyan.svg" width="100%" />
 
 <table width="100%">
 <tr>
 <td width="100%">
 
 #### 🧬 CYBERPUNK WINDOW // DIRECT TABLE CAPPING
-Зубцы верхней и нижней крышек садятся прямо на внешние 1px серые грани таблицы.
+Зубцы верхней и нижней крышек на `x=1` и `x=849` садятся прямо на внешние 1px серые грани таблицы.
 
 </td>
 </tr>
 </table>
 
-<img src="assets/frames/frame-bottom-brackets-green.svg" width="100%" />
+<img src="assets/frames/frame-bottom-brackets-cyan.svg" width="100%" />
+
+```html
+<img src="assets/frames/frame-top-brackets-cyan.svg" width="100%" />
+<table width="100%">
+  <tr><td width="100%">Текст окна...</td></tr>
+</table>
+<img src="assets/frames/frame-bottom-brackets-cyan.svg" width="100%" />
+```
 
 <br/>
 
-### 5.2 Tactical Chamfer 45° (Скошенные углы без прокладки)
+### 5.2 Tactical Chamfer 45° (Amber)
 - **Верх**: `assets/frames/frame-top-chamfer-amber.svg`
 - **Низ**: `assets/frames/frame-bottom-chamfer-amber.svg`
 
@@ -239,7 +287,7 @@
 <td width="100%">
 
 #### ⚡ TACTICAL WINDOW // ZERO SHOULDER ADAPTERS
-Фаски на `x=1` и `x=849` точно совпадают с гранями таблицы. Ноль лишних линий.
+Фаски на `x=1` и `x=849` точно совпадают с гранями таблицы. Прокладки полностью устранены.
 
 </td>
 </tr>
@@ -247,23 +295,31 @@
 
 <img src="assets/frames/frame-bottom-chamfer-amber.svg" width="100%" />
 
+```html
+<img src="assets/frames/frame-top-chamfer-amber.svg" width="100%" />
+<table width="100%">
+  <tr><td width="100%">Текст окна...</td></tr>
+</table>
+<img src="assets/frames/frame-bottom-chamfer-amber.svg" width="100%" />
+```
+
 <br/>
 
-### 5.3 Minimal Glass Monolith (`table_minimal` — ноль двойных рамок)
-- **Верх**: `assets/frames/frame-top-table-minimal.svg`
-- **Низ**: `assets/frames/frame-bottom-table-minimal.svg`
+### 5.3 Minimal Glass Monolith (Tokyo Blue)
+- **Верх**: `assets/frames/frame-top-table-minimal-tokyo.svg`
+- **Низ**: `assets/frames/frame-bottom-table-minimal-tokyo.svg`
 - **Принцип**: шапка и поддон помещены **внутрь строк единой таблицы**. В SVG убран замкнутый прямоугольник, а нативная серая рамка GitHub становится основным корпусом окна.
 
 <table width="100%">
 <tr>
 <td width="100%" align="center">
-<img src="assets/frames/frame-top-table-minimal.svg" width="100%" />
+<img src="assets/frames/frame-top-table-minimal-tokyo.svg" width="100%" />
 </td>
 </tr>
 <tr>
 <td width="100%">
 
-#### 🟢 MINIMAL GLASS // INTEGRATED MONOLITH
+#### 🟣 MINIMAL GLASS // TOKYO MONOLITH
 - Внешняя рамка: нативная 1px серая рамка таблицы GitHub.
 - Разделитель строк: технологический шов под шапкой.
 - Угловые зацепы `┌ ┐` и `└ ┘` внутри SVG обнимают внутренние углы ячеек.
@@ -272,46 +328,105 @@
 </tr>
 <tr>
 <td width="100%" align="center">
-<img src="assets/frames/frame-bottom-table-minimal.svg" width="100%" />
+<img src="assets/frames/frame-bottom-table-minimal-tokyo.svg" width="100%" />
 </td>
 </tr>
 </table>
 
+```html
+<table width="100%">
+  <tr><td width="100%" align="center"><img src="assets/frames/frame-top-table-minimal-tokyo.svg" width="100%" /></td></tr>
+  <tr><td width="100%">Текст окна...</td></tr>
+  <tr><td width="100%" align="center"><img src="assets/frames/frame-bottom-table-minimal-tokyo.svg" width="100%" /></td></tr>
+</table>
+```
+
 ---
 
-<div id="6-интерактивный-терминал-detailssummary-svg-кнопка-без-прыжков"></div>
+<div id="6-интерактивный-терминал-detailssummary-надежный-триггер-без-сбоев"></div>
 
-## 6. 📱 Интерактивный терминал `<details><summary>` (SVG-кнопка без прыжков)
+## 6. 📱 Интерактивный терминал `<details><summary>` (Надежный триггер без сбоев)
 
-Клик в любую область SVG-шапки мягко раскрывает или сворачивает блок **строго на месте** — без перехода по `#` якорю, без изменения URL и без скачков страницы.
+> [!WARNING]
+> **ОГРАНИЧЕНИЕ GITHUB ДЛЯ ТЕГОВ `<img>` ВНУТРИ `<summary>`**:
+> На GitHub веб-интерфейс автоматически навешивает на большие теги `<img>` встроенный просмотрщик изображений (lightbox viewer).  
+> Поэтому если картинка стоит в `<summary>` одна, клик по ней **открывает SVG в браузере как картинку**, а не раскрывает блок!
 
-### Пример (Cyberpunk Interactive Drawer):
+### 💡 Надежное решение: Стилизованная строка триггера `<summary>`
+Когда триггер оформлен через текст, эмодзи и блочные моноширинные теги `<code>` / `<b>`:
+- Клик **100% надежно раскрывает/сворачивает блок на месте**.
+- **Никаких прыжков по скроллу** и переходов по URL-хэшу `#`.
+- Внутри блока раскрывается полноценный терминал с шапкой, таблицей и поддоном!
+
+### 6.1 Пример 1: Открыт по умолчанию (Cyberpunk) — Нажмите, чтобы свернуть
 <details open>
-<summary><img src="assets/frames/frame-top-collapsible-cyan.svg" width="100%" /></summary>
+<summary><kbd>▶ HUD.TERMINAL</kbd> <b>[ НАЖМИТЕ ДЛЯ СВОРАЧИВАНИЯ / РАЗВОРАЧИВАНИЯ ]</b> <code>[STATE: EXPANDED]</code> <code>[ONLINE]</code></summary>
+
+<br/>
+
+<img src="assets/frames/frame-top-brackets-cyan.svg" width="100%" />
 
 <table width="100%">
 <tr>
 <td width="100%">
 
-#### 🔴 ИНТЕРАКТИВНЫЙ ТЕРМИНАЛ // КЛИКАЙТЕ НА ШАПКУ ВЫШЕ
-- Шапка внутри `<summary>` работает как нативная кнопка браузера.
+#### 🔴 ИНТЕРАКТИВНЫЙ ТЕРМИНАЛ // СОДЕРЖИМОЕ
 - Идеально для длинных логов, тяжелых таблиц и скрытых параметров.
+- Раскрывается и скрывается в один клик без перезагрузки и без скролла страницы.
+
+```bash
+# Пример команды терминала
+git clone https://github.com/Kazinagg/pixel-readme-kit.git
+```
 
 </td>
 </tr>
 </table>
 
-<img src="assets/frames/frame-bottom-table-minimal-cyan.svg" width="100%" />
+<img src="assets/frames/frame-bottom-brackets-cyan.svg" width="100%" />
+
+</details>
+
+<br/>
+
+### 6.2 Пример 2: Свернут по умолчанию (Minimal Glass) — Нажмите, чтобы раскрыть
+<details>
+<summary><kbd>▶ SYSTEM.LOGS</kbd> <b>[ РАСКРЫТЬ СИСТЕМНЫЕ ЛОГИ // CLICK TO EXPAND ]</b> <code>[STATE: COLLAPSED]</code></summary>
+
+<br/>
+
+<table width="100%">
+<tr>
+<td width="100%" align="center">
+<img src="assets/frames/frame-top-table-minimal-tokyo.svg" width="100%" />
+</td>
+</tr>
+<tr>
+<td width="100%">
+
+```text
+[2026-09-26 15:30:00] [SYSTEM] Initializing Pixel Readme Kit engine...
+[2026-09-26 15:30:01] [GRAPHICS] Loading 3 global styles: Cyberpunk, Tactical, Minimal Glass.
+[2026-09-26 15:30:02] [DRAWER] Interactive drawer toggled successfully with 0ms delay.
+[2026-09-26 15:30:03] [STATUS] All systems operational [100% PASS].
+```
+
+</td>
+</tr>
+<tr>
+<td width="100%" align="center">
+<img src="assets/frames/frame-bottom-table-minimal-tokyo.svg" width="100%" />
+</td>
+</tr>
+</table>
 
 </details>
 
 ```html
-<details open>
-  <summary><img src="assets/frames/frame-top-collapsible-cyan.svg" width="100%" /></summary>
-  <table width="100%">
-    <tr><td width="100%">Скрытый контент терминала...</td></tr>
-  </table>
-  <img src="assets/frames/frame-bottom-table-minimal-cyan.svg" width="100%" />
+<details>
+  <summary><kbd>▶ HUD.TERMINAL</kbd> <b>[ НАЖМИТЕ ДЛЯ СВОРАЧИВАНИЯ / РАЗВОРАЧИВАНИЯ ]</b> <code>[ONLINE]</code></summary>
+  <br/>
+  <!-- Любой блок контента: рамка, таблица или код -->
 </details>
 ```
 
