@@ -1,7 +1,7 @@
 # 📋 PIXEL README KIT — ROADMAP & TODO
 
-**Расположение проекта**: `D:\ForWorkStudy\Projects\pixel-readme-kit`  
-**GitHub Репозиторий**: [https://github.com/Kazinagg/pixel-readme-kit](https://github.com/Kazinagg/pixel-readme-kit)  
+**Расположение проекта**: `D:\ForWorkStudy\Projects\pixel-readme-kit`
+**GitHub Репозиторий**: [https://github.com/Kazinagg/pixel-readme-kit](https://github.com/Kazinagg/pixel-readme-kit)
 **Дизайн-система**: Kazinagg Signature Retro-Cyberpunk / Tactical HUD / Translucent Glass (v2.2+)
 
 ---
@@ -19,16 +19,16 @@
        ▼
  ┌─────────────── [ ОКНО (WINDOW / MODULE VIEWPORT) ] ───────────────┐
  │  [ FRAME TOP ] ➔ Верхняя крышка со скобами/скосами 45°           │
- │  [ TRANSITIONAL SHOULDER TOP ] ➔ Адаптер расширения контура       │
+ │  [ TRANSITIONAL SHOULDER TOP ] ➔ Адаптер расширения контура      │
  │                                                                   │
  │  ┌─────────────── [ ТАБЛИЦА ИЗ 3 КОЛОНОК ] ────────────────────┐  │
  │  │ Левая шина (54px) │ Живой Markdown контент │ Правая (54px)  │  │
- │  │ (Gutter / Rail)   │   [ SUB-BLOCK SPLITTER ] (Внутри окна) │  │
+ │  │ (Gutter / Rail)   │   [ SUB-BLOCK SPLITTER ] (Внутри окна)  │  │
  │  │                   │ Живой Markdown контент │                │  │
  │  └─────────────────────────────────────────────────────────────┘  │
  │                                                                   │
- │  [ TRANSITIONAL SHOULDER BOTTOM ] ➔ Адаптер сужения контура       │
- │  [ FRAME BOTTOM ] ➔ Замыкающий поддон окна                        │
+ │  [ TRANSITIONAL SHOULDER BOTTOM ] ➔ Адаптер сужения контура      │
+ │  [ FRAME BOTTOM ] ➔ Замыкающий поддон окна                       │
  └───────────────────────────────────────────────────────────────────┘
        │
        ▼
@@ -39,6 +39,7 @@
 ```
 
 ### Ключевые сущности:
+
 1. **Главный Хедер (Master Header)**:
    - Флагманский титульный блок репозитория. Содержит 3D-шрифт, статусную панель, кнопки управления `[ _ ] [ □ ] [ × ]`, живой радар 360°, бегущую строку сканирования, эквалайзер и навигационные чипы.
 2. **Главный Боттом / Футер (Master Bottom / Footer)**:
@@ -57,55 +58,66 @@
 
 ## ✅ 2. Проверенные и зафиксированные решения (Done)
 
-- [x] **Transitional Shoulder Adapters (`transition-shoulder-top-amber.svg`, `transition-shoulder-bottom-amber.svg`)**:
+- [X] **Transitional Shoulder Adapters (`transition-shoulder-top-amber.svg`, `transition-shoulder-bottom-amber.svg`)**:
   - Признаны идеальным геометрическим решением для устранения разрыва между шапкой и более широкой таблицей GitHub. 45° угол расширяет контур под поля ячеек и замыкает его внизу.
-- [x] **Исправление замкнутых уголков в Chamfer фреймах**:
+- [X] **Исправление замкнутых уголков в Chamfer фреймах**:
   - В `frame-top-chamfer-amber.svg` и `frame-bottom-chamfer-amber.svg` полностью убраны заворачивающиеся внутрь закрывающие уголки (`L 10 38` и `L 10 10`). Теперь направляющие зубцы направлены строго вертикально и бесшовно открываются в адаптеры плеч и рельсы.
-- [x] **Исправление наложения текста в `header-terminal-cyberpunk.svg`**:
+- [X] **Исправление наложения текста в `header-terminal-cyberpunk.svg`**:
   - Устранено перекрытие нижней статусной строки и границы шасси. Координаты пересчитаны: разделительная линия на `y=234`, базовый уровень текста на `y=245`, внутренняя граница на `y=248`. Текст четко вписан без наложений.
-- [x] **Решение проблемы сжатия картинок в таблицах GitHub (54px Rails)**:
+- [X] **Решение проблемы сжатия картинок в таблицах GitHub (54px Rails)**:
   - Изучено правило GitHub `td { padding: 6px 13px; }` и `img { max-width: 100%; }`. Ширина шин зафиксирована на `54px`, что гарантирует `28px` чистого рисунка без сплющивания.
-- [x] **3 Полноценных тематических сюиты в README.md**:
+- [X] **3 Полноценных тематических сюиты в README.md**:
   - Cyberpunk Terminal, Tactical Military HUD, Cyber Gutter Terminal.
-- [x] **100% валидация XML**:
-  - Все 61 SVG проходят `xml.etree.ElementTree` без ошибок экранирования.
+- [X] **Коллекция закрывающих пластин (Master Footers)**:
+  - 4 тематических футера (`footer-terminal-cyberpunk.svg`, `footer-tactical-amber.svg`, `footer-minimal-tokyo.svg`, `footer-matrix-green.svg`) со встроенной навигацией `[ ▲ RETURN TO TOP ]`.
+- [X] **Пиксельные маркеры списков (Pixel Bullet Lists)**:
+  - 16 специализированных 14×14px SVG-иконок для 4 тем и калиброванные Unicode пресеты.
+- [X] **Блоки для вставки в текст (Inline Callouts & Alerts)**:
+  - 4 типа информационных плашек (`NOTE`, `WARNING`, `CRITICAL`, `SUCCESS`) с живой анимацией маяков.
+- [X] **100% валидация XML**:
+  - Все 101 SVG проходят `xml.etree.ElementTree` без единой ошибки экранирования.
 
 ---
 
 ## 🎯 3. Очередь задач (Actionable TODO)
 
-### ПРИОРИТЕТ 1: Базовые компоненты и стили
+### ПРИОРИТЕТ 1: Базовые компоненты и стили (Выполнено)
 
-- [ ] **1. Пиксельные списки для каждого стиля (Pixel Bullet Lists)**
-  - Создать набор стилевых маркеров списка:
-    - *Cyberpunk Style*: неоновые ромбы `◆`, стрелки `▶`, бирюзовые пиксельные маркеры `▸`, иконки `[✓]`.
-    - *Tactical Style*: шевроны `▲`, тактические маркеры `[+]`, `[-]`, `[!]`, сигнальные мини-полосы.
-    - *Minimal / Matrix Style*: дизеринговые блоки `▪`, `░`, `▒`, `▓`, префиксы `//`, `>>`.
-  - Подготовить два варианта использования:
+- [X] **1. Пиксельные списки для каждого стиля (Pixel Bullet Lists)**
+
+  - Создан набор стилевых маркеров списка (16 иконок 14×14 SVG):
+    - *Cyberpunk Style*: неоновые ромбы `bullet-diamond-cyan.svg`, стрелки `bullet-arrow-pink.svg`, бирюзовые пиксельные маркеры `bullet-marker-cyan.svg`, иконки `bullet-check-cyan.svg`.
+    - *Tactical Style*: шевроны `bullet-chevron-amber.svg`, тактические маркеры `bullet-plus-amber.svg`, `bullet-minus-amber.svg`, `bullet-alert-amber.svg`, сигнальные полосы `bullet-stripe-amber.svg`.
+    - *Minimal / Matrix Style*: дизеринговые блоки `bullet-square-green.svg`, `bullet-dither-light/med/dark-green.svg`, префиксы `bullet-prompt-green.svg`.
+    - *Tokyo Style*: звезды `bullet-star-blue.svg`, вложенные ромбы `bullet-diamond-purple.svg`.
+  - Подготовлены два варианта использования:
     1. Через калиброванные Unicode-символы с кодовыми блоками/шрифтом mono.
     2. Через мини-SVG иконки (`width="14" height="14"`) для идеального пиксельного рендеринга на любой ОС.
 
-- [ ] **2. Создание Главных Боттомов (Master Footers) под каждую тему**
-  - Разработать монументальные закрывающие пластины:
-    - `assets/footers/footer-terminal-cyberpunk.svg`: статус `SYSTEM_STANDBY // 0xDEADBEEF`, хэш коммита, навигация `▲ RETURN TO TOP`.
-    - `assets/footers/footer-tactical-amber.svg`: гриф `CLASSIFIED // SECTOR_CLEAR`, тактическая угловая разметка 45°.
-    - `assets/footers/footer-minimal-tokyo.svg`: лаконичная неоновая полоса с копирайтом и лицензией.
-    - `assets/footers/footer-matrix-green.svg`: консольная строка завершения сессии `CONNECTION TERMINATED`.
-  - Добавить генерацию футеров в `generator/builder.py` и `generator/cli.py`.
+- [X] **2. Создание Главных Боттомов (Master Footers) под каждую тему**
 
-- [ ] **3. Блоки для вставки в текст (Inline Callouts, Quotes & Alerts)**
+  - Разработаны монументальные закрывающие пластины с интерактивной кнопкой возврата наверх `[ ▲ RETURN TO TOP ]`:
+    - `assets/footers/footer-terminal-cyberpunk.svg`: статус `SYSTEM_STANDBY // 0xDEADBEEF`, синхронизация кластера, навигация.
+    - `assets/footers/footer-tactical-amber.svg`: гриф `CLASSIFIED // SECTOR_CLEAR`, тактическая угловая разметка 45°, контрольная сумма.
+    - `assets/footers/footer-minimal-tokyo.svg`: лаконичная неоновая полоса с градиентом, копирайтом и лицензией.
+    - `assets/footers/footer-matrix-green.svg`: консольная строка завершения сессии `CONNECTION TERMINATED // BUFFER_FLUSHED`.
+  - Добавлена генерация футеров в `generator/builder.py` (`build_footer`) и `generator/cli.py`.
+
+- [X] **3. Блоки для вставки в текст (Inline Callouts, Quotes & Alerts)**
+
   - Стилизованные блоки для акцентирования важной информации внутри Markdown:
-    - `CALLOUT_NOTE` (бирюзовый/синий информационный блок со стеклянной подложкой).
-    - `CALLOUT_WARNING` (янтарно-оранжевый блок с полосатой диагональной лентой опасности).
-    - `CALLOUT_CRITICAL` (неоновый розовый/красный аварийный блок с пульсирующим светодиодом).
-    - `CALLOUT_SUCCESS` (изумрудный матричный статус выполнения).
-  - Сделать как в виде готовых HTML-шаблонов со вставками SVG-чипов, так и в виде SVG-плашек фиксированной высоты.
+    - `CALLOUT_NOTE` (`assets/callouts/callout-note-cyan.svg` — бирюзовый инфо-блок со стеклянной подложкой).
+    - `CALLOUT_WARNING` (`assets/callouts/callout-warning-amber.svg` — янтарный блок с диагональной лентой опасности).
+    - `CALLOUT_CRITICAL` (`assets/callouts/callout-critical-magenta.svg` — неоновый аварийный блок с пульсирующим светодиодом).
+    - `CALLOUT_SUCCESS` (`assets/callouts/callout-success-green.svg` — изумрудный матричный статус выполнения).
+  - Реализованы в `generator/builder.py` (`build_callout`), добавлены примеры в `README.md` и `preview.html`.
 
 ---
 
 ### ПРИОРИТЕТ 2: Ограничения GitHub и архитектура границ
 
 - [ ] **4. Исследование и систематизация ограничений GitHub Markdown / Camo**
+
   - Сформировать точный документ правил для разработчиков и агентов:
     - `td { padding: 6px 13px !important; }` — принудительный padding таблиц.
     - `img { max-width: 100% !important; }` — автосжатие графики при недостаточной ширине ячейки.
@@ -113,8 +125,8 @@
     - GitHub Camo вырезает `<foreignObject>`, `<script>`, внешние шрифты по `@import`.
     - CSS `transform-origin` сбивается в некоторых прокси-клиентах — обязательно использовать SVG нативный `<animateTransform>`.
     - Невозможность программно отключить границы таблиц на GitHub (стратегия превращения бордеров в текстурные шины данных).
-
 - [ ] **5. Проработка вариантов оформления вертикальных границ**
+
   - Исследовать альтернативные методы создания боковых границ:
     - *Метод A*: 54px Gutter Rails с шахматным дизерингом (уже реализован, протестировать вариации плотности пикселей).
     - *Метод B*: Составные вертикальные сегменты (модули по 100-200px, стыкующиеся друг с другом без швов).
@@ -125,6 +137,7 @@
 ### ПРИОРИТЕТ 3: Автогенерация и инструментарий (На будущее)
 
 - [ ] **6. Примитивная автогенерация из обычного README (CLI Scaffolder)**
+
   - Создать команду `python generator/convert.py --input README.md --theme cyberpunk`:
     - Автоматический парсинг заголовков:
       - Заголовок H1 (`# Title`) ➔ превращается в Master Header.
@@ -133,8 +146,8 @@
       - Списки `- item` ➔ форматируются пиксельными маркерами.
       - Цитаты `> note` ➔ оборачиваются в стилизованные Callouts / Sub-Splitters.
       - Подвал документа ➔ завершается Master Footer'ом выбранной темы.
-
 - [ ] **7. Дополнительные эффекты и анимации**
+
   - Интерактивные SVG-ссылки со встроенным `:hover` свечением (где поддерживается браузером).
   - Динамические бейджи со счетчиками (звезды, форки, статус сборки CI/CD) в пиксельном стеклянном стиле.
   - Кастомизатор пресетов через единый конфиг `theme.json`.
@@ -149,3 +162,4 @@
    ```
 2. Попросить ассистента:
    > *"Продолжаем работу по TODO.md. Начни с ПРИОРИТЕТА 1: пиксельные списки для каждого стиля и создание Главных Боттомов (Master Footers)."*
+   >

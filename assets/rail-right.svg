@@ -10,8 +10,8 @@
         
     </style>
   </defs>
-  <rect width="14" height="180" fill="rgba(20, 14, 6, 0.82)"/>
+  <rect width="14" height="180" fill="rgba(10, 14, 23, 0.82)"/>
   <line x1="8" y1="0" x2="8" y2="180" stroke="#F59E0B" stroke-width="2"/>
-  <line x1="2" y1="0" x2="2" y2="180" stroke="rgba(50, 36, 16, 0.85)" stroke-width="1"/>
+  <line x1="2" y1="0" x2="2" y2="180" stroke="rgba(30, 41, 59, 0.85)" stroke-width="1"/>
   <rect x="6" y="8" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 0.0s;"/><rect x="6" y="22" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 0.3s;"/><rect x="6" y="36" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 0.6s;"/><rect x="6" y="50" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 0.9s;"/><rect x="6" y="64" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 1.2s;"/><rect x="6" y="78" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 1.5s;"/><rect x="6" y="92" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 0.0s;"/><rect x="6" y="106" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 0.3s;"/><rect x="6" y="120" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 0.6s;"/><rect x="6" y="134" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 0.9s;"/><rect x="6" y="148" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 1.2s;"/><rect x="6" y="162" width="5" height="5" fill="#F59E0B" class="rung" style="animation-delay: 1.5s;"/>
 </svg>

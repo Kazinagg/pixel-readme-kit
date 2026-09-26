@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 48" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+      
+    </style>
+  </defs>
+
+  <!-- Chassis Plate -->
+  <rect x="4" y="4" width="842" height="40" fill="rgba(20, 14, 6, 0.85)" stroke="rgba(245, 158, 11, 0.5)" stroke-width="1.5"/>
+  <line x1="6" y1="4" x2="20" y2="4" stroke="#F59E0B" stroke-width="3"/>
+  <line x1="830" y1="4" x2="844" y2="4" stroke="#F59E0B" stroke-width="3"/>
+  <line x1="6" y1="44" x2="20" y2="44" stroke="#F59E0B" stroke-width="3"/>
+  <line x1="830" y1="44" x2="844" y2="44" stroke="#F59E0B" stroke-width="3"/>
+
+  <!-- Left Callout Tag Badge -->
+  <rect x="12" y="10" width="150" height="28" fill="rgba(245, 158, 11, 0.15)" stroke="#F59E0B" stroke-width="1.5"/>
+  <rect x="12" y="10" width="3" height="3" fill="#F59E0B"/>
+  <rect x="159" y="10" width="3" height="3" fill="#F59E0B"/>
+  <rect x="12" y="35" width="3" height="3" fill="#F59E0B"/>
+  <rect x="159" y="35" width="3" height="3" fill="#F59E0B"/>
+  <text x="87" y="28" fill="#F59E0B" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">
+    ⚠️ WARNING // HAZARD
+  </text>
+
+  <!-- Title / Message Text -->
+  <text x="175" y="21" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">
+    CAUTION: CAMO PROXY &amp; TABLE PADDING RESTRICTIONS
+  </text>
+  <text x="175" y="36" fill="#94A3B8" font-size="9" class="font-mono">Enforce 54px rails to prevent image compression</text>
+
+  <!-- Decorative Elements -->
+  
+  <polygon points="12 8, 18 8, 10 20, 4 20" fill="#F59E0B" opacity="0.6"/>
+  <polygon points="22 8, 28 8, 20 20, 14 20" fill="#F59E0B" opacity="0.6"/>
+
+</svg>

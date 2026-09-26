@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 54" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+      @keyframes blinkBlock { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+      .cursor-block { animation: blinkBlock 1s infinite steps(1); }
+    </style>
+  </defs>
+
+  <rect x="4" y="4" width="842" height="46" fill="rgba(6, 18, 12, 0.82)" stroke="rgba(20, 45, 25, 0.85)" stroke-width="2"/>
+  <line x1="6" y1="6" x2="844" y2="6" stroke="#00D26A" stroke-width="1.5" opacity="0.8"/>
+  <line x1="6" y1="48" x2="844" y2="48" stroke="#00D26A" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- Matrix Terminal Teletype Output -->
+  <text x="24" y="24" fill="#00D26A" font-size="11" font-weight="bold" class="font-mono">
+    &gt; CONNECTION TERMINATED // BUFFER_FLUSHED
+  </text>
+  <rect x="360" y="14" width="7" height="12" fill="#00D26A" class="cursor-block"/>
+
+  <text x="24" y="40" fill="#6EE7B7" font-size="9" class="font-mono">
+    PROCESS 0x00 FINISHED // EXIT_CODE: 0 (OK) // PIPELINE TERMINATED
+  </text>
+
+  <!-- Right Terminal Button -->
+  <g transform="translate(665, 12)">
+    <rect x="0" y="0" width="165" height="26" fill="rgba(12, 28, 18, 0.78)" stroke="#00D26A" stroke-width="1.5"/>
+    <text x="82" y="17" fill="#00D26A" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">
+      ▲ RETURN TO TOP
+    </text>
+  </g>
+</svg>

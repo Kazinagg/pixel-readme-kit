@@ -7,11 +7,11 @@
   </defs>
   
   <path d="M 20 1 L 109 1 L 109 25 L 20 25" fill="rgba(10, 14, 23, 0.85)"/>
-  <path d="M 20 1 L 109 1 L 109 25 L 20 25" fill="rgba(79, 139, 255, 0.12)" stroke="#4F8BFF" stroke-width="1.5"/>
-  <rect x="106" y="1" width="3" height="3" fill="#4F8BFF"/>
-  <rect x="106" y="22" width="3" height="3" fill="#4F8BFF"/>
+  <path d="M 20 1 L 109 1 L 109 25 L 20 25" fill="rgba(0, 200, 215, 0.12)" stroke="#00C8D7" stroke-width="1.5"/>
+  <rect x="106" y="1" width="3" height="3" fill="#00C8D7"/>
+  <rect x="106" y="22" width="3" height="3" fill="#00C8D7"/>
 
-  <g fill="#4F8BFF">
+  <g fill="#00C8D7">
     <rect x="15" y="3" width="3" height="3"/>
     <rect x="15" y="9" width="3" height="3"/>
     <rect x="15" y="15" width="3" height="3"/>
@@ -24,7 +24,7 @@
     <rect x="1" y="10" width="1" height="1" opacity="0.3"/>
   </g>
         
-  <text x="65" y="17" fill="#4F8BFF" text-anchor="middle" class="chip-text">
+  <text x="65" y="17" fill="#00C8D7" text-anchor="middle" class="chip-text">
     📄 DOCS
   </text>
 </svg>

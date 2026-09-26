@@ -7,13 +7,13 @@
   </defs>
   
   <rect x="1" y="1" width="108" height="24" fill="rgba(10, 14, 23, 0.85)"/>
-  <rect x="1" y="1" width="108" height="24" fill="rgba(79, 139, 255, 0.12)" stroke="#4F8BFF" stroke-width="1.5"/>
-  <rect x="1" y="1" width="3" height="3" fill="#4F8BFF"/>
-  <rect x="106" y="1" width="3" height="3" fill="#4F8BFF"/>
-  <rect x="1" y="22" width="3" height="3" fill="#4F8BFF"/>
-  <rect x="106" y="22" width="3" height="3" fill="#4F8BFF"/>
+  <rect x="1" y="1" width="108" height="24" fill="rgba(0, 200, 215, 0.12)" stroke="#00D26A" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="#00D26A"/>
+  <rect x="106" y="1" width="3" height="3" fill="#00D26A"/>
+  <rect x="1" y="22" width="3" height="3" fill="#00D26A"/>
+  <rect x="106" y="22" width="3" height="3" fill="#00D26A"/>
         
-  <text x="55" y="17" fill="#4F8BFF" text-anchor="middle" class="chip-text">
+  <text x="55" y="17" fill="#00D26A" text-anchor="middle" class="chip-text">
     💎 ЧИПЫ
   </text>
 </svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 54" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+      @keyframes blinkDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+      .pulse-dot { animation: blinkDot 1.8s infinite steps(1); }
+    </style>
+  </defs>
+
+  <!-- Base Plate Chassis -->
+  <polygon points="6 4, 844 4, 844 40, 830 50, 20 50, 6 40"
+           fill="rgba(10, 14, 23, 0.82)" stroke="rgba(30, 41, 59, 0.85)" stroke-width="2"/>
+  <line x1="8" y1="6" x2="842" y2="6" stroke="#00C8D7" stroke-width="1.5" opacity="0.8"/>
+  <line x1="22" y1="48" x2="828" y2="48" stroke="#00C8D7" stroke-width="1" opacity="0.6"/>
+
+  <!-- Corner Brackets -->
+  <rect x="6" y="4" width="4" height="4" fill="#00C8D7"/>
+  <rect x="840" y="4" width="4" height="4" fill="#00C8D7"/>
+  <rect x="18" y="46" width="4" height="4" fill="#A855F7"/>
+  <rect x="828" y="46" width="4" height="4" fill="#A855F7"/>
+
+  <!-- Status Telemetry Readout -->
+  <circle cx="28" cy="24" r="4" fill="#00D26A" class="pulse-dot"/>
+  <text x="42" y="28" fill="#F8F8F2" font-size="11" font-weight="bold" class="font-mono">
+    SYSTEM_STANDBY // 0xDEADBEEF
+  </text>
+  <text x="42" y="42" fill="#94A3B8" font-size="9" class="font-mono">
+    RUNTIME: KAZINAGG HUD v2.2 // CLUSTER_STATUS: SYNCHRONIZED
+  </text>
+
+  <!-- Center Decorative Hash -->
+  <line x1="405" y1="16" x2="465" y2="16" stroke="rgba(30, 41, 59, 0.85)" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Return To Top Interactive Button Plate -->
+  <g transform="translate(655, 12)">
+    <rect x="0" y="0" width="175" height="26" fill="rgba(15, 23, 38, 0.78)" stroke="#00C8D7" stroke-width="1.5"/>
+    <rect x="0" y="0" width="3" height="3" fill="#00C8D7"/>
+    <rect x="172" y="0" width="3" height="3" fill="#00C8D7"/>
+    <rect x="0" y="23" width="3" height="3" fill="#00C8D7"/>
+    <rect x="172" y="23" width="3" height="3" fill="#00C8D7"/>
+    <text x="87" y="17" fill="#00C8D7" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">
+      ▲ RETURN TO TOP
+    </text>
+  </g>
+</svg>

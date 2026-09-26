@@ -7,7 +7,7 @@
   </defs>
   
   <path d="M 20 1 L 109 1 L 109 25 L 20 25" fill="rgba(10, 14, 23, 0.85)"/>
-  <path d="M 20 1 L 109 1 L 109 25 L 20 25" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="1.5"/>
+  <path d="M 20 1 L 109 1 L 109 25 L 20 25" fill="rgba(0, 200, 215, 0.12)" stroke="#F59E0B" stroke-width="1.5"/>
   <rect x="106" y="1" width="3" height="3" fill="#F59E0B"/>
   <rect x="106" y="22" width="3" height="3" fill="#F59E0B"/>
 

@@ -7,13 +7,13 @@
   </defs>
   
   <rect x="1" y="1" width="133" height="24" fill="rgba(10, 14, 23, 0.85)"/>
-  <rect x="1" y="1" width="133" height="24" fill="rgba(0, 210, 106, 0.12)" stroke="#00D26A" stroke-width="1.5"/>
-  <rect x="1" y="1" width="3" height="3" fill="#00D26A"/>
-  <rect x="131" y="1" width="3" height="3" fill="#00D26A"/>
-  <rect x="1" y="22" width="3" height="3" fill="#00D26A"/>
-  <rect x="131" y="22" width="3" height="3" fill="#00D26A"/>
+  <rect x="1" y="1" width="133" height="24" fill="rgba(0, 200, 215, 0.12)" stroke="#A855F7" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="#A855F7"/>
+  <rect x="131" y="1" width="3" height="3" fill="#A855F7"/>
+  <rect x="1" y="22" width="3" height="3" fill="#A855F7"/>
+  <rect x="131" y="22" width="3" height="3" fill="#A855F7"/>
         
-  <text x="67" y="17" fill="#00D26A" text-anchor="middle" class="chip-text">
+  <text x="67" y="17" fill="#A855F7" text-anchor="middle" class="chip-text">
     📐 СКОБЫ HUD
   </text>
 </svg>

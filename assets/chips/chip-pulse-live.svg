@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 155 26" width="155" height="26" shape-rendering="crispEdges">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 145 26" width="145" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
       .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
@@ -9,15 +9,15 @@
     </style>
   </defs>
   
-  <rect x="1" y="1" width="153" height="24" fill="rgba(10, 14, 23, 0.85)"/>
-  <rect x="1" y="1" width="153" height="24" fill="rgba(245, 158, 11, 0.12)" stroke="#EF4444" stroke-width="1.5"/>
-  <rect x="1" y="1" width="3" height="3" fill="#EF4444"/>
-  <rect x="151" y="1" width="3" height="3" fill="#EF4444"/>
-  <rect x="1" y="22" width="3" height="3" fill="#EF4444"/>
-  <rect x="151" y="22" width="3" height="3" fill="#EF4444"/>
-  <circle cx="12" cy="13" r="3.5" fill="#EF4444" class="beacon"/>
+  <rect x="1" y="1" width="143" height="24" fill="rgba(10, 14, 23, 0.85)"/>
+  <rect x="1" y="1" width="143" height="24" fill="rgba(0, 200, 215, 0.12)" stroke="#FF0055" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="#FF0055"/>
+  <rect x="141" y="1" width="3" height="3" fill="#FF0055"/>
+  <rect x="1" y="22" width="3" height="3" fill="#FF0055"/>
+  <rect x="141" y="22" width="3" height="3" fill="#FF0055"/>
+  <circle cx="12" cy="13" r="3.5" fill="#FF0055" class="beacon"/>
         
-  <text x="83" y="17" fill="#EF4444" text-anchor="middle" class="chip-text">
-    🔴 LIVE TELEMETRY
+  <text x="78" y="17" fill="#FF0055" text-anchor="middle" class="chip-text">
+    🔴 LIVE STREAM
   </text>
 </svg>

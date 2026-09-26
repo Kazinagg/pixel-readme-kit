@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 54" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+
+  <!-- 45-Degree Tactical Chamfer Plate -->
+  <polygon points="18 4, 832 4, 846 18, 846 50, 4 50, 4 18"
+           fill="rgba(20, 14, 6, 0.82)" stroke="rgba(50, 36, 16, 0.85)" stroke-width="2"/>
+  <line x1="20" y1="7" x2="830" y2="7" stroke="#F59E0B" stroke-width="1.5" opacity="0.85"/>
+
+  <!-- Tactical Hazard Diagonal Stripes on the left edge -->
+  <polygon points="26 12, 32 12, 24 24, 18 24" fill="#EA580C" opacity="0.75"/>
+  <polygon points="36 12, 42 12, 34 24, 28 24" fill="#EA580C" opacity="0.75"/>
+
+  <!-- Left Tactical Stamp -->
+  <text x="50" y="24" fill="#F59E0B" font-size="11" font-weight="bold" class="font-mono">
+    [!] CLASSIFIED // SECTOR_CLEAR
+  </text>
+  <text x="50" y="38" fill="#FCD34D" font-size="9" class="font-mono">
+    SECURITY PROTOCOL: DEFCON_5 // CHECKSUM: 0x9AF4B // TAC_HUD
+  </text>
+
+  <!-- Center Chevron Accent -->
+  <g transform="translate(400, 22)">
+    <polygon points="0 0, 8 6, 0 12" fill="#F59E0B" opacity="0.7"/>
+    <polygon points="12 0, 20 6, 12 12" fill="#F59E0B" opacity="0.9"/>
+    <polygon points="24 0, 32 6, 24 12" fill="#F59E0B" opacity="0.7"/>
+  </g>
+
+  <!-- Tactical Return Button -->
+  <g transform="translate(655, 12)">
+    <polygon points="10 0, 165 0, 175 10, 175 26, 0 26, 0 10"
+             fill="rgba(30, 22, 10, 0.78)" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="87" y="17" fill="#F59E0B" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">
+      ▲ RETURN TO TOP
+    </text>
+  </g>
+</svg>

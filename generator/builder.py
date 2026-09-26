@@ -1032,3 +1032,491 @@ def build_gutter_rail(height=200, color="#00C8D7", theme=None, side="left", widt
   {''.join(elements)}
 </svg>'''
     return svg
+
+# ----------------------------------------------------
+# PIXEL BULLET LIST ICONS (14x14)
+# ----------------------------------------------------
+
+def build_bullet_icon(symbol="diamond", color=None, theme=None, size=14):
+    """
+    Renders 14x14 crisp pixel bullet marker icons for list styling across themes.
+    """
+    if theme is None:
+        bg_glass = "rgba(10, 14, 23, 0.85)"
+        default_color = "#00C8D7"
+    else:
+        bg_glass = theme.get("bg_glass", "rgba(10, 14, 23, 0.85)")
+        default_color = theme.get("primary", "#00C8D7")
+
+    c = color if color is not None else default_color
+
+    if symbol == "diamond":
+        body = f'''
+  <polygon points="7 1, 12 7, 7 13, 2 7" fill="none" stroke="{c}" stroke-width="1.2"/>
+  <rect x="6" y="6" width="2" height="2" fill="{c}"/>
+'''
+    elif symbol == "arrow":
+        body = f'''
+  <polygon points="3 2, 11 7, 3 12" fill="{c}"/>
+  <line x1="1" y1="7" x2="3" y2="7" stroke="{c}" stroke-width="2"/>
+'''
+    elif symbol == "marker":
+        body = f'''
+  <path d="M 4 2 L 9 7 L 4 12" fill="none" stroke="{c}" stroke-width="2"/>
+  <rect x="2" y="6" width="2" height="2" fill="{c}"/>
+'''
+    elif symbol == "check":
+        body = f'''
+  <rect x="1" y="1" width="12" height="12" fill="none" stroke="{c}" stroke-width="1"/>
+  <path d="M 3 7 L 6 10 L 11 3" fill="none" stroke="{c}" stroke-width="1.6"/>
+'''
+    elif symbol == "chevron":
+        body = f'''
+  <polygon points="7 2, 12 9, 9 9, 7 5, 5 9, 2 9" fill="{c}"/>
+  <line x1="2" y1="12" x2="12" y2="12" stroke="{c}" stroke-width="1.5"/>
+'''
+    elif symbol == "plus":
+        body = f'''
+  <rect x="1" y="1" width="12" height="12" fill="none" stroke="{c}" stroke-width="1"/>
+  <line x1="4" y1="7" x2="10" y2="7" stroke="{c}" stroke-width="1.5"/>
+  <line x1="7" y1="4" x2="7" y2="10" stroke="{c}" stroke-width="1.5"/>
+'''
+    elif symbol == "minus":
+        body = f'''
+  <rect x="1" y="1" width="12" height="12" fill="none" stroke="{c}" stroke-width="1"/>
+  <line x1="4" y1="7" x2="10" y2="7" stroke="{c}" stroke-width="1.5"/>
+'''
+    elif symbol == "alert":
+        body = f'''
+  <polygon points="7 1, 13 12, 1 12" fill="none" stroke="{c}" stroke-width="1.2"/>
+  <line x1="7" y1="5" x2="7" y2="8" stroke="{c}" stroke-width="1.5"/>
+  <rect x="6" y="10" width="2" height="1.5" fill="{c}"/>
+'''
+    elif symbol == "stripe":
+        body = f'''
+  <rect x="1" y="1" width="12" height="12" fill="none" stroke="{c}" stroke-width="1"/>
+  <line x1="1" y1="5" x2="5" y2="1" stroke="{c}" stroke-width="1.5"/>
+  <line x1="1" y1="11" x2="11" y2="1" stroke="{c}" stroke-width="1.5"/>
+  <line x1="7" y1="13" x2="13" y2="7" stroke="{c}" stroke-width="1.5"/>
+'''
+    elif symbol == "square":
+        body = f'''
+  <rect x="1" y="1" width="12" height="12" fill="none" stroke="{c}" stroke-width="0.8" opacity="0.4"/>
+  <rect x="3" y="3" width="8" height="8" fill="{c}"/>
+'''
+    elif symbol == "dither_light":
+        body = f'''
+  <rect x="1" y="1" width="12" height="12" fill="none" stroke="{c}" stroke-width="0.8" opacity="0.4"/>
+  <rect x="4" y="4" width="2" height="2" fill="{c}"/>
+  <rect x="9" y="4" width="2" height="2" fill="{c}"/>
+  <rect x="4" y="9" width="2" height="2" fill="{c}"/>
+  <rect x="9" y="9" width="2" height="2" fill="{c}"/>
+'''
+    elif symbol == "dither_med":
+        body = f'''
+  <rect x="1" y="1" width="12" height="12" fill="none" stroke="{c}" stroke-width="0.8" opacity="0.4"/>
+  <rect x="2" y="2" width="2" height="2" fill="{c}"/>
+  <rect x="6" y="2" width="2" height="2" fill="{c}"/>
+  <rect x="10" y="2" width="2" height="2" fill="{c}"/>
+  <rect x="4" y="6" width="2" height="2" fill="{c}"/>
+  <rect x="8" y="6" width="2" height="2" fill="{c}"/>
+  <rect x="2" y="10" width="2" height="2" fill="{c}"/>
+  <rect x="6" y="10" width="2" height="2" fill="{c}"/>
+  <rect x="10" y="10" width="2" height="2" fill="{c}"/>
+'''
+    elif symbol == "dither_dark":
+        body = f'''
+  <rect x="1" y="1" width="12" height="12" fill="{c}" opacity="0.88"/>
+  <rect x="3" y="3" width="2" height="2" fill="#0A0E17"/>
+  <rect x="9" y="3" width="2" height="2" fill="#0A0E17"/>
+  <rect x="6" y="6" width="2" height="2" fill="#0A0E17"/>
+  <rect x="3" y="9" width="2" height="2" fill="#0A0E17"/>
+  <rect x="9" y="9" width="2" height="2" fill="#0A0E17"/>
+'''
+    elif symbol == "prompt":
+        body = f'''
+  <path d="M 2 3 L 6 7 L 2 11" fill="none" stroke="{c}" stroke-width="1.8"/>
+  <path d="M 7 3 L 11 7 L 7 11" fill="none" stroke="{c}" stroke-width="1.8"/>
+'''
+    elif symbol == "star":
+        body = f'''
+  <polygon points="7 1, 9 5, 13 7, 9 9, 7 13, 5 9, 1 7, 5 5" fill="{c}"/>
+'''
+    elif symbol == "diamond_nested":
+        body = f'''
+  <polygon points="7 1, 13 7, 7 13, 1 7" fill="none" stroke="{c}" stroke-width="1.2"/>
+  <polygon points="7 4, 10 7, 7 10, 4 7" fill="{c}"/>
+'''
+    else:
+        body = f'<circle cx="7" cy="7" r="3.5" fill="{c}"/>'
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {size} {size}" width="{size}" height="{size}" shape-rendering="crispEdges">
+  <rect width="{size}" height="{size}" fill="{bg_glass}" rx="1"/>
+  {body}
+</svg>'''
+    return svg
+
+
+# ----------------------------------------------------
+# MASTER FOOTERS (CLOSING PLATES)
+# ----------------------------------------------------
+
+def build_footer_terminal(status="SYSTEM_STANDBY // 0xDEADBEEF", theme=None, width=850, height=54):
+    bg_glass = "rgba(10, 14, 23, 0.85)" if theme is None else theme.get("bg_glass", "rgba(10, 14, 23, 0.85)")
+    bg_panel = "rgba(15, 23, 38, 0.82)" if theme is None else theme.get("bg_panel", "rgba(15, 23, 38, 0.82)")
+    primary = "#00C8D7" if theme is None else theme.get("primary", "#00C8D7")
+    secondary = "#A855F7" if theme is None else theme.get("secondary", "#A855F7")
+    success = "#00D26A" if theme is None else theme.get("success", "#00D26A")
+    border_slate = "rgba(30, 41, 59, 0.85)" if theme is None else theme.get("border_slate", "rgba(30, 41, 59, 0.85)")
+    text_main = "#F8F8F2" if theme is None else theme.get("text_main", "#F8F8F2")
+    text_dim = "#94A3B8" if theme is None else theme.get("text_dim", "#94A3B8")
+
+    status_clean = escape_xml(status)
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
+      @keyframes blinkDot {{ 0%, 100% {{ opacity: 1; }} 50% {{ opacity: 0.2; }} }}
+      .pulse-dot {{ animation: blinkDot 1.8s infinite steps(1); }}
+    </style>
+  </defs>
+
+  <!-- Base Plate Chassis -->
+  <polygon points="6 4, {width-6} 4, {width-6} {height-14}, {width-20} {height-4}, 20 {height-4}, 6 {height-14}"
+           fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
+  <line x1="8" y1="6" x2="{width-8}" y2="6" stroke="{primary}" stroke-width="1.5" opacity="0.8"/>
+  <line x1="22" y1="{height-6}" x2="{width-22}" y2="{height-6}" stroke="{primary}" stroke-width="1" opacity="0.6"/>
+
+  <!-- Corner Brackets -->
+  <rect x="6" y="4" width="4" height="4" fill="{primary}"/>
+  <rect x="{width-10}" y="4" width="4" height="4" fill="{primary}"/>
+  <rect x="18" y="{height-8}" width="4" height="4" fill="{secondary}"/>
+  <rect x="{width-22}" y="{height-8}" width="4" height="4" fill="{secondary}"/>
+
+  <!-- Status Telemetry Readout -->
+  <circle cx="28" cy="24" r="4" fill="{success}" class="pulse-dot"/>
+  <text x="42" y="28" fill="{text_main}" font-size="11" font-weight="bold" class="font-mono">
+    {status_clean}
+  </text>
+  <text x="42" y="42" fill="{text_dim}" font-size="9" class="font-mono">
+    RUNTIME: KAZINAGG HUD v2.2 // CLUSTER_STATUS: SYNCHRONIZED
+  </text>
+
+  <!-- Center Decorative Hash -->
+  <line x1="{width//2 - 20}" y1="16" x2="{width//2 + 40}" y2="16" stroke="{border_slate}" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Return To Top Interactive Button Plate -->
+  <g transform="translate({width - 195}, 12)">
+    <rect x="0" y="0" width="175" height="26" fill="{bg_panel}" stroke="{primary}" stroke-width="1.5"/>
+    <rect x="0" y="0" width="3" height="3" fill="{primary}"/>
+    <rect x="172" y="0" width="3" height="3" fill="{primary}"/>
+    <rect x="0" y="23" width="3" height="3" fill="{primary}"/>
+    <rect x="172" y="23" width="3" height="3" fill="{primary}"/>
+    <text x="87" y="17" fill="{primary}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">
+      ▲ RETURN TO TOP
+    </text>
+  </g>
+</svg>'''
+    return svg
+
+
+def build_footer_tactical(status="CLASSIFIED // SECTOR_CLEAR", theme=None, width=850, height=54):
+    bg_glass = "rgba(20, 14, 6, 0.85)" if theme is None else theme.get("bg_glass", "rgba(20, 14, 6, 0.85)")
+    bg_panel = "rgba(30, 22, 10, 0.82)" if theme is None else theme.get("bg_panel", "rgba(30, 22, 10, 0.82)")
+    primary = "#F59E0B" if theme is None else theme.get("primary", "#F59E0B")
+    secondary = "#EA580C" if theme is None else theme.get("secondary", "#EA580C")
+    border_slate = "rgba(50, 36, 16, 0.85)" if theme is None else theme.get("border_slate", "rgba(50, 36, 16, 0.85)")
+    text_main = "#FFFBEB" if theme is None else theme.get("text_main", "#FFFBEB")
+    text_dim = "#FCD34D" if theme is None else theme.get("text_dim", "#FCD34D")
+
+    status_clean = escape_xml(status)
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
+    </style>
+  </defs>
+
+  <!-- 45-Degree Tactical Chamfer Plate -->
+  <polygon points="18 4, {width-18} 4, {width-4} 18, {width-4} {height-4}, 4 {height-4}, 4 18"
+           fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
+  <line x1="20" y1="7" x2="{width-20}" y2="7" stroke="{primary}" stroke-width="1.5" opacity="0.85"/>
+
+  <!-- Tactical Hazard Diagonal Stripes on the left edge -->
+  <polygon points="26 12, 32 12, 24 24, 18 24" fill="{secondary}" opacity="0.75"/>
+  <polygon points="36 12, 42 12, 34 24, 28 24" fill="{secondary}" opacity="0.75"/>
+
+  <!-- Left Tactical Stamp -->
+  <text x="50" y="24" fill="{primary}" font-size="11" font-weight="bold" class="font-mono">
+    [!] {status_clean}
+  </text>
+  <text x="50" y="38" fill="{text_dim}" font-size="9" class="font-mono">
+    SECURITY PROTOCOL: DEFCON_5 // CHECKSUM: 0x9AF4B // TAC_HUD
+  </text>
+
+  <!-- Center Chevron Accent -->
+  <g transform="translate({width//2 - 25}, 22)">
+    <polygon points="0 0, 8 6, 0 12" fill="{primary}" opacity="0.7"/>
+    <polygon points="12 0, 20 6, 12 12" fill="{primary}" opacity="0.9"/>
+    <polygon points="24 0, 32 6, 24 12" fill="{primary}" opacity="0.7"/>
+  </g>
+
+  <!-- Tactical Return Button -->
+  <g transform="translate({width - 195}, 12)">
+    <polygon points="10 0, 165 0, 175 10, 175 26, 0 26, 0 10"
+             fill="{bg_panel}" stroke="{primary}" stroke-width="1.5"/>
+    <text x="87" y="17" fill="{primary}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">
+      ▲ RETURN TO TOP
+    </text>
+  </g>
+</svg>'''
+    return svg
+
+
+def build_footer_minimal(status="TOKYO_VAPORWAVE // HUD v2.2", theme=None, width=850, height=46):
+    bg_glass = "rgba(15, 18, 30, 0.85)" if theme is None else theme.get("bg_glass", "rgba(15, 18, 30, 0.85)")
+    primary = "#4F8BFF" if theme is None else theme.get("primary", "#4F8BFF")
+    secondary = "#A855F7" if theme is None else theme.get("secondary", "#A855F7")
+    accent = "#06B6D4" if theme is None else theme.get("accent", "#06B6D4")
+    border_slate = "rgba(41, 46, 66, 0.85)" if theme is None else theme.get("border_slate", "rgba(41, 46, 66, 0.85)")
+    text_main = "#F1F5F9" if theme is None else theme.get("text_main", "#F1F5F9")
+    text_dim = "#94A3B8" if theme is None else theme.get("text_dim", "#94A3B8")
+
+    status_clean = escape_xml(status)
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <linearGradient id="tokyoFooterGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="{primary}"/>
+      <stop offset="50%" stop-color="{secondary}"/>
+      <stop offset="100%" stop-color="{accent}"/>
+    </linearGradient>
+    <style>
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
+    </style>
+  </defs>
+
+  <rect x="4" y="4" width="{width-8}" height="{height-8}" fill="{bg_glass}" stroke="{border_slate}" stroke-width="1"/>
+  <rect x="4" y="4" width="{width-8}" height="2" fill="url(#tokyoFooterGrad)"/>
+
+  <text x="24" y="27" fill="{text_main}" font-size="10" font-weight="bold" class="font-mono">
+    ✦ {status_clean}
+  </text>
+  <text x="240" y="27" fill="{text_dim}" font-size="9" class="font-mono">
+    &#8226; MIT LICENSE &#8226; 2026
+  </text>
+
+  <!-- Mini Waveform Dots -->
+  <g transform="translate({width//2 + 20}, 24)">
+    <circle cx="0" cy="0" r="1.5" fill="{primary}"/>
+    <circle cx="6" cy="-3" r="2" fill="{secondary}"/>
+    <circle cx="12" cy="2" r="1.5" fill="{accent}"/>
+    <circle cx="18" cy="-2" r="2" fill="{primary}"/>
+    <circle cx="24" cy="0" r="1.5" fill="{secondary}"/>
+  </g>
+
+  <!-- Right Clean Button -->
+  <g transform="translate({width - 165}, 10)">
+    <rect x="0" y="0" width="145" height="24" fill="rgba(79, 139, 255, 0.12)" stroke="{primary}" stroke-width="1"/>
+    <text x="72" y="16" fill="{primary}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
+      ▲ RETURN TO TOP
+    </text>
+  </g>
+</svg>'''
+    return svg
+
+
+def build_footer_matrix(status="CONNECTION TERMINATED // BUFFER_FLUSHED", theme=None, width=850, height=54):
+    bg_glass = "rgba(6, 18, 12, 0.85)" if theme is None else theme.get("bg_glass", "rgba(6, 18, 12, 0.85)")
+    bg_panel = "rgba(12, 28, 18, 0.82)" if theme is None else theme.get("bg_panel", "rgba(12, 28, 18, 0.82)")
+    primary = "#00D26A" if theme is None else theme.get("primary", "#00D26A")
+    secondary = "#00E5FF" if theme is None else theme.get("secondary", "#00E5FF")
+    border_slate = "rgba(20, 45, 25, 0.85)" if theme is None else theme.get("border_slate", "rgba(20, 45, 25, 0.85)")
+    text_main = "#E8FFE8" if theme is None else theme.get("text_main", "#E8FFE8")
+    text_dim = "#6EE7B7" if theme is None else theme.get("text_dim", "#6EE7B7")
+
+    status_clean = escape_xml(status)
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
+      @keyframes blinkBlock {{ 0%, 49% {{ opacity: 1; }} 50%, 100% {{ opacity: 0; }} }}
+      .cursor-block {{ animation: blinkBlock 1s infinite steps(1); }}
+    </style>
+  </defs>
+
+  <rect x="4" y="4" width="{width-8}" height="{height-8}" fill="{bg_glass}" stroke="{border_slate}" stroke-width="2"/>
+  <line x1="6" y1="6" x2="{width-6}" y2="6" stroke="{primary}" stroke-width="1.5" opacity="0.8"/>
+  <line x1="6" y1="{height-6}" x2="{width-6}" y2="{height-6}" stroke="{primary}" stroke-width="1.5" opacity="0.8"/>
+
+  <!-- Matrix Terminal Teletype Output -->
+  <text x="24" y="24" fill="{primary}" font-size="11" font-weight="bold" class="font-mono">
+    &gt; {status_clean}
+  </text>
+  <rect x="360" y="14" width="7" height="12" fill="{primary}" class="cursor-block"/>
+
+  <text x="24" y="40" fill="{text_dim}" font-size="9" class="font-mono">
+    PROCESS 0x00 FINISHED // EXIT_CODE: 0 (OK) // PIPELINE TERMINATED
+  </text>
+
+  <!-- Right Terminal Button -->
+  <g transform="translate({width - 185}, 12)">
+    <rect x="0" y="0" width="165" height="26" fill="{bg_panel}" stroke="{primary}" stroke-width="1.5"/>
+    <text x="82" y="17" fill="{primary}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">
+      ▲ RETURN TO TOP
+    </text>
+  </g>
+</svg>'''
+    return svg
+
+
+def build_footer(style="terminal", status=None, theme=None, width=850, height=54):
+    if style == "tactical":
+        st = status if status is not None else "CLASSIFIED // SECTOR_CLEAR"
+        return build_footer_tactical(st, theme, width, height)
+    elif style == "minimal":
+        st = status if status is not None else "TOKYO_VAPORWAVE // HUD v2.2"
+        return build_footer_minimal(st, theme, width, height=46)
+    elif style == "matrix":
+        st = status if status is not None else "CONNECTION TERMINATED // BUFFER_FLUSHED"
+        return build_footer_matrix(st, theme, width, height)
+    else:  # terminal
+        st = status if status is not None else "SYSTEM_STANDBY // 0xDEADBEEF"
+        return build_footer_terminal(st, theme, width, height)
+
+
+# ----------------------------------------------------
+# INLINE CALLOUTS & ALERTS
+# ----------------------------------------------------
+
+def build_callout(callout_type="note", title=None, message=None, theme=None, width=850, height=48):
+    """
+    Builds styled inline callout banners in the Kazinagg HUD aesthetic.
+    Types: 'note' (cyan), 'warning' (amber), 'critical' (magenta), 'success' (matrix green)
+    """
+    callout_configs = {
+        "note": {
+            "primary": "#00C8D7",
+            "secondary": "#A855F7",
+            "bg_glass": "rgba(10, 14, 23, 0.85)",
+            "bg_badge": "rgba(0, 200, 215, 0.15)",
+            "border": "rgba(0, 200, 215, 0.5)",
+            "icon": "ℹ️",
+            "tag": "NOTE",
+            "code": "0x01",
+            "default_title": "SYSTEM ARCHITECTURE NOTICE // SPECIFICATION"
+        },
+        "warning": {
+            "primary": "#F59E0B",
+            "secondary": "#EA580C",
+            "bg_glass": "rgba(20, 14, 6, 0.85)",
+            "bg_badge": "rgba(245, 158, 11, 0.15)",
+            "border": "rgba(245, 158, 11, 0.5)",
+            "icon": "⚠️",
+            "tag": "WARNING",
+            "code": "HAZARD",
+            "default_title": "CAUTION: CAMO PROXY & TABLE PADDING RESTRICTIONS"
+        },
+        "critical": {
+            "primary": "#FF0055",
+            "secondary": "#EF4444",
+            "bg_glass": "rgba(25, 8, 14, 0.85)",
+            "bg_badge": "rgba(255, 0, 85, 0.15)",
+            "border": "rgba(255, 0, 85, 0.6)",
+            "icon": "🚨",
+            "tag": "CRITICAL",
+            "code": "FAULT",
+            "default_title": "FATAL EXCEPTION // EMERGENCY OVERRIDE ENGAGED"
+        },
+        "success": {
+            "primary": "#00D26A",
+            "secondary": "#00E5FF",
+            "bg_glass": "rgba(6, 18, 12, 0.85)",
+            "bg_badge": "rgba(0, 210, 106, 0.15)",
+            "border": "rgba(0, 210, 106, 0.5)",
+            "icon": "✅",
+            "tag": "SUCCESS",
+            "code": "OK",
+            "default_title": "ALL SYSTEMS NOMINAL // 100% XML VALIDATED"
+        }
+    }
+
+    cfg = callout_configs.get(callout_type, callout_configs["note"])
+    prim = cfg["primary"]
+    sec = cfg["secondary"]
+    bg_glass = cfg["bg_glass"]
+    bg_badge = cfg["bg_badge"]
+    border_col = cfg["border"]
+    tag = cfg["tag"]
+    code = cfg["code"]
+    icon = cfg["icon"]
+
+    t_text = title if title is not None else cfg["default_title"]
+    title_clean = escape_xml(t_text)
+
+    # Optional subtext/message
+    sub_markup = ""
+    if message:
+        msg_clean = escape_xml(message)
+        sub_markup = f'<text x="175" y="36" fill="#94A3B8" font-size="9" class="font-mono">{msg_clean}</text>'
+        title_y = 21
+    else:
+        title_y = 28
+
+    # Style-specific decorations
+    extra_defs = ""
+    extra_deco = ""
+
+    if callout_type == "warning":
+        extra_deco = f'''
+  <polygon points="12 8, 18 8, 10 20, 4 20" fill="{prim}" opacity="0.6"/>
+  <polygon points="22 8, 28 8, 20 20, 14 20" fill="{prim}" opacity="0.6"/>
+'''
+    elif callout_type == "critical":
+        extra_defs = f'''
+      @keyframes alertPulse {{ 0%, 100% {{ opacity: 1; fill: {prim}; }} 50% {{ opacity: 0.2; fill: #450A0A; }} }}
+      .alert-led {{ animation: alertPulse 1.2s infinite steps(1); }}
+'''
+        extra_deco = f'<circle cx="{width-24}" cy="24" r="5" fill="{prim}" class="alert-led"/>'
+    elif callout_type == "success":
+        extra_deco = f'<rect x="{width-32}" y="18" width="12" height="12" fill="none" stroke="{prim}" stroke-width="1.5"/><path d="M {width-30} 24 L {width-26} 28 L {width-22} 20" fill="none" stroke="{prim}" stroke-width="1.5"/>'
+
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
+      {extra_defs}
+    </style>
+  </defs>
+
+  <!-- Chassis Plate -->
+  <rect x="4" y="4" width="{width-8}" height="{height-8}" fill="{bg_glass}" stroke="{border_col}" stroke-width="1.5"/>
+  <line x1="6" y1="4" x2="20" y2="4" stroke="{prim}" stroke-width="3"/>
+  <line x1="{width-20}" y1="4" x2="{width-6}" y2="4" stroke="{prim}" stroke-width="3"/>
+  <line x1="6" y1="{height-4}" x2="20" y2="{height-4}" stroke="{prim}" stroke-width="3"/>
+  <line x1="{width-20}" y1="{height-4}" x2="{width-6}" y2="{height-4}" stroke="{prim}" stroke-width="3"/>
+
+  <!-- Left Callout Tag Badge -->
+  <rect x="12" y="10" width="150" height="28" fill="{bg_badge}" stroke="{prim}" stroke-width="1.5"/>
+  <rect x="12" y="10" width="3" height="3" fill="{prim}"/>
+  <rect x="159" y="10" width="3" height="3" fill="{prim}"/>
+  <rect x="12" y="35" width="3" height="3" fill="{prim}"/>
+  <rect x="159" y="35" width="3" height="3" fill="{prim}"/>
+  <text x="87" y="28" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">
+    {icon} {tag} // {code}
+  </text>
+
+  <!-- Title / Message Text -->
+  <text x="175" y="{title_y}" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">
+    {title_clean}
+  </text>
+  {sub_markup}
+
+  <!-- Decorative Elements -->
+  {extra_deco}
+</svg>'''
+    return svg
+

@@ -1,3 +1,5 @@
+<div id="top"></div>
+
 <div align="center">
 
 <!-- MAIN 3D CYBERPUNK TERMINAL HEADER (Radar 360° + CRT Scanline + Equalizer) -->
@@ -9,6 +11,7 @@
 <a href="#suite-1-cyberpunk-terminal-workstation"><img src="assets/chips/nav-brackets.svg" alt="Suite 1: Terminal" /></a>
 <a href="#suite-2-tactical-military-hud"><img src="assets/chips/nav-enclosure.svg" alt="Suite 2: Tactical" /></a>
 <a href="#suite-3-cyber-gutter-terminal"><img src="assets/chips/nav-chips.svg" alt="Suite 3: Gutter" /></a>
+<a href="CATALOG.md"><img src="assets/chips/nav-catalog.svg" alt="Полный каталог" /></a>
 <a href="#header-styles-gallery"><img src="assets/chips/nav-arch.svg" alt="Header Gallery" /></a>
 <a href="#quick-start--cli-generator"><img src="assets/chips/nav-guide.svg" alt="Guide" /></a>
 
@@ -24,14 +27,17 @@
 **Pixel Readme Kit v2.2** — модульная дизайн-система в эстетике ретро-киберпанка, тактических HUD-терминалов и полупрозрачного стекла.
 
 Создана для оформления GitHub профилей и репозиториев без недостатков статических картинок:
-- 🧊 **True Alpha Blending (Контрастность на темной и светлой темах)**: `rgba(10, 14, 23, 0.82)` гарантирует глубокую темную подложку как на черном фоне GitHub Dark (`#0d1117`), так и на белом фоне GitHub Light (`#ffffff`). Текст и границы не выгорают и сохраняют контрастность выше 7:1.
-- 📋 **100% Живой Markdown-текст**: Документация, команды консоли, списки и LaTeX-формулы остаются копируемыми и индексируемыми.
-- 📐 **3 Полноценных тематических сюиты (3 Стиля оформления)**:
-  1. *Suite 1: Cyberpunk Terminal* — классический открытый терминал с T-образными сплиттерами блоков.
-  2. *Suite 2: Tactical Military HUD* — боевой интерфейс 45° с переходными адаптерами плеч (Transitional Shoulders) и шевронными сплиттерами.
-  3. *Suite 3: Cyber Gutter Terminal* — шины данных с шахматным дизерингом 54px и многоколоночным расщеплением текста.
-- 💫 **Живые SVG CSS-анимации**: Вращающийся луч радара 360°, бегущая CRT-строка сканирования, прицельный лазер, бегущий пакет данных по плате, каскадный импульс лестниц и пульсирующие светодиоды.
-- 💎 **5 типов голографических чипов**: Closed, 45° Chamfer, Decay-Right (растворение в текст), Decay-Left (выход из текста), Pulse (с живым маяком).
+- <img src="assets/bullets/bullet-diamond-cyan.svg" align="center" /> 🧊 **True Alpha Blending (Контрастность на темной и светлой темах)**: `rgba(10, 14, 23, 0.82)` гарантирует глубокую темную подложку как на черном фоне GitHub Dark (`#0d1117`), так и на белом фоне GitHub Light (`#ffffff`). Текст и границы не выгорают и сохраняют контрастность выше 7:1.
+- <img src="assets/bullets/bullet-arrow-pink.svg" align="center" /> 📋 **100% Живой Markdown-текст**: Документация, команды консоли, списки и LaTeX-формулы остаются копируемыми и индексируемыми.
+- <img src="assets/bullets/bullet-check-cyan.svg" align="center" /> 📐 **3 Полноценных тематических сюиты**: Cyberpunk Terminal, Tactical Military HUD, Cyber Gutter Terminal.
+- <img src="assets/bullets/bullet-marker-cyan.svg" align="center" /> 💫 **Живые SVG CSS-анимации**: Вращающийся луч радара 360°, бегущая CRT-строка сканирования, прицельный лазер, бегущий пакет данных по плате, каскадный импульс лестниц и пульсирующие светодиоды.
+- <img src="assets/bullets/bullet-diamond-cyan.svg" align="center" /> 📦 **100+ SVG-компонентов**: Полный визуальный справочник доступен в **[Каталоге компонентов (CATALOG.md)](CATALOG.md)**.
+
+<br/>
+
+<img src="assets/callouts/callout-note-cyan.svg" width="100%" alt="Architecture Note" />
+
+> **АРХИТЕКТУРНЫЙ ПРИНЦИП**: Все элементы используют прозрачность стекла `rgba(...)` и нативные SVG-примитивы с отрисовкой `crispEdges`. Они никогда не замыливаются и одинаково безупречно выглядят на Retina-экранах и мобильных устройствах.
 
 ---
 
@@ -54,8 +60,8 @@
 > python generator/cli.py --theme matrix --style terminal --title "CYBER-CORE"
 > ```
 >
-> - <img src="assets/chips/chip-pulse-online.svg" align="center" /> ➔ **Ядро системы активно** (живой мерцающий маяк)
-> - <img src="assets/chips/chip-chamfer-matrix.svg" align="center" /> ➔ Модуль RLE-сжатия 3D пиксельных шрифтов
+> - <img src="assets/bullets/bullet-check-cyan.svg" align="center" /> <img src="assets/chips/chip-pulse-online.svg" align="center" /> ➔ **Ядро системы активно** (живой мерцающий маяк)
+> - <img src="assets/bullets/bullet-diamond-cyan.svg" align="center" /> <img src="assets/chips/chip-chamfer-matrix.svg" align="center" /> ➔ Модуль RLE-сжатия 3D пиксельных шрифтов
 
 <!-- SUB-BLOCK SPLITTER (TERMINAL T-JUNCTION) -->
 <img src="assets/splitters/splitter-terminal-cyberpunk.svg" width="100%" alt="Terminal Splitter" />
@@ -63,8 +69,8 @@
 > #### ⚡ MODULE 02 // TELEMETRY & HARDWARE BUS
 >
 > Второй расщепленный блок с параметрами окружения:
-> - <img src="assets/chips/chip-closed-core.svg" align="center" /> ➔ Архитектура True Alpha Blending (`rgba(10, 14, 23, 0.82)`)
-> - <img src="assets/chips/chip-closed-cli.svg" align="center" /> ➔ Чистый Python 3.8+ без внешних библиотек
+> - <img src="assets/bullets/bullet-marker-cyan.svg" align="center" /> <img src="assets/chips/chip-closed-core.svg" align="center" /> ➔ Архитектура True Alpha Blending (`rgba(10, 14, 23, 0.82)`)
+> - <img src="assets/bullets/bullet-check-cyan.svg" align="center" /> <img src="assets/chips/chip-closed-cli.svg" align="center" /> ➔ Чистый Python 3.8+ без внешних библиотек
 
 <!-- BOTTOM FRAME (MATRIX GREEN) -->
 <img src="assets/frames/frame-bottom-brackets-green.svg" width="100%" alt="Matrix Bottom Bracket" />
@@ -86,12 +92,16 @@
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
   <tr>
     <td width="40" valign="top" align="center" style="line-height: 0; padding: 0;">
-      <img src="assets/rails/rail-left-ladder-amber.svg" height="210" width="14" />
+      <img src="assets/rails/rail-left-ladder-amber.svg" height="250" width="14" />
     </td>
     <td style="padding: 10px 24px;">
 
 #### 🛰️ TACTICAL TELEMETRY STREAM
-Внутри замкнутого бокса данные защищены боковыми шинами. Таблица статуса подсистем:
+Внутри замкнутого бокса данные защищены боковыми шинами.
+
+<img src="assets/callouts/callout-warning-amber.svg" width="100%" alt="Tactical Warning" />
+
+> **ПРАВИЛО РАЗМЕТКИ**: Для внешних рельсов используйте ширину ячеек `width="40"` или `width="54"`, чтобы предотвратить сплющивание картинок из-за правила GitHub table padding.
 
 | Подсистема | Режим | Анимация | Статус |
 | :--- | :--- | :--- | :--- |
@@ -101,7 +111,7 @@
 
     </td>
     <td width="40" valign="top" align="center" style="line-height: 0; padding: 0;">
-      <img src="assets/rails/rail-right-ladder-amber.svg" height="210" width="14" />
+      <img src="assets/rails/rail-right-ladder-amber.svg" height="250" width="14" />
     </td>
   </tr>
 </table>
@@ -149,15 +159,15 @@
   <tr>
     <td width="50%" valign="top">
       <b>[ 📊 COLUMN A: TELEMETRY ]</b><br/><br/>
-      <img src="assets/chips/chip-decay-right-src.svg" align="center" /> ➔ <code>generator/builder.py</code><br/>
-      <img src="assets/chips/chip-decay-right-tag.svg" align="center" /> ➔ Релиз v2.2 Dual-Theme<br/>
-      <img src="assets/chips/chip-decay-right-done.svg" align="center" /> ➔ 100% валидация XML
+      <img src="assets/bullets/bullet-square-green.svg" align="center" /> <img src="assets/chips/chip-decay-right-src.svg" align="center" /> ➔ <code>generator/builder.py</code><br/>
+      <img src="assets/bullets/bullet-square-green.svg" align="center" /> <img src="assets/chips/chip-decay-right-tag.svg" align="center" /> ➔ Релиз v2.2 Dual-Theme<br/>
+      <img src="assets/bullets/bullet-check-cyan.svg" align="center" /> <img src="assets/chips/chip-decay-right-done.svg" align="center" /> ➔ 100% валидация XML
     </td>
     <td width="50%" valign="top">
       <b>[ 🛠️ COLUMN B: COMMANDS ]</b><br/><br/>
-      <code>python cli.py --theme cyberpunk</code><br/>
-      <code>python cli.py --theme amber</code><br/>
-      <code>python cli.py --theme tokyo</code>
+      <img src="assets/bullets/bullet-prompt-green.svg" align="center" /> <code>python cli.py --theme cyberpunk</code><br/>
+      <img src="assets/bullets/bullet-prompt-green.svg" align="center" /> <code>python cli.py --theme amber</code><br/>
+      <img src="assets/bullets/bullet-prompt-green.svg" align="center" /> <code>python cli.py --theme tokyo</code>
     </td>
   </tr>
 </table>
@@ -210,6 +220,38 @@
 
 ---
 
+---
+
+<div id="component-catalog"></div>
+
+### 📚 БИБЛИОТЕКА КОМПОНЕНТОВ // COMPONENT CATALOG
+
+<img src="assets/callouts/callout-success-green.svg" width="100%" alt="Component Library Ready" />
+
+> **100+ ГОТОВЫХ SVG-КОМПОНЕНТОВ**: Дизайн-система содержит более сотни калиброванных элементов: 3 стиля шапок, 4 закрывающих футера с навигацией, 16 пиксельных маркеров списков, 19 чипов, рамки окон, адаптеры 45°, боковые шины и разделители.
+>
+> Чтобы титульный README оставался чистым и сфокусированным, подробный визуальный справочник со всеми файлами, превью и сниппетами вынесен в отдельный документ:
+
+<br/>
+
+<div align="center">
+
+<h3>🔗 <a href="CATALOG.md">👉 [ ПЕРЕЙТИ В ПОЛНЫЙ ВИЗУАЛЬНЫЙ КАТАЛОГ (CATALOG.MD) ] 👈</a></h3>
+
+<br/>
+
+<a href="CATALOG.md"><img src="assets/chips/nav-catalog.svg" alt="Каталог" /></a>
+&nbsp;
+<a href="CATALOG.md#4-пиксельные-маркеры-списков-pixel-bullet-lists-1414"><img src="assets/chips/chip-closed-core.svg" alt="Маркеры списков" /></a>
+&nbsp;
+<a href="CATALOG.md#3-инлайн-плашки-и-алерты-inline-callouts--alerts"><img src="assets/chips/chip-chamfer-spec.svg" alt="Плашки и алерты" /></a>
+&nbsp;
+<a href="CATALOG.md#2-закрывающие-пластины-master-footers"><img src="assets/chips/chip-pulse-online.svg" alt="Футеры" /></a>
+
+</div>
+
+---
+
 <div id="quick-start--cli-generator"></div>
 
 ### 🚀 QUICK START & CLI GENERATOR
@@ -230,43 +272,47 @@ python generator/cli.py --theme tokyo --style minimal --title "AUDIO-SYNTH"
 #### Структура полной коллекции ассетов (`assets/`):
 ```
 assets/
-├── headers/
-│   ├── header-terminal-cyberpunk.svg    # Флагманский 3D терминал с радаром 360° и сканером
-│   ├── header-tactical-amber.svg        # Тактический 45° HUD с прицелом
-│   └── header-minimal-tokyo.svg         # Минималистичный баннер с эквалайзером
-├── frames/
-│   ├── frame-top-brackets-green.svg     # Открытые скобы с направляющими зубцами вниз (Mode A)
-│   ├── frame-bottom-brackets-green.svg  # Скобы с подхватывающими зубцами вверх
-│   ├── frame-top-chamfer-amber.svg      # Тактический скос 45° (Mode B)
-│   ├── frame-bottom-chamfer-amber.svg   # Тактический поддон 45°
-│   ├── frame-top-enclosure-cyan.svg     # Замкнутый контур под шины данных (Mode C)
-│   └── frame-bottom-enclosure-cyan.svg  # Замыкающая нижняя планка
-├── splitters/
-│   ├── splitter-terminal-cyberpunk.svg  # Т-образный сплиттер подмодулей (├── [01] ──┤)
-│   ├── splitter-tactical-amber.svg      # Шевронный тактический сплиттер (▲═══ [02] ═══▲)
-│   └── splitter-decay-tokyo.svg         # Растворяющийся пиксельный сплиттер (░▒▓ [03] ▓▒░)
-├── adapters/
-│   ├── transition-shoulder-top-amber.svg    # Верхнее 45° плечо, расширяющееся под таблицу
-│   └── transition-shoulder-bottom-amber.svg # Нижнее 45° плечо, замыкающее таблицу
-├── rails/
-│   ├── gutter-left-cyberpunk.svg        # Дизеринг 54px шашкой и раскиданные пиксели (левый)
-│   ├── gutter-right-cyberpunk.svg       # Дизеринг 54px шашкой и раскиданные пиксели (правый)
-│   ├── rail-left-ladder-amber.svg       # Анимированная лестница данных
-│   ├── rail-left-laser-cyan.svg         # Тонкая неоновая направляющая 1px
-│   └── rail-left-matrix-green.svg       # Матричный поток точек
-└── chips/
-    ├── chip-closed-*.svg                # Замкнутые капсулы
-    ├── chip-chamfer-*.svg               # 45° тактические бейджи
-    ├── chip-decay-right-*.svg           # Растворение пикселей вправо
-    ├── chip-decay-left-*.svg            # Выход пикселей влево
-    └── chip-pulse-*.svg                 # Чипы с живым мерцающим маяком
+├── headers/                             # 3 флагманских титульных баннера (850px)
+│   ├── header-terminal-cyberpunk.svg    # Радар 360°, scanline и эквалайзер
+│   ├── header-tactical-amber.svg        # Тактический прицел и скосы 45°
+│   └── header-minimal-tokyo.svg         # Неоновый градиент и эквалайзер
+├── footers/                             # 4 закрывающих пластины с навигацией [▲ RETURN TO TOP]
+│   ├── footer-terminal-cyberpunk.svg    # Терминальный статус и кластер
+│   ├── footer-tactical-amber.svg        # Гриф секретности DEFCON 5
+│   ├── footer-minimal-tokyo.svg         # Лицензия и копирайт
+│   └── footer-matrix-green.svg          # Консольное завершение сессии
+├── callouts/                            # 4 инлайн-плашки для заметок и алертов
+│   ├── callout-note-cyan.svg            # Информационный блок [NOTE // 0x01]
+│   ├── callout-warning-amber.svg        # Сигнальное предупреждение [WARNING // HAZARD]
+│   ├── callout-critical-magenta.svg     # Аварийный блок с пульсирующим маяком [CRITICAL]
+│   └── callout-success-green.svg        # Статус развертывания [SUCCESS // OK]
+├── bullets/                             # 16 пиксельных маркеров списков (14×14px SVG)
+│   ├── bullet-diamond-cyan.svg          # Неоновый ромб Cyberpunk
+│   ├── bullet-arrow-pink.svg            # Лазерная стрелка
+│   ├── bullet-chevron-amber.svg         # Тактический шеврон ▲
+│   ├── bullet-alert-amber.svg           # Сигнал тревоги [!]
+│   ├── bullet-square-green.svg          # Пиксельный квадрат ▪
+│   ├── bullet-prompt-green.svg          # Терминальный промпт >>
+│   └── ... (см. CATALOG.md для полного списка)
+├── frames/                              # Верхние и нижние крышки окон (Brackets, Chamfer, Enclosure)
+├── splitters/                           # Сплиттеры подмодулей (Terminal, Tactical, Decay)
+├── adapters/                            # 45° переходные адаптеры расширения/сужения контура
+├── rails/                               # Боковые шины данных 54px и анимированные лестницы 14px
+└── chips/                               # 19 голографических чипов (Closed, Chamfer, Decay, Pulse)
 ```
 
 <br/>
 
 <div align="center">
 
+<!-- MASTER FOOTER (CYBERPUNK WITH RETURN TO TOP) -->
+<a href="#top"><img src="assets/footers/footer-terminal-cyberpunk.svg" width="100%" alt="Master Footer" /></a>
+
+<br/><br/>
+
 <a href="https://github.com/Kazinagg"><img src="assets/chips/chip-closed-github.svg" alt="GitHub Profile" /></a>
+&nbsp;&nbsp;
+<a href="CATALOG.md"><img src="assets/chips/nav-catalog.svg" alt="Catalog" /></a>
 
 <br/><br/>
 
