@@ -10,6 +10,6 @@
   <polygon points="34 10, 175 10, 182 17, 182 31, 175 38, 34 38" fill="rgba(245, 158, 11, 0.15)" stroke="#F59E0B" stroke-width="1.5"/><text x="105" y="28" fill="#F59E0B" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ WARNING // HAZARD</text>
   <polygon points="10 8, 16 8, 8 20, 2 20" fill="#F59E0B" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="#F59E0B" opacity="0.6"/><circle cx="825" cy="24" r="8" fill="none" stroke="#F59E0B" stroke-width="1.5"/><polygon points="822 24, 828 20, 828 28" fill="#F59E0B"/>
   <!-- Text Content (Properly offset past badge edge) -->
-  <text x="196" y="22" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">TACTICAL ALERT // CAMO PROXY CONSTRAINTS</text>
-  <text x="196" y="36" fill="#EA580C" font-size="9" class="font-mono">Enforce 100% full-width tables // Direct capping without adapters</text>
+  <text x="196" y="22" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">WARNING // ОГРАНИЧЕНИЕ ШИРИНЫ</text>
+  <text x="196" y="36" fill="#EA580C" font-size="9" class="font-mono">Используйте 100% табличную обертку для окон</text>
 </svg>

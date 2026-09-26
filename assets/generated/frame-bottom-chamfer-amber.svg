@@ -16,6 +16,6 @@
   <!-- Center Status Buffer Readout -->
   <rect x="320" y="4" width="210" height="16" fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="1"/>
   <text x="425" y="15" fill="#F59E0B" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
-    ╚═ [TACTICAL] ═╝
+    ╚═ [ACTIVE] ═╝
   </text>
 </svg>

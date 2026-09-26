@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 103 26" width="103" height="26" shape-rendering="crispEdges">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 26" width="110" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
       .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
     </style>
   </defs>
-  <polygon points="7 1, 95 1, 101 7, 101 19, 95 25, 7 25, 1 19, 1 7" fill="rgba(20, 14, 6, 0.88)"/>
-  <polygon points="7 1, 95 1, 101 7, 101 19, 95 25, 7 25, 1 19, 1 7" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="1.5"/>
-  <polygon points="49 1, 53 1, 51 4" fill="#F59E0B"/>
-  <polygon points="49 25, 53 25, 51 22" fill="#F59E0B"/>
+  <polygon points="7 1, 102 1, 108 7, 108 19, 102 25, 7 25, 1 19, 1 7" fill="rgba(20, 14, 6, 0.88)"/>
+  <polygon points="7 1, 102 1, 108 7, 108 19, 102 25, 7 25, 1 19, 1 7" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="1.5"/>
+  <polygon points="53 1, 57 1, 55 4" fill="#F59E0B"/>
+  <polygon points="53 25, 57 25, 55 22" fill="#F59E0B"/>
   <polygon points="10 13, 15 9, 15 17" fill="#F59E0B"/>
-  <text x="55" y="17" fill="#F59E0B" text-anchor="middle" class="chip-text">SECTOR_01</text>
+  <text x="59" y="17" fill="#F59E0B" text-anchor="middle" class="chip-text">SEC: CLEAR</text>
 </svg>

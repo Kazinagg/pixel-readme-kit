@@ -25,12 +25,12 @@
 
   <!-- Title Text -->
   <text x="36" y="22" fill="#F59E0B" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">
-    ╔═ HUD.CHAMFER // TACTICAL_ENCLOSURE.EXE
+    ╔═ TACTICAL.HUD // CHAMFER_SEC
   </text>
 
   <!-- Right Status Tag -->
   <rect x="670" y="9" width="105" height="18" fill="rgba(30, 22, 10, 0.78)" stroke="#F59E0B" stroke-width="1"/>
-  <text x="723" y="22" fill="#F59E0B" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[TACTICAL]</text>
+  <text x="723" y="22" fill="#F59E0B" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[ACTIVE]</text>
 
   <!-- Window controls [ _ ] [ □ ] [ × ] -->
   <rect x="782" y="11" width="14" height="14" fill="rgba(50, 36, 16, 0.85)"/>

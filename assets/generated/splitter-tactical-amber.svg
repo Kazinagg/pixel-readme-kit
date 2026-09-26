@@ -9,5 +9,5 @@
   <polygon points="1 11, 8 7, 8 15" fill="#F59E0B"/>
   <polygon points="849 11, 842 7, 842 15" fill="#F59E0B"/>
   <polygon points="340 3, 510 3, 516 11, 510 19, 340 19, 334 11" fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="1"/>
-  <text x="425" y="14" fill="#F59E0B" text-anchor="middle" class="font-mono">▲ [TACTICAL: SECURITY_LAYER] ▲</text>
+  <text x="425" y="14" fill="#F59E0B" text-anchor="middle" class="font-mono">▲ [TARGET: SUB_SYSTEM_ALPHA] ▲</text>
 </svg>

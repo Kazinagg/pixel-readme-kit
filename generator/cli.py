@@ -111,12 +111,14 @@ def cmd_splitter(args):
     save_output(svg, args.output, f"assets/splitter-{args.style}.svg")
 
 def cmd_compile(args):
-    # Safe output: never overwrite README.md by default, write to README_GENERATED.md
-    out = args.output if args.output else "README_GENERATED.md"
     inp = args.input if args.input else "README.template.md"
+    if args.output:
+        out = args.output
+    else:
+        out = "README.md" if inp == "README.template.md" else (inp.replace(".template.md", ".md") if ".template.md" in inp else "README.md")
     print(f"[*] Compiling Markdown template: {inp}")
     print(f"[*] Assets directory: {args.assets_dir}")
-    print(f"[*] Output destination: {out} (Source README.md is untouched)")
+    print(f"[*] Output destination: {out}")
     compiler = MarkdownCompiler(assets_dir=args.assets_dir)
     compiler.compile_file(inp, out)
     print(f"[+] Successfully compiled to: {out}")
@@ -216,7 +218,7 @@ def main():
     # 8. COMPILE
     p_cmp = subparsers.add_parser("compile", help="Compile README template markdown containing pixel-kit directives")
     p_cmp.add_argument("--input", "-i", default="README.template.md", help="Input Markdown template filepath (default: README.template.md)")
-    p_cmp.add_argument("--output", "-o", default="README_GENERATED.md", help="Output compiled Markdown filepath (default: README_GENERATED.md)")
+    p_cmp.add_argument("--output", "-o", default=None, help="Output compiled Markdown filepath (default: README.md or matching *.md)")
     p_cmp.add_argument("--assets-dir", default="assets/generated", help="Folder where generated SVGs will be stored")
     p_cmp.set_defaults(func=cmd_compile)
 

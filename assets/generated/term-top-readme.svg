@@ -16,7 +16,7 @@
   <line x1="849" y1="24" x2="849" y2="38" stroke="#00C8D7" stroke-width="2.5"/>
   <rect x="846" y="32" width="4" height="6" fill="#00C8D7"/>
   <circle cx="24" cy="18" r="4" fill="#00C8D7" class="led"/>
-  <text x="36" y="22" fill="#00C8D7" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">╔═ SYSTEM.CORE // WINDOW.CYBER</text>
+  <text x="36" y="22" fill="#00C8D7" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">╔═ CLI_COMMANDS.LIST // RUNTIME.SYS</text>
   <rect x="670" y="9" width="105" height="18" fill="rgba(15, 23, 38, 0.78)" stroke="#00C8D7" stroke-width="1"/>
   <text x="722" y="22" fill="#00C8D7" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[OPEN_HUD]</text>
   <rect x="782" y="11" width="14" height="14" fill="rgba(30, 41, 59, 0.85)"/><text x="786" y="21" fill="#8892B0" font-size="10" class="font-mono">_</text>
