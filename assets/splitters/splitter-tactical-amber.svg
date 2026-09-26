@@ -5,19 +5,20 @@
     </style>
   </defs>
   <rect width="850" height="32" fill="rgba(20, 14, 6, 0.82)"/>
-  <polygon points="12 8, 22 16, 12 24" fill="#F59E0B"/>
-  <polygon points="26 8, 36 16, 26 24" fill="#F59E0B" opacity="0.6"/>
-  <polygon points="838 8, 828 16, 838 24" fill="#F59E0B"/>
-  <polygon points="824 8, 814 16, 824 24" fill="#F59E0B" opacity="0.6"/>
-  <line x1="42" y1="14" x2="245" y2="14" stroke="#F59E0B" stroke-width="1.5"/>
-  <line x1="42" y1="18" x2="245" y2="18" stroke="#F59E0B" stroke-width="1.5"/>
-  <line x1="605" y1="14" x2="808" y2="14" stroke="#F59E0B" stroke-width="1.5"/>
-  <line x1="605" y1="18" x2="808" y2="18" stroke="#F59E0B" stroke-width="1.5"/>
+  <!-- Flush Chevrons at edges (x=1..849) -->
+  <polygon points="1 8, 14 16, 1 24" fill="#F59E0B"/>
+  <polygon points="18 8, 30 16, 18 24" fill="#F59E0B" opacity="0.6"/>
+  <polygon points="849 8, 836 16, 849 24" fill="#F59E0B"/>
+  <polygon points="832 8, 820 16, 832 24" fill="#F59E0B" opacity="0.6"/>
+  <line x1="36" y1="14" x2="245" y2="14" stroke="#F59E0B" stroke-width="1.5"/>
+  <line x1="36" y1="18" x2="245" y2="18" stroke="#F59E0B" stroke-width="1.5"/>
+  <line x1="605" y1="14" x2="814" y2="14" stroke="#F59E0B" stroke-width="1.5"/>
+  <line x1="605" y1="18" x2="814" y2="18" stroke="#F59E0B" stroke-width="1.5"/>
   <g transform="translate(425, 16)">
     <polygon points="-170 -12, 170 -12, 178 -4, 178 4, 170 12, -170 12, -178 4, -178 -4"
              fill="rgba(25, 18, 8, 0.92)" stroke="#F59E0B" stroke-width="1.5"/>
     <text x="0" y="4" fill="#F59E0B" text-anchor="middle" class="font-mono">
-      ▲═══ 02 // TACTICAL_DECOMPOSITION ═══▲
+      ▲═══ TACTICAL SUB-SPLITTER // HAZARD_LOCK ═══▲
     </text>
   </g>
 </svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 48" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; }
+      @keyframes hazardPulse { 0%, 100% { opacity: 0.9; } 50% { opacity: 0.4; } }
+      .hazard { animation: hazardPulse 2s infinite ease-in-out; }
+    </style>
+  </defs>
+  <!-- Tactical 45° Chamfered Body -->
+  <polygon points="12 2, 838 2, 848 12, 848 36, 838 46, 12 46, 2 36, 2 12"
+           fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="1.5"/>
+  <!-- Hazard Stripes -->
+  <polygon points="10 8, 16 8, 8 20, 2 20" fill="#F59E0B" opacity="0.6"/>
+  <polygon points="20 8, 26 8, 18 20, 12 20" fill="#F59E0B" opacity="0.6"/>
+  <!-- Tactical Alert Badge -->
+  <polygon points="34 10, 175 10, 182 17, 182 31, 175 38, 34 38" fill="rgba(245, 158, 11, 0.15)" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="105" y="28" fill="#F59E0B" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ WARNING // HAZARD</text>
+  <!-- Text Content -->
+  <text x="195" y="22" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">
+    TACTICAL ALERT // CAMO PROXY &amp; RUNTIME CONSTRAINTS
+  </text>
+  <text x="195" y="36" fill="#F59E0B" font-size="9" opacity="0.85" class="font-mono">Enforce 100% full-width tables // Direct capping without adapters</text>
+  <!-- Right Reticle -->
+  <circle cx="825" cy="24" r="8" fill="none" stroke="#F59E0B" stroke-width="1.5" class="hazard"/>
+  <polygon points="822 24, 828 20, 828 28" fill="#F59E0B"/>
+</svg>
