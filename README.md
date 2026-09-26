@@ -12,7 +12,7 @@
 <a href="#suite-2-tactical-military-hud"><img src="assets/chips/nav-enclosure.svg" alt="Suite 2: Tactical" /></a>
 <a href="#suite-3-cyber-gutter-terminal"><img src="assets/chips/nav-chips.svg" alt="Suite 3: Gutter" /></a>
 <a href="CATALOG.md"><img src="assets/chips/nav-catalog.svg" alt="Полный каталог" /></a>
-<a href="#header-styles-gallery"><img src="assets/chips/nav-arch.svg" alt="Header Gallery" /></a>
+<a href="TEST_SUITE.md"><img src="assets/chips/chip-chamfer-spec.svg" alt="Лаборатория тестов" /></a>
 <a href="#quick-start--cli-generator"><img src="assets/chips/nav-guide.svg" alt="Guide" /></a>
 
 <br/><br/>
@@ -247,6 +247,8 @@
 <a href="CATALOG.md#3-инлайн-плашки-и-алерты-inline-callouts--alerts"><img src="assets/chips/chip-chamfer-spec.svg" alt="Плашки и алерты" /></a>
 &nbsp;
 <a href="CATALOG.md#2-закрывающие-пластины-master-footers"><img src="assets/chips/chip-pulse-online.svg" alt="Футеры" /></a>
+&nbsp;
+<a href="TEST_SUITE.md"><img src="assets/chips/chip-pulse-live.svg" alt="Тесты" /></a>
 
 </div>
 
