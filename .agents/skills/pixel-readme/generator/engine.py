@@ -544,74 +544,172 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
 
 def generate_footer(style="cyberpunk", primary=None, accent=None,
                     status="SESSION_ACTIVE // STANDBY", nav_text="RETURN TO TOP",
-                    width=850, height=54):
+                    sub_text=None, width=850, height=76):
     prim, acc, bg = resolve_colors(style, primary, accent)
     status_clean = escape_xml(status)
     nav_clean = escape_xml(nav_text)
     st = style.lower()
 
+    clean_nav = nav_clean.strip()
+    if not clean_nav.startswith("▲") and not clean_nav.startswith("["):
+        clean_nav = f"▲ {clean_nav} ▲"
+
     if st == "tactical":
+        sub_default = "GRID: 34-BRAVO // CHECKSUM: 0x9AF4B // SENSORS: PASSIVE_SCAN // AUTH: VERIFIED"
+        sub_disp = escape_xml(sub_text if sub_text else sub_default)
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
       .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
     </style>
   </defs>
-  <!-- Tactical 45° Hull -->
-  <polygon points="12 2, {width-12} 2, {width-2} 12, {width-2} {height-12}, {width-12} {height-2}, 12 {height-2}, 2 {height-12}, 2 12"
-           fill="{bg}" stroke="{prim}" stroke-width="1.5"/>
-  <polygon points="10 8, 16 8, 8 20, 2 20" fill="{prim}" opacity="0.6"/>
-  <polygon points="20 8, 26 8, 18 20, 12 20" fill="{prim}" opacity="0.6"/>
-  <!-- Status Readout -->
-  <text x="45" y="32" fill="{prim}" font-size="11" font-weight="bold" class="font-mono">▲ {status_clean}</text>
-  <!-- Return to Top Button -->
-  <polygon points="{width-190} 12, {width-20} 12, {width-12} 20, {width-12} 36, {width-20} 42, {width-190} 42" fill="rgba(245, 158, 11, 0.18)" stroke="{prim}" stroke-width="1.5"/>
-  <text x="{width-105}" y="31" fill="{prim}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">[ ▲ {nav_clean} ]</text>
+  <!-- Tactical Heavy 45° Chamfer Hull -->
+  <polygon points="18 2, {width-18} 2, {width-2} 18, {width-2} {height-18}, {width-18} {height-2}, 18 {height-2}, 2 {height-18}, 2 18"
+           fill="{bg}" stroke="rgba(50, 36, 16, 0.9)" stroke-width="2"/>
+  <polygon points="20 5, {width-20} 5, {width-5} 20, {width-5} {height-20}, {width-20} {height-5}, 20 {height-5}, 5 {height-20}, 5 20"
+           fill="none" stroke="{prim}" stroke-width="1" opacity="0.6"/>
+
+  <!-- Top Tactical Hazard Rail -->
+  <polygon points="26 8, 32 8, 24 18, 18 18" fill="{prim}" opacity="0.85"/>
+  <polygon points="36 8, 42 8, 34 18, 28 18" fill="{prim}" opacity="0.85"/>
+  <polygon points="46 8, 52 8, 44 18, 38 18" fill="{prim}" opacity="0.85"/>
+  <text x="64" y="16" fill="{acc}" font-size="8" font-weight="bold" letter-spacing="1.5" class="font-mono">SEC_DEFCON_1 // FIELD_TERMINATION_PROTOCOL</text>
+  <line x1="390" y1="13" x2="{width-210}" y2="13" stroke="{prim}" stroke-width="1" stroke-dasharray="8,4" opacity="0.4"/>
+  <text x="{width-200}" y="16" fill="{acc}" font-size="8" font-weight="bold" class="font-mono">[SEC_CLEAR]</text>
+
+  <!-- Left Main Status Readout -->
+  <polygon points="24 26, 116 26, 122 32, 122 42, 116 48, 24 48" fill="rgba(245, 158, 11, 0.22)" stroke="{prim}" stroke-width="1.5"/>
+  <text x="70" y="40" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">▲ ARMED ▲</text>
+  <text x="132" y="42" fill="{prim}" font-size="12" font-weight="bold" class="font-mono">{status_clean}</text>
+
+  <!-- Sub-diagnostic Telemetry -->
+  <text x="24" y="63" fill="{acc}" font-size="8.5" class="font-mono">{sub_disp}</text>
+
+  <!-- Center Chevron Cascade -->
+  <g transform="translate({width//2 - 25}, 36)">
+    <polygon points="0 0, 7 5, 0 10" fill="{prim}" opacity="0.5"/>
+    <polygon points="12 0, 19 5, 12 10" fill="{prim}" opacity="0.8"/>
+    <polygon points="24 0, 31 5, 24 10" fill="{prim}" opacity="1"/>
+    <polygon points="36 0, 43 5, 36 10" fill="{prim}" opacity="0.8"/>
+    <polygon points="48 0, 55 5, 48 10" fill="{prim}" opacity="0.5"/>
+  </g>
+
+  <!-- Right Tactical Return Button -->
+  <g transform="translate({width-195}, 22)">
+    <polygon points="12 0, 172 0, 182 10, 182 32, 172 42, 0 42, 0 12" fill="rgba(245, 158, 11, 0.2)" stroke="{prim}" stroke-width="1.5"/>
+    <text x="91" y="24" fill="{prim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
+    <text x="91" y="36" fill="{acc}" font-size="7.5" font-weight="bold" text-anchor="middle" class="font-mono">[ ELEVATION: 000 ]</text>
+  </g>
 </svg>"""
 
     elif st == "minimal":
+        sub_default = "LATENCY: 0.04ms • ALL SYSTEMS GREEN • MIT LICENSE 2026"
+        sub_disp = escape_xml(sub_text if sub_text else sub_default)
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
       .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
     </style>
   </defs>
-  <!-- Hairline Glass Footer Panel -->
-  <rect x="1" y="2" width="{width-2}" height="{height-4}" fill="{bg}" stroke="rgba(41, 46, 66, 0.85)" stroke-width="1.5"/>
-  <path d="M 6 12 L 6 6 L 16 6" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <path d="M {width-6} 12 L {width-6} 6 L {width-16} 6" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <path d="M 6 {height-12} L 6 {height-6} L 16 {height-6}" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <path d="M {width-6} {height-12} L {width-6} {height-6} L {width-16} {height-6}" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <!-- Status Readout -->
-  <text x="35" y="32" fill="#94A3B8" font-size="11" class="font-mono">STATUS: <tspan fill="{prim}" font-weight="bold">{status_clean}</tspan></text>
-  <!-- Return to top link button -->
-  <rect x="{width-185}" y="12" width="160" height="30" fill="rgba(79, 139, 255, 0.12)" stroke="{prim}" stroke-width="1"/>
-  <text x="{width-105}" y="31" fill="{prim}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">[ ▲ {nav_clean} ]</text>
+  <!-- Hairline Glass Footer Chassis -->
+  <rect x="1" y="2" width="{width-2}" height="{height-4}" fill="{bg}" stroke="rgba(41, 46, 66, 0.9)" stroke-width="1.5"/>
+  <rect x="1" y="2" width="{width-2}" height="2" fill="{prim}" opacity="0.9"/>
+  <!-- Corner Hairline Hooks -->
+  <path d="M 6 16 L 6 6 L 16 6" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M {width-6} 16 L {width-6} 6 L {width-16} 6" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M 6 {height-16} L 6 {height-6} L 16 {height-6}" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M {width-6} {height-16} L {width-6} {height-6} L {width-16} {height-6}" fill="none" stroke="{prim}" stroke-width="1.5"/>
+
+  <!-- Top Micro-Header Line -->
+  <text x="24" y="16" fill="#64748B" font-size="8.5" class="font-mono">// TERMINAL_SESSION // KERNEL v2.2</text>
+  <line x1="220" y1="13" x2="{width-220}" y2="13" stroke="rgba(41, 46, 66, 0.85)" stroke-width="1"/>
+  <text x="{width-24}" y="16" fill="#64748B" font-size="8.5" text-anchor="end" class="font-mono">END_OF_PAGE</text>
+
+  <!-- Main Status Row -->
+  <circle cx="28" cy="38" r="4" fill="{prim}"/>
+  <circle cx="28" cy="38" r="7" fill="none" stroke="{prim}" stroke-width="1" opacity="0.4"/>
+  <text x="44" y="42" fill="#F1F5F9" font-size="11.5" font-weight="bold" class="font-mono">STATUS: <tspan fill="{prim}">{status_clean}</tspan></text>
+
+  <!-- Secondary Telemetry Line -->
+  <text x="24" y="62" fill="#64748B" font-size="8.5" class="font-mono">{sub_disp}</text>
+
+  <!-- Center Spectrum Waveform -->
+  <g transform="translate({width//2 - 20}, 32)">
+    <rect x="0" y="4" width="3" height="12" fill="{prim}" opacity="0.6"/>
+    <rect x="6" y="1" width="3" height="18" fill="{acc}" opacity="0.8"/>
+    <rect x="12" y="7" width="3" height="9" fill="{prim}" opacity="0.5"/>
+    <rect x="18" y="0" width="3" height="20" fill="{acc}" opacity="1"/>
+    <rect x="24" y="5" width="3" height="11" fill="{prim}" opacity="0.7"/>
+    <rect x="30" y="2" width="3" height="16" fill="{acc}" opacity="0.8"/>
+    <rect x="36" y="6" width="3" height="10" fill="{prim}" opacity="0.5"/>
+  </g>
+
+  <!-- Right Clean Return Button -->
+  <rect x="{width-180}" y="24" width="160" height="34" fill="rgba(79, 139, 255, 0.12)" stroke="{prim}" stroke-width="1"/>
+  <text x="{width-100}" y="45" fill="{prim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
 </svg>"""
 
     else:
-        # Cyberpunk Terminal Footer
+        # Cyberpunk Chassis
+        sub_default = '<tspan fill="' + acc + '">RUNTIME:</tspan> BUFFER_CLEARED <tspan fill="rgba(148, 163, 184, 0.4)">|</tspan> <tspan fill="' + acc + '">PACKET_LOSS:</tspan> 0.00% <tspan fill="rgba(148, 163, 184, 0.4)">|</tspan> <tspan fill="' + acc + '">LINK_QUALITY:</tspan> 100%_LOCKED'
+        sub_disp = sub_text if sub_text else sub_default
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
       .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
-      @keyframes blinkLed {{ 0%, 100% {{ fill: {prim}; }} 50% {{ fill: #1E293B; }} }}
+      @keyframes blinkLed {{ 0%, 100% {{ fill: {prim}; opacity: 1; }} 50% {{ fill: #1E293B; opacity: 0.3; }} }}
       .led {{ animation: blinkLed 1.8s infinite steps(1); }}
     </style>
   </defs>
-  <!-- Cyberpunk Chassis -->
-  <rect x="1" y="2" width="{width-2}" height="{height-4}" fill="{bg}" stroke="rgba(30, 41, 59, 0.85)" stroke-width="2"/>
-  <rect x="4" y="5" width="{width-8}" height="{height-10}" fill="none" stroke="{prim}" stroke-width="1" opacity="0.75"/>
-  <rect x="1" y="2" width="5" height="5" fill="{prim}"/>
-  <rect x="{width-6}" y="2" width="5" height="5" fill="{prim}"/>
-  <rect x="1" y="{height-7}" width="5" height="5" fill="{prim}"/>
-  <rect x="{width-6}" y="{height-7}" width="5" height="5" fill="{prim}"/>
-  <!-- LED Indicator & Status -->
-  <circle cx="28" cy="27" r="4" fill="{prim}" class="led"/>
-  <text x="45" y="31" fill="{prim}" font-size="11" font-weight="bold" class="font-mono">{status_clean}</text>
-  <!-- Return to Top Button -->
-  <rect x="{width-190}" y="12" width="170" height="30" fill="rgba(0, 200, 215, 0.15)" stroke="{prim}" stroke-width="1.5"/>
-  <text x="{width-105}" y="31" fill="{prim}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">[ ▲ {nav_clean} ]</text>
+  <!-- Cyberpunk Heavy Chassis -->
+  <rect x="1" y="2" width="{width-2}" height="{height-4}" fill="{bg}" stroke="rgba(30, 41, 59, 0.9)" stroke-width="2"/>
+  <rect x="4" y="5" width="{width-8}" height="{height-10}" fill="none" stroke="{prim}" stroke-width="1" opacity="0.6"/>
+
+  <!-- 4 Corner Pixel Brackets 6x6 -->
+  <rect x="1" y="2" width="6" height="6" fill="{prim}"/>
+  <rect x="{width-7}" y="2" width="6" height="6" fill="{prim}"/>
+  <rect x="1" y="{height-8}" width="6" height="6" fill="{acc}"/>
+  <rect x="{width-7}" y="{height-8}" width="6" height="6" fill="{acc}"/>
+
+  <!-- Top Micro-Rail -->
+  <line x1="12" y1="9" x2="{width-12}" y2="9" stroke="{prim}" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
+  <text x="14" y="16" fill="{acc}" font-size="8" font-weight="bold" class="font-mono">[SYS_EOF: 0x00FF]</text>
+  <text x="{width-14}" y="16" fill="{acc}" font-size="8" font-weight="bold" text-anchor="end" class="font-mono">// BUS_SPEED: 64Gbps //</text>
+
+  <!-- Left Main Status Readout -->
+  <circle cx="26" cy="35" r="4.5" fill="{prim}" class="led"/>
+  <circle cx="26" cy="35" r="1.5" fill="#FFFFFF"/>
+  <rect x="38" y="26" width="76" height="18" fill="rgba(15, 23, 38, 0.9)" stroke="{prim}" stroke-width="1"/>
+  <text x="76" y="38" fill="{prim}" font-size="8.5" font-weight="bold" text-anchor="middle" class="font-mono">SYS_STATUS</text>
+  <text x="124" y="40" fill="{prim}" font-size="12" font-weight="bold" class="font-mono">{status_clean}</text>
+
+  <!-- Secondary Diagnostics Sub-line -->
+  <text x="24" y="61" fill="#94A3B8" font-size="8.5" class="font-mono">{sub_disp}</text>
+
+  <!-- Center PCB Pulse / Mini Matrix -->
+  <g transform="translate({width//2 - 35}, 30)">
+    <line x1="0" y1="6" x2="70" y2="6" stroke="rgba(30, 41, 59, 0.9)" stroke-width="2"/>
+    <line x1="0" y1="6" x2="35" y2="6" stroke="{prim}" stroke-width="2"/>
+    <circle cx="0" cy="6" r="3" fill="{prim}"/>
+    <circle cx="70" cy="6" r="3" fill="{prim}"/>
+    <rect x="25" y="0" width="20" height="12" fill="{bg}" stroke="{prim}" stroke-width="1"/>
+    <text x="35" y="9" fill="{prim}" font-size="7" font-weight="bold" text-anchor="middle" class="font-mono">EOF</text>
+  </g>
+
+  <!-- Right Return To Top Button -->
+  <g transform="translate({width-195}, 22)">
+    <rect x="0" y="0" width="180" height="36" fill="rgba(0, 200, 215, 0.16)" stroke="{prim}" stroke-width="1.5"/>
+    <rect x="0" y="0" width="3" height="3" fill="{prim}"/>
+    <rect x="177" y="0" width="3" height="3" fill="{prim}"/>
+    <rect x="0" y="33" width="3" height="3" fill="{prim}"/>
+    <rect x="177" y="33" width="3" height="3" fill="{prim}"/>
+    <text x="90" y="21" fill="{prim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
+    <text x="90" y="31" fill="#94A3B8" font-size="7" text-anchor="middle" class="font-mono">[ CLICK TO RETURN ]</text>
+  </g>
+
+  <!-- Bottom Grounding Notch -->
+  <line x1="20" y1="{height-3}" x2="{width-20}" y2="{height-3}" stroke="{prim}" stroke-width="1" opacity="0.4"/>
+  <polygon points="{width//2 - 25} {height-3}, {width//2 + 25} {height-3}, {width//2 + 18} {height-1}, {width//2 - 18} {height-1}" fill="{prim}"/>
 </svg>"""
 
     validate_svg(svg)

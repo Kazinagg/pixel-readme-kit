@@ -90,20 +90,6 @@ python -m generator.cli chip --style cyberpunk --type closed --text "⚡ v2.2.0"
 python -m generator.cli callout --style minimal --type note --title "NOTICE" --subtitle "High performance" -o assets/callout.svg
 ```
 
-### Вариант 3: Использование в качестве Agent Skill (Antigravity, Claude Code, Cursor, Cline)
-
-Pixel Readme Kit полностью упакован как официальный навык для AI-агентов. Вы можете установить его одной командой:
-
-```bash
-# Установка глобально для всех агентов в системе:
-npx skills add Kazinagg/pixel-readme-kit -g -y
-
-# Или установка локально в текущий проект:
-npx skills add Kazinagg/pixel-readme-kit -y
-```
-
-После установки любой поддерживаемый AI-агент сразу поймет синтаксис директив `<!-- pixel-kit:... -->` и сможет автоматически собирать HUD README для ваших проектов.
-
 ---
 
 ## 🪟 Интерактивный пример окна контента

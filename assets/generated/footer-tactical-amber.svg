@@ -1,17 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 54" width="100%" height="100%" shape-rendering="crispEdges">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 76" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
     </style>
   </defs>
-  <!-- Tactical 45° Hull -->
-  <polygon points="12 2, 838 2, 848 12, 848 42, 838 52, 12 52, 2 42, 2 12"
-           fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="1.5"/>
-  <polygon points="10 8, 16 8, 8 20, 2 20" fill="#F59E0B" opacity="0.6"/>
-  <polygon points="20 8, 26 8, 18 20, 12 20" fill="#F59E0B" opacity="0.6"/>
-  <!-- Status Readout -->
-  <text x="45" y="32" fill="#F59E0B" font-size="11" font-weight="bold" class="font-mono">▲ PERIMETER_SECURE // COMM_LINK_OPEN</text>
-  <!-- Return to Top Button -->
-  <polygon points="660 12, 830 12, 838 20, 838 36, 830 42, 660 42" fill="rgba(245, 158, 11, 0.18)" stroke="#F59E0B" stroke-width="1.5"/>
-  <text x="745" y="31" fill="#F59E0B" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">[ ▲ ▲ НАВЕРХ ]</text>
+  <!-- Tactical Heavy 45° Chamfer Hull -->
+  <polygon points="18 2, 832 2, 848 18, 848 58, 832 74, 18 74, 2 58, 2 18"
+           fill="rgba(20, 14, 6, 0.88)" stroke="rgba(50, 36, 16, 0.9)" stroke-width="2"/>
+  <polygon points="20 5, 830 5, 845 20, 845 56, 830 71, 20 71, 5 56, 5 20"
+           fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.6"/>
+
+  <!-- Top Tactical Hazard Rail -->
+  <polygon points="26 8, 32 8, 24 18, 18 18" fill="#F59E0B" opacity="0.85"/>
+  <polygon points="36 8, 42 8, 34 18, 28 18" fill="#F59E0B" opacity="0.85"/>
+  <polygon points="46 8, 52 8, 44 18, 38 18" fill="#F59E0B" opacity="0.85"/>
+  <text x="64" y="16" fill="#EA580C" font-size="8" font-weight="bold" letter-spacing="1.5" class="font-mono">SEC_DEFCON_1 // FIELD_TERMINATION_PROTOCOL</text>
+  <line x1="390" y1="13" x2="640" y2="13" stroke="#F59E0B" stroke-width="1" stroke-dasharray="8,4" opacity="0.4"/>
+  <text x="650" y="16" fill="#EA580C" font-size="8" font-weight="bold" class="font-mono">[SEC_CLEAR]</text>
+
+  <!-- Left Main Status Readout -->
+  <polygon points="24 26, 116 26, 122 32, 122 42, 116 48, 24 48" fill="rgba(245, 158, 11, 0.22)" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="70" y="40" fill="#F59E0B" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">▲ ARMED ▲</text>
+  <text x="132" y="42" fill="#F59E0B" font-size="12" font-weight="bold" class="font-mono">PERIMETER_SECURE // COMM_LINK_OPEN</text>
+
+  <!-- Sub-diagnostic Telemetry -->
+  <text x="24" y="63" fill="#EA580C" font-size="8.5" class="font-mono">GRID: 34-BRAVO // CHECKSUM: 0x9AF4B // SENSORS: PASSIVE_SCAN // AUTH: VERIFIED</text>
+
+  <!-- Center Chevron Cascade -->
+  <g transform="translate(400, 36)">
+    <polygon points="0 0, 7 5, 0 10" fill="#F59E0B" opacity="0.5"/>
+    <polygon points="12 0, 19 5, 12 10" fill="#F59E0B" opacity="0.8"/>
+    <polygon points="24 0, 31 5, 24 10" fill="#F59E0B" opacity="1"/>
+    <polygon points="36 0, 43 5, 36 10" fill="#F59E0B" opacity="0.8"/>
+    <polygon points="48 0, 55 5, 48 10" fill="#F59E0B" opacity="0.5"/>
+  </g>
+
+  <!-- Right Tactical Return Button -->
+  <g transform="translate(655, 22)">
+    <polygon points="12 0, 172 0, 182 10, 182 32, 172 42, 0 42, 0 12" fill="rgba(245, 158, 11, 0.2)" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="91" y="24" fill="#F59E0B" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">▲ НАВЕРХ</text>
+    <text x="91" y="36" fill="#EA580C" font-size="7.5" font-weight="bold" text-anchor="middle" class="font-mono">[ ELEVATION: 000 ]</text>
+  </g>
 </svg>

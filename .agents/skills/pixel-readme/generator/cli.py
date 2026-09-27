@@ -54,7 +54,8 @@ def cmd_footer(args):
         primary=args.primary,
         accent=args.accent,
         status=args.status,
-        nav_text=args.nav
+        nav_text=args.nav,
+        sub_text=args.sub
     )
     save_output(svg, args.output, f"assets/footer-{args.style}.svg")
 
@@ -160,6 +161,7 @@ def main():
     p_ftr.add_argument("--primary", help="Primary brand hex color")
     p_ftr.add_argument("--accent", help="Secondary accent hex color")
     p_ftr.add_argument("--status", default="SESSION_ACTIVE // STANDBY", help="Status telemetry readout text")
+    p_ftr.add_argument("--sub", help="Secondary diagnostic or telemetry readout line")
     p_ftr.add_argument("--nav", default="RETURN TO TOP", help="Navigation button text")
     p_ftr.add_argument("--output", "-o", help="Target SVG destination path")
     p_ftr.set_defaults(func=cmd_footer)

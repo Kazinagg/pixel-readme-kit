@@ -272,10 +272,11 @@ class MarkdownCompiler:
             style = attrs.get("style", "cyberpunk")
             status = attrs.get("status", "SYSTEM_ACTIVE // STANDBY")
             nav = attrs.get("nav", "RETURN TO TOP")
+            sub = attrs.get("sub") or attrs.get("sub_text") or None
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
 
-            f_svg = generate_footer(style=style, primary=prim, accent=acc, status=status, nav_text=nav)
+            f_svg = generate_footer(style=style, primary=prim, accent=acc, status=status, nav_text=nav, sub_text=sub)
             url_f = self._save_svg(f_svg, attrs.get("out"), f"footer-{style}")
             return f'<a href="#top"><img src="{url_f}" width="100%" alt="{escape_xml(nav)}" /></a>'
 
