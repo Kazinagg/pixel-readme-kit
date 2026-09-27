@@ -12,8 +12,6 @@
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="tactical" type="decay" text="💡 ПРИМЕРЫ И РАЗБОР" href="EXAMPLES.md" out="assets/generated/chip-readme-examples.svg" -->
 &nbsp;&nbsp;
-<!-- pixel-kit:chip style="minimal" type="pulse" text="🌓 ТЕСТ ТЕМ И SVG" href="THEME_TEST.md" out="assets/generated/chip-readme-themes.svg" -->
-&nbsp;&nbsp;
 <!-- pixel-kit:chip style="minimal" type="pulse" text="● v2.2.0 STABLE" href="#top" out="assets/generated/chip-readme-version.svg" -->
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="cyberpunk" type="pulse" text="MIT LICENSE" href="LICENSE" out="assets/generated/chip-readme-license.svg" -->
@@ -32,7 +30,7 @@
 
 Комплект создан для решения фундаментальных проблем стандартного оформления GitHub:
 1. 🧊 **True Alpha Blending (Идеальный контраст на тёмной и светлой темах)**:
-   Все элементы используют фирменную полупрозрачную подложку `rgba(10, 14, 23, 0.82)`. Текст и контуры не выгорают и сохраняют контрастность выше 7:1 как на тёмном фоне GitHub (`#0d1117`), так и на чистом белом (`#ffffff`). *(Смотрите живую демонстрацию 4 способов адаптации к темам и тест прозрачности в [THEME_TEST.md](THEME_TEST.md))*.
+   Все элементы используют фирменную полупрозрачную подложку `rgba(10, 14, 23, 0.82)`. Текст и контуры не выгорают и сохраняют контрастность выше 7:1 как на тёмном фоне GitHub (`#0d1117`), так и на чистом белом (`#ffffff`).
 2. 📋 **100% Живой копируемый Markdown-текст**:
    Документация, списки, ссылки, консольные команды и математика KaTeX внутри окон остаются полноценным текстом — их можно выделять, копировать и индексировать поиском.
 3. 📐 **Прямое накрытие таблиц БЕЗ боковых зазоров (`x=1..849`)**:
@@ -121,7 +119,6 @@ python -m generator.cli --help
 > **Навигация по документации**:
 > - Полный каталог всех 8 типов компонентов во всех стилях доступен в **[CATALOG.md](CATALOG.md)**.
 > - Детальный разбор «сырой шаблон без генерации $\rightarrow$ сгенерированный результат» с GitHub Actions приведён в **[EXAMPLES.md](EXAMPLES.md)**.
-> - 🌓 **Лаборатория 4 способов адаптации к темам GitHub и тест прозрачности**: **[THEME_TEST.md](THEME_TEST.md)**.
 > - Лицензия проекта: [LICENSE](LICENSE) (MIT).
 <!-- /pixel-kit:quote -->
 
