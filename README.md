@@ -1,173 +1,119 @@
-# 📦 PIXEL README KIT — RETRO-CYBERPUNK & TACTICAL HUD DESIGN SYSTEM
+# 🌓 Лаборатория тестирования тем GitHub и прозрачности SVG
 
-<div id="top"></div>
-
-<div align="center">
-
-<img src="assets/generated/header-readme.svg" width="100%" alt="PIXEL README KIT" />
-
-<br/><br/>
-
-<a href="CATALOG.md"><img src="assets/generated/chip-readme-catalog.svg" alt="📚 КАТАЛОГ БЛОКОВ" /></a>
-&nbsp;&nbsp;
-<a href="EXAMPLES.md"><img src="assets/generated/chip-readme-examples.svg" alt="💡 ПРИМЕРЫ И РАЗБОР" /></a>
-&nbsp;&nbsp;
-<a href="THEME_TEST.md"><img src="assets/generated/chip-readme-themes.svg" alt="🌓 ТЕСТ ТЕМ И SVG" /></a>
-&nbsp;&nbsp;
-<a href="#top"><img src="assets/generated/chip-readme-version.svg" alt="● v2.2.0 STABLE" /></a>
-&nbsp;&nbsp;
-<a href="LICENSE"><img src="assets/generated/chip-readme-license.svg" alt="MIT LICENSE" /></a>
-
-<br/><br/>
-
-<img src="assets/generated/divider-readme.svg" width="100%" alt="Divider cyberpunk" />
-
-</div>
-
-<br/>
-
-## 📌 О проекте (Project Overview)
-
-**Pixel Readme Kit** — модульная дизайн-система и генератор для оформления репозиториев и профилей GitHub в бескомпромиссной эстетике **ретро-киберпанка**, **тактических военных HUD** и **неонового стекла**.
-
-Комплект создан для решения фундаментальных проблем стандартного оформления GitHub:
-1. 🧊 **True Alpha Blending (Идеальный контраст на тёмной и светлой темах)**:
-   Все элементы используют фирменную полупрозрачную подложку `rgba(10, 14, 23, 0.82)`. Текст и контуры не выгорают и сохраняют контрастность выше 7:1 как на тёмном фоне GitHub (`#0d1117`), так и на чистом белом (`#ffffff`). *(Смотрите живую демонстрацию 4 способов адаптации к темам и тест прозрачности в [THEME_TEST.md](THEME_TEST.md))*.
-2. 📋 **100% Живой копируемый Markdown-текст**:
-   Документация, списки, ссылки, консольные команды и математика KaTeX внутри окон остаются полноценным текстом — их можно выделять, копировать и индексировать поиском.
-3. 📐 **Прямое накрытие таблиц БЕЗ боковых зазоров (`x=1..849`)**:
-   Оконные рамки ложатся вровень со стандартными таблицами GitHub (`<table width="100%">`) без адаптеров и лишних прокладок.
-4. 💫 **Нативная SVG CSS-анимация**:
-   Вращающийся луч радара 360°, бегущая CRT-сканлайн, прицельные лазеры, частотные эквалайзеры и светодиодные маяки работают на чистом SVG без внешних скриптов.
-
-<br/>
-
-<img src="assets/generated/callout-readme-arch.svg" width="100%" />
+> [!IMPORTANT]
+> **Временный тестовый стенд**: Главный `README.md` временно заменен на страницу тестов для проверки работы на главной странице репозитория.
+> [📄 Посмотреть оригинальный README репозитория можно здесь](README.original.md).
 
 ---
 
-## 🏛️ 3 Глобальных стиля геометрии
+В этом документе представлены **4 практических теста** адаптации SVG-графики под светлую и тёмную темы GitHub, а также тест шапки с **полностью прозрачным фоном**.
 
-Дизайн-система строго разделяет **геометрию (форму блоков)** и **цветовую палитру**:
-
-| Стиль | Канонические цвета | Геометрия и силуэт | Механика распада (Decay) | Накрытие таблиц | Живая анимация |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 🟢 **Cyberpunk** | Cyan `#00C8D7`<br/>Purple `#A855F7` | Прямые углы, открытые кронштейны, пиксели `3×3` | Матричный пиксельный дизеринг (`3×3 ➔ 2×2 ➔ 1×1`) | Накрытие таблицы зубцами `x=1..849` | Радар 360°, CRT Scanline, PCB-пакет |
-| 🟡 **Tactical Military** | Amber `#F59E0B`<br/>Orange `#EA580C` | 45° срезанные фаски (Chamfers), шевроны `▲` | Диагональные штрихи фасок `///` с затуханием | Накрытие фасками `45°` без зазоров | Пульсирующий прицел, маркеры захвата |
-| 🟣 **Minimal Glass** | Tokyo Blue `#4F8BFF`<br/>Magenta `#A855F7` | Ультратонкая волосяная рамка 1px, зацепы `┌ ┐` | Микроточечное рассеивание (Micro-stipple) | Монолитная 3-строчная таблица | Спектральный 5-полосный эквалайзер |
-
-> 🎨 **Свобода цвета**: Пользователь может использовать любой стиль с любыми hex-цветами: например, тактический стиль в цветах Matrix Green (`#00FF66`) или киберпанк в тёмно-красном Alert Red (`#FF0055`).
+> [!TIP]
+> **Как тестировать прямо сейчас на GitHub**:
+> 1. Откройте эту страницу на главной репозитория [github.com/Kazinagg/pixel-readme-kit](https://github.com/Kazinagg/pixel-readme-kit).
+> 2. Кликните на ваш аватар в правом верхнем углу GitHub ➔ **Theme** ➔ выберите **Dark default** или **Light default**.
+> 3. Либо переключите тему в настройках вашей ОС (Windows / macOS) для проверки системных медиа-запросов.
 
 ---
 
-## 🚀 Быстрый старт (Quick Start)
+## 🧪 Тест 1. Официальный синтаксис GitHub (`#gh-dark-mode-only` и `#gh-light-mode-only`)
 
-Комплект предоставляет два независимых режима работы: **автоматический компилятор Markdown** и **автономный генератор CLI**.
+GitHub скрывает и показывает изображения по селектору `[src$="#gh-dark-mode-only"]` и `[src$="#gh-light-mode-only"]` на основе темы аккаунта GitHub.
 
-### Вариант 1: Компилятор Markdown (Рекомендуемый воркфлоу)
+### Вариант 1А: С относительными путями (Официальный синтаксис):
 
-1. Создайте шаблон документа (например, `README.template.md`) с декларативными директивами `<!-- pixel-kit:... -->`.
-2. Запустите компилятор одной командой:
-   ```bash
-   python -m generator.cli compile --input README.template.md --output README.md --assets-dir assets/generated
-   ```
-3. Компилятор автоматически сгенерирует все SVG-ассеты, создаст 100% табличные обертки и сформирует готовый `README.md`.
+![Cyberpunk Dark Header](assets/theme-tests/header-gh-dark.svg#gh-dark-mode-only)
+![Cyberpunk Light Header](assets/theme-tests/header-gh-light.svg#gh-light-mode-only)
 
-### Вариант 2: Автономный генератор CLI
+```markdown
+![Cyberpunk Dark Header](assets/theme-tests/header-gh-dark.svg#gh-dark-mode-only)
+![Cyberpunk Light Header](assets/theme-tests/header-gh-light.svg#gh-light-mode-only)
+```
 
-Генерация отдельных SVG-файлов по запросу:
+### Вариант 1Б: С прямыми Raw URL (Если GitHub не сохраняет хэш при локальном рендере):
 
-```bash
-# Флагманская шапка (с кастомными тегами 3 уровня):
-python -m generator.cli header --style cyberpunk --title "MY-PROJECT" --subtitle "SYSTEM RUNTIME" --spec1 "ARCH: TRANSLUCENT" --spec2 "TEXT: LIVE MARKDOWN" -o assets/header.svg
+![Cyberpunk Dark Header Raw](https://raw.githubusercontent.com/Kazinagg/pixel-readme-kit/main/assets/theme-tests/header-gh-dark.svg#gh-dark-mode-only)
+![Cyberpunk Light Header Raw](https://raw.githubusercontent.com/Kazinagg/pixel-readme-kit/main/assets/theme-tests/header-gh-light.svg#gh-light-mode-only)
 
-# Оконная рамка:
-python -m generator.cli frame --style tactical --type top --title "MODULE_SPEC" -o assets/frame-top.svg
-python -m generator.cli frame --style tactical --type bottom -o assets/frame-bottom.svg
-
-# Адаптивный чип-ссылка:
-python -m generator.cli chip --style cyberpunk --type closed --text "⚡ v2.2.0" -o assets/chip.svg
-
-# Инлайн-алерт:
-python -m generator.cli callout --style minimal --type note --title "NOTICE" --subtitle "High performance" -o assets/callout.svg
+```markdown
+![Cyberpunk Dark Header Raw](https://raw.githubusercontent.com/Kazinagg/pixel-readme-kit/main/assets/theme-tests/header-gh-dark.svg#gh-dark-mode-only)
+![Cyberpunk Light Header Raw](https://raw.githubusercontent.com/Kazinagg/pixel-readme-kit/main/assets/theme-tests/header-gh-light.svg#gh-light-mode-only)
 ```
 
 ---
 
-## 🪟 Интерактивный пример окна контента
+## 🧪 Тест 2. HTML5-тег `<picture>` с `prefers-color-scheme`
 
-<img src="assets/generated/frame-readme-top.svg" width="100%" />
+Реагирует на системную тему операционной системы / браузера.
 
-<table width="100%">
-<tr>
-<td width="2000">
+### Вариант 2А: Тег `<picture>` с прямыми Raw URL (Рекомендуемый для GitHub):
+*(GitHub не всегда перезаписывает относительные пути внутри атрибута `srcset` тега `<source>`, поэтому прямые Raw URL гарантируют загрузку)*:
 
-### 🧬 Спецификация подсистем ядра
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Kazinagg/pixel-readme-kit/main/assets/theme-tests/header-pic-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Kazinagg/pixel-readme-kit/main/assets/theme-tests/header-pic-light.svg">
+  <img alt="Adaptive Header Picture Raw" src="https://raw.githubusercontent.com/Kazinagg/pixel-readme-kit/main/assets/theme-tests/header-pic-dark.svg" width="100%">
+</picture>
 
-Контент внутри окон остаётся полноценным Markdown:
-
-| Подсистема | Протокол | Статус | Задержка |
-| :--- | :--- | :--- | :--- |
-| **Render Engine** | `SVG_NATIVE_XML` | `● ACTIVE` | `0.00 ms` |
-| **Alpha Blending** | `RGBA_0.82` | `● DUAL_THEME_PASS` | `0.12 ms` |
-| **Matrix Radar** | `360_DEG_SWEEP` | `● SCANNING` | `16.6 ms (60 FPS)` |
-
-```bash
-# Клонирование и быстрый запуск
-git clone https://github.com/Kazinagg/pixel-readme-kit.git
-cd pixel-readme-kit
-python -m generator.cli --help
+```html
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Kazinagg/pixel-readme-kit/main/assets/theme-tests/header-pic-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Kazinagg/pixel-readme-kit/main/assets/theme-tests/header-pic-light.svg">
+  <img alt="Adaptive Header Picture" src="https://raw.githubusercontent.com/Kazinagg/pixel-readme-kit/main/assets/theme-tests/header-pic-dark.svg" width="100%">
+</picture>
 ```
 
-</td>
-</tr>
-</table>
+### Вариант 2Б: Тег `<picture>` с относительными путями:
 
-<img src="assets/generated/frame-readme-bottom.svg" width="100%" />
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/theme-tests/header-pic-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/theme-tests/header-pic-light.svg">
+  <img alt="Adaptive Header Picture Relative" src="assets/theme-tests/header-pic-dark.svg" width="100%">
+</picture>
 
-<br/>
+---
 
-> <img src="assets/generated/callout-quote-readme.svg" width="100%" />
->
-> > **Навигация по документации**:
-> > - Полный каталог всех 8 типов компонентов во всех стилях доступен в **[CATALOG.md](CATALOG.md)**.
-> > - Детальный разбор «сырой шаблон без генерации $\rightarrow$ сгенерированный результат» с GitHub Actions приведён в **[EXAMPLES.md](EXAMPLES.md)**.
-> > - 🌓 **Лаборатория 4 способов адаптации к темам GitHub и тест прозрачности**: **[THEME_TEST.md](THEME_TEST.md)**.
-> > - Лицензия проекта: [LICENSE](LICENSE) (MIT).
+## 🧪 Тест 3. Один SVG с адаптивным CSS `@media (prefers-color-scheme: dark)` ✅
 
-<br/>
+> [!NOTE]
+> Этот способ подтверждён как работающий на GitHub! Браузер загружает **всего 1 файл** и перекрашивает его на лету.
 
-<details >
-<summary><kbd>▶ CLI_COMMANDS.LIST</kbd> <b>[ НАЖМИТЕ ДЛЯ СВОРАЧИВАНИЯ / РАЗВОРАЧИВАНИЯ ]</b> <code>[CLICK TO EXPAND]</code></summary>
+### Живой результат на GitHub:
 
-<br/>
+![Adaptive Single SVG](assets/theme-tests/header-adaptive-internal.svg)
 
-<img src="assets/generated/term-top-readme.svg" width="100%" />
-
-<table width="100%">
-<tr>
-<td width="2000">
-
-```bash
-# Список всех доступных команд генератора:
-python -m generator.cli header --help    # Заглавные шапки
-python -m generator.cli footer --help    # Закрывающие пластины
-python -m generator.cli callout --help   # Инлайн-алерты и плашки
-python -m generator.cli frame --help     # Рамки окон (top/bottom)
-python -m generator.cli chip --help      # Чипы и пилюли
-python -m generator.cli divider --help   # Разделители глав
-python -m generator.cli splitter --help  # Сплиттеры подмодулей
-python -m generator.cli compile --help   # Компилятор Markdown
+### Исходный Markdown код:
+```markdown
+![Adaptive Single SVG](assets/theme-tests/header-adaptive-internal.svg)
 ```
 
-</td>
-</tr>
-</table>
+---
 
-<img src="assets/generated/term-bottom-readme.svg" width="100%" />
+## 🧪 Тест 4. Шапка с полностью прозрачным фоном (Zero Fill / 100% Alpha)
 
-</details>
+В стандартном генераторе `pixel-readme-kit` используется подложка `rgba(10, 14, 23, 0.85)` (**True Alpha Blending**). В этом тесте подложка полностью удалена (`fill="none"`, `rect` убран).
 
-<br/><br/>
+### Живой результат на GitHub:
 
-<a href="#top"><img src="assets/generated/footer-readme.svg" width="100%" alt="▲ НАВЕРХ" /></a>
+![Cyberpunk Transparent Header](assets/theme-tests/header-transparent.svg)
+
+### Исходный Markdown код:
+```markdown
+![Cyberpunk Transparent Header](assets/theme-tests/header-transparent.svg)
+```
+
+---
+
+## 📊 Сводное сравнение методов
+
+| Метод | Как переключается | Кол-во файлов | Зависимость | Совместимость с Camo Proxy |
+| :--- | :--- | :--- | :--- | :--- |
+| **1. Хэши `#gh-*-mode-only`** | Автоматически GitHub | 2 файла | Тема в настройках GitHub | 100% отлично |
+| **2. Тег `<picture>`** | Браузером по медиа-запросу | 2 файла | Системная тема ОС | Требует raw URL для `<source>` |
+| **3. Внутренний `@media`** | Браузером по медиа-запросу | **1 файл** | Системная тема ОС | 100% отлично (работает из коробки) |
+| **4. Полная прозрачность** | Не переключается (фон GitHub) | **1 файл** | Нет (прозрачный alpha) | 100% отлично |
+| **5. Фирменный True Alpha** | Не требует переключения | **1 файл** | Универсальный контраст > 7:1 | 100% отлично |
+
+---
+
+[📄 Посмотреть оригинальный README репозитория можно здесь](README.original.md)
