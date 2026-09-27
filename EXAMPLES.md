@@ -101,7 +101,7 @@
 
 <!-- 2. БЛОК ЦИТАТЫ С ХЕДЕРОМ (QUOTE) -->
 <!-- pixel-kit:quote style="tactical" badge="WARNING" title="CRITICAL CONSTRAINT // FULL-WIDTH COMPLIANCE" subtitle="Quote header with open left edge directly connecting into Markdown quote" out="assets/example/callout-quote-warn.svg" -->
-**Внимание оператора**: все контентные окна обязаны использовать 100% табличную обертку (`<table width="100%"><tr><td width="100%">...</td></tr></table>`). 
+**Внимание оператора**: все контентные окна обязаны использовать 100% табличную обертку (`<table width="100%"><tr><td width="2000">...</td></tr></table>`). 
 Это гарантирует, что зубцы крышек на `x=1` и `x=849` ложатся ровно на серые рамки GitHub без боковых зазоров на любых дисплеях.
 <!-- /pixel-kit:quote -->
 
@@ -200,7 +200,7 @@ python -m generator.cli compile --input EXAMPLE_TEMPLATE.md --output EXAMPLE.md 
 <!-- 2. БЛОК ЦИТАТЫ С ХЕДЕРОМ (QUOTE) -->
 > <img src="assets/example/callout-quote-warn.svg" width="100%" />
 >
-> **Внимание оператора**: все контентные окна обязаны использовать 100% табличную обертку (`<table width="100%"><tr><td width="100%">...</td></tr></table>`). 
+> **Внимание оператора**: все контентные окна обязаны использовать 100% табличную обертку (`<table width="100%"><tr><td width="2000">...</td></tr></table>`). 
 > Это гарантирует, что зубцы крышек на `x=1` и `x=849` ложатся ровно на серые рамки GitHub без боковых зазоров на любых дисплеях.
 
 <br/>
@@ -210,7 +210,7 @@ python -m generator.cli compile --input EXAMPLE_TEMPLATE.md --output EXAMPLE.md 
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 ### 🧬 Спецификация ядра системы
 
@@ -246,7 +246,7 @@ npx neo-core --bootstrap
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 ```ini
 [RUNTIME]

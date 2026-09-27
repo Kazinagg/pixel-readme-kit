@@ -131,7 +131,7 @@
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 #### Живой Markdown контент внутри окна
 - Окно накрывает таблицу на 100% ширины.
@@ -150,7 +150,7 @@
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 #### Тактический блок данных
 - Скосы 45° на углах крышек ложатся ровно на серые рамки GitHub.
@@ -172,7 +172,7 @@
 </td>
 </tr>
 <tr>
-<td width="100%">
+<td width="2000">
 
 #### Интегрированный 3-строчный монолит
 - Верхняя крышка, контент и нижняя рамка объединены в единую монолитную таблицу.
@@ -201,7 +201,7 @@
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 ```bash
 git clone https://github.com/Kazinagg/pixel-readme-kit.git
@@ -229,7 +229,7 @@ python -m generator.cli --help
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 ```bash
 # Быстрая сборка README

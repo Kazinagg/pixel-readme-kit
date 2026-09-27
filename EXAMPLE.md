@@ -40,7 +40,7 @@
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 ### 🧬 Спецификация ядра системы
 
@@ -76,7 +76,7 @@ neo-kernel init --profile=cyberpunk
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 ### ⚡ Тактический модуль мониторинга
 
@@ -102,7 +102,7 @@ neo-kernel init --profile=cyberpunk
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 ```yaml
 # neo-kernel.config.yaml

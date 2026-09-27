@@ -109,7 +109,7 @@ class MarkdownCompiler:
 </td>
 </tr>
 <tr>
-<td width="100%">
+<td width="2000">
 
 {inner_content}
 
@@ -127,7 +127,7 @@ class MarkdownCompiler:
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 {inner_content}
 
@@ -177,7 +177,7 @@ class MarkdownCompiler:
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 {inner_content}
 

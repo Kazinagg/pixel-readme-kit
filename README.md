@@ -112,7 +112,7 @@ npx skills add Kazinagg/pixel-readme-kit -y
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 ### 🧬 Спецификация подсистем ядра
 
@@ -157,7 +157,7 @@ python -m generator.cli --help
 
 <table width="100%">
 <tr>
-<td width="100%">
+<td width="2000">
 
 ```bash
 # Список всех доступных команд генератора:
