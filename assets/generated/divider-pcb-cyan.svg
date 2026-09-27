@@ -34,6 +34,13 @@
           --grid-op: 0.08;
         }
       }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #00C8D7));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
 
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; letter-spacing: 1px; }
       @keyframes pcbTrace { 0% { stroke-dashoffset: 400; } 100% { stroke-dashoffset: 0; } }

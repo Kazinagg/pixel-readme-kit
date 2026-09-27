@@ -34,6 +34,13 @@
           --grid-op: 0.08;
         }
       }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #F59E0B));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
 
       .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
       @keyframes targetPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }

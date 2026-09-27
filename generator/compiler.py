@@ -26,6 +26,8 @@ and outputs the compiled README markdown.
 
 import os
 import re
+import json
+import urllib.request
 from generator.engine import (
     generate_header,
     generate_footer,
@@ -37,6 +39,94 @@ from generator.engine import (
     validate_svg,
     escape_xml
 )
+
+_GITHUB_CACHE = {}
+
+def fetch_github_stat(repo, stat_type):
+    """
+    Fetches real-time repository stats from GitHub REST API:
+    - stars -> ('★ 42', 'https://github.com/{repo}/stargazers')
+    - forks -> ('🍴 12', 'https://github.com/{repo}/network/members')
+    - issues -> ('● ISSUES: 5', 'https://github.com/{repo}/issues')
+    - license -> ('⚖ MIT', 'https://github.com/{repo}')
+    - watchers -> ('👁 20', 'https://github.com/{repo}/watchers')
+    - version / release -> ('v1.0.0', 'https://github.com/{repo}/releases')
+    """
+    clean_repo = repo.strip().strip("/")
+    cache_key = f"{clean_repo}:{stat_type.lower()}"
+    if cache_key in _GITHUB_CACHE:
+        return _GITHUB_CACHE[cache_key]
+
+    default_links = {
+        "stars": f"https://github.com/{clean_repo}/stargazers",
+        "forks": f"https://github.com/{clean_repo}/network/members",
+        "issues": f"https://github.com/{clean_repo}/issues",
+        "watchers": f"https://github.com/{clean_repo}/watchers",
+        "license": f"https://github.com/{clean_repo}",
+        "version": f"https://github.com/{clean_repo}/releases",
+        "release": f"https://github.com/{clean_repo}/releases",
+    }
+    def_link = default_links.get(stat_type.lower(), f"https://github.com/{clean_repo}")
+
+    def format_count(n):
+        if n is None:
+            return "--"
+        n = int(n)
+        if n >= 1000000:
+            return f"{n/1000000:.1f}M"
+        if n >= 1000:
+            return f"{n/1000:.1f}k"
+        return str(n)
+
+    st = stat_type.lower()
+    try:
+        if st in ("version", "release"):
+            url = f"https://api.github.com/repos/{clean_repo}/releases/latest"
+            req = urllib.request.Request(url, headers={"User-Agent": "Pixel-Readme-Kit/3.0"})
+            with urllib.request.urlopen(req, timeout=3) as resp:
+                data = json.loads(resp.read().decode())
+                tag = data.get("tag_name") or data.get("name") or "v1.0"
+                res = (str(tag), def_link)
+                _GITHUB_CACHE[cache_key] = res
+                return res
+        else:
+            url = f"https://api.github.com/repos/{clean_repo}"
+            req = urllib.request.Request(url, headers={"User-Agent": "Pixel-Readme-Kit/3.0"})
+            with urllib.request.urlopen(req, timeout=3) as resp:
+                data = json.loads(resp.read().decode())
+
+            if st == "stars":
+                count = format_count(data.get("stargazers_count", 0))
+                res = (f"★ {count}", def_link)
+            elif st == "forks":
+                count = format_count(data.get("forks_count", 0))
+                res = (f"🍴 {count}", def_link)
+            elif st == "issues":
+                count = format_count(data.get("open_issues_count", 0))
+                res = (f"● ISSUES: {count}", def_link)
+            elif st == "watchers":
+                count = format_count(data.get("subscribers_count", 0))
+                res = (f"👁 {count}", def_link)
+            elif st == "license":
+                lic = (data.get("license") or {}).get("spdx_id") or "MIT"
+                res = (f"⚖ {lic}", def_link)
+            else:
+                res = (f"{st.upper()}", def_link)
+
+            _GITHUB_CACHE[cache_key] = res
+            return res
+    except Exception:
+        fallback_text = {
+            "stars": "★ STARS",
+            "forks": "🍴 FORKS",
+            "issues": "● ISSUES",
+            "license": "⚖ LICENSE",
+            "version": "v1.0.0",
+            "release": "v1.0.0",
+        }.get(st, st.upper())
+        res = (fallback_text, def_link)
+        _GITHUB_CACHE[cache_key] = res
+        return res
 
 def parse_directive_attrs(attr_string):
     """Parses key="value" or key=value attributes from a directive string."""
@@ -168,6 +258,7 @@ class MarkdownCompiler:
             tag = attrs.get("tag", "[OPEN_HUD]")
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
 
             attrs_top = dict(attrs)
             if "out_top" in attrs:
@@ -183,14 +274,14 @@ class MarkdownCompiler:
 
             rendered_top = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "frame_type": "top", "title": title, "tag": tag},
+                {"style": style, "primary": prim, "accent": acc, "frame_type": "top", "title": title, "tag": tag, "preset": preset},
                 attrs_top,
                 f"frame-top-{style}",
                 is_full_width=True
             )
             rendered_bot = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "frame_type": "bottom", "title": title, "tag": tag},
+                {"style": style, "primary": prim, "accent": acc, "frame_type": "bottom", "title": title, "tag": tag, "preset": preset},
                 attrs_bot,
                 f"frame-bottom-{style}",
                 is_full_width=True
@@ -237,7 +328,7 @@ class MarkdownCompiler:
 
         # ---------------------------------------------------------------
         # 2. CONTAINERS: TERMINAL (Details/Summary)
-        # <!-- pixel-kit:terminal style="..." title="..." [state="open|closed"] [primary="..."] [accent="..."] [mode="..."] -->
+        # <!-- pixel-kit:terminal style="..." title="..." [state="open|closed"] [primary="..."] [accent="..."] [preset="..."] [mode="..."] -->
         # ...
         # <!-- /pixel-kit:terminal -->
         # ---------------------------------------------------------------
@@ -254,6 +345,7 @@ class MarkdownCompiler:
             state = attrs.get("state", "open").lower()
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
 
             attrs_top = dict(attrs)
             if "out_top" in attrs:
@@ -269,14 +361,14 @@ class MarkdownCompiler:
 
             rendered_top = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "frame_type": "top", "title": f"╔═ {title} // RUNTIME.SYS"},
+                {"style": style, "primary": prim, "accent": acc, "frame_type": "top", "title": f"╔═ {title} // RUNTIME.SYS", "preset": preset},
                 attrs_top,
                 f"terminal-top-{style}",
                 is_full_width=True
             )
             rendered_bot = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "frame_type": "bottom"},
+                {"style": style, "primary": prim, "accent": acc, "frame_type": "bottom", "preset": preset},
                 attrs_bot,
                 f"terminal-bottom-{style}",
                 is_full_width=True
@@ -310,7 +402,7 @@ class MarkdownCompiler:
 
         # ---------------------------------------------------------------
         # 3. CONTAINERS: QUOTE CALLOUT
-        # <!-- pixel-kit:quote style="..." title="..." [subtitle="..."] [badge="..."] [primary="..."] [accent="..."] [mode="..."] -->
+        # <!-- pixel-kit:quote style="..." title="..." [subtitle="..."] [badge="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] -->
         # ...
         # <!-- /pixel-kit:quote -->
         # ---------------------------------------------------------------
@@ -328,10 +420,11 @@ class MarkdownCompiler:
             badge = attrs.get("badge", "NOTE")
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
 
             rendered_q = self._render_asset_markup(
                 generate_callout,
-                {"style": style, "primary": prim, "accent": acc, "callout_type": badge, "title": title, "subtitle": sub, "is_quote": True},
+                {"style": style, "primary": prim, "accent": acc, "callout_type": badge, "title": title, "subtitle": sub, "is_quote": True, "preset": preset},
                 attrs,
                 f"callout-quote-{style}",
                 alt=title,
@@ -349,7 +442,7 @@ class MarkdownCompiler:
 
         # ---------------------------------------------------------------
         # 4. STANDALONE: HEADER
-        # <!-- pixel-kit:header style="..." title="..." subtitle="..." [tag="..."] [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
+        # <!-- pixel-kit:header style="..." title="..." subtitle="..." [tag="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         header_regex = re.compile(r'<!--\s*pixel-kit:header\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -361,6 +454,7 @@ class MarkdownCompiler:
             tag = attrs.get("tag", "SYSTEM_ACTIVE")
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
 
             spec1 = attrs.get("spec1", None)
             spec2 = attrs.get("spec2", None)
@@ -372,7 +466,7 @@ class MarkdownCompiler:
                 {
                     "style": style, "primary": prim, "accent": acc, "title": title,
                     "subtitle": sub, "tag": tag, "spec1": spec1, "spec2": spec2,
-                    "spec3": spec3, "specs": specs
+                    "spec3": spec3, "specs": specs, "preset": preset
                 },
                 attrs,
                 f"header-{style}",
@@ -384,7 +478,7 @@ class MarkdownCompiler:
 
         # ---------------------------------------------------------------
         # 5. STANDALONE: FOOTER
-        # <!-- pixel-kit:footer style="..." status="..." [nav="..."] [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
+        # <!-- pixel-kit:footer style="..." status="..." [nav="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         footer_regex = re.compile(r'<!--\s*pixel-kit:footer\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -396,10 +490,11 @@ class MarkdownCompiler:
             sub = attrs.get("sub") or attrs.get("sub_text") or None
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
 
             return self._render_asset_markup(
                 generate_footer,
-                {"style": style, "primary": prim, "accent": acc, "status": status, "nav_text": nav, "sub_text": sub},
+                {"style": style, "primary": prim, "accent": acc, "status": status, "nav_text": nav, "sub_text": sub, "preset": preset},
                 attrs,
                 f"footer-{style}",
                 alt=nav,
@@ -411,7 +506,7 @@ class MarkdownCompiler:
 
         # ---------------------------------------------------------------
         # 6. STANDALONE: CALLOUT (Autonomous)
-        # <!-- pixel-kit:callout style="..." type="..." title="..." [subtitle="..."] [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
+        # <!-- pixel-kit:callout style="..." type="..." title="..." [subtitle="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         callout_regex = re.compile(r'<!--\s*pixel-kit:callout\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -423,10 +518,11 @@ class MarkdownCompiler:
             sub = attrs.get("subtitle", "")
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
 
             return self._render_asset_markup(
                 generate_callout,
-                {"style": style, "primary": prim, "accent": acc, "callout_type": ctype, "title": title, "subtitle": sub, "is_quote": False},
+                {"style": style, "primary": prim, "accent": acc, "callout_type": ctype, "title": title, "subtitle": sub, "is_quote": False, "preset": preset},
                 attrs,
                 f"callout-{style}-{ctype}",
                 alt=title,
@@ -437,7 +533,7 @@ class MarkdownCompiler:
 
         # ---------------------------------------------------------------
         # 7. STANDALONE: DIVIDER
-        # <!-- pixel-kit:divider style="..." [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
+        # <!-- pixel-kit:divider style="..." [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         divider_regex = re.compile(r'<!--\s*pixel-kit:divider\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -446,10 +542,11 @@ class MarkdownCompiler:
             style = attrs.get("style", "cyberpunk")
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
 
             return self._render_asset_markup(
                 generate_divider,
-                {"style": style, "primary": prim, "accent": acc},
+                {"style": style, "primary": prim, "accent": acc, "preset": preset},
                 attrs,
                 f"divider-{style}",
                 alt=f"Divider {style}",
@@ -460,7 +557,7 @@ class MarkdownCompiler:
 
         # ---------------------------------------------------------------
         # 8. STANDALONE: SPLITTER
-        # <!-- pixel-kit:splitter style="..." label="..." [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
+        # <!-- pixel-kit:splitter style="..." label="..." [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         splitter_regex = re.compile(r'<!--\s*pixel-kit:splitter\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -470,10 +567,11 @@ class MarkdownCompiler:
             label = attrs.get("label", "[MODULE: SUB_SYSTEM]")
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
 
             return self._render_asset_markup(
                 generate_splitter,
-                {"style": style, "primary": prim, "accent": acc, "label": label},
+                {"style": style, "primary": prim, "accent": acc, "label": label, "preset": preset},
                 attrs,
                 f"splitter-{style}",
                 alt=label,
@@ -484,7 +582,7 @@ class MarkdownCompiler:
 
         # ---------------------------------------------------------------
         # 9. STANDALONE: CHIP
-        # <!-- pixel-kit:chip style="..." [type="closed|decay|pulse"] text="..." [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
+        # <!-- pixel-kit:chip style="..." [type="closed|decay|pulse"] [text="..."] [github="stars|forks|issues|license|watchers|version|release"] [repo="owner/repo"] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         chip_regex = re.compile(r'<!--\s*pixel-kit:chip\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -495,13 +593,25 @@ class MarkdownCompiler:
             text_val = attrs.get("text", "CHIP")
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
 
             w_val = int(attrs["width"]) if "width" in attrs and attrs["width"].isdigit() else None
             link_url = attrs.get("url") or attrs.get("href") or attrs.get("link")
 
+            gh_stat = attrs.get("github") or attrs.get("gh")
+            if not gh_stat and "repo" in attrs and text_val.lower() in ("stars", "forks", "issues", "watchers", "license", "version", "release"):
+                gh_stat = text_val.lower()
+
+            if gh_stat:
+                repo_name = attrs.get("repo", "Kazinagg/pixel-readme-kit")
+                stat_text, stat_link = fetch_github_stat(repo_name, gh_stat)
+                text_val = stat_text
+                if not link_url:
+                    link_url = stat_link
+
             return self._render_asset_markup(
                 generate_chip,
-                {"style": style, "primary": prim, "accent": acc, "chip_type": ctype, "text": text_val, "width": w_val},
+                {"style": style, "primary": prim, "accent": acc, "chip_type": ctype, "text": text_val, "width": w_val, "preset": preset},
                 attrs,
                 f"chip-{style}-{ctype}",
                 alt=text_val,

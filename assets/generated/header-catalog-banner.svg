@@ -34,6 +34,13 @@
           --grid-op: 0.08;
         }
       }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #4F8BFF));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
 
       @keyframes eqBar1 { 0%, 100% { height: 12px; y: 28px; } 50% { height: 32px; y: 8px; } }
       @keyframes eqBar2 { 0%, 100% { height: 28px; y: 12px; } 50% { height: 10px; y: 30px; } }

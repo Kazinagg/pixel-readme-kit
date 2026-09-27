@@ -14,7 +14,11 @@
 &nbsp;&nbsp;
 <a href="#top"><img src="assets/generated/chip-readme-version.svg" alt="● v3.0.0 STABLE" /></a>
 &nbsp;&nbsp;
-<a href="LICENSE"><img src="assets/generated/chip-readme-license.svg" alt="MIT LICENSE" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg" alt="★ 1" /></a>
+&nbsp;&nbsp;
+<a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg" alt="🍴 0" /></a>
+&nbsp;&nbsp;
+<a href="https://github.com/Kazinagg/pixel-readme-kit"><img src="assets/generated/chip-readme-license.svg" alt="⚖ MIT" /></a>
 
 <br/><br/>
 
@@ -80,18 +84,18 @@
 Генерация отдельных SVG-файлов по запросу с поддержкой тем:
 
 ```bash
-# Флагманская адаптивная шапка (автоматическая смена темы):
-python -m generator.cli header --style cyberpunk --title "MY-PROJECT" --subtitle "SYSTEM RUNTIME" --mode auto -o assets/header.svg
+# Флагманская адаптивная шапка с пресетом (автоматическая смена темы):
+python -m generator.cli header --style cyberpunk --preset matrix --title "MY-PROJECT" --subtitle "SYSTEM RUNTIME" -o assets/header.svg
 
 # Оконная рамка:
 python -m generator.cli frame --style tactical --type top --title "MODULE_SPEC" -o assets/frame-top.svg
 python -m generator.cli frame --style tactical --type bottom -o assets/frame-bottom.svg
 
-# Адаптивный чип-ссылка:
-python -m generator.cli chip --style cyberpunk --type closed --text "⚡ v3.0.0" -o assets/chip.svg
+# Живой чип со статистикой GitHub и пресетом:
+python -m generator.cli chip --github stars --repo Kazinagg/pixel-readme-kit --preset tokyo -o assets/chip-stars.svg
 
-# Инлайн-алерт:
-python -m generator.cli callout --style minimal --type note --title "NOTICE" --subtitle "High performance" -o assets/callout.svg
+# Инлайн-алерт с авто-переносом строк:
+python -m generator.cli callout --style minimal --type note --title "NOTICE" --subtitle "Dual-theme contrast > 7:1 // Monospace typography" -o assets/callout.svg
 ```
 
 ---

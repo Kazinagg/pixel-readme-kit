@@ -75,6 +75,7 @@ def cmd_header(args):
         "style": args.style,
         "primary": args.primary,
         "accent": args.accent,
+        "preset": args.preset,
         "title": args.title,
         "subtitle": args.subtitle,
         "tag": args.tag,
@@ -89,6 +90,7 @@ def cmd_footer(args):
         "style": args.style,
         "primary": args.primary,
         "accent": args.accent,
+        "preset": args.preset,
         "status": args.status,
         "nav_text": args.nav,
         "sub_text": args.sub
@@ -100,6 +102,7 @@ def cmd_callout(args):
         "style": args.style,
         "primary": args.primary,
         "accent": args.accent,
+        "preset": args.preset,
         "callout_type": args.type,
         "title": args.title,
         "subtitle": args.subtitle,
@@ -111,18 +114,27 @@ def cmd_frame(args):
         "style": args.style,
         "primary": args.primary,
         "accent": args.accent,
+        "preset": args.preset,
         "frame_type": args.type,
         "title": args.title,
         "tag": args.tag
     }, f"frame-{args.type}-{args.style}")
 
 def cmd_chip(args):
+    chip_text = args.text
+    if getattr(args, "github", None):
+        repo = getattr(args, "repo", None) or "Kazinagg/pixel-readme-kit"
+        from generator.compiler import fetch_github_stat
+        stat_text, _ = fetch_github_stat(repo, args.github)
+        chip_text = stat_text
+
     handle_cli_output(args, generate_chip, {
         "style": args.style,
         "primary": args.primary,
         "accent": args.accent,
+        "preset": args.preset,
         "chip_type": args.type,
-        "text": args.text,
+        "text": chip_text,
         "width": args.width
     }, f"chip-{args.style}-{args.type}")
 
@@ -130,7 +142,8 @@ def cmd_divider(args):
     handle_cli_output(args, generate_divider, {
         "style": args.style,
         "primary": args.primary,
-        "accent": args.accent
+        "accent": args.accent,
+        "preset": args.preset
     }, f"divider-{args.style}")
 
 def cmd_splitter(args):
@@ -138,6 +151,7 @@ def cmd_splitter(args):
         "style": args.style,
         "primary": args.primary,
         "accent": args.accent,
+        "preset": args.preset,
         "label": args.label
     }, f"splitter-{args.style}")
 
@@ -167,6 +181,7 @@ def main():
     p_hdr = subparsers.add_parser("header", help="Generate flagship header banner")
     p_hdr.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style (cyberpunk, tactical, minimal)")
     p_hdr.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_hdr.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_hdr.add_argument("--primary", help="Primary brand hex color (e.g. #00C8D7, #F59E0B, #4F8BFF)")
     p_hdr.add_argument("--accent", help="Secondary accent hex color (e.g. #A855F7, #EA580C)")
     p_hdr.add_argument("--title", default="PIXEL-KIT", help="Main title text")
@@ -183,6 +198,7 @@ def main():
     p_ftr = subparsers.add_parser("footer", help="Generate full-width closing footer plate")
     p_ftr.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
     p_ftr.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_ftr.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_ftr.add_argument("--primary", help="Primary brand hex color")
     p_ftr.add_argument("--accent", help="Secondary accent hex color")
     p_ftr.add_argument("--status", default="SESSION_ACTIVE // STANDBY", help="Status telemetry readout text")
@@ -195,6 +211,7 @@ def main():
     p_clt = subparsers.add_parser("callout", help="Generate inline alert plate or quote header")
     p_clt.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
     p_clt.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_clt.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_clt.add_argument("--type", choices=["note", "warning", "critical", "success", "info"], default="note", help="Callout type / badge")
     p_clt.add_argument("--primary", help="Primary brand hex color")
     p_clt.add_argument("--accent", help="Secondary accent hex color")
@@ -208,6 +225,7 @@ def main():
     p_frm = subparsers.add_parser("frame", help="Generate window top cap or bottom plate")
     p_frm.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
     p_frm.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_frm.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_frm.add_argument("--type", choices=["top", "bottom"], default="top", help="Frame position: top or bottom")
     p_frm.add_argument("--primary", help="Primary brand hex color")
     p_frm.add_argument("--accent", help="Secondary accent hex color")
@@ -220,10 +238,13 @@ def main():
     p_chp = subparsers.add_parser("chip", help="Generate holographic pill / chip badge")
     p_chp.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
     p_chp.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_chp.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_chp.add_argument("--type", choices=["closed", "decay", "pulse"], default="closed", help="Form & decay mechanics: closed, decay, pulse")
     p_chp.add_argument("--primary", help="Primary brand hex color")
     p_chp.add_argument("--accent", help="Secondary accent hex color")
     p_chp.add_argument("--text", default="CHIP_TAG", help="Text label inside the chip")
+    p_chp.add_argument("--github", choices=["stars", "forks", "issues", "license", "watchers", "version", "release"], help="Fetch live GitHub stat for label")
+    p_chp.add_argument("--repo", default="Kazinagg/pixel-readme-kit", help="GitHub repo for live stats (e.g. Kazinagg/pixel-readme-kit)")
     p_chp.add_argument("--width", type=int, help="Optional manual width override in px (default: auto-calculated from text)")
     p_chp.add_argument("--output", "-o", help="Target SVG destination path")
     p_chp.set_defaults(func=cmd_chip)
@@ -232,6 +253,7 @@ def main():
     p_div = subparsers.add_parser("divider", help="Generate chapter divider (PCB, Laser, or Spectrum)")
     p_div.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Style: cyberpunk=PCB, tactical=Laser, minimal=Spectrum")
     p_div.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_div.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_div.add_argument("--primary", help="Primary brand hex color")
     p_div.add_argument("--accent", help="Secondary accent hex color")
     p_div.add_argument("--output", "-o", help="Target SVG destination path")
@@ -241,6 +263,7 @@ def main():
     p_spl = subparsers.add_parser("splitter", help="Generate sub-module splitter (flush x=1..849)")
     p_spl.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
     p_spl.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_spl.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_spl.add_argument("--primary", help="Primary brand hex color")
     p_spl.add_argument("--accent", help="Secondary accent hex color")
     p_spl.add_argument("--label", default="[MODULE: SUB_SYSTEM]", help="Splitter center label text")

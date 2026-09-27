@@ -34,6 +34,13 @@
           --grid-op: 0.08;
         }
       }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #F59E0B));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
 
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
     </style>
@@ -70,7 +77,7 @@
   </g>
 
   <!-- Right Tactical Return Button -->
-  <g transform="translate(655, 22)">
+  <g transform="translate(655, 22)" class="btn-hover">
     <polygon points="12 0, 172 0, 182 10, 182 32, 172 42, 0 42, 0 12" fill="rgba(245, 158, 11, 0.2)" stroke="var(--primary)" stroke-width="1.5"/>
     <text x="91" y="24" fill="var(--primary)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">▲ НАВЕРХ</text>
     <text x="91" y="36" fill="var(--accent)" font-size="7.5" font-weight="bold" text-anchor="middle" class="font-mono">[ ELEVATION: 000 ]</text>

@@ -13,8 +13,37 @@ Full suite of rich HUD details:
 """
 
 import html
+import json
+import os
 import xml.etree.ElementTree as ET
 from generator.font_engine import render_3d_text, calculate_px_size
+
+def load_preset(preset_name_or_path):
+    """
+    Loads custom color palette from a JSON file or named preset in presets/.
+    """
+    if not preset_name_or_path:
+        return None
+    path = str(preset_name_or_path).strip()
+    if os.path.isfile(path):
+        target_path = path
+    else:
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        cand1 = os.path.join(base_dir, "..", "presets", f"{path}.json")
+        cand2 = os.path.join(base_dir, "..", "presets", path)
+        if os.path.isfile(cand1):
+            target_path = cand1
+        elif os.path.isfile(cand2):
+            target_path = cand2
+        elif os.path.isfile(f"{path}.json"):
+            target_path = f"{path}.json"
+        else:
+            return None
+    try:
+        with open(target_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return None
 
 THEME_PALETTES = {
     "cyberpunk": {
@@ -164,11 +193,39 @@ def get_shadow_colors(primary_hex, style="cyberpunk"):
         return base["title_mid"], base["title_dark"]
     return darken_hex(primary_hex, 0.45), darken_hex(primary_hex, 0.15)
 
-def resolve_theme(style, mode="auto", primary=None, accent=None):
+def resolve_theme(style, mode="auto", primary=None, accent=None, preset=None):
     st = style.lower() if style else "cyberpunk"
     pal = THEME_PALETTES.get(st, THEME_PALETTES["cyberpunk"])
     dark_vals = dict(pal["dark"])
     light_vals = dict(pal["light"])
+
+    if preset:
+        preset_data = load_preset(preset)
+        if preset_data:
+            p_prim = preset_data.get("primary")
+            p_acc = preset_data.get("accent") or preset_data.get("secondary")
+            p_succ = preset_data.get("success")
+            p_warn = preset_data.get("warning")
+            p_bg = preset_data.get("bg_glass") or preset_data.get("bg")
+            p_panel = preset_data.get("bg_panel") or preset_data.get("panel")
+            p_border = preset_data.get("border_subtle") or preset_data.get("border_slate") or preset_data.get("border")
+
+            if p_prim and not primary:
+                primary = p_prim
+            if p_acc and not accent:
+                accent = p_acc
+            if p_succ:
+                dark_vals["success"] = p_succ
+                light_vals["success"] = darken_hex(p_succ, 0.7) if is_light_color(p_succ) else p_succ
+            if p_warn:
+                dark_vals["warning"] = p_warn
+                light_vals["warning"] = darken_hex(p_warn, 0.7) if is_light_color(p_warn) else p_warn
+            if p_bg:
+                dark_vals["bg"] = p_bg
+            if p_panel:
+                dark_vals["panel"] = p_panel
+            if p_border:
+                dark_vals["border"] = p_border
 
     if primary:
         dark_vals["primary"] = primary
@@ -243,11 +300,18 @@ def resolve_theme(style, mode="auto", primary=None, accent=None):
           --grid-op: {dark_vals['grid_op']};
         }}
       }}
+      @media (hover: hover) {{
+        .btn-hover:hover, a:hover polygon, a:hover rect {{
+          filter: drop-shadow(0 0 6px var(--primary, {dark_vals['primary']}));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }}
+      }}
 """
         return colors, css_vars
 
-def resolve_colors(style, primary=None, accent=None, mode="auto"):
-    c, _ = resolve_theme(style, mode=mode, primary=primary, accent=accent)
+def resolve_colors(style, primary=None, accent=None, mode="auto", preset=None):
+    c, _ = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     return c["primary"], c["accent"], c["bg"]
 
 
@@ -304,8 +368,8 @@ def normalize_specs(specs=None, spec1=None, spec2=None, spec3=None, default_colo
 def generate_header(style="cyberpunk", primary=None, accent=None,
                     title="PIXEL-KIT", subtitle="TRANSLUCENT HUD DESIGN SYSTEM",
                     specs=None, spec1=None, spec2=None, spec3=None,
-                    tag="SYSTEM_ACTIVE", width=850, height=None, mode="auto"):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent)
+                    tag="SYSTEM_ACTIVE", width=850, height=None, mode="auto", preset=None):
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
@@ -750,8 +814,8 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
 
 def generate_footer(style="cyberpunk", primary=None, accent=None,
                     status="SESSION_ACTIVE // STANDBY", nav_text="RETURN TO TOP",
-                    sub_text=None, width=850, height=76, mode="auto"):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent)
+                    sub_text=None, width=850, height=76, mode="auto", preset=None):
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
@@ -810,7 +874,7 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   </g>
 
   <!-- Right Tactical Return Button -->
-  <g transform="translate({width-195}, 22)">
+  <g transform="translate({width-195}, 22)" class="btn-hover">
     <polygon points="12 0, 172 0, 182 10, 182 32, 172 42, 0 42, 0 12" fill="rgba(245, 158, 11, 0.2)" stroke="{prim}" stroke-width="1.5"/>
     <text x="91" y="24" fill="{prim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
     <text x="91" y="36" fill="{acc}" font-size="7.5" font-weight="bold" text-anchor="middle" class="font-mono">[ ELEVATION: 000 ]</text>
@@ -861,8 +925,10 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   </g>
 
   <!-- Right Clean Return Button -->
-  <rect x="{width-180}" y="24" width="160" height="34" fill="rgba(79, 139, 255, 0.12)" stroke="{prim}" stroke-width="1"/>
-  <text x="{width-100}" y="45" fill="{prim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
+  <g class="btn-hover">
+    <rect x="{width-180}" y="24" width="160" height="34" fill="rgba(79, 139, 255, 0.12)" stroke="{prim}" stroke-width="1"/>
+    <text x="{width-100}" y="45" fill="{prim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
+  </g>
 </svg>"""
 
     else:
@@ -914,7 +980,7 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   </g>
 
   <!-- Right Return To Top Button -->
-  <g transform="translate({width-195}, 22)">
+  <g transform="translate({width-195}, 22)" class="btn-hover">
     <rect x="0" y="0" width="180" height="36" fill="rgba(0, 200, 215, 0.16)" stroke="{prim}" stroke-width="1.5"/>
     <rect x="0" y="0" width="3" height="3" fill="{prim}"/>
     <rect x="177" y="0" width="3" height="3" fill="{prim}"/>
@@ -940,8 +1006,8 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
 def generate_callout(style="cyberpunk", primary=None, accent=None,
                      callout_type="note", title="SYSTEM SPECIFICATION",
                      subtitle="Dual-theme contrast > 7:1 // Monospace typography",
-                     is_quote=False, width=850, height=None, mode="auto"):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent)
+                     is_quote=False, width=850, height=None, mode="auto", preset=None):
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
@@ -951,13 +1017,31 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
     text_dim = c["text_dim"]
 
     title_clean = escape_xml(title)
-    sub_clean = escape_xml(subtitle)
+    sub_raw = str(subtitle).strip() if subtitle else ""
     tag_clean = escape_xml(callout_type.upper())
     st = style.lower()
+    has_sub = bool(sub_raw)
+
+    sub_lines = []
+    if has_sub:
+        if len(sub_raw) > 105 and " " in sub_raw:
+            words = sub_raw.split()
+            l1, l2 = [], []
+            c_len = 0
+            for w in words:
+                if c_len + len(w) + 1 <= 100 or not l1:
+                    l1.append(w)
+                    c_len += len(w) + 1
+                else:
+                    l2.append(w)
+            sub_lines = [" ".join(l1), " ".join(l2)]
+        else:
+            sub_lines = [sub_raw]
 
     if is_quote:
         # Quote Header Callout (Open Left Edge + Dashed Bottom)
-        h = height if height else 42
+        def_h = 56 if len(sub_lines) > 1 else 42
+        h = height if height else def_h
         if st == "tactical":
             dash_w = "8,4"
             top_rail = f'<line x1="0" y1="2" x2="{width-12}" y2="2" stroke="{prim}" stroke-width="2"/><line x1="{width-12}" y1="2" x2="{width-1}" y2="13" stroke="{prim}" stroke-width="2"/><line x1="{width-1}" y1="13" x2="{width-1}" y2="{h-4}" stroke="{prim}" stroke-width="2"/>'
@@ -977,6 +1061,16 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
             text_x = 142
             arrow_poly = ""
 
+        if not has_sub:
+            text_block = f'<text x="{text_x}" y="25" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>'
+        elif len(sub_lines) == 1:
+            text_block = f"""<text x="{text_x}" y="20" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
+  <text x="{text_x}" y="33" fill="{acc}" font-size="8.5" class="font-mono">{escape_xml(sub_lines[0])}</text>"""
+        else:
+            text_block = f"""<text x="{text_x}" y="19" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
+  <text x="{text_x}" y="32" fill="{acc}" font-size="8.5" class="font-mono">{escape_xml(sub_lines[0])}</text>
+  <text x="{text_x}" y="45" fill="{acc}" font-size="8.5" class="font-mono">{escape_xml(sub_lines[1])}</text>"""
+
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
@@ -991,20 +1085,21 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
   <!-- Badge -->
   {badge}
   <!-- Title & Subtitle (Properly offset past badge edge) -->
-  <text x="{text_x}" y="20" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
-  <text x="{text_x}" y="33" fill="{acc}" font-size="8.5" class="font-mono">{sub_clean}</text>
+  {text_block}
   <!-- DASHED BOTTOM LINE: Bridges into live markdown text -->
   <line x1="0" y1="{h-1}" x2="{width-5}" y2="{h-1}" stroke="{prim}" stroke-width="1.5" stroke-dasharray="{dash_w}" opacity="0.75"/>
   {arrow_poly}
 </svg>"""
 
     else:
-        # Autonomous Closed Callout (48px)
-        h = height if height else 48
+        # Autonomous Closed Callout (48px or 62px)
+        def_h = 62 if len(sub_lines) > 1 else 48
+        h = height if height else def_h
+        mid_y = h // 2
         if st == "tactical":
             body = f'<polygon points="12 2, {width-12} 2, {width-2} 12, {width-2} {h-12}, {width-12} {h-2}, 12 {h-2}, 2 {h-12}, 2 12" fill="{bg}" stroke="{prim}" stroke-width="1.5"/>'
             badge = f'<polygon points="34 10, 175 10, 182 17, 182 31, 175 38, 34 38" fill="{panel}" stroke="{prim}" stroke-width="1.5"/><text x="105" y="28" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ {tag_clean} // HAZARD</text>'
-            accents = f'<polygon points="10 8, 16 8, 8 20, 2 20" fill="{prim}" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="{prim}" opacity="0.6"/><circle cx="{width-25}" cy="24" r="8" fill="none" stroke="{prim}" stroke-width="1.5"/><polygon points="{width-28} 24, {width-22} 20, {width-22} 28" fill="{prim}"/>'
+            accents = f'<polygon points="10 8, 16 8, 8 20, 2 20" fill="{prim}" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="{prim}" opacity="0.6"/><circle cx="{width-25}" cy="{mid_y}" r="8" fill="none" stroke="{prim}" stroke-width="1.5"/><polygon points="{width-28} {mid_y}, {width-22} {mid_y-4}, {width-22} {mid_y+4}" fill="{prim}"/>'
             text_x = 196
         elif st == "minimal":
             body = f'<rect x="1" y="2" width="{width-2}" height="{h-4}" fill="{bg}" stroke="{border}" stroke-width="1.5"/>'
@@ -1014,8 +1109,18 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
         else:
             body = f'<rect x="2" y="2" width="{width-4}" height="{h-4}" fill="{bg}" stroke="{prim}" stroke-width="1.5"/><rect x="2" y="2" width="5" height="5" fill="{prim}"/><rect x="{width-7}" y="2" width="5" height="5" fill="{prim}"/><rect x="2" y="{h-7}" width="5" height="5" fill="{prim}"/><rect x="{width-7}" y="{h-7}" width="5" height="5" fill="{prim}"/>'
             badge = f'<rect x="14" y="10" width="140" height="28" fill="{panel}" stroke="{prim}" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="{prim}"/><text x="88" y="28" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // 0x01</text>'
-            accents = f'<rect x="{width-35}" y="14" width="20" height="20" fill="{panel}"/><text x="{width-25}" y="28" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>'
+            accents = f'<rect x="{width-35}" y="{mid_y - 10}" width="20" height="20" fill="{panel}"/><text x="{width-25}" y="{mid_y + 4}" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>'
             text_x = 168
+
+        if not has_sub:
+            text_block = f'<text x="{text_x}" y="28" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>'
+        elif len(sub_lines) == 1:
+            text_block = f"""<text x="{text_x}" y="22" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
+  <text x="{text_x}" y="36" fill="{acc}" font-size="9" class="font-mono">{escape_xml(sub_lines[0])}</text>"""
+        else:
+            text_block = f"""<text x="{text_x}" y="20" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
+  <text x="{text_x}" y="34" fill="{acc}" font-size="9" class="font-mono">{escape_xml(sub_lines[0])}</text>
+  <text x="{text_x}" y="48" fill="{acc}" font-size="9" class="font-mono">{escape_xml(sub_lines[1])}</text>"""
 
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
@@ -1030,8 +1135,7 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
   {badge}
   {accents}
   <!-- Text Content (Properly offset past badge edge) -->
-  <text x="{text_x}" y="22" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
-  <text x="{text_x}" y="36" fill="{acc}" font-size="9" class="font-mono">{sub_clean}</text>
+  {text_block}
 </svg>"""
 
     validate_svg(svg)
@@ -1059,8 +1163,8 @@ def format_bottom_tag(tag):
 
 def generate_frame(style="cyberpunk", primary=None, accent=None,
                    frame_type="top", title="╔═ SYSTEM.CORE // RUNTIME.SYS",
-                   tag="[OPEN_HUD]", width=850, height=None, mode="auto"):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent)
+                   tag="[OPEN_HUD]", width=850, height=None, mode="auto", preset=None):
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
@@ -1258,8 +1362,8 @@ def estimate_chip_width(text, font_size=10, char_w=7.0):
 
 
 def generate_chip(style="cyberpunk", primary=None, accent=None,
-                  chip_type="closed", text="CHIP_LABEL", width=None, height=26, mode="auto"):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent)
+                  chip_type="closed", text="CHIP_LABEL", width=None, height=26, mode="auto", preset=None):
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
@@ -1526,8 +1630,8 @@ def generate_chip(style="cyberpunk", primary=None, accent=None,
 # 6. DIVIDERS & SPLITTERS
 # ---------------------------------------------------------------------------
 
-def generate_divider(style="cyberpunk", primary=None, accent=None, width=850, height=28, mode="auto"):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent)
+def generate_divider(style="cyberpunk", primary=None, accent=None, width=850, height=28, mode="auto", preset=None):
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
@@ -1607,8 +1711,8 @@ def generate_divider(style="cyberpunk", primary=None, accent=None, width=850, he
     return svg
 
 def generate_splitter(style="cyberpunk", primary=None, accent=None,
-                      label="[MODULE: SUB_SYSTEM]", width=850, height=22, mode="auto"):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent)
+                      label="[MODULE: SUB_SYSTEM]", width=850, height=22, mode="auto", preset=None):
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]

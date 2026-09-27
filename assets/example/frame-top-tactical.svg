@@ -34,6 +34,13 @@
           --grid-op: 0.08;
         }
       }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #F59E0B));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
 
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
       @keyframes blinkLed { 0%, 100% { fill: var(--primary); } 50% { fill: #1E293B; } }

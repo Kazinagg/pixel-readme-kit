@@ -34,6 +34,13 @@
           --grid-op: 0.08;
         }
       }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #00C8D7));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
 
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
       @keyframes blinkLed { 0%, 100% { fill: var(--primary); opacity: 1; } 50% { fill: #1E293B; opacity: 0.3; } }
@@ -76,7 +83,7 @@
   </g>
 
   <!-- Right Return To Top Button -->
-  <g transform="translate(655, 22)">
+  <g transform="translate(655, 22)" class="btn-hover">
     <rect x="0" y="0" width="180" height="36" fill="rgba(0, 200, 215, 0.16)" stroke="var(--primary)" stroke-width="1.5"/>
     <rect x="0" y="0" width="3" height="3" fill="var(--primary)"/>
     <rect x="177" y="0" width="3" height="3" fill="var(--primary)"/>

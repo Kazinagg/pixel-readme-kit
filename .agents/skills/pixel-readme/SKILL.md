@@ -123,11 +123,23 @@ git clone https://github.com/Kazinagg/pixel-readme-kit.git
 <!-- pixel-kit:splitter style="tactical" label="[MODULE: AUTH]" mode="auto" -->
 ```
 
-#### 8. Голографические чипы
+#### 8. Голографические чипы и живые счетчики GitHub
 ```markdown
 <!-- pixel-kit:chip style="cyberpunk" type="closed" text="CORE_SYS" href="https://github.com" mode="auto" -->
 <!-- pixel-kit:chip style="tactical" type="decay" text="DEF_ALERT" mode="auto" -->
 <!-- pixel-kit:chip style="minimal" type="pulse" text="SYNC_IDLE" mode="auto" -->
+
+<!-- Живые счетчики GitHub с авто-ссылками: -->
+<!-- pixel-kit:chip github="stars" repo="Kazinagg/pixel-readme-kit" style="cyberpunk" -->
+<!-- pixel-kit:chip github="forks" repo="Kazinagg/pixel-readme-kit" style="tactical" -->
+<!-- pixel-kit:chip github="license" repo="Kazinagg/pixel-readme-kit" style="minimal" -->
+```
+
+#### 9. Цветовые пресеты JSON (Presets)
+Все директивы поддерживают параметр `preset="cyberpunk|amber|matrix|tokyo|path/to/theme.json"`:
+```markdown
+<!-- pixel-kit:header preset="matrix" title="MATRIX KERNEL" subtitle="REAL-TIME TELEMETRY" -->
+<!-- pixel-kit:callout preset="amber" type="warning" title="SECTOR HAZARD" subtitle="Radiation perimeter active" -->
 ```
 
 ---
@@ -175,3 +187,5 @@ python -m generator.cli splitter --style cyberpunk --label "[MODULE: AUTH]" -o a
    - Всегда валидировать SVG через `xml.etree.ElementTree.fromstring()`.
 4. **Адаптивный вертикальный поток (DOM-like Flow Layout)**:
    - Высота шапок (`generate_header`) автоматически рассчитывается динамически: при 2-строчных заголовках или наличии спецификаций все нижние блоки плавно съезжают вниз (как `div` в браузере), а сам SVG динамически увеличивает высоту (`viewBox` и шасси), гарантируя запас отступа (clearance $\ge 18-26$px) до нижних линий и скосов.
+5. **Адаптивные Callouts по высоте**:
+   - При длине подзаголовка более 100 символов текст автоматически переносится на 2 строки, а высота SVG адаптируется с 48px до 62px (или с 42px до 56px для цитат), предотвращая наложение и выход текста за нижние границы шасси. Одиночный заголовок без подзаголовка автоматически центрируется по вертикали.

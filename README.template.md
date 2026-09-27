@@ -14,7 +14,11 @@
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="minimal" type="pulse" text="● v3.0.0 STABLE" href="#top" out="assets/generated/chip-readme-version.svg" -->
 &nbsp;&nbsp;
-<!-- pixel-kit:chip style="cyberpunk" type="pulse" text="MIT LICENSE" href="LICENSE" out="assets/generated/chip-readme-license.svg" -->
+<!-- pixel-kit:chip style="cyberpunk" type="closed" github="stars" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-stars.svg" -->
+&nbsp;&nbsp;
+<!-- pixel-kit:chip style="tactical" type="decay" github="forks" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-forks.svg" -->
+&nbsp;&nbsp;
+<!-- pixel-kit:chip style="minimal" type="pulse" github="license" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-license.svg" -->
 
 <br/><br/>
 
@@ -80,18 +84,18 @@
 Генерация отдельных SVG-файлов по запросу с поддержкой тем:
 
 ```bash
-# Флагманская адаптивная шапка (автоматическая смена темы):
-python -m generator.cli header --style cyberpunk --title "MY-PROJECT" --subtitle "SYSTEM RUNTIME" --mode auto -o assets/header.svg
+# Флагманская адаптивная шапка с пресетом (автоматическая смена темы):
+python -m generator.cli header --style cyberpunk --preset matrix --title "MY-PROJECT" --subtitle "SYSTEM RUNTIME" -o assets/header.svg
 
 # Оконная рамка:
 python -m generator.cli frame --style tactical --type top --title "MODULE_SPEC" -o assets/frame-top.svg
 python -m generator.cli frame --style tactical --type bottom -o assets/frame-bottom.svg
 
-# Адаптивный чип-ссылка:
-python -m generator.cli chip --style cyberpunk --type closed --text "⚡ v3.0.0" -o assets/chip.svg
+# Живой чип со статистикой GitHub и пресетом:
+python -m generator.cli chip --github stars --repo Kazinagg/pixel-readme-kit --preset tokyo -o assets/chip-stars.svg
 
-# Инлайн-алерт:
-python -m generator.cli callout --style minimal --type note --title "NOTICE" --subtitle "High performance" -o assets/callout.svg
+# Инлайн-алерт с авто-переносом строк:
+python -m generator.cli callout --style minimal --type note --title "NOTICE" --subtitle "Dual-theme contrast > 7:1 // Monospace typography" -o assets/callout.svg
 ```
 
 ---
