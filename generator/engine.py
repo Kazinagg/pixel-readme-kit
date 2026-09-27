@@ -368,7 +368,8 @@ def normalize_specs(specs=None, spec1=None, spec2=None, spec3=None, default_colo
 def generate_header(style="cyberpunk", primary=None, accent=None,
                     title="PIXEL-KIT", subtitle="TRANSLUCENT HUD DESIGN SYSTEM",
                     specs=None, spec1=None, spec2=None, spec3=None,
-                    tag="SYSTEM_ACTIVE", width=850, height=None, mode="auto", preset=None):
+                    tag="SYSTEM_ACTIVE", width=850, height=None, mode="auto", preset=None,
+                    tag_url=None, close_url=None):
     c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
@@ -740,15 +741,14 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
   <text x="372" y="29" fill="{text_dim}" font-size="11" class="font-mono">MODE: {st.upper()}_HUD</text>
 
   <!-- Tag right-anchored to never collide with window controls -->
-  <text x="{width-95}" y="29" fill="{warning}" font-size="11" font-weight="bold" text-anchor="end" class="font-mono">{tag_clean}</text>
+  {f'<a href="{escape_xml(tag_url)}" target="_blank" class="btn-hover">' if tag_url else ''}<text x="{width-95}" y="29" fill="{warning}" font-size="11" font-weight="bold" text-anchor="end" class="font-mono">{tag_clean}</text>{'</a>' if tag_url else ''}
 
   <!-- Window controls [ _ ] [ □ ] [ × ] -->
   <rect x="{width-85}" y="19" width="16" height="12" fill="{border}"/>
   <text x="{width-80}" y="28" fill="{text_dim}" font-size="10" font-weight="bold" class="font-mono">_</text>
   <rect x="{width-63}" y="19" width="16" height="12" fill="{border}"/>
   <text x="{width-59}" y="29" fill="{text_dim}" font-size="11" font-weight="bold" class="font-mono">□</text>
-  <rect x="{width-41}" y="19" width="16" height="12" fill="#FF0055"/>
-  <text x="{width-37}" y="29" fill="#FFFFFF" font-size="11" font-weight="bold" class="font-mono">×</text>
+  {f'<a href="{escape_xml(close_url)}" target="_blank" class="btn-hover">' if close_url else ''}<rect x="{width-41}" y="19" width="16" height="12" fill="#FF0055"/><text x="{width-37}" y="29" fill="#FFFFFF" font-size="11" font-weight="bold" class="font-mono">×</text>{'</a>' if close_url else ''}
 
   <!-- 3D PIXEL TITLE -->
   {pixel_markup}
@@ -1163,7 +1163,8 @@ def format_bottom_tag(tag):
 
 def generate_frame(style="cyberpunk", primary=None, accent=None,
                    frame_type="top", title="╔═ SYSTEM.CORE // RUNTIME.SYS",
-                   tag="[OPEN_HUD]", width=850, height=None, mode="auto", preset=None):
+                   tag="[OPEN_HUD]", width=850, height=None, mode="auto", preset=None,
+                   tag_url=None, close_url=None):
     c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
@@ -1181,6 +1182,11 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
 
     if is_top:
         h = height if height else 38
+        tag_link_open = f'<a href="{escape_xml(tag_url)}" target="_blank" class="btn-hover">' if tag_url else ''
+        tag_link_close = '</a>' if tag_url else ''
+        close_link_open = f'<a href="{escape_xml(close_url)}" target="_blank" class="btn-hover">' if close_url else ''
+        close_link_close = '</a>' if close_url else ''
+
         if st == "tactical":
             # Tactical Chamfer Top: Dual Hull, Tech Seam, Flush Downward Prongs x=1..849, LED, Buttons
             svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
@@ -1215,16 +1221,16 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   </text>
 
   <!-- Right Status Tag -->
-  <rect x="{width-180}" y="9" width="105" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
-  <text x="{width-127}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>
+  {tag_link_open}<rect x="{width-180}" y="9" width="105" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
+  <text x="{width-127}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>{tag_link_close}
 
   <!-- Window controls [ _ ] [ □ ] [ × ] -->
   <rect x="{width-68}" y="11" width="14" height="14" fill="{panel}"/>
   <text x="{width-64}" y="21" fill="{text_dim}" font-size="10" font-weight="bold" class="font-mono">_</text>
   <rect x="{width-50}" y="11" width="14" height="14" fill="{panel}"/>
   <text x="{width-47}" y="22" fill="{text_dim}" font-size="10" font-weight="bold" class="font-mono">□</text>
-  <rect x="{width-32}" y="11" width="14" height="14" fill="#FF0055"/>
-  <text x="{width-28}" y="22" fill="#FFFFFF" font-size="10" font-weight="bold" class="font-mono">×</text>
+  {close_link_open}<rect x="{width-32}" y="11" width="14" height="14" fill="#FF0055"/>
+  <text x="{width-28}" y="22" fill="#FFFFFF" font-size="10" font-weight="bold" class="font-mono">×</text>{close_link_close}
 </svg>"""
 
         elif st == "minimal":
@@ -1242,11 +1248,11 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   <line x1="8" y1="{h-2}" x2="{width-8}" y2="{h-2}" stroke="{prim}" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
   <circle cx="24" cy="18" r="4" fill="{prim}"/>
   <text x="36" y="22" fill="{prim}" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">{title_clean}</text>
-  <rect x="{width-180}" y="9" width="105" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
-  <text x="{width-128}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>
+  {tag_link_open}<rect x="{width-180}" y="9" width="105" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
+  <text x="{width-128}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>{tag_link_close}
   <rect x="{width-68}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-64}" y="21" fill="{text_dim}" font-size="10" class="font-mono">_</text>
   <rect x="{width-50}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-47}" y="22" fill="{text_dim}" font-size="10" class="font-mono">□</text>
-  <rect x="{width-32}" y="11" width="14" height="14" fill="#FF0055"/><text x="{width-28}" y="22" fill="#FFFFFF" font-size="10" class="font-mono">×</text>
+  {close_link_open}<rect x="{width-32}" y="11" width="14" height="14" fill="#FF0055"/><text x="{width-28}" y="22" fill="#FFFFFF" font-size="10" class="font-mono">×</text>{close_link_close}
 </svg>"""
 
         else:
@@ -1271,11 +1277,11 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   <rect x="{width-4}" y="32" width="4" height="6" fill="{prim}"/>
   <circle cx="24" cy="18" r="4" fill="{prim}" class="led"/>
   <text x="36" y="22" fill="{prim}" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">{title_clean}</text>
-  <rect x="{width-180}" y="9" width="105" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
-  <text x="{width-128}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>
+  {tag_link_open}<rect x="{width-180}" y="9" width="105" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
+  <text x="{width-128}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>{tag_link_close}
   <rect x="{width-68}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-64}" y="21" fill="{text_dim}" font-size="10" class="font-mono">_</text>
   <rect x="{width-50}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-47}" y="22" fill="{text_dim}" font-size="10" class="font-mono">□</text>
-  <rect x="{width-32}" y="11" width="14" height="14" fill="#FF0055"/><text x="{width-28}" y="22" fill="#FFFFFF" font-size="10" class="font-mono">×</text>
+  {close_link_open}<rect x="{width-32}" y="11" width="14" height="14" fill="#FF0055"/><text x="{width-28}" y="22" fill="#FFFFFF" font-size="10" class="font-mono">×</text>{close_link_close}
 </svg>"""
 
     else:

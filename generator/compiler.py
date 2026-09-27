@@ -149,7 +149,10 @@ class MarkdownCompiler:
         self.counters[prefix] = count
         filename = f"{prefix}-{count}.{ext}"
         filepath = os.path.join(self.assets_dir, filename)
-        rel_url = os.path.relpath(filepath, ".").replace("\\", "/")
+        try:
+            rel_url = os.path.relpath(filepath, ".").replace("\\", "/")
+        except ValueError:
+            rel_url = filepath.replace("\\", "/")
         return filepath, rel_url
 
     def _save_svg(self, svg_content, custom_out, default_prefix):
@@ -272,9 +275,12 @@ class MarkdownCompiler:
             elif "out" in attrs:
                 del attrs_bot["out"]
 
+            tag_url = attrs.get("tag_url") or attrs.get("tag_href")
+            close_url = attrs.get("close_url") or attrs.get("close_href")
+
             rendered_top = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "frame_type": "top", "title": title, "tag": tag, "preset": preset},
+                {"style": style, "primary": prim, "accent": acc, "frame_type": "top", "title": title, "tag": tag, "preset": preset, "tag_url": tag_url, "close_url": close_url},
                 attrs_top,
                 f"frame-top-{style}",
                 is_full_width=True
@@ -461,12 +467,16 @@ class MarkdownCompiler:
             spec3 = attrs.get("spec3", None)
             specs = attrs.get("specs", None)
 
+            tag_url = attrs.get("tag_url") or attrs.get("tag_href")
+            close_url = attrs.get("close_url") or attrs.get("close_href")
+
             return self._render_asset_markup(
                 generate_header,
                 {
                     "style": style, "primary": prim, "accent": acc, "title": title,
                     "subtitle": sub, "tag": tag, "spec1": spec1, "spec2": spec2,
-                    "spec3": spec3, "specs": specs, "preset": preset
+                    "spec3": spec3, "specs": specs, "preset": preset,
+                    "tag_url": tag_url, "close_url": close_url
                 },
                 attrs,
                 f"header-{style}",

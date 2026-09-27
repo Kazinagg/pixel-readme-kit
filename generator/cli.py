@@ -79,6 +79,8 @@ def cmd_header(args):
         "title": args.title,
         "subtitle": args.subtitle,
         "tag": args.tag,
+        "tag_url": getattr(args, "tag_url", None),
+        "close_url": getattr(args, "close_url", None),
         "spec1": args.spec1,
         "spec2": args.spec2,
         "spec3": args.spec3,
@@ -117,7 +119,9 @@ def cmd_frame(args):
         "preset": args.preset,
         "frame_type": args.type,
         "title": args.title,
-        "tag": args.tag
+        "tag": args.tag,
+        "tag_url": getattr(args, "tag_url", None),
+        "close_url": getattr(args, "close_url", None)
     }, f"frame-{args.type}-{args.style}")
 
 def cmd_chip(args):
@@ -187,6 +191,8 @@ def main():
     p_hdr.add_argument("--title", default="PIXEL-KIT", help="Main title text")
     p_hdr.add_argument("--subtitle", default="TRANSLUCENT HUD DESIGN SYSTEM", help="Subtitle description text")
     p_hdr.add_argument("--tag", default="SYSTEM_ACTIVE", help="Top badge tag text")
+    p_hdr.add_argument("--tag-url", help="Optional URL link for the top badge tag")
+    p_hdr.add_argument("--close-url", help="Optional URL link for the close button [x]")
     p_hdr.add_argument("--spec1", help="Level 3 spec line 1 (e.g. 'HUD ARCHITECTURE: TRANSLUCENT GLASS')")
     p_hdr.add_argument("--spec2", help="Level 3 spec line 2 (e.g. 'TEXT INTEGRATION: 100%% COPYABLE MARKDOWN')")
     p_hdr.add_argument("--spec3", help="Level 3 spec line 3 (e.g. 'ANIMATION SUITE: RADAR // SCANLINE')")
@@ -231,6 +237,8 @@ def main():
     p_frm.add_argument("--accent", help="Secondary accent hex color")
     p_frm.add_argument("--title", default="╔═ SYSTEM.CORE // RUNTIME.SYS", help="Window title text (for top frame)")
     p_frm.add_argument("--tag", default="[OPEN_HUD]", help="Window tag text (for top frame)")
+    p_frm.add_argument("--tag-url", help="Optional URL link for the top frame tag")
+    p_frm.add_argument("--close-url", help="Optional URL link for the close button [x]")
     p_frm.add_argument("--output", "-o", help="Target SVG destination path")
     p_frm.set_defaults(func=cmd_frame)
 

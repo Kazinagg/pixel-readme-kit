@@ -1,0 +1,96 @@
+name: Pixel Kit Test & Auto-Compiler
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '*.template.md'
+      - 'generator/**'
+      - 'presets/**'
+      - 'tests/**'
+      - '.github/workflows/pixel-compile.yml'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run Test Suite
+        run: |
+          python -m unittest discover tests -v
+
+  compile:
+    name: Auto-Compile Templates & Commit
+    needs: test
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile README and Catalogs
+        run: |
+          if [ -f README.template.md ]; then
+            python -m generator.cli compile --input README.template.md --output README.md --assets-dir assets/generated
+          fi
+          if [ -f CATALOG.template.md ]; then
+            python -m generator.cli compile --input CATALOG.template.md --output CATALOG.md --assets-dir assets/generated
+          fi
+          if [ -f EXAMPLE_TEMPLATE.md ]; then
+            python -m generator.cli compile --input EXAMPLE_TEMPLATE.md --output EXAMPLE.md --assets-dir assets/generated
+          fi
+
+      - name: Validate All SVG Assets
+        run: |
+          python -c "
+          import glob, xml.etree.ElementTree as ET
+          svgs = glob.glob('assets/**/*.svg', recursive=True)
+          print(f'Validating {len(svgs)} SVGs...')
+          for s in svgs:
+              ET.parse(s)
+          print('All SVG files are 100% valid XML!')
+          "
+
+      - name: Commit and Push if Changed
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "chore: auto-compile pixel-readme-kit templates [skip ci]"
+            git push origin main
+          else
+            echo "No changes detected. Working tree clean."
+          fi

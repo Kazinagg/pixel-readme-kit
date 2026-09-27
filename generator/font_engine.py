@@ -219,11 +219,11 @@ def calculate_smart_layout(text, max_width=480, default_px_size=6, min_px_size=3
         if measure_text_width(clean_text, px, spacing) <= max_width:
             return [clean_text], px
 
-    # Step 2: If single line at px=4 overflows, try 2 lines at px=5, then px=4, then px=3
+    # Step 2: If single line at px=4 overflows, try 2 lines at px=4, then px=5, then px=3 (without truncation)
     if allow_wrap and " " in clean_text:
         for px in [4, 5, 3]:
             lines = split_text_into_lines(clean_text, max_width, px, spacing=spacing, max_lines=2)
-            if len(lines) == 2 and all(measure_text_width(l, px, spacing) <= max_width for l in lines):
+            if len(lines) == 2 and not any(l.endswith("...") for l in lines) and all(measure_text_width(l, px, spacing) <= max_width for l in lines):
                 return lines, px
 
     # Step 3: Single line fallback at min_px_size
