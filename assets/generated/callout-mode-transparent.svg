@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 48" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+  <!-- Body Chassis -->
+  <rect x="2" y="2" width="846" height="44" fill="none" stroke="#00C8D7" stroke-width="1.5"/><rect x="2" y="2" width="5" height="5" fill="#00C8D7"/><rect x="843" y="2" width="5" height="5" fill="#00C8D7"/><rect x="2" y="41" width="5" height="5" fill="#00C8D7"/><rect x="843" y="41" width="5" height="5" fill="#00C8D7"/>
+  <!-- Badges & Accents -->
+  <rect x="14" y="10" width="140" height="28" fill="none" stroke="#00C8D7" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="#00C8D7"/><text x="88" y="28" fill="#00C8D7" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">WARNING // 0x01</text>
+  <rect x="815" y="14" width="20" height="20" fill="none"/><text x="825" y="28" fill="#00C8D7" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>
+  <!-- Text Content (Properly offset past badge edge) -->
+  <text x="168" y="22" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">TRANSPARENT BACKGROUND</text>
+  <text x="168" y="36" fill="#A855F7" font-size="9" class="font-mono">Glass chassis blends directly into surrounding background</text>
+</svg>

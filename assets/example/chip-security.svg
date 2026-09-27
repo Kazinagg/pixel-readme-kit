@@ -1,15 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 156 26" width="156" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
+      
+      :root {
+        --bg-glass: #FFFBEB;
+        --bg-panel: #FEF3C7;
+        --border-chassis: #FDE68A;
+        --primary: #B45309;
+        --accent: #C2410C;
+        --title-front: #B45309;
+        --title-mid: #78350F;
+        --title-dark: #451A03;
+        --text-main: #1F2937;
+        --text-dim: #6B7280;
+        --status: #15803D;
+        --warning: #B45309;
+        --grid-op: 0.10;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(20, 14, 6, 0.88);
+          --bg-panel: rgba(30, 22, 10, 0.82);
+          --border-chassis: rgba(50, 36, 16, 0.85);
+          --primary: #F59E0B;
+          --accent: #EA580C;
+          --title-front: #F59E0B;
+          --title-mid: #92400E;
+          --title-dark: #451A03;
+          --text-main: #FFFBEB;
+          --text-dim: #D97706;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+
       .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
     </style>
   </defs>
-  <polygon points="7 1, 120 1, 106 25, 7 25, 1 19, 1 7" fill="rgba(20, 14, 6, 0.88)"/>
-  <polygon points="7 1, 120 1, 106 25, 7 25, 1 19, 1 7" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="1.5"/>
-  <polygon points="8 13, 13 9, 13 17" fill="#F59E0B"/>
-  <polygon points="125 1, 129 1, 115 25, 111 25" fill="#F59E0B" opacity="0.9"/>
-  <polygon points="134 3, 137.5 3, 123.5 23, 120 23" fill="#F59E0B" opacity="0.65"/>
-  <polygon points="142 6, 145 6, 131 20, 128 20" fill="#F59E0B" opacity="0.4"/>
-  <polygon points="150 9, 152 9, 138 17, 136 17" fill="#F59E0B" opacity="0.2"/>
-  <text x="57" y="17" fill="#F59E0B" text-anchor="middle" class="chip-text">SEC: CLEAR</text>
+  <polygon points="7 1, 120 1, 106 25, 7 25, 1 19, 1 7" fill="var(--bg-glass)"/>
+  <polygon points="7 1, 120 1, 106 25, 7 25, 1 19, 1 7" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/>
+  <polygon points="8 13, 13 9, 13 17" fill="var(--primary)"/>
+  <polygon points="125 1, 129 1, 115 25, 111 25" fill="var(--primary)" opacity="0.9"/>
+  <polygon points="134 3, 137.5 3, 123.5 23, 120 23" fill="var(--primary)" opacity="0.65"/>
+  <polygon points="142 6, 145 6, 131 20, 128 20" fill="var(--primary)" opacity="0.4"/>
+  <polygon points="150 9, 152 9, 138 17, 136 17" fill="var(--primary)" opacity="0.2"/>
+  <text x="57" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">SEC: CLEAR</text>
 </svg>

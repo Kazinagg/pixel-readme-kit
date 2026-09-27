@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 48" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+  <!-- Body Chassis -->
+  <rect x="1" y="2" width="848" height="44" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <!-- Badges & Accents -->
+  <rect x="16" y="11" width="130" height="26" fill="#F1F5F9" stroke="#1D4ED8" stroke-width="1"/><text x="81" y="28" fill="#1D4ED8" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">SUCCESS // MINIMAL</text>
+  <path d="M 5 12 L 5 5 L 14 5" fill="none" stroke="#1D4ED8" stroke-width="1.5"/><path d="M 845 12 L 845 5 L 836 5" fill="none" stroke="#1D4ED8" stroke-width="1.5"/>
+  <!-- Text Content (Properly offset past badge edge) -->
+  <text x="158" y="22" fill="#0F172A" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">STATIC LIGHT THEME</text>
+  <text x="158" y="36" fill="#6D28D9" font-size="9" class="font-mono">High contrast deep tones for light backgrounds</text>
+</svg>

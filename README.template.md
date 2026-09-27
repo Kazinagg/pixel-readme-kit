@@ -4,7 +4,7 @@
 
 <div align="center">
 
-<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="PIXEL README KIT" subtitle="RETRO-CYBERPUNK & TACTICAL HUD DESIGN SYSTEM FOR GITHUB" spec1="HUD ARCHITECTURE: TRANSLUCENT DARK GLASS" spec2="TEXT INTEGRATION: 100% COPYABLE MARKDOWN & MATH" spec3="COMPILER & CLI: AUTOMATED SVG ENGINE" tag="RELEASE_v2.2" out="assets/generated/header-readme.svg" -->
+<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="PIXEL README KIT" subtitle="RETRO-CYBERPUNK & TACTICAL HUD DESIGN SYSTEM FOR GITHUB" spec1="HUD ARCHITECTURE: TRANSLUCENT GLASS & DUAL-THEME" spec2="TEXT INTEGRATION: 100% COPYABLE MARKDOWN & MATH" spec3="COMPILER & CLI: AUTOMATED MULTI-MODE ENGINE" tag="RELEASE_v3.0" out="assets/generated/header-readme.svg" -->
 
 <br/><br/>
 
@@ -12,7 +12,7 @@
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="tactical" type="decay" text="💡 ПРИМЕРЫ И РАЗБОР" href="EXAMPLES.md" out="assets/generated/chip-readme-examples.svg" -->
 &nbsp;&nbsp;
-<!-- pixel-kit:chip style="minimal" type="pulse" text="● v2.2.0 STABLE" href="#top" out="assets/generated/chip-readme-version.svg" -->
+<!-- pixel-kit:chip style="minimal" type="pulse" text="● v3.0.0 STABLE" href="#top" out="assets/generated/chip-readme-version.svg" -->
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="cyberpunk" type="pulse" text="MIT LICENSE" href="LICENSE" out="assets/generated/chip-readme-license.svg" -->
 
@@ -29,14 +29,18 @@
 **Pixel Readme Kit** — модульная дизайн-система и генератор для оформления репозиториев и профилей GitHub в бескомпромиссной эстетике **ретро-киберпанка**, **тактических военных HUD** и **неонового стекла**.
 
 Комплект создан для решения фундаментальных проблем стандартного оформления GitHub:
-1. 🧊 **True Alpha Blending (Идеальный контраст на тёмной и светлой темах)**:
-   Все элементы используют фирменную полупрозрачную подложку `rgba(10, 14, 23, 0.82)`. Текст и контуры не выгорают и сохраняют контрастность выше 7:1 как на тёмном фоне GitHub (`#0d1117`), так и на чистом белом (`#ffffff`).
-2. 📋 **100% Живой копируемый Markdown-текст**:
-   Документация, списки, ссылки, консольные команды и математика KaTeX внутри окон остаются полноценным текстом — их можно выделять, копировать и индексировать поиском.
-3. 📐 **Прямое накрытие таблиц БЕЗ боковых зазоров (`x=1..849`)**:
-   Оконные рамки ложатся вровень со стандартными таблицами GitHub (`<table width="100%">`) без адаптеров и лишних прокладок.
-4. 💫 **Нативная SVG CSS-анимация**:
-   Вращающийся луч радара 360°, бегущая CRT-сканлайн, прицельные лазеры, частотные эквалайзеры и светодиодные маяки работают на чистом SVG без внешних скриптов.
+1. 🌗 **Адаптивная мульти-режимность (Multi-Mode Theming)**:
+   - `mode="auto"` (**по умолчанию**): единый автономный SVG с нативными CSS-переменными и медиа-запросом `@media (prefers-color-scheme: dark)`. Переключается мгновенно вместе с системной темой ОС или браузера, без дублирования файлов.
+   - Также поддерживаются: `mode="dark"`, `mode="light"`, `mode="transparent"` (прозрачный фон), `mode="gh"` (`#gh-*-mode-only`) и `mode="picture"` (`<picture>`).
+2. 🛡️ **Anti-Collision Engine & Умный перенос текста**:
+   - Длинные заголовки плавно уменьшают размер пикселя (`px=6 ➔ 5 ➔ 4 ➔ 3`) и переносятся на 2 строки по границам слов без наложения на радары и прицелы.
+   - Теги статуса привязаны к правому краю, исключая коллизии с кнопками окна `[ _ ] [ □ ] [ × ]`.
+3. 📋 **100% Живой копируемый Markdown-текст**:
+   - Документация, списки, ссылки, консольные команды и математика KaTeX внутри окон остаются полноценным текстом — их можно выделять, копировать и индексировать поиском.
+4. 📐 **Прямое накрытие таблиц БЕЗ боковых зазоров (`x=1..849`)**:
+   - Оконные рамки ложатся вровень со стандартными таблицами GitHub (`<table width="100%">`) без адаптеров и лишних прокладок.
+5. 💫 **Нативная SVG CSS-анимация**:
+   - Вращающийся луч радара 360°, бегущая CRT-сканлайн, прицельные лазеры, частотные эквалайзеры и светодиодные маяки работают на чистом SVG без внешних скриптов.
 
 <br/>
 
@@ -73,18 +77,18 @@
 
 ### Вариант 2: Автономный генератор CLI
 
-Генерация отдельных SVG-файлов по запросу:
+Генерация отдельных SVG-файлов по запросу с поддержкой тем:
 
 ```bash
-# Флагманская шапка (с кастомными тегами 3 уровня):
-python -m generator.cli header --style cyberpunk --title "MY-PROJECT" --subtitle "SYSTEM RUNTIME" --spec1 "ARCH: TRANSLUCENT" --spec2 "TEXT: LIVE MARKDOWN" -o assets/header.svg
+# Флагманская адаптивная шапка (автоматическая смена темы):
+python -m generator.cli header --style cyberpunk --title "MY-PROJECT" --subtitle "SYSTEM RUNTIME" --mode auto -o assets/header.svg
 
 # Оконная рамка:
 python -m generator.cli frame --style tactical --type top --title "MODULE_SPEC" -o assets/frame-top.svg
 python -m generator.cli frame --style tactical --type bottom -o assets/frame-bottom.svg
 
 # Адаптивный чип-ссылка:
-python -m generator.cli chip --style cyberpunk --type closed --text "⚡ v2.2.0" -o assets/chip.svg
+python -m generator.cli chip --style cyberpunk --type closed --text "⚡ v3.0.0" -o assets/chip.svg
 
 # Инлайн-алерт:
 python -m generator.cli callout --style minimal --type note --title "NOTICE" --subtitle "High performance" -o assets/callout.svg
@@ -101,8 +105,8 @@ python -m generator.cli callout --style minimal --type note --title "NOTICE" --s
 
 | Подсистема | Протокол | Статус | Задержка |
 | :--- | :--- | :--- | :--- |
-| **Render Engine** | `SVG_NATIVE_XML` | `● ACTIVE` | `0.00 ms` |
-| **Alpha Blending** | `RGBA_0.82` | `● DUAL_THEME_PASS` | `0.12 ms` |
+| **Theme Engine** | `CSS_VARS_MEDIA_QUERY` | `● AUTO_ADAPTIVE` | `0.00 ms` |
+| **Anti-Collision** | `WORD_WRAP_DOWNSCALE` | `● ZERO_OVERLAP` | `0.05 ms` |
 | **Matrix Radar** | `360_DEG_SWEEP` | `● SCANNING` | `16.6 ms (60 FPS)` |
 
 ```bash

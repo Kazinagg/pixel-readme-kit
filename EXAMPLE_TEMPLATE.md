@@ -2,11 +2,11 @@
 
 <div align="center">
 
-<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="NEO-CORE" subtitle="CYBER-HUD AUTOMATION & KERNEL RUNTIME" spec1="HUD ARCHITECTURE: TRANSLUCENT GLASS & CYBER BRACKETS" spec2="TEXT INTEGRATION: 100% COPYABLE MARKDOWN & MATH" spec3="ANIMATION SUITE: RADAR // SCANLINE // LADDER CASCADE" tag="SYS_v2.2_ONLINE" out="assets/example/neo-header.svg" -->
+<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="NEO-CORE" subtitle="CYBER-HUD AUTOMATION & KERNEL RUNTIME" spec1="HUD ARCHITECTURE: TRANSLUCENT GLASS & CYBER BRACKETS" spec2="TEXT INTEGRATION: 100% COPYABLE MARKDOWN & MATH" spec3="ANIMATION SUITE: RADAR // SCANLINE // LADDER CASCADE" tag="SYS_v3.0_ONLINE" out="assets/example/neo-header.svg" -->
 
 <br/><br/>
 
-<!-- pixel-kit:chip style="cyberpunk" type="closed" text="⚡ v2.2.0" out="assets/example/chip-version.svg" -->
+<!-- pixel-kit:chip style="cyberpunk" type="closed" text="⚡ v3.0.0" out="assets/example/chip-version.svg" -->
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="cyberpunk" type="pulse" text="● LIVE_NODE" out="assets/example/chip-status.svg" -->
 &nbsp;&nbsp;
@@ -44,7 +44,7 @@
 | Подсистема | Протокол | Статус | Задержка |
 | :--- | :--- | :--- | :--- |
 | **Fiber Pipeline** | `IPC_BUS // DMA` | `● ACTIVE` | `0.12 ms` |
-| **Translucent Glass** | `SVG_ALPHA_0.82` | `● STABLE` | `0.00 ms` |
+| **Adaptive Theme** | `SVG_CSS_VARS` | `● DUAL_THEME` | `0.00 ms` |
 | **Live Radar HUD** | `360_DEG_SWEEP` | `● SCANNING` | `16.6 ms (60 FPS)` |
 
 ```bash
@@ -77,12 +77,12 @@ neo-kernel init --profile=cyberpunk
 ```yaml
 # neo-kernel.config.yaml
 runtime:
-  engine: "pixel-readme-kit-v2.2"
+  engine: "pixel-readme-kit-v3.0"
   style: "cyberpunk"
   theme:
+    mode: "auto"
     primary: "#00C8D7"
     accent: "#A855F7"
-    glass_alpha: 0.82
 telemetry:
   radar_sweep: true
   scanline: true
@@ -99,6 +99,6 @@ telemetry:
 
 <br/><br/>
 
-<sub>NEO-CORE v2.2 &bull; PIXEL README DESIGN SYSTEM &bull; 2026</sub>
+<sub>NEO-CORE v3.0 &bull; PIXEL README DESIGN SYSTEM &bull; 2026</sub>
 
 </div>

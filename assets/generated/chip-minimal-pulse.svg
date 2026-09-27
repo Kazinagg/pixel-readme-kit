@@ -1,17 +1,51 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 139 26" width="139" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
+      
+      :root {
+        --bg-glass: #F8FAFC;
+        --bg-panel: #F1F5F9;
+        --border-chassis: #E2E8F0;
+        --primary: #1D4ED8;
+        --accent: #6D28D9;
+        --title-front: #1D4ED8;
+        --title-mid: #1E40AF;
+        --title-dark: #0F172A;
+        --text-main: #0F172A;
+        --text-dim: #64748B;
+        --status: #16A34A;
+        --warning: #D97706;
+        --grid-op: 0.10;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(15, 18, 30, 0.85);
+          --bg-panel: rgba(22, 27, 46, 0.80);
+          --border-chassis: rgba(41, 46, 66, 0.85);
+          --primary: #4F8BFF;
+          --accent: #A855F7;
+          --title-front: #4F8BFF;
+          --title-mid: #2563EB;
+          --title-dark: #1E3A8A;
+          --text-main: #F1F5F9;
+          --text-dim: #94A3B8;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+
       .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
       @keyframes breatheBeacon { 0%, 100% { opacity: 0.95; } 50% { opacity: 0.25; } }
       .breathe { animation: breatheBeacon 2s infinite ease-in-out; }
     </style>
   </defs>
-  <rect x="1" y="1" width="137" height="24" fill="rgba(15, 18, 30, 0.82)"/>
-  <rect x="1" y="1" width="137" height="24" fill="rgba(79, 139, 255, 0.12)" stroke="#4F8BFF" stroke-width="1"/>
-  <path d="M 4 8 L 4 4 L 8 4" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
-  <path d="M 135 8 L 135 4 L 131 4" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
-  <path d="M 4 18 L 4 22 L 8 22" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
-  <path d="M 135 18 L 135 22 L 131 22" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
-  <circle cx="15" cy="13" r="3" fill="#4F8BFF" class="breathe"/>
-  <text x="74" y="17" fill="#4F8BFF" text-anchor="middle" class="chip-text">● BEACON_LIVE</text>
+  <rect x="1" y="1" width="137" height="24" fill="var(--bg-glass)"/>
+  <rect x="1" y="1" width="137" height="24" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1"/>
+  <path d="M 4 8 L 4 4 L 8 4" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
+  <path d="M 135 8 L 135 4 L 131 4" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
+  <path d="M 4 18 L 4 22 L 8 22" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
+  <path d="M 135 18 L 135 22 L 131 22" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
+  <circle cx="15" cy="13" r="3" fill="var(--primary)" class="breathe"/>
+  <text x="74" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">● BEACON_LIVE</text>
 </svg>

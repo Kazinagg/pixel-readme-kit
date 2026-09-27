@@ -1,13 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 22" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
+      
+      :root {
+        --bg-glass: #FFFBEB;
+        --bg-panel: #FEF3C7;
+        --border-chassis: #FDE68A;
+        --primary: #ab6e07;
+        --accent: #C2410C;
+        --title-front: #ab6e07;
+        --title-mid: #664204;
+        --title-dark: #332102;
+        --text-main: #1F2937;
+        --text-dim: #6B7280;
+        --status: #15803D;
+        --warning: #B45309;
+        --grid-op: 0.10;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(20, 14, 6, 0.88);
+          --bg-panel: rgba(30, 22, 10, 0.82);
+          --border-chassis: rgba(50, 36, 16, 0.85);
+          --primary: #F59E0B;
+          --accent: #EA580C;
+          --title-front: #F59E0B;
+          --title-mid: #6e4704;
+          --title-dark: #241701;
+          --text-main: #FFFBEB;
+          --text-dim: #D97706;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }
     </style>
   </defs>
-  <line x1="1" y1="11" x2="330" y2="11" stroke="#F59E0B" stroke-width="1.5"/>
-  <line x1="520" y1="11" x2="849" y2="11" stroke="#F59E0B" stroke-width="1.5"/>
-  <polygon points="1 11, 8 7, 8 15" fill="#F59E0B"/>
-  <polygon points="849 11, 842 7, 842 15" fill="#F59E0B"/>
-  <polygon points="340 3, 510 3, 516 11, 510 19, 340 19, 334 11" fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="1"/>
-  <text x="425" y="14" fill="#F59E0B" text-anchor="middle" class="font-mono">▲ [TACTICAL: SECURITY_AND_FAILSAFE] ▲</text>
+  <line x1="1" y1="11" x2="330" y2="11" stroke="var(--primary)" stroke-width="1.5"/>
+  <line x1="520" y1="11" x2="849" y2="11" stroke="var(--primary)" stroke-width="1.5"/>
+  <polygon points="1 11, 8 7, 8 15" fill="var(--primary)"/>
+  <polygon points="849 11, 842 7, 842 15" fill="var(--primary)"/>
+  <polygon points="340 3, 510 3, 516 11, 510 19, 340 19, 334 11" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1"/>
+  <text x="425" y="14" fill="var(--primary)" text-anchor="middle" class="font-mono">▲ [TACTICAL: SECURITY_AND_FAILSAFE] ▲</text>
 </svg>

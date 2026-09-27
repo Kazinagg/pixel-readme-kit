@@ -1,15 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 48" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
+      
+      :root {
+        --bg-glass: #FFFBEB;
+        --bg-panel: #FEF3C7;
+        --border-chassis: #FDE68A;
+        --primary: #B45309;
+        --accent: #C2410C;
+        --title-front: #B45309;
+        --title-mid: #78350F;
+        --title-dark: #451A03;
+        --text-main: #1F2937;
+        --text-dim: #6B7280;
+        --status: #15803D;
+        --warning: #B45309;
+        --grid-op: 0.10;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(20, 14, 6, 0.88);
+          --bg-panel: rgba(30, 22, 10, 0.82);
+          --border-chassis: rgba(50, 36, 16, 0.85);
+          --primary: #F59E0B;
+          --accent: #EA580C;
+          --title-front: #F59E0B;
+          --title-mid: #92400E;
+          --title-dark: #451A03;
+          --text-main: #FFFBEB;
+          --text-dim: #D97706;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
     </style>
   </defs>
   <!-- Body Chassis -->
-  <polygon points="12 2, 838 2, 848 12, 848 36, 838 46, 12 46, 2 36, 2 12" fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="1.5"/>
+  <polygon points="12 2, 838 2, 848 12, 848 36, 838 46, 12 46, 2 36, 2 12" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1.5"/>
   <!-- Badges & Accents -->
-  <polygon points="34 10, 175 10, 182 17, 182 31, 175 38, 34 38" fill="rgba(245, 158, 11, 0.15)" stroke="#F59E0B" stroke-width="1.5"/><text x="105" y="28" fill="#F59E0B" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ WARNING // HAZARD</text>
-  <polygon points="10 8, 16 8, 8 20, 2 20" fill="#F59E0B" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="#F59E0B" opacity="0.6"/><circle cx="825" cy="24" r="8" fill="none" stroke="#F59E0B" stroke-width="1.5"/><polygon points="822 24, 828 20, 828 28" fill="#F59E0B"/>
+  <polygon points="34 10, 175 10, 182 17, 182 31, 175 38, 34 38" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/><text x="105" y="28" fill="var(--primary)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ WARNING // HAZARD</text>
+  <polygon points="10 8, 16 8, 8 20, 2 20" fill="var(--primary)" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="var(--primary)" opacity="0.6"/><circle cx="825" cy="24" r="8" fill="none" stroke="var(--primary)" stroke-width="1.5"/><polygon points="822 24, 828 20, 828 28" fill="var(--primary)"/>
   <!-- Text Content (Properly offset past badge edge) -->
-  <text x="196" y="22" fill="#F8F8F2" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">WARNING // ОГРАНИЧЕНИЕ ШИРИНЫ</text>
-  <text x="196" y="36" fill="#EA580C" font-size="9" class="font-mono">Используйте 100% табличную обертку для окон</text>
+  <text x="196" y="22" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">WARNING // ОГРАНИЧЕНИЕ ШИРИНЫ</text>
+  <text x="196" y="36" fill="var(--accent)" font-size="9" class="font-mono">Используйте 100% табличную обертку для окон</text>
 </svg>

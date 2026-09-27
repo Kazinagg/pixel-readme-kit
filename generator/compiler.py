@@ -1,5 +1,5 @@
 """
-Markdown Compiler / Transpiler for Pixel Readme Kit
+Markdown Compiler / Transpiler for Pixel Readme Kit v3.0
 Parses markdown files containing pixel-kit directives:
   <!-- pixel-kit:header ... -->
   <!-- pixel-kit:window ... --> ... <!-- /pixel-kit:window -->
@@ -11,6 +11,14 @@ Parses markdown files containing pixel-kit directives:
   <!-- pixel-kit:splitter ... -->
   <!-- pixel-kit:chip ... -->
 
+Supports multi-mode theming:
+  mode="auto"        (Default: Single adaptive SVG with CSS @media (prefers-color-scheme: dark))
+  mode="dark"        (Always dark palette)
+  mode="light"       (Always light palette)
+  mode="transparent" (Dark palette with transparent background)
+  mode="gh"          (GitHub syntax: generates -dark and -light files, #gh-*-mode-only markup)
+  mode="picture"     (HTML5 <picture> tag: generates -dark and -light files)
+
 Automatically generates all requested SVGs into --assets-dir, creates proper
 100% full-width table wrappers, quote formats, and details/summary blocks,
 and outputs the compiled README markdown.
@@ -18,7 +26,6 @@ and outputs the compiled README markdown.
 
 import os
 import re
-import shlex
 from generator.engine import (
     generate_header,
     generate_footer,
@@ -52,7 +59,6 @@ class MarkdownCompiler:
         self.counters[prefix] = count
         filename = f"{prefix}-{count}.{ext}"
         filepath = os.path.join(self.assets_dir, filename)
-        # Markdown relative URL
         rel_url = os.path.relpath(filepath, ".").replace("\\", "/")
         return filepath, rel_url
 
@@ -69,6 +75,75 @@ class MarkdownCompiler:
             f.write(svg_content)
         return rel_url
 
+    def _render_asset_markup(self, generator_fn, kwargs, attrs, default_prefix, alt="", is_full_width=True, link=None):
+        mode = attrs.get("mode", "auto").lower()
+        custom_out = attrs.get("out")
+
+        width_attr = ' width="100%"' if is_full_width else ""
+        alt_attr = f' alt="{escape_xml(alt)}"' if alt else ""
+
+        if mode in ("gh", "github"):
+            kwargs_dark = dict(kwargs, mode="dark")
+            kwargs_light = dict(kwargs, mode="light")
+            dark_svg = generator_fn(**kwargs_dark)
+            light_svg = generator_fn(**kwargs_light)
+
+            if custom_out:
+                base, ext = os.path.splitext(custom_out)
+                out_dark = f"{base}-dark{ext}"
+                out_light = f"{base}-light{ext}"
+            else:
+                out_dark = None
+                out_light = None
+
+            url_dark = self._save_svg(dark_svg, out_dark, f"{default_prefix}-dark")
+            url_light = self._save_svg(light_svg, out_light, f"{default_prefix}-light")
+
+            img_dark = f'<img src="{url_dark}#gh-dark-mode-only"{width_attr}{alt_attr} />'
+            img_light = f'<img src="{url_light}#gh-light-mode-only"{width_attr}{alt_attr} />'
+
+            if link:
+                img_dark = f'<a href="{link}">{img_dark}</a>'
+                img_light = f'<a href="{link}">{img_light}</a>'
+
+            return f"{img_dark}\n{img_light}"
+
+        elif mode == "picture":
+            kwargs_dark = dict(kwargs, mode="dark")
+            kwargs_light = dict(kwargs, mode="light")
+            dark_svg = generator_fn(**kwargs_dark)
+            light_svg = generator_fn(**kwargs_light)
+
+            if custom_out:
+                base, ext = os.path.splitext(custom_out)
+                out_dark = f"{base}-dark{ext}"
+                out_light = f"{base}-light{ext}"
+            else:
+                out_dark = None
+                out_light = None
+
+            url_dark = self._save_svg(dark_svg, out_dark, f"{default_prefix}-dark")
+            url_light = self._save_svg(light_svg, out_light, f"{default_prefix}-light")
+
+            pic = f"""<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="{url_dark}">
+  <source media="(prefers-color-scheme: light)" srcset="{url_light}">
+  <img src="{url_dark}"{width_attr}{alt_attr} />
+</picture>"""
+            if link:
+                pic = f'<a href="{link}">\n{pic}\n</a>'
+            return pic
+
+        else:
+            # "auto" (default adaptive), "dark", "light", "transparent"
+            kwargs_single = dict(kwargs, mode=mode)
+            svg = generator_fn(**kwargs_single)
+            url = self._save_svg(svg, custom_out, default_prefix)
+            img = f'<img src="{url}"{width_attr}{alt_attr} />'
+            if link:
+                img = f'<a href="{link}">{img}</a>'
+            return img
+
     def compile_text(self, markdown_text):
         """Compiles template markdown string into full GitHub markdown with SVGs."""
         os.makedirs(self.assets_dir, exist_ok=True)
@@ -76,7 +151,7 @@ class MarkdownCompiler:
 
         # ---------------------------------------------------------------
         # 1. CONTAINERS: WINDOW
-        # <!-- pixel-kit:window style="..." title="..." [tag="..."] [primary="..."] [accent="..."] [out_top="..."] [out_bottom="..."] -->
+        # <!-- pixel-kit:window style="..." title="..." [tag="..."] [primary="..."] [accent="..."] [mode="..."] [out_top="..."] [out_bottom="..."] -->
         # ...
         # <!-- /pixel-kit:window -->
         # ---------------------------------------------------------------
@@ -94,18 +169,39 @@ class MarkdownCompiler:
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
 
-            top_svg = generate_frame(style=style, primary=prim, accent=acc, frame_type="top", title=title, tag=tag)
-            bot_svg = generate_frame(style=style, primary=prim, accent=acc, frame_type="bottom", title=title, tag=tag)
+            attrs_top = dict(attrs)
+            if "out_top" in attrs:
+                attrs_top["out"] = attrs["out_top"]
+            elif "out" in attrs:
+                del attrs_top["out"]
 
-            url_top = self._save_svg(top_svg, attrs.get("out_top"), f"frame-top-{style}")
-            url_bot = self._save_svg(bot_svg, attrs.get("out_bottom"), f"frame-bottom-{style}")
+            attrs_bot = dict(attrs)
+            if "out_bottom" in attrs:
+                attrs_bot["out"] = attrs["out_bottom"]
+            elif "out" in attrs:
+                del attrs_bot["out"]
+
+            rendered_top = self._render_asset_markup(
+                generate_frame,
+                {"style": style, "primary": prim, "accent": acc, "frame_type": "top", "title": title, "tag": tag},
+                attrs_top,
+                f"frame-top-{style}",
+                is_full_width=True
+            )
+            rendered_bot = self._render_asset_markup(
+                generate_frame,
+                {"style": style, "primary": prim, "accent": acc, "frame_type": "bottom", "title": title, "tag": tag},
+                attrs_bot,
+                f"frame-bottom-{style}",
+                is_full_width=True
+            )
 
             if style.lower() == "minimal":
                 # Integrated 3-row single table monolith
                 return f"""<table width="100%">
 <tr>
 <td width="100%" align="center">
-<img src="{url_top}" width="100%" />
+{rendered_top}
 </td>
 </tr>
 <tr>
@@ -117,13 +213,13 @@ class MarkdownCompiler:
 </tr>
 <tr>
 <td width="100%" align="center">
-<img src="{url_bot}" width="100%" />
+{rendered_bot}
 </td>
 </tr>
 </table>"""
             else:
                 # Direct capping 1-cell table
-                return f"""<img src="{url_top}" width="100%" />
+                return f"""{rendered_top}
 
 <table width="100%">
 <tr>
@@ -135,13 +231,13 @@ class MarkdownCompiler:
 </tr>
 </table>
 
-<img src="{url_bot}" width="100%" />"""
+{rendered_bot}"""
 
         text = window_regex.sub(repl_window, text)
 
         # ---------------------------------------------------------------
         # 2. CONTAINERS: TERMINAL (Details/Summary)
-        # <!-- pixel-kit:terminal style="..." title="..." [state="open|closed"] [primary="..."] [accent="..."] -->
+        # <!-- pixel-kit:terminal style="..." title="..." [state="open|closed"] [primary="..."] [accent="..."] [mode="..."] -->
         # ...
         # <!-- /pixel-kit:terminal -->
         # ---------------------------------------------------------------
@@ -159,11 +255,32 @@ class MarkdownCompiler:
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
 
-            top_svg = generate_frame(style=style, primary=prim, accent=acc, frame_type="top", title=f"╔═ {title} // RUNTIME.SYS")
-            bot_svg = generate_frame(style=style, primary=prim, accent=acc, frame_type="bottom")
+            attrs_top = dict(attrs)
+            if "out_top" in attrs:
+                attrs_top["out"] = attrs["out_top"]
+            elif "out" in attrs:
+                del attrs_top["out"]
 
-            url_top = self._save_svg(top_svg, attrs.get("out_top"), f"terminal-top-{style}")
-            url_bot = self._save_svg(bot_svg, attrs.get("out_bottom"), f"terminal-bottom-{style}")
+            attrs_bot = dict(attrs)
+            if "out_bottom" in attrs:
+                attrs_bot["out"] = attrs["out_bottom"]
+            elif "out" in attrs:
+                del attrs_bot["out"]
+
+            rendered_top = self._render_asset_markup(
+                generate_frame,
+                {"style": style, "primary": prim, "accent": acc, "frame_type": "top", "title": f"╔═ {title} // RUNTIME.SYS"},
+                attrs_top,
+                f"terminal-top-{style}",
+                is_full_width=True
+            )
+            rendered_bot = self._render_asset_markup(
+                generate_frame,
+                {"style": style, "primary": prim, "accent": acc, "frame_type": "bottom"},
+                attrs_bot,
+                f"terminal-bottom-{style}",
+                is_full_width=True
+            )
 
             open_attr = "open" if state == "open" else ""
             status_text = "STATE: EXPANDED" if state == "open" else "CLICK TO EXPAND"
@@ -173,7 +290,7 @@ class MarkdownCompiler:
 
 <br/>
 
-<img src="{url_top}" width="100%" />
+{rendered_top}
 
 <table width="100%">
 <tr>
@@ -185,7 +302,7 @@ class MarkdownCompiler:
 </tr>
 </table>
 
-<img src="{url_bot}" width="100%" />
+{rendered_bot}
 
 </details>"""
 
@@ -193,7 +310,7 @@ class MarkdownCompiler:
 
         # ---------------------------------------------------------------
         # 3. CONTAINERS: QUOTE CALLOUT
-        # <!-- pixel-kit:quote style="..." title="..." [subtitle="..."] [badge="..."] [primary="..."] [accent="..."] -->
+        # <!-- pixel-kit:quote style="..." title="..." [subtitle="..."] [badge="..."] [primary="..."] [accent="..."] [mode="..."] -->
         # ...
         # <!-- /pixel-kit:quote -->
         # ---------------------------------------------------------------
@@ -212,13 +329,19 @@ class MarkdownCompiler:
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
 
-            q_svg = generate_callout(style=style, primary=prim, accent=acc, callout_type=badge, title=title, subtitle=sub, is_quote=True)
-            url_q = self._save_svg(q_svg, attrs.get("out"), f"callout-quote-{style}")
+            rendered_q = self._render_asset_markup(
+                generate_callout,
+                {"style": style, "primary": prim, "accent": acc, "callout_type": badge, "title": title, "subtitle": sub, "is_quote": True},
+                attrs,
+                f"callout-quote-{style}",
+                alt=title,
+                is_full_width=True
+            )
 
-            # Format inner lines with > markdown prefix
+            quote_header_lines = "\n".join([f"> {line}" for line in rendered_q.splitlines()])
             prefixed_lines = "\n".join([f"> {line}" if line.strip() else ">" for line in inner_content.splitlines()])
 
-            return f"""> <img src="{url_q}" width="100%" />
+            return f"""{quote_header_lines}
 >
 {prefixed_lines}"""
 
@@ -226,7 +349,7 @@ class MarkdownCompiler:
 
         # ---------------------------------------------------------------
         # 4. STANDALONE: HEADER
-        # <!-- pixel-kit:header style="..." title="..." subtitle="..." [tag="..."] [primary="..."] [accent="..."] [out="..."] -->
+        # <!-- pixel-kit:header style="..." title="..." subtitle="..." [tag="..."] [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         header_regex = re.compile(r'<!--\s*pixel-kit:header\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -244,26 +367,24 @@ class MarkdownCompiler:
             spec3 = attrs.get("spec3", None)
             specs = attrs.get("specs", None)
 
-            h_svg = generate_header(
-                style=style,
-                primary=prim,
-                accent=acc,
-                title=title,
-                subtitle=sub,
-                tag=tag,
-                spec1=spec1,
-                spec2=spec2,
-                spec3=spec3,
-                specs=specs
+            return self._render_asset_markup(
+                generate_header,
+                {
+                    "style": style, "primary": prim, "accent": acc, "title": title,
+                    "subtitle": sub, "tag": tag, "spec1": spec1, "spec2": spec2,
+                    "spec3": spec3, "specs": specs
+                },
+                attrs,
+                f"header-{style}",
+                alt=title,
+                is_full_width=True
             )
-            url_h = self._save_svg(h_svg, attrs.get("out"), f"header-{style}")
-            return f'<img src="{url_h}" width="100%" alt="{escape_xml(title)}" />'
 
         text = header_regex.sub(repl_header, text)
 
         # ---------------------------------------------------------------
         # 5. STANDALONE: FOOTER
-        # <!-- pixel-kit:footer style="..." status="..." [nav="..."] [primary="..."] [accent="..."] [out="..."] -->
+        # <!-- pixel-kit:footer style="..." status="..." [nav="..."] [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         footer_regex = re.compile(r'<!--\s*pixel-kit:footer\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -276,15 +397,21 @@ class MarkdownCompiler:
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
 
-            f_svg = generate_footer(style=style, primary=prim, accent=acc, status=status, nav_text=nav, sub_text=sub)
-            url_f = self._save_svg(f_svg, attrs.get("out"), f"footer-{style}")
-            return f'<a href="#top"><img src="{url_f}" width="100%" alt="{escape_xml(nav)}" /></a>'
+            return self._render_asset_markup(
+                generate_footer,
+                {"style": style, "primary": prim, "accent": acc, "status": status, "nav_text": nav, "sub_text": sub},
+                attrs,
+                f"footer-{style}",
+                alt=nav,
+                is_full_width=True,
+                link="#top"
+            )
 
         text = footer_regex.sub(repl_footer, text)
 
         # ---------------------------------------------------------------
         # 6. STANDALONE: CALLOUT (Autonomous)
-        # <!-- pixel-kit:callout style="..." type="..." title="..." [subtitle="..."] [primary="..."] [accent="..."] [out="..."] -->
+        # <!-- pixel-kit:callout style="..." type="..." title="..." [subtitle="..."] [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         callout_regex = re.compile(r'<!--\s*pixel-kit:callout\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -297,15 +424,20 @@ class MarkdownCompiler:
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
 
-            c_svg = generate_callout(style=style, primary=prim, accent=acc, callout_type=ctype, title=title, subtitle=sub, is_quote=False)
-            url_c = self._save_svg(c_svg, attrs.get("out"), f"callout-{style}-{ctype}")
-            return f'<img src="{url_c}" width="100%" />'
+            return self._render_asset_markup(
+                generate_callout,
+                {"style": style, "primary": prim, "accent": acc, "callout_type": ctype, "title": title, "subtitle": sub, "is_quote": False},
+                attrs,
+                f"callout-{style}-{ctype}",
+                alt=title,
+                is_full_width=True
+            )
 
         text = callout_regex.sub(repl_callout, text)
 
         # ---------------------------------------------------------------
         # 7. STANDALONE: DIVIDER
-        # <!-- pixel-kit:divider style="..." [primary="..."] [accent="..."] [out="..."] -->
+        # <!-- pixel-kit:divider style="..." [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         divider_regex = re.compile(r'<!--\s*pixel-kit:divider\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -315,15 +447,20 @@ class MarkdownCompiler:
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
 
-            d_svg = generate_divider(style=style, primary=prim, accent=acc)
-            url_d = self._save_svg(d_svg, attrs.get("out"), f"divider-{style}")
-            return f'<img src="{url_d}" width="100%" alt="Divider {style}" />'
+            return self._render_asset_markup(
+                generate_divider,
+                {"style": style, "primary": prim, "accent": acc},
+                attrs,
+                f"divider-{style}",
+                alt=f"Divider {style}",
+                is_full_width=True
+            )
 
         text = divider_regex.sub(repl_divider, text)
 
         # ---------------------------------------------------------------
         # 8. STANDALONE: SPLITTER
-        # <!-- pixel-kit:splitter style="..." label="..." [primary="..."] [accent="..."] [out="..."] -->
+        # <!-- pixel-kit:splitter style="..." label="..." [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         splitter_regex = re.compile(r'<!--\s*pixel-kit:splitter\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -334,15 +471,20 @@ class MarkdownCompiler:
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
 
-            s_svg = generate_splitter(style=style, primary=prim, accent=acc, label=label)
-            url_s = self._save_svg(s_svg, attrs.get("out"), f"splitter-{style}")
-            return f'<img src="{url_s}" width="100%" />'
+            return self._render_asset_markup(
+                generate_splitter,
+                {"style": style, "primary": prim, "accent": acc, "label": label},
+                attrs,
+                f"splitter-{style}",
+                alt=label,
+                is_full_width=True
+            )
 
         text = splitter_regex.sub(repl_splitter, text)
 
         # ---------------------------------------------------------------
         # 9. STANDALONE: CHIP
-        # <!-- pixel-kit:chip style="..." [type="closed|decay|pulse"] text="..." [primary="..."] [accent="..."] [out="..."] -->
+        # <!-- pixel-kit:chip style="..." [type="closed|decay|pulse"] text="..." [primary="..."] [accent="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
         chip_regex = re.compile(r'<!--\s*pixel-kit:chip\s+(.*?)\s*-->', re.IGNORECASE)
 
@@ -357,12 +499,15 @@ class MarkdownCompiler:
             w_val = int(attrs["width"]) if "width" in attrs and attrs["width"].isdigit() else None
             link_url = attrs.get("url") or attrs.get("href") or attrs.get("link")
 
-            ch_svg = generate_chip(style=style, primary=prim, accent=acc, chip_type=ctype, text=text_val, width=w_val)
-            url_ch = self._save_svg(ch_svg, attrs.get("out"), f"chip-{style}-{ctype}")
-            img_tag = f'<img src="{url_ch}" alt="{escape_xml(text_val)}" />'
-            if link_url:
-                return f'<a href="{link_url}">{img_tag}</a>'
-            return img_tag
+            return self._render_asset_markup(
+                generate_chip,
+                {"style": style, "primary": prim, "accent": acc, "chip_type": ctype, "text": text_val, "width": w_val},
+                attrs,
+                f"chip-{style}-{ctype}",
+                alt=text_val,
+                is_full_width=False,
+                link=link_url
+            )
 
         text = chip_regex.sub(repl_chip, text)
 

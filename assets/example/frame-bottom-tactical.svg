@@ -1,21 +1,55 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 24" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
+      
+      :root {
+        --bg-glass: #FFFBEB;
+        --bg-panel: #FEF3C7;
+        --border-chassis: #FDE68A;
+        --primary: #ab6e07;
+        --accent: #C2410C;
+        --title-front: #ab6e07;
+        --title-mid: #664204;
+        --title-dark: #332102;
+        --text-main: #1F2937;
+        --text-dim: #6B7280;
+        --status: #15803D;
+        --warning: #B45309;
+        --grid-op: 0.10;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(20, 14, 6, 0.88);
+          --bg-panel: rgba(30, 22, 10, 0.82);
+          --border-chassis: rgba(50, 36, 16, 0.85);
+          --primary: #F59E0B;
+          --accent: #EA580C;
+          --title-front: #F59E0B;
+          --title-mid: #6e4704;
+          --title-dark: #241701;
+          --text-main: #FFFBEB;
+          --text-dim: #D97706;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
     </style>
   </defs>
   <!-- UPWARD PRONGS (FLUSH TO EDGES x=1..849) -->
-  <line x1="1" y1="0" x2="1" y2="10" stroke="#F59E0B" stroke-width="2.5"/>
-  <rect x="0" y="0" width="4" height="5" fill="#F59E0B"/>
-  <line x1="849" y1="0" x2="849" y2="10" stroke="#F59E0B" stroke-width="2.5"/>
-  <rect x="846" y="0" width="4" height="5" fill="#F59E0B"/>
+  <line x1="1" y1="0" x2="1" y2="10" stroke="var(--primary)" stroke-width="2.5"/>
+  <rect x="0" y="0" width="4" height="5" fill="var(--primary)"/>
+  <line x1="849" y1="0" x2="849" y2="10" stroke="var(--primary)" stroke-width="2.5"/>
+  <rect x="846" y="0" width="4" height="5" fill="var(--primary)"/>
 
-  <polygon points="1 10, 849 10, 838 20, 12 20" fill="rgba(20, 14, 6, 0.88)" stroke="rgba(50, 36, 16, 0.85)" stroke-width="1.5"/>
-  <line x1="12" y1="20" x2="838" y2="20" stroke="#F59E0B" stroke-width="2"/>
+  <polygon points="1 10, 849 10, 838 20, 12 20" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.5"/>
+  <line x1="12" y1="20" x2="838" y2="20" stroke="var(--primary)" stroke-width="2"/>
 
   <!-- Center Status Buffer Readout -->
-  <rect x="320" y="4" width="210" height="16" fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="1"/>
-  <text x="425" y="15" fill="#F59E0B" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
+  <rect x="320" y="4" width="210" height="16" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1"/>
+  <text x="425" y="15" fill="var(--primary)" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
     ╚═ [TACTICAL] ═╝
   </text>
 </svg>

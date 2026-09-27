@@ -231,6 +231,31 @@ python -m generator.cli compile --input README.template.md --output README.md
 <br/>
 <!-- pixel-kit:splitter style="minimal" label="[AUDIO: FREQUENCY_BAND_01]" out="assets/generated/splitter-decay-tokyo.svg" -->
 
+---
+
+## 9. Мульти-режимная адаптация (Multi-Mode Themes v3.0)
+
+Каждый компонент поддерживает атрибут `mode="..."` (`auto`, `dark`, `light`, `transparent`, `gh`, `picture`).
+
+### 9.1 Режим `mode="auto"` (Адаптивный SVG по умолчанию)
+Автоматически адаптирует цвета к теме ОС или GitHub:
+<!-- pixel-kit:callout style="cyberpunk" type="info" title="ADAPTIVE AUTO MODE" subtitle="CSS Variables + prefers-color-scheme media query" mode="auto" out="assets/generated/callout-mode-auto.svg" -->
+
+<br/>
+
+### 9.2 Режим `mode="dark"` (Всегда тёмная палитра)
+<!-- pixel-kit:callout style="tactical" type="note" title="STATIC DARK THEME" subtitle="Guaranteed contrast on dark backgrounds" mode="dark" out="assets/generated/callout-mode-dark.svg" -->
+
+<br/>
+
+### 9.3 Режим `mode="light"` (Всегда светлая палитра)
+<!-- pixel-kit:callout style="minimal" type="success" title="STATIC LIGHT THEME" subtitle="High contrast deep tones for light backgrounds" mode="light" out="assets/generated/callout-mode-light.svg" -->
+
+<br/>
+
+### 9.4 Режим `mode="transparent"` (Прозрачный фон)
+<!-- pixel-kit:callout style="cyberpunk" type="warning" title="TRANSPARENT BACKGROUND" subtitle="Glass chassis blends directly into surrounding background" mode="transparent" out="assets/generated/callout-mode-transparent.svg" -->
+
 <br/><br/>
 
-<!-- pixel-kit:footer style="minimal" status="CATALOG_END // STANDBY" nav="▲ НАВЕРХ" out="assets/generated/footer-bottom-nav.svg" -->
+<!-- pixel-kit:footer style="minimal" status="CATALOG_END // v3.0_ONLINE" nav="▲ НАВЕРХ" out="assets/generated/footer-bottom-nav.svg" -->

@@ -1,15 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 28" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
+      
+      :root {
+        --bg-glass: #FFFBEB;
+        --bg-panel: #FEF3C7;
+        --border-chassis: #FDE68A;
+        --primary: #ab6e07;
+        --accent: #C2410C;
+        --title-front: #ab6e07;
+        --title-mid: #664204;
+        --title-dark: #332102;
+        --text-main: #1F2937;
+        --text-dim: #6B7280;
+        --status: #15803D;
+        --warning: #B45309;
+        --grid-op: 0.10;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(20, 14, 6, 0.88);
+          --bg-panel: rgba(30, 22, 10, 0.82);
+          --border-chassis: rgba(50, 36, 16, 0.85);
+          --primary: #F59E0B;
+          --accent: #EA580C;
+          --title-front: #F59E0B;
+          --title-mid: #6e4704;
+          --title-dark: #241701;
+          --text-main: #FFFBEB;
+          --text-dim: #D97706;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }
       @keyframes laserPulse { 0%, 100% { opacity: 0.95; } 50% { opacity: 0.35; } }
       .laser { animation: laserPulse 1.4s infinite ease-in-out; }
     </style>
   </defs>
-  <line x1="20" y1="14" x2="350" y2="14" stroke="#F59E0B" stroke-width="1.5"/>
-  <line x1="500" y1="14" x2="830" y2="14" stroke="#F59E0B" stroke-width="1.5"/>
-  <polygon points="12 14, 20 8, 20 20" fill="#F59E0B"/>
-  <polygon points="838 14, 830 8, 830 20" fill="#F59E0B"/>
-  <polygon points="360 4, 490 4, 498 14, 490 24, 360 24, 352 14" fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="1.5"/>
-  <text x="425" y="17" fill="#F59E0B" text-anchor="middle" class="font-mono laser">▲ TACTICAL // LASER ▲</text>
+  <line x1="20" y1="14" x2="350" y2="14" stroke="var(--primary)" stroke-width="1.5"/>
+  <line x1="500" y1="14" x2="830" y2="14" stroke="var(--primary)" stroke-width="1.5"/>
+  <polygon points="12 14, 20 8, 20 20" fill="var(--primary)"/>
+  <polygon points="838 14, 830 8, 830 20" fill="var(--primary)"/>
+  <polygon points="360 4, 490 4, 498 14, 490 24, 360 24, 352 14" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1.5"/>
+  <text x="425" y="17" fill="var(--primary)" text-anchor="middle" class="font-mono laser">▲ TACTICAL // LASER ▲</text>
 </svg>

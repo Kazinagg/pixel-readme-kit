@@ -1,7 +1,7 @@
 """
-CLI Generator & Compiler for Pixel Readme Kit v2.2
+CLI Generator & Compiler for Pixel Readme Kit v3.0
 Usage modes:
-1. Generate individual SVG blocks:
+1. Generate individual SVG blocks (supports --mode auto|dark|light|transparent|gh|picture):
    python -m generator.cli header --help
    python -m generator.cli footer --help
    python -m generator.cli callout --help
@@ -33,83 +33,113 @@ from generator.engine import (
 )
 from generator.compiler import MarkdownCompiler
 
+def save_output(svg_content, output_path, default_path):
+    target = output_path if output_path else default_path
+    os.makedirs(os.path.dirname(os.path.abspath(target)), exist_ok=True)
+    validate_svg(svg_content)
+    with open(target, "w", encoding="utf-8") as f:
+        f.write(svg_content)
+    print(f"[+] Generated SVG successfully: {target}")
+
+def handle_cli_output(args, generator_fn, gen_kwargs, default_name):
+    mode = getattr(args, "mode", "auto")
+    if mode in ("gh", "github"):
+        out = args.output if args.output else f"assets/{default_name}.svg"
+        base, ext = os.path.splitext(out)
+        out_dark = f"{base}-dark{ext}"
+        out_light = f"{base}-light{ext}"
+        svg_dark = generator_fn(**dict(gen_kwargs, mode="dark"))
+        svg_light = generator_fn(**dict(gen_kwargs, mode="light"))
+        save_output(svg_dark, out_dark, out_dark)
+        save_output(svg_light, out_light, out_light)
+        print("\n[i] GitHub Dark/Light Markdown syntax:")
+        print(f"![{default_name}]({out_dark}#gh-dark-mode-only)")
+        print(f"![{default_name}]({out_light}#gh-light-mode-only)")
+    elif mode == "picture":
+        out = args.output if args.output else f"assets/{default_name}.svg"
+        base, ext = os.path.splitext(out)
+        out_dark = f"{base}-dark{ext}"
+        out_light = f"{base}-light{ext}"
+        svg_dark = generator_fn(**dict(gen_kwargs, mode="dark"))
+        svg_light = generator_fn(**dict(gen_kwargs, mode="light"))
+        save_output(svg_dark, out_dark, out_dark)
+        save_output(svg_light, out_light, out_light)
+        print("\n[i] HTML5 <picture> syntax:")
+        print(f'<picture>\n  <source media="(prefers-color-scheme: dark)" srcset="{out_dark}">\n  <source media="(prefers-color-scheme: light)" srcset="{out_light}">\n  <img src="{out_dark}">\n</picture>')
+    else:
+        svg = generator_fn(**dict(gen_kwargs, mode=mode))
+        save_output(svg, args.output, f"assets/{default_name}.svg")
+
 def cmd_header(args):
-    svg = generate_header(
-        style=args.style,
-        primary=args.primary,
-        accent=args.accent,
-        title=args.title,
-        subtitle=args.subtitle,
-        tag=args.tag,
-        spec1=args.spec1,
-        spec2=args.spec2,
-        spec3=args.spec3,
-        specs=args.specs
-    )
-    save_output(svg, args.output, f"assets/header-{args.style}.svg")
+    handle_cli_output(args, generate_header, {
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent,
+        "title": args.title,
+        "subtitle": args.subtitle,
+        "tag": args.tag,
+        "spec1": args.spec1,
+        "spec2": args.spec2,
+        "spec3": args.spec3,
+        "specs": args.specs
+    }, f"header-{args.style}")
 
 def cmd_footer(args):
-    svg = generate_footer(
-        style=args.style,
-        primary=args.primary,
-        accent=args.accent,
-        status=args.status,
-        nav_text=args.nav,
-        sub_text=args.sub
-    )
-    save_output(svg, args.output, f"assets/footer-{args.style}.svg")
+    handle_cli_output(args, generate_footer, {
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent,
+        "status": args.status,
+        "nav_text": args.nav,
+        "sub_text": args.sub
+    }, f"footer-{args.style}")
 
 def cmd_callout(args):
-    svg = generate_callout(
-        style=args.style,
-        primary=args.primary,
-        accent=args.accent,
-        callout_type=args.type,
-        title=args.title,
-        subtitle=args.subtitle,
-        is_quote=args.quote
-    )
     prefix = "callout-quote" if args.quote else "callout"
-    save_output(svg, args.output, f"assets/{prefix}-{args.style}-{args.type}.svg")
+    handle_cli_output(args, generate_callout, {
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent,
+        "callout_type": args.type,
+        "title": args.title,
+        "subtitle": args.subtitle,
+        "is_quote": args.quote
+    }, f"{prefix}-{args.style}-{args.type}")
 
 def cmd_frame(args):
-    svg = generate_frame(
-        style=args.style,
-        primary=args.primary,
-        accent=args.accent,
-        frame_type=args.type,
-        title=args.title,
-        tag=args.tag
-    )
-    save_output(svg, args.output, f"assets/frame-{args.type}-{args.style}.svg")
+    handle_cli_output(args, generate_frame, {
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent,
+        "frame_type": args.type,
+        "title": args.title,
+        "tag": args.tag
+    }, f"frame-{args.type}-{args.style}")
 
 def cmd_chip(args):
-    svg = generate_chip(
-        style=args.style,
-        primary=args.primary,
-        accent=args.accent,
-        chip_type=args.type,
-        text=args.text,
-        width=args.width
-    )
-    save_output(svg, args.output, f"assets/chip-{args.style}-{args.type}.svg")
+    handle_cli_output(args, generate_chip, {
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent,
+        "chip_type": args.type,
+        "text": args.text,
+        "width": args.width
+    }, f"chip-{args.style}-{args.type}")
 
 def cmd_divider(args):
-    svg = generate_divider(
-        style=args.style,
-        primary=args.primary,
-        accent=args.accent
-    )
-    save_output(svg, args.output, f"assets/divider-{args.style}.svg")
+    handle_cli_output(args, generate_divider, {
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent
+    }, f"divider-{args.style}")
 
 def cmd_splitter(args):
-    svg = generate_splitter(
-        style=args.style,
-        primary=args.primary,
-        accent=args.accent,
-        label=args.label
-    )
-    save_output(svg, args.output, f"assets/splitter-{args.style}.svg")
+    handle_cli_output(args, generate_splitter, {
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent,
+        "label": args.label
+    }, f"splitter-{args.style}")
 
 def cmd_compile(args):
     inp = args.input if args.input else "README.template.md"
@@ -124,25 +154,19 @@ def cmd_compile(args):
     compiler.compile_file(inp, out)
     print(f"[+] Successfully compiled to: {out}")
 
-def save_output(svg_content, output_path, default_path):
-    target = output_path if output_path else default_path
-    os.makedirs(os.path.dirname(os.path.abspath(target)), exist_ok=True)
-    validate_svg(svg_content)
-    with open(target, "w", encoding="utf-8") as f:
-        f.write(svg_content)
-    print(f"[+] Generated SVG successfully: {target}")
-
 def main():
     parser = argparse.ArgumentParser(
         prog="pixel-kit",
-        description="Pixel Readme Kit v2.2 — Cyberpunk / Tactical / Minimal HUD Generator & Markdown Compiler"
+        description="Pixel Readme Kit v3.0 — Multi-Mode Cyberpunk / Tactical / Minimal HUD Generator & Markdown Compiler"
     )
 
     subparsers = parser.add_subparsers(dest="command", help="Block type or compiler action")
+    mode_choices = ["auto", "dark", "light", "transparent", "gh", "picture"]
 
     # 1. HEADER
     p_hdr = subparsers.add_parser("header", help="Generate flagship header banner")
     p_hdr.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style (cyberpunk, tactical, minimal)")
+    p_hdr.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_hdr.add_argument("--primary", help="Primary brand hex color (e.g. #00C8D7, #F59E0B, #4F8BFF)")
     p_hdr.add_argument("--accent", help="Secondary accent hex color (e.g. #A855F7, #EA580C)")
     p_hdr.add_argument("--title", default="PIXEL-KIT", help="Main title text")
@@ -158,6 +182,7 @@ def main():
     # 2. FOOTER
     p_ftr = subparsers.add_parser("footer", help="Generate full-width closing footer plate")
     p_ftr.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_ftr.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_ftr.add_argument("--primary", help="Primary brand hex color")
     p_ftr.add_argument("--accent", help="Secondary accent hex color")
     p_ftr.add_argument("--status", default="SESSION_ACTIVE // STANDBY", help="Status telemetry readout text")
@@ -169,6 +194,7 @@ def main():
     # 3. CALLOUT
     p_clt = subparsers.add_parser("callout", help="Generate inline alert plate or quote header")
     p_clt.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_clt.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_clt.add_argument("--type", choices=["note", "warning", "critical", "success", "info"], default="note", help="Callout type / badge")
     p_clt.add_argument("--primary", help="Primary brand hex color")
     p_clt.add_argument("--accent", help="Secondary accent hex color")
@@ -181,6 +207,7 @@ def main():
     # 4. FRAME
     p_frm = subparsers.add_parser("frame", help="Generate window top cap or bottom plate")
     p_frm.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_frm.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_frm.add_argument("--type", choices=["top", "bottom"], default="top", help="Frame position: top or bottom")
     p_frm.add_argument("--primary", help="Primary brand hex color")
     p_frm.add_argument("--accent", help="Secondary accent hex color")
@@ -192,6 +219,7 @@ def main():
     # 5. CHIP
     p_chp = subparsers.add_parser("chip", help="Generate holographic pill / chip badge")
     p_chp.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_chp.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_chp.add_argument("--type", choices=["closed", "decay", "pulse"], default="closed", help="Form & decay mechanics: closed, decay, pulse")
     p_chp.add_argument("--primary", help="Primary brand hex color")
     p_chp.add_argument("--accent", help="Secondary accent hex color")
@@ -203,6 +231,7 @@ def main():
     # 6. DIVIDER
     p_div = subparsers.add_parser("divider", help="Generate chapter divider (PCB, Laser, or Spectrum)")
     p_div.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Style: cyberpunk=PCB, tactical=Laser, minimal=Spectrum")
+    p_div.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_div.add_argument("--primary", help="Primary brand hex color")
     p_div.add_argument("--accent", help="Secondary accent hex color")
     p_div.add_argument("--output", "-o", help="Target SVG destination path")
@@ -211,6 +240,7 @@ def main():
     # 7. SPLITTER
     p_spl = subparsers.add_parser("splitter", help="Generate sub-module splitter (flush x=1..849)")
     p_spl.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_spl.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_spl.add_argument("--primary", help="Primary brand hex color")
     p_spl.add_argument("--accent", help="Secondary accent hex color")
     p_spl.add_argument("--label", default="[MODULE: SUB_SYSTEM]", help="Splitter center label text")

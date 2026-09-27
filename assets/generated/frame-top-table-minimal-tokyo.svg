@@ -1,18 +1,52 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 38" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
+      
+      :root {
+        --bg-glass: #F8FAFC;
+        --bg-panel: #F1F5F9;
+        --border-chassis: #E2E8F0;
+        --primary: #4F8BFF;
+        --accent: #6D28D9;
+        --title-front: #4F8BFF;
+        --title-mid: #2f5399;
+        --title-dark: #17294c;
+        --text-main: #0F172A;
+        --text-dim: #64748B;
+        --status: #16A34A;
+        --warning: #D97706;
+        --grid-op: 0.10;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(15, 18, 30, 0.85);
+          --bg-panel: rgba(22, 27, 46, 0.80);
+          --border-chassis: rgba(41, 46, 66, 0.85);
+          --primary: #4F8BFF;
+          --accent: #A855F7;
+          --title-front: #4F8BFF;
+          --title-mid: #233e72;
+          --title-dark: #0b1426;
+          --text-main: #F1F5F9;
+          --text-dim: #94A3B8;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
     </style>
   </defs>
-  <rect x="0" y="0" width="850" height="38" fill="rgba(15, 18, 30, 0.82)" opacity="0.45"/>
-  <path d="M 4 14 L 4 4 L 14 4" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
-  <path d="M 846 14 L 846 4 L 836 4" fill="none" stroke="#4F8BFF" stroke-width="1.5"/>
-  <line x1="8" y1="36" x2="842" y2="36" stroke="#4F8BFF" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
-  <circle cx="24" cy="18" r="4" fill="#4F8BFF"/>
-  <text x="36" y="22" fill="#4F8BFF" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">╔═ MINIMAL.GLASS // MONOLITH</text>
-  <rect x="670" y="9" width="105" height="18" fill="rgba(22, 27, 46, 0.78)" stroke="#4F8BFF" stroke-width="1"/>
-  <text x="722" y="22" fill="#4F8BFF" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[READY]</text>
-  <rect x="782" y="11" width="14" height="14" fill="rgba(41, 46, 66, 0.85)"/><text x="786" y="21" fill="#8892B0" font-size="10" class="font-mono">_</text>
-  <rect x="800" y="11" width="14" height="14" fill="rgba(41, 46, 66, 0.85)"/><text x="803" y="22" fill="#8892B0" font-size="10" class="font-mono">□</text>
+  <rect x="0" y="0" width="850" height="38" fill="var(--bg-glass)"/>
+  <path d="M 4 14 L 4 4 L 14 4" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
+  <path d="M 846 14 L 846 4 L 836 4" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
+  <line x1="8" y1="36" x2="842" y2="36" stroke="var(--primary)" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
+  <circle cx="24" cy="18" r="4" fill="var(--primary)"/>
+  <text x="36" y="22" fill="var(--primary)" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">╔═ MINIMAL.GLASS // MONOLITH</text>
+  <rect x="670" y="9" width="105" height="18" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1"/>
+  <text x="722" y="22" fill="var(--primary)" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[READY]</text>
+  <rect x="782" y="11" width="14" height="14" fill="var(--bg-panel)"/><text x="786" y="21" fill="var(--text-dim)" font-size="10" class="font-mono">_</text>
+  <rect x="800" y="11" width="14" height="14" fill="var(--bg-panel)"/><text x="803" y="22" fill="var(--text-dim)" font-size="10" class="font-mono">□</text>
   <rect x="818" y="11" width="14" height="14" fill="#FF0055"/><text x="822" y="22" fill="#FFFFFF" font-size="10" class="font-mono">×</text>
 </svg>

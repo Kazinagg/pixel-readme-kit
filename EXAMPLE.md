@@ -6,7 +6,7 @@
 
 <br/><br/>
 
-<img src="assets/example/chip-version.svg" alt="⚡ v2.2.0" />
+<img src="assets/example/chip-version.svg" alt="⚡ v3.0.0" />
 &nbsp;&nbsp;
 <img src="assets/example/chip-status.svg" alt="● LIVE_NODE" />
 &nbsp;&nbsp;
@@ -23,12 +23,12 @@
 <br/>
 
 <!-- 1. АВТОНОМНЫЙ АЛЕРТ (CALLOUT) -->
-<img src="assets/example/callout-arch.svg" width="100%" />
+<img src="assets/example/callout-arch.svg" width="100%" alt="RUNTIME ARCHITECTURE // ZERO CAMO PROXY OVERFLOW" />
 
 <br/>
 
 <!-- 2. БЛОК ЦИТАТЫ С ХЕДЕРОМ (QUOTE) -->
-> <img src="assets/example/callout-quote-warn.svg" width="100%" />
+> <img src="assets/example/callout-quote-warn.svg" width="100%" alt="CRITICAL CONSTRAINT // FULL-WIDTH COMPLIANCE" />
 >
 > **Внимание оператора**: все контентные окна обязаны использовать 100% табличную обертку (`<table width="100%"><tr><td width="2000">...</td></tr></table>`). 
 > Это гарантирует, что зубцы крышек на `x=1` и `x=849` ложатся ровно на серые рамки GitHub без боковых зазоров на любых дисплеях.
@@ -49,7 +49,7 @@
 | Подсистема | Протокол | Статус | Задержка |
 | :--- | :--- | :--- | :--- |
 | **Fiber Pipeline** | `IPC_BUS // DMA` | `● ACTIVE` | `0.12 ms` |
-| **Translucent Glass** | `SVG_ALPHA_0.82` | `● STABLE` | `0.00 ms` |
+| **Adaptive Theme** | `SVG_CSS_VARS` | `● DUAL_THEME` | `0.00 ms` |
 | **Live Radar HUD** | `360_DEG_SWEEP` | `● SCANNING` | `16.6 ms (60 FPS)` |
 
 ```bash
@@ -67,7 +67,7 @@ neo-kernel init --profile=cyberpunk
 <br/>
 
 <!-- 4. СПЛИТТЕР ПОДМОДУЛЕЙ (SPLITTER) -->
-<img src="assets/example/splitter-tactical.svg" width="100%" />
+<img src="assets/example/splitter-tactical.svg" width="100%" alt="[TACTICAL: SECURITY_AND_FAILSAFE]" />
 
 <br/>
 
@@ -107,12 +107,12 @@ neo-kernel init --profile=cyberpunk
 ```yaml
 # neo-kernel.config.yaml
 runtime:
-  engine: "pixel-readme-kit-v2.2"
+  engine: "pixel-readme-kit-v3.0"
   style: "cyberpunk"
   theme:
+    mode: "auto"
     primary: "#00C8D7"
     accent: "#A855F7"
-    glass_alpha: 0.82
 telemetry:
   radar_sweep: true
   scanline: true
@@ -136,6 +136,6 @@ telemetry:
 
 <br/><br/>
 
-<sub>NEO-CORE v2.2 &bull; PIXEL README DESIGN SYSTEM &bull; 2026</sub>
+<sub>NEO-CORE v3.0 &bull; PIXEL README DESIGN SYSTEM &bull; 2026</sub>
 
 </div>

@@ -85,17 +85,17 @@
 ## 3. Инлайн-плашки и алерты (Callouts)
 
 ### 3.1 Cyberpunk Note
-<img src="assets/generated/callout-cyberpunk-note.svg" width="100%" />
+<img src="assets/generated/callout-cyberpunk-note.svg" width="100%" alt="NOTE // РЕКОМЕНДАЦИЯ АРХИТЕКТУРЫ" />
 
 <br/>
 
 ### 3.2 Tactical Warning
-<img src="assets/generated/callout-tactical-warning.svg" width="100%" />
+<img src="assets/generated/callout-tactical-warning.svg" width="100%" alt="WARNING // ОГРАНИЧЕНИЕ ШИРИНЫ" />
 
 <br/>
 
 ### 3.3 Minimal Info
-<img src="assets/generated/callout-minimal-note.svg" width="100%" />
+<img src="assets/generated/callout-minimal-note.svg" width="100%" alt="INFO // СИСТЕМНОЕ СООБЩЕНИЕ" />
 
 ---
 
@@ -104,21 +104,21 @@
 Плашки цитат имеют открытый левый край (стыкующийся с серой полосой цитаты GitHub) и пунктирную нижнюю линию:
 
 ### 4.1 Cyberpunk Quote Header
-> <img src="assets/generated/callout-quote-cyberpunk.svg" width="100%" />
+> <img src="assets/generated/callout-quote-cyberpunk.svg" width="100%" alt="CYBERPUNK QUOTE HEADER" />
 >
 > > **Живой текст цитаты**: плашка бесшовно открыта слева к серой линии `border-left`, а пунктирная нижняя линия направляет внимание оператора в текст.
 
 <br/>
 
 ### 4.2 Tactical Quote Header
-> <img src="assets/generated/callout-quote-tactical.svg" width="100%" />
+> <img src="assets/generated/callout-quote-tactical.svg" width="100%" alt="TACTICAL QUOTE HEADER" />
 >
 > > **Тактическое оповещение**: плашка цитаты в тактическом стиле идеально выравнивается по высоте со стандартной серой чертой цитирования GitHub.
 
 <br/>
 
 ### 4.3 Minimal Quote Header
-> <img src="assets/generated/callout-quote-minimal.svg" width="100%" />
+> <img src="assets/generated/callout-quote-minimal.svg" width="100%" alt="MINIMAL QUOTE HEADER" />
 >
 > > **Минималистичная цитата**: лёгкая элегантная рамка без перегрузки интерфейса.
 
@@ -295,11 +295,36 @@ python -m generator.cli compile --input README.template.md --output README.md
 <br/>
 
 ### 8.4 Сплиттеры подмодулей (Flush x=1..849)
-<img src="assets/generated/splitter-terminal-cyberpunk.svg" width="100%" />
+<img src="assets/generated/splitter-terminal-cyberpunk.svg" width="100%" alt="[MODULE: IPC_BUS // CORE]" />
 <br/>
-<img src="assets/generated/splitter-tactical-amber.svg" width="100%" />
+<img src="assets/generated/splitter-tactical-amber.svg" width="100%" alt="[TARGET: SUB_SYSTEM_ALPHA]" />
 <br/>
-<img src="assets/generated/splitter-decay-tokyo.svg" width="100%" />
+<img src="assets/generated/splitter-decay-tokyo.svg" width="100%" alt="[AUDIO: FREQUENCY_BAND_01]" />
+
+---
+
+## 9. Мульти-режимная адаптация (Multi-Mode Themes v3.0)
+
+Каждый компонент поддерживает атрибут `mode="..."` (`auto`, `dark`, `light`, `transparent`, `gh`, `picture`).
+
+### 9.1 Режим `mode="auto"` (Адаптивный SVG по умолчанию)
+Автоматически адаптирует цвета к теме ОС или GitHub:
+<img src="assets/generated/callout-mode-auto.svg" width="100%" alt="ADAPTIVE AUTO MODE" />
+
+<br/>
+
+### 9.2 Режим `mode="dark"` (Всегда тёмная палитра)
+<img src="assets/generated/callout-mode-dark.svg" width="100%" alt="STATIC DARK THEME" />
+
+<br/>
+
+### 9.3 Режим `mode="light"` (Всегда светлая палитра)
+<img src="assets/generated/callout-mode-light.svg" width="100%" alt="STATIC LIGHT THEME" />
+
+<br/>
+
+### 9.4 Режим `mode="transparent"` (Прозрачный фон)
+<img src="assets/generated/callout-mode-transparent.svg" width="100%" alt="TRANSPARENT BACKGROUND" />
 
 <br/><br/>
 
