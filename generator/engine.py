@@ -332,7 +332,6 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
     norm_specs = normalize_specs(specs=specs, spec1=spec1, spec2=spec2, spec3=spec3, default_color=None)
 
     if st == "tactical":
-        h = height if height else 220
         y_title = 50
         pixel_markup, t_w, t_h = render_3d_text(
             title, x=42, y=y_title, px_size=None,
@@ -340,10 +339,11 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
             spacing=2, max_width=480, allow_wrap=True
         )
         y_sub = y_title + t_h + 8
-        y_specs_start = y_sub + 38
+        sub_bottom = y_sub + 24
 
         spec_lines = []
         if norm_specs:
+            y_specs_start = sub_bottom + 25
             for i, spec in enumerate(norm_specs[:3]):
                 lbl = spec[0]
                 val = spec[1]
@@ -352,7 +352,18 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
                 spec_lines.append(f"""
   <text x="42" y="{y}" fill="{prim}" font-size="11" class="font-mono">&gt; {escape_xml(lbl)}: <tspan fill="{val_col}">{escape_xml(val)}</tspan></text>
 """)
+            last_spec_y = y_specs_start + (len(norm_specs[:3]) - 1) * 20
+            content_bottom = last_spec_y + 6
+        else:
+            content_bottom = sub_bottom
+
         specs_markup = "".join(spec_lines)
+
+        needed_h = content_bottom + 36
+        calc_h = max(220, needed_h)
+        h = max(height or 0, calc_h)
+
+        reticle_cy = max(105, min(h - 80, (h // 2) - 5))
 
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
@@ -374,7 +385,7 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
       }}
       .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
       .laser-scan {{ animation: targetScan 4s ease-in-out infinite; }}
-      .reticle-pulse {{ transform-origin: 750px 105px; animation: pulseLock 2s infinite ease-in-out; }}
+      .reticle-pulse {{ transform-origin: 750px {reticle_cy}px; animation: pulseLock 2s infinite ease-in-out; }}
       .chevron-pulse {{ animation: chevronBlink 1.6s infinite steps(1); }}
     </style>
   </defs>
@@ -412,18 +423,18 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
 
   <!-- RIGHT SIDE: TARGET LOCK-ON CROSSHAIR RETICLE -->
   <g class="reticle-pulse">
-    <circle cx="750" cy="105" r="45" fill="none" stroke="{prim}" stroke-width="1.5" stroke-dasharray="8,4"/>
-    <circle cx="750" cy="105" r="24" fill="none" stroke="{acc}" stroke-width="1.5"/>
-    <circle cx="750" cy="105" r="4" fill="{acc}"/>
-    <line x1="750" y1="50" x2="750" y2="75" stroke="{prim}" stroke-width="2"/>
-    <line x1="750" y1="135" x2="750" y2="160" stroke="{prim}" stroke-width="2"/>
-    <line x1="695" y1="105" x2="720" y2="105" stroke="{prim}" stroke-width="2"/>
-    <line x1="780" y1="105" x2="805" y2="105" stroke="{prim}" stroke-width="2"/>
-    <path d="M 725 80 L 720 80 L 720 85" fill="none" stroke="{prim}" stroke-width="2"/>
-    <path d="M 775 80 L 780 80 L 780 85" fill="none" stroke="{prim}" stroke-width="2"/>
-    <path d="M 725 130 L 720 130 L 720 125" fill="none" stroke="{prim}" stroke-width="2"/>
-    <path d="M 775 130 L 780 130 L 780 125" fill="none" stroke="{prim}" stroke-width="2"/>
-    <text x="750" y="168" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">TARGET LOCK</text>
+    <circle cx="750" cy="{reticle_cy}" r="45" fill="none" stroke="{prim}" stroke-width="1.5" stroke-dasharray="8,4"/>
+    <circle cx="750" cy="{reticle_cy}" r="24" fill="none" stroke="{acc}" stroke-width="1.5"/>
+    <circle cx="750" cy="{reticle_cy}" r="4" fill="{acc}"/>
+    <line x1="750" y1="{reticle_cy - 55}" x2="750" y2="{reticle_cy - 30}" stroke="{prim}" stroke-width="2"/>
+    <line x1="750" y1="{reticle_cy + 30}" x2="750" y2="{reticle_cy + 55}" stroke="{prim}" stroke-width="2"/>
+    <line x1="695" y1="{reticle_cy}" x2="720" y2="{reticle_cy}" stroke="{prim}" stroke-width="2"/>
+    <line x1="780" y1="{reticle_cy}" x2="805" y2="{reticle_cy}" stroke="{prim}" stroke-width="2"/>
+    <path d="M 725 {reticle_cy - 25} L 720 {reticle_cy - 25} L 720 {reticle_cy - 20}" fill="none" stroke="{prim}" stroke-width="2"/>
+    <path d="M 775 {reticle_cy - 25} L 780 {reticle_cy - 25} L 780 {reticle_cy - 20}" fill="none" stroke="{prim}" stroke-width="2"/>
+    <path d="M 725 {reticle_cy + 25} L 720 {reticle_cy + 25} L 720 {reticle_cy + 20}" fill="none" stroke="{prim}" stroke-width="2"/>
+    <path d="M 775 {reticle_cy + 25} L 780 {reticle_cy + 25} L 780 {reticle_cy + 20}" fill="none" stroke="{prim}" stroke-width="2"/>
+    <text x="750" y="{reticle_cy + 63}" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">TARGET LOCK</text>
   </g>
 
   <!-- SWEEPING TARGET LASER -->
@@ -442,13 +453,11 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
             spacing=2, max_width=500, allow_wrap=True
         )
         y_sub = y_title + t_h + 8
-
-        default_h = 135 if not norm_specs else (140 + len(norm_specs) * 18)
-        h = height if height else default_h
+        sub_bottom = y_sub + 22
 
         spec_lines = []
         if norm_specs:
-            y_specs_start = y_sub + 38
+            y_specs_start = sub_bottom + 22
             for i, spec in enumerate(norm_specs[:3]):
                 lbl = spec[0]
                 val = spec[1]
@@ -457,7 +466,19 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
                 spec_lines.append(f"""
   <text x="42" y="{y}" fill="{prim}" font-size="10" class="font-mono">// {escape_xml(lbl)}: <tspan fill="{val_col}">{escape_xml(val)}</tspan></text>
 """)
+            last_spec_y = y_specs_start + (len(norm_specs[:3]) - 1) * 18
+            content_bottom = last_spec_y + 4
+        else:
+            content_bottom = sub_bottom
+
         specs_markup = "".join(spec_lines)
+
+        min_default_h = 135 if not norm_specs else (140 + len(norm_specs[:3]) * 18)
+        needed_h = content_bottom + 34
+        calc_h = max(min_default_h, needed_h)
+        h = max(height or 0, calc_h)
+
+        eq_y = max(35, min(h - 75, (h // 2) - 25))
 
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
@@ -506,7 +527,7 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
   {specs_markup}
 
   <!-- EQUALIZER BARS (RIGHT SIDE) -->
-  <g transform="translate({width-120}, 45)">
+  <g transform="translate({width-120}, {eq_y})">
     <rect x="0" y="28" width="8" height="12" fill="{prim}" class="eq1"/>
     <rect x="14" y="12" width="8" height="28" fill="{acc}" class="eq2"/>
     <rect x="28" y="22" width="8" height="18" fill="#06B6D4" class="eq3"/>
@@ -518,13 +539,6 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
 
     else:
         # Cyberpunk Workstation (Default Flagship: 360° Animated Radar, CRT Scanline, 20px Grid, Equalizer)
-        h = height if height else 260
-        grid_lines = []
-        for x in range(0, width + 1, 20):
-            grid_lines.append(f'<line x1="{x}" y1="0" x2="{x}" y2="{h}" stroke="{prim}" stroke-width="1"/>')
-        for y in range(0, h + 1, 20):
-            grid_lines.append(f'<line x1="0" y1="{y}" x2="{width}" y2="{y}" stroke="{prim}" stroke-width="1"/>')
-
         y_title = 60
         pixel_markup, t_w, t_h = render_3d_text(
             title, x=42, y=y_title, px_size=None,
@@ -532,11 +546,12 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
             spacing=2, max_width=480, allow_wrap=True
         )
         y_sub = y_title + t_h + 8
+        sub_bottom = y_sub + 28
 
         teletype_block = ""
         if norm_specs:
             teletype_svg = []
-            y_teletype_start = max(182, y_sub + 36)
+            y_teletype_start = max(182, sub_bottom + 28)
             default_colors = [prim, acc, success]
             for i, spec in enumerate(norm_specs[:3]):
                 lbl = spec[0]
@@ -549,8 +564,9 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
     <text x="210" y="{y_pos}" fill="{col}" font-size="11" font-weight="bold" class="font-mono">{escape_xml(val)}</text>
 """)
 
-            last_y = y_teletype_start + (len(norm_specs) - 1) * 20
+            last_y = y_teletype_start + (len(norm_specs[:3]) - 1) * 20
             eq_offset = last_y - 210
+            content_bottom = last_y + 12
             teletype_block = f"""
   <!-- TELETYPE TELEMETRY LINES -->
   <g>
@@ -566,6 +582,19 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
     <rect x="24" y="182" width="5" height="22" fill="{warning}" class="w4"/>
   </g>
 """
+        else:
+            content_bottom = sub_bottom
+
+        min_default_h = 260
+        needed_h = content_bottom + 48
+        calc_h = max(min_default_h, needed_h)
+        h = max(height or 0, calc_h)
+
+        grid_lines = []
+        for x in range(0, width + 1, 20):
+            grid_lines.append(f'<line x1="{x}" y1="0" x2="{x}" y2="{h}" stroke="{prim}" stroke-width="1"/>')
+        for y in range(0, h + 1, 20):
+            grid_lines.append(f'<line x1="0" y1="{y}" x2="{width}" y2="{y}" stroke="{prim}" stroke-width="1"/>')
 
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
