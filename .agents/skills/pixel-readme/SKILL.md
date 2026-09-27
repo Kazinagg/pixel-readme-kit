@@ -36,11 +36,19 @@ description: "Use this skill whenever the user asks to create, format, style, or
 
 ## 🛠️ Способ 1: Компилятор Markdown (Рекомендуемый агентский рабочий процесс)
 
-Агент создает шаблонный файл `README.template.md` с декларативными директивами `<!-- pixel-kit:... -->` и запускает компилятор:
+Агент создает шаблонный файл `README.template.md` с декларативными директивами `<!-- pixel-kit:... -->` и запускает компилятор.
 
-```bash
-python -m generator.cli compile --input README.template.md --output README.md --assets-dir assets/generated
-```
+> [!TIP]
+> **Как запустить CLI в любом проекте**:
+> Модуль `generator/` поставляется прямо внутри директории этого скила (там же, где находится данный `SKILL.md`).
+> - **В стороннем проекте**: вызывайте CLI через абсолютный/относительный путь к `generator/cli.py` скила:
+>   ```bash
+>   python "<путь_к_папке_скила>/generator/cli.py" compile --input README.template.md --output README.md --assets-dir assets/generated
+>   ```
+> - **Внутри репозитория `pixel-readme-kit`**:
+>   ```bash
+>   python -m generator.cli compile --input README.template.md --output README.md --assets-dir assets/generated
+>   ```
 
 ### Синтаксис директив в Markdown:
 
@@ -102,8 +110,8 @@ git clone https://github.com/Kazinagg/pixel-readme-kit.git
 ---
 
 ## ⚡ Способ 2: Генерация одиночных SVG через CLI
-
-Для генерации конкретного SVG-файла по параметрам:
+ 
+Для генерации конкретного SVG-файла по параметрам (в сторонних проектах замените `python -m generator.cli` на `python "<путь_к_папке_скила>/generator/cli.py"`):
 
 ```bash
 # Флагманский хедер
