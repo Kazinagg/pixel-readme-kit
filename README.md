@@ -4,25 +4,25 @@
 
 <div align="center">
 
-<img src="assets/generated/header-readme.svg" width="100%" alt="PIXEL README KIT" />
+<img src="assets/generated/header-readme.svg?v=69498e57" width="100%" alt="PIXEL README KIT" />
 
 <br/><br/>
 
-<a href="CATALOG.md"><img src="assets/generated/chip-readme-catalog.svg" alt="📚 КАТАЛОГ БЛОКОВ" /></a>
+<a href="CATALOG.md"><img src="assets/generated/chip-readme-catalog.svg?v=c4258b8e" alt="📚 КАТАЛОГ БЛОКОВ" /></a>
 &nbsp;&nbsp;
-<a href="EXAMPLES.md"><img src="assets/generated/chip-readme-examples.svg" alt="💡 ПРИМЕРЫ И РАЗБОР" /></a>
+<a href="EXAMPLES.md"><img src="assets/generated/chip-readme-examples.svg?v=5c397cdd" alt="💡 ПРИМЕРЫ И РАЗБОР" /></a>
 &nbsp;&nbsp;
-<a href="#top"><img src="assets/generated/chip-readme-version.svg" alt="● v4.0.0 STABLE" /></a>
+<a href="#top"><img src="assets/generated/chip-readme-version.svg?v=d9592d81" alt="● v4.0.0 STABLE" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg" alt="★ 2" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg?v=01e70734" alt="★ 2" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg" alt="🍴 0" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg?v=a57b178f" alt="🍴 0" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit"><img src="assets/generated/chip-readme-license.svg" alt="⚖ MIT" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit"><img src="assets/generated/chip-readme-license.svg?v=c6c1c97d" alt="⚖ MIT" /></a>
 
 <br/><br/>
 
-<img src="assets/generated/divider-readme.svg" width="100%" alt="Divider cyberpunk" />
+<img src="assets/generated/divider-readme.svg?v=524561bf" width="100%" alt="Divider cyberpunk" />
 
 </div>
 
@@ -30,11 +30,11 @@
 
 ## 📊 Ключевые показатели v4.0 (System Telemetry)
 
-<img src="assets/generated/metrics-readme.svg" width="100%" alt="Metrics" />
+<img src="assets/generated/metrics-readme.svg?v=61035695" width="100%" alt="Metrics" />
 
 <br/>
 
-<img src="assets/generated/progress-readme.svg" width="100%" alt="V4.0 EVOLUTION PROGRESS (5/5 SPRINTS)" />
+<img src="assets/generated/progress-readme.svg?v=b2512621" width="100%" alt="V4.0 EVOLUTION PROGRESS (5/5 SPRINTS)" />
 
 <br/>
 
@@ -62,13 +62,13 @@
 
 <br/>
 
-<img src="assets/generated/callout-readme-arch.svg" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
+<img src="assets/generated/callout-readme-arch.svg?v=de5ef34a" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
 
 ---
 
 ## 🛠️ Стек технологий и поддерживаемое окружение
 
-<img src="assets/generated/techstack-readme.svg" width="100%" alt="Tech Stack" />
+<img src="assets/generated/techstack-readme.svg?v=3e0e29a1" width="100%" alt="Tech Stack" />
 
 <br/>
 
@@ -86,7 +86,7 @@
 
 ## 🗺️ Дорожная карта развития (Roadmap)
 
-<img src="assets/generated/timeline-readme.svg" width="100%" alt="Timeline" />
+<img src="assets/generated/timeline-readme.svg?v=bdf5b93f" width="100%" alt="Timeline" />
 
 <br/>
 
@@ -128,7 +128,7 @@ python -m generator.cli compile --clean-assets --bust-cache
 
 ## 🪟 Интерактивный пример окна контента
 
-<img src="assets/generated/frame-readme-top.svg" width="100%" />
+<img src="assets/generated/frame-readme-top.svg?v=d2ce22ea" width="100%" />
 
 <table width="100%">
 <tr>
@@ -156,11 +156,11 @@ python -m generator.cli studio
 </tr>
 </table>
 
-<img src="assets/generated/frame-readme-bottom.svg" width="100%" />
+<img src="assets/generated/frame-readme-bottom.svg?v=38254e07" width="100%" />
 
 <br/>
 
-> <img src="assets/generated/callout-quote-readme.svg" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
+> <img src="assets/generated/callout-quote-readme.svg?v=338b06b6" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
 >
 > > **Навигация по документации**:
 > > - Полный каталог всех компонентов во всех стилях доступен в **[CATALOG.md](CATALOG.md)**.
@@ -174,7 +174,7 @@ python -m generator.cli studio
 
 <br/>
 
-<img src="assets/generated/term-top-readme.svg" width="100%" />
+<img src="assets/generated/term-top-readme.svg?v=1982a00c" width="100%" />
 
 <table width="100%">
 <tr>
@@ -204,10 +204,10 @@ python -m generator.cli splitter --help  # Сплиттеры подмодуле
 </tr>
 </table>
 
-<img src="assets/generated/term-bottom-readme.svg" width="100%" />
+<img src="assets/generated/term-bottom-readme.svg?v=26ea91ad" width="100%" />
 
 </details>
 
 <br/><br/>
 
-<a href="#top"><img src="assets/generated/footer-readme.svg" width="100%" alt="▲ НАВЕРХ" /></a>
+<a href="#top"><img src="assets/generated/footer-readme.svg?v=59dbb087" width="100%" alt="▲ НАВЕРХ" /></a>
