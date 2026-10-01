@@ -52,5 +52,5 @@
   <polygon points="10 8, 16 8, 8 20, 2 20" fill="var(--primary)" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="var(--primary)" opacity="0.6"/><circle cx="825" cy="24" r="8" fill="none" stroke="var(--primary)" stroke-width="1.5"/><polygon points="822 24, 828 20, 828 28" fill="var(--primary)"/>
   <!-- Text Content (Properly offset past badge edge) -->
   <text x="196" y="22" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">WARNING // ОГРАНИЧЕНИЕ ШИРИНЫ</text>
-  <text x="196" y="36" fill="var(--accent)" font-size="9" class="font-mono">Используйте 100% табличную обертку для окон</text>
+  <text x="196" y="36" fill="var(--accent)" font-size="11" class="font-mono">Используйте 100% табличную обертку для окон</text>
 </svg>

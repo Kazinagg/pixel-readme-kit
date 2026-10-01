@@ -29,9 +29,15 @@ from generator.engine import (
     generate_chip,
     generate_divider,
     generate_splitter,
+    generate_metrics,
+    generate_progress,
+    generate_techstack,
+    generate_timeline,
+    generate_social,
     validate_svg
 )
 from generator.compiler import MarkdownCompiler
+from generator.scaffolder import scaffold_readme, get_available_templates
 
 def save_output(svg_content, output_path, default_path):
     target = output_path if output_path else default_path
@@ -84,8 +90,22 @@ def cmd_header(args):
         "spec1": args.spec1,
         "spec2": args.spec2,
         "spec3": args.spec3,
-        "specs": args.specs
+        "specs": args.specs,
+        "compact": getattr(args, "compact", False)
     }, f"header-{args.style}")
+
+def cmd_social(args):
+    tags = [x.strip() for x in args.tags.split(",") if x.strip()] if getattr(args, "tags", None) else None
+    handle_cli_output(args, generate_social, {
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent,
+        "preset": args.preset,
+        "title": args.title,
+        "subtitle": args.subtitle,
+        "repo": getattr(args, "repo", "pixel-readme-kit"),
+        "tags": tags
+    }, f"social-{args.style}")
 
 def cmd_footer(args):
     handle_cli_output(args, generate_footer, {
@@ -159,6 +179,61 @@ def cmd_splitter(args):
         "label": args.label
     }, f"splitter-{args.style}")
 
+def cmd_metrics(args):
+    items = []
+    if getattr(args, "items", None):
+        from generator.compiler import parse_directive_attrs
+        for chunk in args.items.split("|"):
+            attrs = parse_directive_attrs(chunk.strip())
+            if attrs:
+                items.append(attrs)
+    else:
+        items = [{
+            "label": args.label or "FPS BENCHMARK",
+            "value": args.value or "1,200+",
+            "delta": args.delta or "+24% vs baseline",
+            "trend": getattr(args, "trend", "up"),
+            "status": getattr(args, "status", None)
+        }]
+
+    handle_cli_output(args, generate_metrics, {
+        "metrics": items,
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent,
+        "preset": args.preset
+    }, f"metrics-{args.style}")
+
+def cmd_progress(args):
+    handle_cli_output(args, generate_progress, {
+        "value": args.value,
+        "label": args.label,
+        "sub": args.sub,
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent,
+        "preset": args.preset
+    }, f"progress-{args.style}")
+
+def cmd_techstack(args):
+    items = [x.strip() for x in args.items.split(",") if x.strip()] if args.items else ["python", "cpp", "rust", "docker", "git"]
+    handle_cli_output(args, generate_techstack, {
+        "items": items,
+        "columns": args.columns,
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent,
+        "preset": args.preset
+    }, f"techstack-{args.style}")
+
+def cmd_timeline(args):
+    handle_cli_output(args, generate_timeline, {
+        "style": args.style,
+        "primary": args.primary,
+        "accent": args.accent,
+        "preset": args.preset
+    }, f"timeline-{args.style}")
+
 def cmd_compile(args):
     inp = args.input if args.input else "README.template.md"
     if args.output:
@@ -168,9 +243,77 @@ def cmd_compile(args):
     print(f"[*] Compiling Markdown template: {inp}")
     print(f"[*] Assets directory: {args.assets_dir}")
     print(f"[*] Output destination: {out}")
-    compiler = MarkdownCompiler(assets_dir=args.assets_dir)
-    compiler.compile_file(inp, out)
+    use_cache = not getattr(args, "no_cache", False)
+    clean_assets = getattr(args, "clean_assets", False)
+    dry_run = getattr(args, "dry_run", False)
+    bust_cache = getattr(args, "bust_cache", False)
+
+    compiler = MarkdownCompiler(assets_dir=args.assets_dir, use_cache=use_cache, bust_cache=bust_cache)
+    compiler.compile_file(inp, out, clean_assets=clean_assets, dry_run_clean=dry_run)
     print(f"[+] Successfully compiled to: {out}")
+    print(f"[i] Build stats: {compiler.stats['generated']} generated, {compiler.stats['cached']} cached")
+    if clean_assets or dry_run:
+        if compiler.orphans:
+            action = "Orphan assets found (dry-run)" if dry_run else "Cleaned orphan assets"
+            print(f"[i] {action} ({len(compiler.orphans)}):")
+            for f in compiler.orphans:
+                print(f"    - {f}")
+        else:
+            print("[i] Clean assets: no orphan files detected.")
+
+def cmd_serve(args):
+    from generator.server import run_studio_server
+    inp = args.input if args.input else "README.template.md"
+    if args.output:
+        out = args.output
+    else:
+        out = "README.md" if inp == "README.template.md" else (inp.replace(".template.md", ".md") if ".template.md" in inp else "README.md")
+    port = getattr(args, "port", 3000)
+    open_browser = getattr(args, "open", False)
+    run_studio_server(template_path=inp, output_path=out, assets_dir=args.assets_dir, port=port, open_browser=open_browser)
+
+def cmd_init(args):
+    ptype = args.type
+    title = args.title
+    if not ptype:
+        print("\n=== PIXEL README KIT SCAFFOLDER ===")
+        print("Select project template type:")
+        print("1. study   (Laboratory report / student dossier / coursework)")
+        print("2. library (Open Source package / SDK / modular component)")
+        print("3. cli     (Command-line utility / terminal tool)")
+        choice = input("Enter choice [1-3] (default: 2): ").strip()
+        mapping = {"1": "study", "2": "library", "3": "cli"}
+        ptype = mapping.get(choice, "library")
+
+    if not title:
+        try:
+            default_title = os.path.basename(os.getcwd()).upper()
+        except Exception:
+            default_title = "MY-PROJECT"
+        user_title = input(f"Project Title (default: {default_title}): ").strip()
+        title = user_title if user_title else default_title
+
+    out = args.output if args.output else "README.template.md"
+    if os.path.exists(out) and not getattr(args, "force", False):
+        print(f"[!] Warning: {out} already exists.")
+        confirm = input("Overwrite? (y/N): ").strip().lower()
+        if confirm != "y":
+            print("[-] Scaffolding cancelled.")
+            return
+
+    scaffold_readme(
+        project_type=ptype,
+        title=title,
+        subtitle=args.subtitle,
+        author=args.author if args.author else "DEVELOPER",
+        group=args.group if args.group else "SE-01",
+        discipline=args.discipline if args.discipline else "COMPUTER SCIENCE",
+        repo=args.repo,
+        output_path=out
+    )
+    print(f"[+] Initialized template: {out} (type: {ptype})")
+    print(f"[*] Next step: customize {out} and run:")
+    print(f"    python -m generator.cli compile --input {out}")
 
 def main():
     parser = argparse.ArgumentParser(
@@ -197,6 +340,7 @@ def main():
     p_hdr.add_argument("--spec2", help="Level 3 spec line 2 (e.g. 'TEXT INTEGRATION: 100%% COPYABLE MARKDOWN')")
     p_hdr.add_argument("--spec3", help="Level 3 spec line 3 (e.g. 'ANIMATION SUITE: RADAR // SCANLINE')")
     p_hdr.add_argument("--specs", help="Combined level 3 specs separated by '|' (max 3 items)")
+    p_hdr.add_argument("--compact", action="store_true", help="Generate compact header (~84px height) optimized for mobile/minimal readmes")
     p_hdr.add_argument("--output", "-o", help="Target SVG destination path")
     p_hdr.set_defaults(func=cmd_header)
 
@@ -283,7 +427,106 @@ def main():
     p_cmp.add_argument("--input", "-i", default="README.template.md", help="Input Markdown template filepath (default: README.template.md)")
     p_cmp.add_argument("--output", "-o", default=None, help="Output compiled Markdown filepath (default: README.md or matching *.md)")
     p_cmp.add_argument("--assets-dir", default="assets/generated", help="Folder where generated SVGs will be stored")
+    p_cmp.add_argument("--clean-assets", action="store_true", help="Remove unused/orphan SVG files from assets directory")
+    p_cmp.add_argument("--dry-run", action="store_true", help="Preview orphan SVG files that would be cleaned without deleting")
+    p_cmp.add_argument("--no-cache", action="store_true", help="Disable build cache and force regeneration of all assets")
+    p_cmp.add_argument("--bust-cache", action="store_true", help="Append content hash query params (?v=<hash>) to asset URLs to bypass GitHub Camo proxy caching")
     p_cmp.set_defaults(func=cmd_compile)
+
+    # 9. INIT (Scaffolder)
+    p_init = subparsers.add_parser("init", help="Scaffold a new README.template.md from predefined templates")
+    p_init.add_argument("--type", choices=["study", "library", "cli"], help="Project template type (study, library, cli)")
+    p_init.add_argument("--title", help="Main project title")
+    p_init.add_argument("--subtitle", help="Project subtitle or description")
+    p_init.add_argument("--author", help="Author name (for study template)")
+    p_init.add_argument("--group", help="Student group (for study template)")
+    p_init.add_argument("--discipline", help="Discipline / course name (for study template)")
+    p_init.add_argument("--repo", help="GitHub repo in 'owner/repo' format")
+    p_init.add_argument("--output", "-o", default="README.template.md", help="Destination template file path (default: README.template.md)")
+    p_init.add_argument("--force", "-f", action="store_true", help="Overwrite existing template file without prompt")
+    p_init.set_defaults(func=cmd_init)
+
+    # 10. METRICS
+    p_met = subparsers.add_parser("metrics", help="Generate full-width KPI metrics card row")
+    p_met.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_met.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_met.add_argument("--preset", help="Named palette preset or path to JSON")
+    p_met.add_argument("--primary", help="Primary brand hex color")
+    p_met.add_argument("--accent", help="Secondary accent hex color")
+    p_met.add_argument("--label", default="BENCHMARK", help="Card label")
+    p_met.add_argument("--value", default="1,200+", help="Metric value")
+    p_met.add_argument("--delta", help="Delta text e.g. '+24%% vs baseline'")
+    p_met.add_argument("--trend", choices=["up", "down", "neutral"], default="up", help="Trend direction")
+    p_met.add_argument("--status", help="Status pill text e.g. OPTIMAL")
+    p_met.add_argument("--items", help="Multiple items separated by '|' e.g. 'label=CPU value=42%% | label=RAM value=12GB'")
+    p_met.add_argument("--output", "-o", help="Target SVG destination path")
+    p_met.set_defaults(func=cmd_metrics)
+
+    # 11. PROGRESS
+    p_prg = subparsers.add_parser("progress", help="Generate segmented sci-fi HUD progress bar")
+    p_prg.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_prg.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_prg.add_argument("--preset", help="Named palette preset or path to JSON")
+    p_prg.add_argument("--primary", help="Primary brand hex color")
+    p_prg.add_argument("--accent", help="Secondary accent hex color")
+    p_prg.add_argument("--value", type=int, default=75, help="Progress percentage value (0-100)")
+    p_prg.add_argument("--label", default="SYSTEM PROGRESS", help="Progress bar title label")
+    p_prg.add_argument("--sub", help="Subtext readout message")
+    p_prg.add_argument("--output", "-o", help="Target SVG destination path")
+    p_prg.set_defaults(func=cmd_progress)
+
+    # 12. TECHSTACK
+    p_tch = subparsers.add_parser("techstack", help="Generate tech stack matrix with vector pixel icons")
+    p_tch.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_tch.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_tch.add_argument("--preset", help="Named palette preset or path to JSON")
+    p_tch.add_argument("--primary", help="Primary brand hex color")
+    p_tch.add_argument("--accent", help="Secondary accent hex color")
+    p_tch.add_argument("--items", default="python,cpp,rust,docker,git", help="Comma-separated technology names")
+    p_tch.add_argument("--columns", type=int, default=5, help="Number of columns (default: 5)")
+    p_tch.add_argument("--output", "-o", help="Target SVG destination path")
+    p_tch.set_defaults(func=cmd_techstack)
+
+    # 13. TIMELINE
+    p_tml = subparsers.add_parser("timeline", help="Generate vertical PCB data bus timeline")
+    p_tml.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_tml.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_tml.add_argument("--preset", help="Named palette preset or path to JSON")
+    p_tml.add_argument("--primary", help="Primary brand hex color")
+    p_tml.add_argument("--accent", help="Secondary accent hex color")
+    p_tml.add_argument("--output", "-o", help="Target SVG destination path")
+    p_tml.set_defaults(func=cmd_timeline)
+
+    # 14. SOCIAL (OpenGraph 1280x640)
+    p_soc = subparsers.add_parser("social", help="Generate 1280x640 OpenGraph social preview card")
+    p_soc.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_soc.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_soc.add_argument("--preset", help="Named palette preset or path to JSON")
+    p_soc.add_argument("--primary", help="Primary brand hex color")
+    p_soc.add_argument("--accent", help="Secondary accent hex color")
+    p_soc.add_argument("--title", default="PIXEL README KIT", help="Main card title text")
+    p_soc.add_argument("--subtitle", default="RETRO-FUTURISTIC HUD & SCI-FI INFOGRAPHICS FOR GITHUB READMES", help="Card subtitle / description")
+    p_soc.add_argument("--repo", default="Kazinagg/pixel-readme-kit", help="GitHub repo name or author tag")
+    p_soc.add_argument("--tags", help="Comma-separated tech/topic tags (e.g. 'SVG,PYTHON,CYBERPUNK,DARK-MODE')")
+    p_soc.add_argument("--output", "-o", help="Target SVG destination path")
+    p_soc.set_defaults(func=cmd_social)
+
+    # 15. SERVE / STUDIO (Live Preview & Interactive HUD Studio)
+    p_srv = subparsers.add_parser("serve", help="Launch live preview HTTP server with SSE reload and HUD Studio")
+    p_srv.add_argument("--input", "-i", default="README.template.md", help="Input Markdown template file to watch (default: README.template.md)")
+    p_srv.add_argument("--output", "-o", default=None, help="Target compiled markdown file (default: README.md)")
+    p_srv.add_argument("--assets-dir", default="assets/generated", help="Folder where generated SVGs are stored")
+    p_srv.add_argument("--port", "-p", type=int, default=3000, help="HTTP server port (default: 3000)")
+    p_srv.add_argument("--open", action="store_true", help="Automatically open browser upon launch")
+    p_srv.set_defaults(func=cmd_serve)
+
+    p_std = subparsers.add_parser("studio", help="Alias for serve: open HUD Studio in browser")
+    p_std.add_argument("--input", "-i", default="README.template.md", help="Input Markdown template file to watch (default: README.template.md)")
+    p_std.add_argument("--output", "-o", default=None, help="Target compiled markdown file (default: README.md)")
+    p_std.add_argument("--assets-dir", default="assets/generated", help="Folder where generated SVGs are stored")
+    p_std.add_argument("--port", "-p", type=int, default=3000, help="HTTP server port (default: 3000)")
+    p_std.add_argument("--open", action="store_true", default=True, help="Automatically open browser upon launch")
+    p_std.set_defaults(func=cmd_serve)
 
     if len(sys.argv) == 1:
         parser.print_help()

@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 280" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: #FFFBEB;
+        --bg-panel: #FEF3C7;
+        --border-chassis: #FDE68A;
+        --primary: #B45309;
+        --accent: #C2410C;
+        --title-front: #B45309;
+        --title-mid: #78350F;
+        --title-dark: #451A03;
+        --text-main: #1F2937;
+        --text-dim: #6B7280;
+        --status: #15803D;
+        --warning: #B45309;
+        --grid-op: 0.10;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(20, 14, 6, 0.88);
+          --bg-panel: rgba(30, 22, 10, 0.82);
+          --border-chassis: rgba(50, 36, 16, 0.85);
+          --primary: #F59E0B;
+          --accent: #EA580C;
+          --title-front: #F59E0B;
+          --title-mid: #92400E;
+          --title-dark: #451A03;
+          --text-main: #FFFBEB;
+          --text-dim: #D97706;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #F59E0B));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      .font-time-date { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }
+      .font-time-title { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 12px; font-weight: bold; }
+      .font-time-stat { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }
+      .font-time-desc { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: normal; }
+    </style>
+  </defs>
+  <!-- Vertical Data PCB Bus -->
+  <line x1="42" y1="14" x2="42" y2="236" stroke="var(--border-chassis)" stroke-width="2"/>
+  <circle cx="42" cy="14" r="3" fill="var(--primary)"/>
+  <polygon points="42,242 46,236 38,236" fill="var(--primary)"/>
+  <g id="milestone-0">
+    <path d="M 48 28 L 70 28" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,22 48,28 42,34 36,28" fill="var(--status)"/>
+    <polygon points="76,10 848,10 848,56 842,62 70,62 70,16" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <line x1="71" y1="11" x2="71" y2="61" stroke="var(--status)" stroke-width="2.5"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="19" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="112" y="30" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026</text>
+    <text x="152" y="30" fill="var(--title-front)" class="font-time-title">V1.0 - INITIAL RELEASE</text>
+    <text x="834" y="30" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="50" fill="var(--text-dim)" class="font-time-desc"></text>
+  </g>
+  <g id="milestone-1">
+    <path d="M 48 94 L 70 94" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,88 48,94 42,100 36,94" fill="var(--status)"/>
+    <polygon points="76,76 848,76 848,122 842,128 70,128 70,82" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <line x1="71" y1="77" x2="71" y2="127" stroke="var(--status)" stroke-width="2.5"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="85" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="112" y="96" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026</text>
+    <text x="152" y="96" fill="var(--title-front)" class="font-time-title">V2.0 - MODULAR WINDOWS</text>
+    <text x="834" y="96" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="116" fill="var(--text-dim)" class="font-time-desc"></text>
+  </g>
+  <g id="milestone-2">
+    <path d="M 48 160 L 70 160" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,154 48,160 42,166 36,160" fill="var(--status)"/>
+    <polygon points="76,142 848,142 848,188 842,194 70,194 70,148" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <line x1="71" y1="143" x2="71" y2="193" stroke="var(--status)" stroke-width="2.5"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="151" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="112" y="162" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026</text>
+    <text x="152" y="162" fill="var(--title-front)" class="font-time-title">V3.0 - MULTI-THEME ENGINE</text>
+    <text x="834" y="162" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="182" fill="var(--text-dim)" class="font-time-desc"></text>
+  </g>
+  <g id="milestone-3">
+    <path d="M 48 226 L 70 226" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,220 48,226 42,232 36,226" fill="var(--status)"/>
+    <polygon points="76,208 848,208 848,254 842,260 70,260 70,214" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <line x1="71" y1="209" x2="71" y2="259" stroke="var(--status)" stroke-width="2.5"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="217" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="112" y="228" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026</text>
+    <text x="152" y="228" fill="var(--title-front)" class="font-time-title">V4.0 - DATA VIZ &amp; STUDIO</text>
+    <text x="834" y="228" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="248" fill="var(--text-dim)" class="font-time-desc"></text>
+  </g>
+</svg>

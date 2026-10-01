@@ -52,5 +52,5 @@
   <rect x="1" y="22" width="3" height="3" fill="var(--primary)"/>
   <rect x="96" y="22" width="3" height="3" fill="var(--primary)"/>
   <rect x="8" y="8" width="4" height="10" fill="var(--primary)"/>
-  <text x="53" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">⚡ v3.0.0</text>
+  <text x="53" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">⚡ v4.0.0</text>
 </svg>

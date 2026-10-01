@@ -6,7 +6,7 @@
 
 <br/><br/>
 
-<img src="assets/example/chip-version.svg" alt="⚡ v3.0.0" />
+<img src="assets/example/chip-version.svg" alt="⚡ v4.0.0" />
 &nbsp;&nbsp;
 <img src="assets/example/chip-status.svg" alt="● LIVE_NODE" />
 &nbsp;&nbsp;
@@ -66,12 +66,22 @@ neo-kernel init --profile=cyberpunk
 
 <br/>
 
-<!-- 4. СПЛИТТЕР ПОДМОДУЛЕЙ (SPLITTER) -->
+<!-- 4. КАРТОЧКИ МЕТРИК И KPI (METRICS) -->
+<img src="assets/example/neo-metrics.svg" width="100%" alt="Metrics" />
+
+<br/>
+
+<!-- 5. ИНДИКАТОР ПРОГРЕССА И СТАТУСА (PROGRESS) -->
+<img src="assets/example/neo-progress.svg" width="100%" alt="NEO-CORE v4.0 DEPLOYMENT PROGRESS" />
+
+<br/>
+
+<!-- 6. СПЛИТТЕР ПОДМОДУЛЕЙ (SPLITTER) -->
 <img src="assets/example/splitter-tactical.svg" width="100%" alt="[TACTICAL: SECURITY_AND_FAILSAFE]" />
 
 <br/>
 
-<!-- 5. ТАКТИЧЕСКОЕ ОКНО С ФАСКАМИ 45° (TACTICAL WINDOW) -->
+<!-- 7. ТАКТИЧЕСКОЕ ОКНО С ФАСКАМИ 45° (TACTICAL WINDOW) -->
 <img src="assets/example/frame-top-tactical.svg" width="100%" />
 
 <table width="100%">
@@ -92,7 +102,17 @@ neo-kernel init --profile=cyberpunk
 
 <br/>
 
-<!-- 6. ИНТЕРАКТИВНЫЙ ДРОУЭР / ТЕРМИНАЛ (DETAILS / SUMMARY) -->
+<!-- 8. МАТРИЦА СТЕКА ТЕХНОЛОГИЙ (TECHSTACK) -->
+<img src="assets/example/neo-techstack.svg" width="100%" alt="Tech Stack" />
+
+<br/>
+
+<!-- 9. ТАКТИЧЕСКИЙ ТАЙМЛАЙН / ДОРОЖНАЯ КАРТА (TIMELINE) -->
+<img src="assets/example/neo-timeline.svg" width="100%" alt="Timeline" />
+
+<br/>
+
+<!-- 10. ИНТЕРАКТИВНЫЙ ДРОУЭР / ТЕРМИНАЛ (DETAILS / SUMMARY) -->
 <details open>
 <summary><kbd>▶ SYSTEM.CONFIG.YAML</kbd> <b>[ НАЖМИТЕ ДЛЯ СВОРАЧИВАНИЯ / РАЗВОРАЧИВАНИЯ ]</b> <code>[STATE: EXPANDED]</code></summary>
 
@@ -107,7 +127,7 @@ neo-kernel init --profile=cyberpunk
 ```yaml
 # neo-kernel.config.yaml
 runtime:
-  engine: "pixel-readme-kit-v3.0"
+  engine: "pixel-readme-kit-v4.0"
   style: "cyberpunk"
   theme:
     mode: "auto"
@@ -131,11 +151,11 @@ telemetry:
 
 <div align="center">
 
-<!-- 7. ЗАКРЫВАЮЩАЯ ПЛАСТИНА ФУТЕРА (FOOTER) -->
+<!-- 11. ЗАКРЫВАЮЩАЯ ПЛАСТИНА ФУТЕРА (FOOTER) -->
 <a href="#top"><img src="assets/example/footer.svg" width="100%" alt="НАВЕРХ К ШАПКЕ" /></a>
 
 <br/><br/>
 
-<sub>NEO-CORE v3.0 &bull; PIXEL README DESIGN SYSTEM &bull; 2026</sub>
+<sub>NEO-CORE v4.0 &bull; PIXEL README DESIGN SYSTEM &bull; 2026</sub>
 
 </div>

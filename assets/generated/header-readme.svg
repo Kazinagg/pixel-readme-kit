@@ -118,7 +118,7 @@
   <text x="372" y="29" fill="var(--text-dim)" font-size="11" class="font-mono">MODE: CYBERPUNK_HUD</text>
 
   <!-- Tag right-anchored to never collide with window controls -->
-  <text x="755" y="29" fill="var(--warning)" font-size="11" font-weight="bold" text-anchor="end" class="font-mono">RELEASE_v3.0</text>
+  <text x="755" y="29" fill="var(--warning)" font-size="11" font-weight="bold" text-anchor="end" class="font-mono">RELEASE_v4.0</text>
 
   <!-- Window controls [ _ ] [ □ ] [ × ] -->
   <rect x="765" y="19" width="16" height="12" fill="var(--border-chassis)"/>
@@ -162,8 +162,8 @@
     <text x="210" y="229" fill="var(--accent)" font-size="11" font-weight="bold" class="font-mono">100% COPYABLE MARKDOWN &amp; MATH</text>
 
     <text x="42" y="249" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
-    <text x="60" y="249" fill="var(--text-main)" font-size="11" class="font-mono">COMPILER &amp; CLI:</text>
-    <text x="210" y="249" fill="var(--status)" font-size="11" font-weight="bold" class="font-mono">AUTOMATED MULTI-MODE ENGINE</text>
+    <text x="60" y="249" fill="var(--text-main)" font-size="11" class="font-mono">DATA VISUALS:</text>
+    <text x="210" y="249" fill="var(--status)" font-size="11" font-weight="bold" class="font-mono">METRICS // PROGRESS // TECHSTACK</text>
 
     <rect x="500" y="239" width="8" height="12" fill="var(--primary)" class="cursor-blink"/>
   </g>

@@ -2,11 +2,11 @@
 
 <div align="center">
 
-<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="NEO-CORE" subtitle="CYBER-HUD AUTOMATION & KERNEL RUNTIME" spec1="HUD ARCHITECTURE: TRANSLUCENT GLASS & CYBER BRACKETS" spec2="TEXT INTEGRATION: 100% COPYABLE MARKDOWN & MATH" spec3="ANIMATION SUITE: RADAR // SCANLINE // LADDER CASCADE" tag="SYS_v3.0_ONLINE" out="assets/example/neo-header.svg" -->
+<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="NEO-CORE" subtitle="CYBER-HUD AUTOMATION & KERNEL RUNTIME" spec1="HUD ARCHITECTURE: TRANSLUCENT GLASS & CYBER BRACKETS" spec2="TEXT INTEGRATION: 100% COPYABLE MARKDOWN & MATH" spec3="ANIMATION SUITE: RADAR // SCANLINE // LADDER CASCADE" tag="SYS_v4.0_ONLINE" out="assets/example/neo-header.svg" -->
 
 <br/><br/>
 
-<!-- pixel-kit:chip style="cyberpunk" type="closed" text="⚡ v3.0.0" out="assets/example/chip-version.svg" -->
+<!-- pixel-kit:chip style="cyberpunk" type="closed" text="⚡ v4.0.0" out="assets/example/chip-version.svg" -->
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="cyberpunk" type="pulse" text="● LIVE_NODE" out="assets/example/chip-status.svg" -->
 &nbsp;&nbsp;
@@ -56,12 +56,27 @@ neo-kernel init --profile=cyberpunk
 
 <br/>
 
-<!-- 4. СПЛИТТЕР ПОДМОДУЛЕЙ (SPLITTER) -->
+<!-- 4. КАРТОЧКИ МЕТРИК И KPI (METRICS) -->
+<!-- pixel-kit:metrics style="cyberpunk" primary="#00C8D7" accent="#A855F7" out="assets/example/neo-metrics.svg" -->
+- label="THROUGHPUT" value="48.2 GB/s" delta="+18.4% PEAK" trend="up"
+- label="FRAME LATENCY" value="0.14 ms" delta="p99 < 0.2ms" trend="up"
+- label="ACTIVE NODES" value="1,024" delta="+64 CLUSTERS" trend="up"
+- label="KERNEL HEALTH" value="99.98%" status="NOMINAL"
+<!-- /pixel-kit:metrics -->
+
+<br/>
+
+<!-- 5. ИНДИКАТОР ПРОГРЕССА И СТАТУСА (PROGRESS) -->
+<!-- pixel-kit:progress style="cyberpunk" value="88" label="NEO-CORE v4.0 DEPLOYMENT PROGRESS" sub="STAGE 04/04 // STABLE RUNTIME VERIFIED" primary="#00C8D7" accent="#A855F7" out="assets/example/neo-progress.svg" -->
+
+<br/>
+
+<!-- 6. СПЛИТТЕР ПОДМОДУЛЕЙ (SPLITTER) -->
 <!-- pixel-kit:splitter style="tactical" primary="#F59E0B" label="[TACTICAL: SECURITY_AND_FAILSAFE]" out="assets/example/splitter-tactical.svg" -->
 
 <br/>
 
-<!-- 5. ТАКТИЧЕСКОЕ ОКНО С ФАСКАМИ 45° (TACTICAL WINDOW) -->
+<!-- 7. ТАКТИЧЕСКОЕ ОКНО С ФАСКАМИ 45° (TACTICAL WINDOW) -->
 <!-- pixel-kit:window style="tactical" primary="#F59E0B" title="╔═ SEC.DEFENSE // SECTOR_LOCK_ALPHA.EXE" tag="[TACTICAL]" out_top="assets/example/frame-top-tactical.svg" out_bottom="assets/example/frame-bottom-tactical.svg" -->
 ### ⚡ Тактический модуль мониторинга
 
@@ -72,12 +87,27 @@ neo-kernel init --profile=cyberpunk
 
 <br/>
 
-<!-- 6. ИНТЕРАКТИВНЫЙ ДРОУЭР / ТЕРМИНАЛ (DETAILS / SUMMARY) -->
+<!-- 8. МАТРИЦА СТЕКА ТЕХНОЛОГИЙ (TECHSTACK) -->
+<!-- pixel-kit:techstack style="tactical" primary="#F59E0B" accent="#EA580C" items="python,rust,cpp,docker,git,linux" columns="6" out="assets/example/neo-techstack.svg" -->
+
+<br/>
+
+<!-- 9. ТАКТИЧЕСКИЙ ТАЙМЛАЙН / ДОРОЖНАЯ КАРТА (TIMELINE) -->
+<!-- pixel-kit:timeline style="cyberpunk" primary="#00C8D7" accent="#A855F7" out="assets/example/neo-timeline.svg" -->
+- stage="01" title="CORE ENGINE" date="2026-Q1" status="COMPLETED" desc="Vector pixel rendering pipeline"
+- stage="02" title="LIVE METRICS" date="2026-Q2" status="COMPLETED" desc="Realtime HUD KPI & progress widgets"
+- stage="03" title="STUDIO & MCP" date="2026-Q3" status="ACTIVE" desc="Zero-dep web studio & AI model protocol"
+- stage="04" title="GLOBAL CDN" date="2026-Q4" status="PLANNED" desc="Dynamic edge badge synthesis"
+<!-- /pixel-kit:timeline -->
+
+<br/>
+
+<!-- 10. ИНТЕРАКТИВНЫЙ ДРОУЭР / ТЕРМИНАЛ (DETAILS / SUMMARY) -->
 <!-- pixel-kit:terminal style="minimal" primary="#4F8BFF" title="SYSTEM.CONFIG.YAML" state="open" out_top="assets/example/terminal-top.svg" out_bottom="assets/example/terminal-bottom.svg" -->
 ```yaml
 # neo-kernel.config.yaml
 runtime:
-  engine: "pixel-readme-kit-v3.0"
+  engine: "pixel-readme-kit-v4.0"
   style: "cyberpunk"
   theme:
     mode: "auto"
@@ -94,11 +124,11 @@ telemetry:
 
 <div align="center">
 
-<!-- 7. ЗАКРЫВАЮЩАЯ ПЛАСТИНА ФУТЕРА (FOOTER) -->
+<!-- 11. ЗАКРЫВАЮЩАЯ ПЛАСТИНА ФУТЕРА (FOOTER) -->
 <!-- pixel-kit:footer style="cyberpunk" primary="#00C8D7" status="SYSTEM_ONLINE // ALL_CHANNELS_CLEAR" nav="НАВЕРХ К ШАПКЕ" out="assets/example/footer.svg" -->
 
 <br/><br/>
 
-<sub>NEO-CORE v3.0 &bull; PIXEL README DESIGN SYSTEM &bull; 2026</sub>
+<sub>NEO-CORE v4.0 &bull; PIXEL README DESIGN SYSTEM &bull; 2026</sub>
 
 </div>

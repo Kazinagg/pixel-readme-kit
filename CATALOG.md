@@ -326,6 +326,54 @@ python -m generator.cli compile --input README.template.md --output README.md
 ### 9.4 Режим `mode="transparent"` (Прозрачный фон)
 <img src="assets/generated/callout-mode-transparent.svg" width="100%" alt="TRANSPARENT BACKGROUND" />
 
+---
+
+## 10. Метрики ключевых показателей (Metrics KPI Cards v4.0)
+
+Полноширинные карточки для отображения бенчмарков, статусов и аналитики с угловыми скобами и трендами:
+
+<img src="assets/generated/metrics-catalog.svg" width="100%" alt="Metrics" />
+
+---
+
+## 11. Сегментированные шкалы прогресса (Progress HUD Bars v4.0)
+
+Научно-фантастические шкалы с пиксельным дизерингом и динамическим бейджем:
+
+<img src="assets/generated/progress-catalog.svg" width="100%" alt="SYSTEM MIGRATION (v4.0)" />
+
+---
+
+## 12. Матрица технологий и пиксельные иконки (Tech Stack Matrix v4.0)
+
+Сетка карточек с векторными пиксельными иконками (Python, C++, Rust, Docker, Linux, Git, OpenGL и др.):
+
+<img src="assets/generated/techstack-catalog.svg" width="100%" alt="Tech Stack" />
+
+---
+
+## 13. Интерактивные PCB-таймлайны (Timelines v4.0)
+
+Вертикальные шины данных для демонстрации релизов, этапов дорожной карты и статусов задач:
+
+<img src="assets/generated/timeline-catalog.svg" width="100%" alt="Timeline" />
+
+---
+
+## 14. Социальные карточки OpenGraph 1280x640 (Social Cards v4.0)
+
+Премиальные баннеры для превью репозитория при шеринге в Twitter, LinkedIn, Telegram и Discord:
+
+<img src="assets/generated/social-catalog.svg" width="100%" alt="PIXEL-KIT v4.0" />
+
+---
+
+## 15. Компактный режим шапки (Compact Header ~84px v4.0)
+
+Облегченный вариант без телеметрии и радара — идеален для мобильных экранов и лаконичных README:
+
+<img src="assets/generated/header-compact-catalog.svg" width="100%" alt="MICRO-SERVICE" />
+
 <br/><br/>
 
 <a href="#top"><img src="assets/generated/footer-bottom-nav.svg" width="100%" alt="▲ НАВЕРХ" /></a>

@@ -256,6 +256,63 @@ python -m generator.cli compile --input README.template.md --output README.md
 ### 9.4 Режим `mode="transparent"` (Прозрачный фон)
 <!-- pixel-kit:callout style="cyberpunk" type="warning" title="TRANSPARENT BACKGROUND" subtitle="Glass chassis blends directly into surrounding background" mode="transparent" out="assets/generated/callout-mode-transparent.svg" -->
 
+---
+
+## 10. Метрики ключевых показателей (Metrics KPI Cards v4.0)
+
+Полноширинные карточки для отображения бенчмарков, статусов и аналитики с угловыми скобами и трендами:
+
+<!-- pixel-kit:metrics style="cyberpunk" out="assets/generated/metrics-catalog.svg" -->
+- label="CACHE ACCEL" value="0.02s" delta="98% faster builds" trend="up"
+- label="TEST SUITE" value="52 PASS" status="OPTIMAL"
+- label="COMPONENTS" value="12 TYPES" delta="+5 new in v4" trend="up"
+<!-- /pixel-kit:metrics -->
+
+---
+
+## 11. Сегментированные шкалы прогресса (Progress HUD Bars v4.0)
+
+Научно-фантастические шкалы с пиксельным дизерингом и динамическим бейджем:
+
+<!-- pixel-kit:progress style="cyberpunk" value="85" label="SYSTEM MIGRATION (v4.0)" sub="PHASE 4: LIVE STUDIO VERIFIED // PHASE 5: ACTIVE" out="assets/generated/progress-catalog.svg" -->
+
+---
+
+## 12. Матрица технологий и пиксельные иконки (Tech Stack Matrix v4.0)
+
+Сетка карточек с векторными пиксельными иконками (Python, C++, Rust, Docker, Linux, Git, OpenGL и др.):
+
+<!-- pixel-kit:techstack style="tactical" items="python,cpp,rust,docker,linux,git,github,fastapi" columns="4" out="assets/generated/techstack-catalog.svg" -->
+
+---
+
+## 13. Интерактивные PCB-таймлайны (Timelines v4.0)
+
+Вертикальные шины данных для демонстрации релизов, этапов дорожной карты и статусов задач:
+
+<!-- pixel-kit:timeline style="tactical" out="assets/generated/timeline-catalog.svg" -->
+- title="v1.0 - INITIAL RELEASE" sub="Флагманские адаптивные шапки, 3D пиксельные шрифты" status="COMPLETED"
+- title="v2.0 - MODULAR WINDOWS" sub="Оконные рамки, чипы, алерты, сплиттеры подмодулей" status="COMPLETED"
+- title="v3.0 - MULTI-THEME ENGINE" sub="Автоматическая смена dark/light тем через CSS" status="COMPLETED"
+- title="v4.0 - DATA VIZ & STUDIO" sub="Метрики, прогресс, стек, таймлайн, Live Studio, MCP" status="COMPLETED"
+<!-- /pixel-kit:timeline -->
+
+---
+
+## 14. Социальные карточки OpenGraph 1280x640 (Social Cards v4.0)
+
+Премиальные баннеры для превью репозитория при шеринге в Twitter, LinkedIn, Telegram и Discord:
+
+<!-- pixel-kit:social style="cyberpunk" title="PIXEL-KIT v4.0" subtitle="RETRO-CYBERPUNK HUD DESIGN SYSTEM" repo="Kazinagg/pixel-readme-kit" tags="PYTHON,SVG,CYBERPUNK,MCP" out="assets/generated/social-catalog.svg" -->
+
+---
+
+## 15. Компактный режим шапки (Compact Header ~84px v4.0)
+
+Облегченный вариант без телеметрии и радара — идеален для мобильных экранов и лаконичных README:
+
+<!-- pixel-kit:header style="tactical" title="MICRO-SERVICE" subtitle="LEAN HIGH-PERFORMANCE RUNTIME" tag="V4.0" compact="true" out="assets/generated/header-compact-catalog.svg" -->
+
 <br/><br/>
 
-<!-- pixel-kit:footer style="minimal" status="CATALOG_END // v3.0_ONLINE" nav="▲ НАВЕРХ" out="assets/generated/footer-bottom-nav.svg" -->
+<!-- pixel-kit:footer style="cyberpunk" status="CATALOG_END // v4.0_ONLINE" nav="▲ НАВЕРХ" out="assets/generated/footer-bottom-nav.svg" -->

@@ -55,17 +55,17 @@
   <polygon points="26 8, 32 8, 24 18, 18 18" fill="var(--primary)" opacity="0.85"/>
   <polygon points="36 8, 42 8, 34 18, 28 18" fill="var(--primary)" opacity="0.85"/>
   <polygon points="46 8, 52 8, 44 18, 38 18" fill="var(--primary)" opacity="0.85"/>
-  <text x="64" y="16" fill="var(--accent)" font-size="8" font-weight="bold" letter-spacing="1.5" class="font-mono">SEC_DEFCON_1 // FIELD_TERMINATION_PROTOCOL</text>
+  <text x="64" y="16" fill="var(--accent)" font-size="11" font-weight="bold" letter-spacing="1.5" class="font-mono">SEC_DEFCON_1 // FIELD_TERMINATION_PROTOCOL</text>
   <line x1="390" y1="13" x2="640" y2="13" stroke="var(--primary)" stroke-width="1" stroke-dasharray="8,4" opacity="0.4"/>
-  <text x="650" y="16" fill="var(--accent)" font-size="8" font-weight="bold" class="font-mono">[SEC_CLEAR]</text>
+  <text x="650" y="16" fill="var(--accent)" font-size="11" font-weight="bold" class="font-mono">[SEC_CLEAR]</text>
 
   <!-- Left Main Status Readout -->
   <polygon points="24 26, 116 26, 122 32, 122 42, 116 48, 24 48" fill="rgba(245, 158, 11, 0.22)" stroke="var(--primary)" stroke-width="1.5"/>
-  <text x="70" y="40" fill="var(--primary)" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">▲ ARMED ▲</text>
+  <text x="70" y="40" fill="var(--primary)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ ARMED ▲</text>
   <text x="132" y="42" fill="var(--primary)" font-size="12" font-weight="bold" class="font-mono">PERIMETER_SECURE // COMM_LINK_OPEN</text>
 
   <!-- Sub-diagnostic Telemetry -->
-  <text x="24" y="63" fill="var(--accent)" font-size="8.5" class="font-mono">GRID: 34-BRAVO // CHECKSUM: 0x9AF4B // SENSORS: PASSIVE_SCAN // AUTH: VERIFIED</text>
+  <text x="24" y="63" fill="var(--accent)" font-size="11" class="font-mono">GRID: 34-BRAVO // CHECKSUM: 0x9AF4B // SENSORS: PASSIVE_SCAN // AUTH: VERIFIED</text>
 
   <!-- Center Chevron Cascade -->
   <g transform="translate(400, 36)">
@@ -79,7 +79,7 @@
   <!-- Right Tactical Return Button -->
   <g transform="translate(655, 22)" class="btn-hover">
     <polygon points="12 0, 172 0, 182 10, 182 32, 172 42, 0 42, 0 12" fill="rgba(245, 158, 11, 0.2)" stroke="var(--primary)" stroke-width="1.5"/>
-    <text x="91" y="24" fill="var(--primary)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">▲ НАВЕРХ</text>
-    <text x="91" y="36" fill="var(--accent)" font-size="7.5" font-weight="bold" text-anchor="middle" class="font-mono">[ ELEVATION: 000 ]</text>
+    <text x="91" y="24" fill="var(--primary)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ НАВЕРХ</text>
+    <text x="91" y="36" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">[ ELEVATION: 000 ]</text>
   </g>
 </svg>

@@ -36,9 +36,15 @@ from generator.engine import (
     generate_chip,
     generate_divider,
     generate_splitter,
+    generate_metrics,
+    generate_progress,
+    generate_techstack,
+    generate_timeline,
+    generate_social,
     validate_svg,
     escape_xml
 )
+from generator.cache import BuildCache
 
 _GITHUB_CACHE = {}
 
@@ -139,10 +145,40 @@ def parse_directive_attrs(attr_string):
     return attrs
 
 class MarkdownCompiler:
-    def __init__(self, assets_dir="assets/generated", base_url=""):
+    def __init__(self, assets_dir="assets/generated", base_url="", use_cache=True, cache_file=None, bust_cache=False):
         self.assets_dir = assets_dir
         self.base_url = base_url
         self.counters = {}
+        if cache_file is None:
+            cache_file = os.path.join(assets_dir, ".pixel-cache.json") if assets_dir else ".pixel-cache.json"
+        self.cache = BuildCache(cache_file=cache_file, enabled=use_cache)
+        self.active_files = set()
+        self.orphans = []
+        self.stats = {"generated": 0, "cached": 0, "cleaned": 0}
+        self.bust_cache = bust_cache
+
+    def _apply_cache_bust(self, url: str) -> str:
+        """Appends ?v=<hash> cache-busting query parameter for GitHub Camo proxy."""
+        if not self.bust_cache or not url:
+            return url
+        clean_url = url.split("#")[0].split("?")[0]
+        norm_path = os.path.normpath(clean_url).replace("\\", "/")
+        cached_entry = self.cache.entries.get(norm_path)
+        if not cached_entry:
+            for k, v in self.cache.entries.items():
+                if os.path.basename(k) == os.path.basename(clean_url):
+                    cached_entry = v
+                    break
+        content_hash = cached_entry.get("hash") if cached_entry else None
+        short_v = content_hash[:8] if content_hash else "v4"
+
+        if "#" in url:
+            base, fragment = url.split("#", 1)
+            sep = "&" if "?" in base else "?"
+            return f"{base}{sep}v={short_v}#{fragment}"
+        else:
+            sep = "&" if "?" in url else "?"
+            return f"{url}{sep}v={short_v}"
 
     def _next_file(self, prefix, ext="svg"):
         count = self.counters.get(prefix, 0) + 1
@@ -155,18 +191,95 @@ class MarkdownCompiler:
             rel_url = filepath.replace("\\", "/")
         return filepath, rel_url
 
-    def _save_svg(self, svg_content, custom_out, default_prefix):
+    def _save_asset(self, generator_fn, gen_kwargs, custom_out, default_prefix):
+        """
+        Saves or retrieves SVG asset using incremental caching.
+        Skips generator_fn execution and disk writing if cache is valid.
+        """
         if custom_out:
             filepath = custom_out
             rel_url = custom_out.replace("\\", "/")
         else:
             filepath, rel_url = self._next_file(default_prefix)
 
+        norm_path = os.path.normpath(filepath).replace("\\", "/")
+        self.active_files.add(norm_path)
+
+        cache_key = {
+            "fn": generator_fn.__name__,
+            "kwargs": gen_kwargs
+        }
+        content_hash = self.cache.compute_hash(cache_key)
+
+        if self.cache.is_valid(filepath, content_hash):
+            self.stats["cached"] += 1
+            return rel_url
+
+        svg_content = generator_fn(**gen_kwargs)
         os.makedirs(os.path.dirname(os.path.abspath(filepath)), exist_ok=True)
         validate_svg(svg_content)
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(svg_content)
+
+        self.cache.record(filepath, content_hash)
+        self.stats["generated"] += 1
         return rel_url
+
+    def _save_svg(self, svg_content, custom_out, default_prefix):
+        """Direct SVG saving with cache recording for raw content."""
+        if custom_out:
+            filepath = custom_out
+            rel_url = custom_out.replace("\\", "/")
+        else:
+            filepath, rel_url = self._next_file(default_prefix)
+
+        norm_path = os.path.normpath(filepath).replace("\\", "/")
+        self.active_files.add(norm_path)
+
+        content_hash = self.cache.compute_hash(svg_content)
+        if self.cache.is_valid(filepath, content_hash):
+            self.stats["cached"] += 1
+            return rel_url
+
+        os.makedirs(os.path.dirname(os.path.abspath(filepath)), exist_ok=True)
+        validate_svg(svg_content)
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(svg_content)
+
+        self.cache.record(filepath, content_hash)
+        self.stats["generated"] += 1
+        return rel_url
+
+    def clean_assets(self, dry_run=False) -> list:
+        """
+        Scans assets_dir and identifies orphan SVG files not referenced
+        during the compilation run. Removes them unless dry_run is True.
+        """
+        orphans = []
+        if not os.path.exists(self.assets_dir):
+            return orphans
+
+        active_normalized = {os.path.normpath(f).replace("\\", "/") for f in self.active_files}
+
+        for root, _, files in os.walk(self.assets_dir):
+            for file in files:
+                if not file.lower().endswith(".svg"):
+                    continue
+                full_path = os.path.join(root, file)
+                norm_path = os.path.normpath(full_path).replace("\\", "/")
+                if norm_path not in active_normalized:
+                    orphans.append(full_path)
+
+        if not dry_run:
+            for f in orphans:
+                try:
+                    os.remove(f)
+                    self.cache.remove(f)
+                    self.stats["cleaned"] += 1
+                except OSError:
+                    pass
+
+        return orphans
 
     def _render_asset_markup(self, generator_fn, kwargs, attrs, default_prefix, alt="", is_full_width=True, link=None):
         mode = attrs.get("mode", "auto").lower()
@@ -178,8 +291,6 @@ class MarkdownCompiler:
         if mode in ("gh", "github"):
             kwargs_dark = dict(kwargs, mode="dark")
             kwargs_light = dict(kwargs, mode="light")
-            dark_svg = generator_fn(**kwargs_dark)
-            light_svg = generator_fn(**kwargs_light)
 
             if custom_out:
                 base, ext = os.path.splitext(custom_out)
@@ -189,11 +300,14 @@ class MarkdownCompiler:
                 out_dark = None
                 out_light = None
 
-            url_dark = self._save_svg(dark_svg, out_dark, f"{default_prefix}-dark")
-            url_light = self._save_svg(light_svg, out_light, f"{default_prefix}-light")
+            url_dark = self._save_asset(generator_fn, kwargs_dark, out_dark, f"{default_prefix}-dark")
+            url_light = self._save_asset(generator_fn, kwargs_light, out_light, f"{default_prefix}-light")
 
-            img_dark = f'<img src="{url_dark}#gh-dark-mode-only"{width_attr}{alt_attr} />'
-            img_light = f'<img src="{url_light}#gh-light-mode-only"{width_attr}{alt_attr} />'
+            url_dark_busted = self._apply_cache_bust(f"{url_dark}#gh-dark-mode-only")
+            url_light_busted = self._apply_cache_bust(f"{url_light}#gh-light-mode-only")
+
+            img_dark = f'<img src="{url_dark_busted}"{width_attr}{alt_attr} />'
+            img_light = f'<img src="{url_light_busted}"{width_attr}{alt_attr} />'
 
             if link:
                 img_dark = f'<a href="{link}">{img_dark}</a>'
@@ -204,8 +318,6 @@ class MarkdownCompiler:
         elif mode == "picture":
             kwargs_dark = dict(kwargs, mode="dark")
             kwargs_light = dict(kwargs, mode="light")
-            dark_svg = generator_fn(**kwargs_dark)
-            light_svg = generator_fn(**kwargs_light)
 
             if custom_out:
                 base, ext = os.path.splitext(custom_out)
@@ -215,13 +327,16 @@ class MarkdownCompiler:
                 out_dark = None
                 out_light = None
 
-            url_dark = self._save_svg(dark_svg, out_dark, f"{default_prefix}-dark")
-            url_light = self._save_svg(light_svg, out_light, f"{default_prefix}-light")
+            url_dark = self._save_asset(generator_fn, kwargs_dark, out_dark, f"{default_prefix}-dark")
+            url_light = self._save_asset(generator_fn, kwargs_light, out_light, f"{default_prefix}-light")
+
+            url_dark_busted = self._apply_cache_bust(url_dark)
+            url_light_busted = self._apply_cache_bust(url_light)
 
             pic = f"""<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="{url_dark}">
-  <source media="(prefers-color-scheme: light)" srcset="{url_light}">
-  <img src="{url_dark}"{width_attr}{alt_attr} />
+  <source media="(prefers-color-scheme: dark)" srcset="{url_dark_busted}">
+  <source media="(prefers-color-scheme: light)" srcset="{url_light_busted}">
+  <img src="{url_dark_busted}"{width_attr}{alt_attr} />
 </picture>"""
             if link:
                 pic = f'<a href="{link}">\n{pic}\n</a>'
@@ -230,16 +345,19 @@ class MarkdownCompiler:
         else:
             # "auto" (default adaptive), "dark", "light", "transparent"
             kwargs_single = dict(kwargs, mode=mode)
-            svg = generator_fn(**kwargs_single)
-            url = self._save_svg(svg, custom_out, default_prefix)
-            img = f'<img src="{url}"{width_attr}{alt_attr} />'
+            url = self._save_asset(generator_fn, kwargs_single, custom_out, default_prefix)
+            url_busted = self._apply_cache_bust(url)
+            img = f'<img src="{url_busted}"{width_attr}{alt_attr} />'
             if link:
                 img = f'<a href="{link}">{img}</a>'
             return img
 
-    def compile_text(self, markdown_text):
+    def compile_text(self, markdown_text, template_dir=None):
         """Compiles template markdown string into full GitHub markdown with SVGs."""
         os.makedirs(self.assets_dir, exist_ok=True)
+        self.counters = {}
+        self.active_files = set()
+        self.stats = {"generated": 0, "cached": 0, "cleaned": 0}
         text = markdown_text
 
         # ---------------------------------------------------------------
@@ -447,6 +565,102 @@ class MarkdownCompiler:
         text = quote_regex.sub(repl_quote, text)
 
         # ---------------------------------------------------------------
+        # 3B. CONTAINERS: METRICS / KPI
+        # <!-- pixel-kit:metrics style="..." [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
+        # - label="FPS BENCHMARK" value="1,200+" delta="+24% vs baseline" trend="up"
+        # - label="CONTAINER POINTS" value="100K" status="OPTIMAL"
+        # <!-- /pixel-kit:metrics -->
+        # ---------------------------------------------------------------
+        metrics_regex = re.compile(
+            r'<!--\s*pixel-kit:metrics\s*(.*?)\s*-->([\s\S]*?)<!--\s*/pixel-kit:metrics\s*-->',
+            re.IGNORECASE
+        )
+
+        def repl_metrics(m):
+            attrs = parse_directive_attrs(m.group(1))
+            inner_content = m.group(2).strip()
+            style = attrs.get("style", "cyberpunk")
+            prim = attrs.get("primary", None)
+            acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
+
+            metric_items = []
+            for line in inner_content.splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                if line.startswith("<!--") and line.endswith("-->"):
+                    line = line[4:-3].strip()
+                if line.startswith(("-", "*")):
+                    line = line[1:].strip()
+                for prefix in ("card", "metric", "item"):
+                    if line.lower().startswith(prefix):
+                        line = line[len(prefix):].strip()
+                        break
+                item_attrs = parse_directive_attrs(line)
+                if item_attrs:
+                    metric_items.append(item_attrs)
+
+            return self._render_asset_markup(
+                generate_metrics,
+                {"metrics": metric_items, "style": style, "primary": prim, "accent": acc, "preset": preset},
+                attrs,
+                f"metrics-{style}",
+                alt="Metrics",
+                is_full_width=True
+            )
+
+        text = metrics_regex.sub(repl_metrics, text)
+
+        # ---------------------------------------------------------------
+        # 3C. CONTAINERS: TIMELINE / ROADMAP
+        # <!-- pixel-kit:timeline style="..." [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
+        # - title="PHASE 1" date="2026-Q1" status="COMPLETED" desc="Architecture"
+        # - title="PHASE 2" date="2026-Q2" status="IN_PROGRESS" desc="Widgets"
+        # <!-- /pixel-kit:timeline -->
+        # ---------------------------------------------------------------
+        timeline_regex = re.compile(
+            r'<!--\s*pixel-kit:timeline\s*(.*?)\s*-->([\s\S]*?)<!--\s*/pixel-kit:timeline\s*-->',
+            re.IGNORECASE
+        )
+
+        def repl_timeline(m):
+            attrs = parse_directive_attrs(m.group(1))
+            inner_content = m.group(2).strip()
+            style = attrs.get("style", "cyberpunk")
+            prim = attrs.get("primary", None)
+            acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
+
+            timeline_items = []
+            for line in inner_content.splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                if line.startswith("<!--") and line.endswith("-->"):
+                    line = line[4:-3].strip()
+                if line.startswith(("-", "*")):
+                    line = line[1:].strip()
+                for prefix in ("milestone", "stage", "item"):
+                    if line.lower().startswith(prefix):
+                        line = line[len(prefix):].strip()
+                        break
+                item_attrs = parse_directive_attrs(line)
+                if item_attrs:
+                    timeline_items.append(item_attrs)
+
+            return self._render_asset_markup(
+                generate_timeline,
+                {"items": timeline_items, "style": style, "primary": prim, "accent": acc, "preset": preset},
+                attrs,
+                f"timeline-{style}",
+                alt="Timeline",
+                is_full_width=True
+            )
+
+        text = timeline_regex.sub(repl_timeline, text)
+
+        # ---------------------------------------------------------------
         # 4. STANDALONE: HEADER
         # <!-- pixel-kit:header style="..." title="..." subtitle="..." [tag="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
@@ -469,6 +683,7 @@ class MarkdownCompiler:
 
             tag_url = attrs.get("tag_url") or attrs.get("tag_href")
             close_url = attrs.get("close_url") or attrs.get("close_href")
+            compact = attrs.get("compact", False)
 
             return self._render_asset_markup(
                 generate_header,
@@ -476,7 +691,7 @@ class MarkdownCompiler:
                     "style": style, "primary": prim, "accent": acc, "title": title,
                     "subtitle": sub, "tag": tag, "spec1": spec1, "spec2": spec2,
                     "spec3": spec3, "specs": specs, "preset": preset,
-                    "tag_url": tag_url, "close_url": close_url
+                    "tag_url": tag_url, "close_url": close_url, "compact": compact
                 },
                 attrs,
                 f"header-{style}",
@@ -631,10 +846,106 @@ class MarkdownCompiler:
 
         text = chip_regex.sub(repl_chip, text)
 
+        # ---------------------------------------------------------------
+        # 10. STANDALONE: PROGRESS
+        # <!-- pixel-kit:progress style="..." value="80" label="..." [sub="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
+        # ---------------------------------------------------------------
+        progress_regex = re.compile(r'<!--\s*pixel-kit:progress\s+(.*?)\s*-->', re.IGNORECASE)
+
+        def repl_progress(m):
+            attrs = parse_directive_attrs(m.group(1))
+            style = attrs.get("style", "cyberpunk")
+            val = attrs.get("value", 50)
+            label = attrs.get("label", "PROGRESS")
+            sub = attrs.get("sub") or attrs.get("subtitle")
+            prim = attrs.get("primary", None)
+            acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
+
+            return self._render_asset_markup(
+                generate_progress,
+                {"value": val, "label": label, "sub": sub, "style": style, "primary": prim, "accent": acc, "preset": preset},
+                attrs,
+                f"progress-{style}",
+                alt=label,
+                is_full_width=True
+            )
+
+        text = progress_regex.sub(repl_progress, text)
+
+        # ---------------------------------------------------------------
+        # 11. STANDALONE: TECHSTACK
+        # <!-- pixel-kit:techstack style="..." items="cpp,opengl,delphi,git,docker" [columns="5"] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
+        # ---------------------------------------------------------------
+        techstack_regex = re.compile(r'<!--\s*pixel-kit:techstack\s+(.*?)\s*-->', re.IGNORECASE)
+
+        def repl_techstack(m):
+            attrs = parse_directive_attrs(m.group(1))
+            style = attrs.get("style", "cyberpunk")
+            items = attrs.get("items", "python,cpp,rust,docker,git")
+            cols = int(attrs.get("columns", 5)) if "columns" in attrs and attrs["columns"].isdigit() else 5
+            prim = attrs.get("primary", None)
+            acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
+
+            return self._render_asset_markup(
+                generate_techstack,
+                {"items": items, "columns": cols, "style": style, "primary": prim, "accent": acc, "preset": preset},
+                attrs,
+                f"techstack-{style}",
+                alt="Tech Stack",
+                is_full_width=True
+            )
+
+        text = techstack_regex.sub(repl_techstack, text)
+
+        # ---------------------------------------------------------------
+        # 12. STANDALONE: SOCIAL PREVIEW (OpenGraph 1280x640)
+        # <!-- pixel-kit:social style="..." title="..." subtitle="..." repo="..." tags="..." [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
+        # ---------------------------------------------------------------
+        social_regex = re.compile(r'<!--\s*pixel-kit:social\s+(.*?)\s*-->', re.IGNORECASE)
+
+        def repl_social(m):
+            attrs = parse_directive_attrs(m.group(1))
+            style = attrs.get("style", "cyberpunk")
+            title = attrs.get("title", "PIXEL-KIT")
+            sub = attrs.get("subtitle", "TRANSLUCENT RETRO HUD READMES")
+            repo = attrs.get("repo", "Kazinagg/pixel-readme-kit")
+            tags = attrs.get("tags", "PYTHON,SVG,HUD,RETRO")
+            prim = attrs.get("primary", None)
+            acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
+
+            return self._render_asset_markup(
+                generate_social,
+                {"style": style, "title": title, "subtitle": sub, "repo": repo, "tags": tags, "primary": prim, "accent": acc, "preset": preset},
+                attrs,
+                f"social-{style}",
+                alt=title,
+                is_full_width=True
+            )
+
+        text = social_regex.sub(repl_social, text)
+
+        self.cache.save()
         return text
 
-    def compile_file(self, input_filepath, output_filepath):
+    def compile_string(self, text):
+        """Alias for compile_text."""
+        return self.compile_text(text)
+
+    def compile_file(self, input_filepath, output_filepath=None, clean_assets=False, dry_run_clean=False, bust_cache=None):
         """Reads input file, compiles all directives, and writes output file."""
+        if bust_cache is not None:
+            self.bust_cache = bust_cache
+
+        if output_filepath is None:
+            if input_filepath.endswith(".template.md"):
+                output_filepath = input_filepath.replace(".template.md", ".md")
+            else:
+                base, ext = os.path.splitext(input_filepath)
+                output_filepath = f"{base}.compiled{ext}"
+
         with open(input_filepath, "r", encoding="utf-8") as f:
             template_content = f.read()
 
@@ -644,4 +955,8 @@ class MarkdownCompiler:
         with open(output_filepath, "w", encoding="utf-8") as f:
             f.write(compiled_content)
 
+        if clean_assets or dry_run_clean:
+            self.orphans = self.clean_assets(dry_run=dry_run_clean)
+
+        self.cache.save()
         return output_filepath

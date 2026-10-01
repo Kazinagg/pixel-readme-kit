@@ -365,11 +365,93 @@ def normalize_specs(specs=None, spec1=None, spec2=None, spec3=None, default_colo
 # 1. HEADERS (MASTER WORKSTATIONS)
 # ---------------------------------------------------------------------------
 
+def _generate_compact_header(style="cyberpunk", primary=None, accent=None,
+                             title="PIXEL-KIT", subtitle="TRANSLUCENT HUD DESIGN SYSTEM",
+                             tag="SYSTEM_ACTIVE", width=850, height=None, mode="auto", preset=None,
+                             tag_url=None, close_url=None):
+    """
+    Renders a low-profile compact banner (~84px height) optimized for mobile viewports.
+    """
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    prim = c["primary"]
+    acc = c["accent"]
+    bg = c["bg"]
+    panel = c["panel"]
+    border = c["border"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    st = style.lower()
+    h = height if height else 84
+
+    title_clean = escape_xml(title)
+    sub_clean = escape_xml(subtitle)
+    tag_clean = escape_xml(tag)
+
+    pixel_markup, t_w, t_h = render_3d_text(
+        title, x=32, y=14, px_size=3,
+        front_color=c["title_front"], mid_shadow=c["title_mid"], dark_shadow=c["title_dark"],
+        spacing=2, max_width=width - 240, allow_wrap=False
+    )
+
+    y_sub = 14 + t_h + 6
+    if y_sub > h - 18:
+        h = y_sub + 22
+
+    tag_w = min(200, max(120, len(tag) * 8 + 24))
+    tag_x = width - tag_w - 24
+    status_widget = f"""  <rect x="{tag_x}" y="24" width="{tag_w}" height="32" fill="{panel}" stroke="{prim}" stroke-width="1.2"/>
+  <text x="{tag_x + tag_w//2}" y="44" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>"""
+
+    if st == "tactical":
+        hull = f"""  <polygon points="12 2, {width-12} 2, {width-2} 12, {width-2} {h-12}, {width-12} {h-2}, 12 {h-2}, 2 {h-12}, 2 12" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
+  <polygon points="2 12, 14 2, 2 2" fill="{prim}"/>
+  <polygon points="{width-2} {h-12}, {width-14} {h-2}, {width-2} {h-2}" fill="{acc}"/>
+  <g fill="{prim}" opacity="0.6">
+    <polygon points="20 6, 26 6, 18 14, 12 14"/>
+    <polygon points="30 6, 36 6, 28 14, 22 14"/>
+  </g>"""
+    elif st == "minimal":
+        hull = f"""  <rect x="2" y="2" width="{width-4}" height="{h-4}" fill="{bg}" stroke="{border}" stroke-width="1"/>
+  <line x1="2" y1="2" x2="{width-2}" y2="2" stroke="{prim}" stroke-width="2"/>
+  <rect x="6" y="6" width="3" height="3" fill="{prim}"/>
+  <rect x="{width-9}" y="6" width="3" height="3" fill="{acc}"/>"""
+    else:  # cyberpunk
+        hull = f"""  <rect x="2" y="2" width="{width-4}" height="{h-4}" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
+  <rect x="2" y="2" width="6" height="6" fill="{prim}"/>
+  <rect x="{width-8}" y="2" width="6" height="6" fill="{acc}"/>
+  <rect x="2" y="{h-8}" width="6" height="6" fill="{acc}"/>
+  <rect x="{width-8}" y="{h-8}" width="6" height="6" fill="{prim}"/>
+  <line x1="2" y1="18" x2="8" y2="18" stroke="{prim}" stroke-width="1"/>
+  <line x1="{width-8}" y1="{h-18}" x2="{width-2}" y2="{h-18}" stroke="{acc}" stroke-width="1"/>"""
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
+    </style>
+  </defs>
+{hull}
+  {pixel_markup}
+  <text x="34" y="{y_sub + 12}" fill="{text_dim}" font-size="11" font-weight="bold" class="font-mono">■ {sub_clean}</text>
+{status_widget}
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
 def generate_header(style="cyberpunk", primary=None, accent=None,
                     title="PIXEL-KIT", subtitle="TRANSLUCENT HUD DESIGN SYSTEM",
                     specs=None, spec1=None, spec2=None, spec3=None,
                     tag="SYSTEM_ACTIVE", width=850, height=None, mode="auto", preset=None,
-                    tag_url=None, close_url=None):
+                    tag_url=None, close_url=None, compact=False):
+    if compact and str(compact).lower() in ("true", "1", "yes", "compact"):
+        return _generate_compact_header(
+            style=style, primary=primary, accent=accent, title=title, subtitle=subtitle,
+            tag=tag, width=width, height=height, mode=mode, preset=preset,
+            tag_url=tag_url, close_url=close_url
+        )
+
     c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
@@ -852,17 +934,17 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <polygon points="26 8, 32 8, 24 18, 18 18" fill="{prim}" opacity="0.85"/>
   <polygon points="36 8, 42 8, 34 18, 28 18" fill="{prim}" opacity="0.85"/>
   <polygon points="46 8, 52 8, 44 18, 38 18" fill="{prim}" opacity="0.85"/>
-  <text x="64" y="16" fill="{acc}" font-size="8" font-weight="bold" letter-spacing="1.5" class="font-mono">SEC_DEFCON_1 // FIELD_TERMINATION_PROTOCOL</text>
+  <text x="64" y="16" fill="{acc}" font-size="11" font-weight="bold" letter-spacing="1.5" class="font-mono">SEC_DEFCON_1 // FIELD_TERMINATION_PROTOCOL</text>
   <line x1="390" y1="13" x2="{width-210}" y2="13" stroke="{prim}" stroke-width="1" stroke-dasharray="8,4" opacity="0.4"/>
-  <text x="{width-200}" y="16" fill="{acc}" font-size="8" font-weight="bold" class="font-mono">[SEC_CLEAR]</text>
+  <text x="{width-200}" y="16" fill="{acc}" font-size="11" font-weight="bold" class="font-mono">[SEC_CLEAR]</text>
 
   <!-- Left Main Status Readout -->
   <polygon points="24 26, 116 26, 122 32, 122 42, 116 48, 24 48" fill="rgba(245, 158, 11, 0.22)" stroke="{prim}" stroke-width="1.5"/>
-  <text x="70" y="40" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">▲ ARMED ▲</text>
+  <text x="70" y="40" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ ARMED ▲</text>
   <text x="132" y="42" fill="{prim}" font-size="12" font-weight="bold" class="font-mono">{status_clean}</text>
 
   <!-- Sub-diagnostic Telemetry -->
-  <text x="24" y="63" fill="{acc}" font-size="8.5" class="font-mono">{sub_disp}</text>
+  <text x="24" y="63" fill="{acc}" font-size="11" class="font-mono">{sub_disp}</text>
 
   <!-- Center Chevron Cascade -->
   <g transform="translate({width//2 - 25}, 36)">
@@ -876,8 +958,8 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <!-- Right Tactical Return Button -->
   <g transform="translate({width-195}, 22)" class="btn-hover">
     <polygon points="12 0, 172 0, 182 10, 182 32, 172 42, 0 42, 0 12" fill="rgba(245, 158, 11, 0.2)" stroke="{prim}" stroke-width="1.5"/>
-    <text x="91" y="24" fill="{prim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
-    <text x="91" y="36" fill="{acc}" font-size="7.5" font-weight="bold" text-anchor="middle" class="font-mono">[ ELEVATION: 000 ]</text>
+    <text x="91" y="24" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
+    <text x="91" y="36" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">[ ELEVATION: 000 ]</text>
   </g>
 </svg>"""
 
@@ -901,9 +983,9 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <path d="M {width-6} {height-16} L {width-6} {height-6} L {width-16} {height-6}" fill="none" stroke="{prim}" stroke-width="1.5"/>
 
   <!-- Top Micro-Header Line -->
-  <text x="24" y="16" fill="{text_dim}" font-size="8.5" class="font-mono">// TERMINAL_SESSION // KERNEL v3.0</text>
+  <text x="24" y="16" fill="{text_dim}" font-size="11" class="font-mono">// TERMINAL_SESSION // KERNEL v3.0</text>
   <line x1="220" y1="13" x2="{width-220}" y2="13" stroke="{border}" stroke-width="1"/>
-  <text x="{width-24}" y="16" fill="{text_dim}" font-size="8.5" text-anchor="end" class="font-mono">END_OF_PAGE</text>
+  <text x="{width-24}" y="16" fill="{text_dim}" font-size="11" text-anchor="end" class="font-mono">END_OF_PAGE</text>
 
   <!-- Main Status Row -->
   <circle cx="28" cy="38" r="4" fill="{prim}"/>
@@ -911,7 +993,7 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <text x="44" y="42" fill="{text_main}" font-size="11.5" font-weight="bold" class="font-mono">STATUS: <tspan fill="{prim}">{status_clean}</tspan></text>
 
   <!-- Secondary Telemetry Line -->
-  <text x="24" y="62" fill="{text_dim}" font-size="8.5" class="font-mono">{sub_disp}</text>
+  <text x="24" y="62" fill="{text_dim}" font-size="11" class="font-mono">{sub_disp}</text>
 
   <!-- Center Spectrum Waveform -->
   <g transform="translate({width//2 - 20}, 32)">
@@ -927,7 +1009,7 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <!-- Right Clean Return Button -->
   <g class="btn-hover">
     <rect x="{width-180}" y="24" width="160" height="34" fill="rgba(79, 139, 255, 0.12)" stroke="{prim}" stroke-width="1"/>
-    <text x="{width-100}" y="45" fill="{prim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
+    <text x="{width-100}" y="45" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
   </g>
 </svg>"""
 
@@ -956,18 +1038,18 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
 
   <!-- Top Micro-Rail -->
   <line x1="12" y1="9" x2="{width-12}" y2="9" stroke="{prim}" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
-  <text x="14" y="16" fill="{acc}" font-size="8" font-weight="bold" class="font-mono">[SYS_EOF: 0x00FF]</text>
-  <text x="{width-14}" y="16" fill="{acc}" font-size="8" font-weight="bold" text-anchor="end" class="font-mono">// BUS_SPEED: 64Gbps //</text>
+  <text x="14" y="16" fill="{acc}" font-size="11" font-weight="bold" class="font-mono">[SYS_EOF: 0x00FF]</text>
+  <text x="{width-14}" y="16" fill="{acc}" font-size="11" font-weight="bold" text-anchor="end" class="font-mono">// BUS_SPEED: 64Gbps //</text>
 
   <!-- Left Main Status Readout -->
   <circle cx="26" cy="35" r="4.5" fill="{prim}" class="led"/>
   <circle cx="26" cy="35" r="1.5" fill="#FFFFFF"/>
   <rect x="38" y="26" width="76" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
-  <text x="76" y="38" fill="{prim}" font-size="8.5" font-weight="bold" text-anchor="middle" class="font-mono">SYS_STATUS</text>
+  <text x="76" y="38" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">SYS_STATUS</text>
   <text x="124" y="40" fill="{prim}" font-size="12" font-weight="bold" class="font-mono">{status_clean}</text>
 
   <!-- Secondary Diagnostics Sub-line -->
-  <text x="24" y="61" fill="{text_dim}" font-size="8.5" class="font-mono">{sub_disp}</text>
+  <text x="24" y="61" fill="{text_dim}" font-size="11" class="font-mono">{sub_disp}</text>
 
   <!-- Center PCB Pulse / Mini Matrix -->
   <g transform="translate({width//2 - 35}, 30)">
@@ -976,7 +1058,7 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
     <circle cx="0" cy="6" r="3" fill="{prim}"/>
     <circle cx="70" cy="6" r="3" fill="{prim}"/>
     <rect x="25" y="0" width="20" height="12" fill="{bg}" stroke="{prim}" stroke-width="1"/>
-    <text x="35" y="9" fill="{prim}" font-size="7" font-weight="bold" text-anchor="middle" class="font-mono">EOF</text>
+    <text x="35" y="9" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">EOF</text>
   </g>
 
   <!-- Right Return To Top Button -->
@@ -986,8 +1068,8 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
     <rect x="177" y="0" width="3" height="3" fill="{prim}"/>
     <rect x="0" y="33" width="3" height="3" fill="{prim}"/>
     <rect x="177" y="33" width="3" height="3" fill="{prim}"/>
-    <text x="90" y="21" fill="{prim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
-    <text x="90" y="31" fill="{text_dim}" font-size="7" text-anchor="middle" class="font-mono">[ CLICK TO RETURN ]</text>
+    <text x="90" y="21" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
+    <text x="90" y="31" fill="{text_dim}" font-size="11" text-anchor="middle" class="font-mono">[ CLICK TO RETURN ]</text>
   </g>
 
   <!-- Bottom Grounding Notch -->
@@ -1065,11 +1147,11 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
             text_block = f'<text x="{text_x}" y="25" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>'
         elif len(sub_lines) == 1:
             text_block = f"""<text x="{text_x}" y="20" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
-  <text x="{text_x}" y="33" fill="{acc}" font-size="8.5" class="font-mono">{escape_xml(sub_lines[0])}</text>"""
+  <text x="{text_x}" y="33" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[0])}</text>"""
         else:
             text_block = f"""<text x="{text_x}" y="19" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
-  <text x="{text_x}" y="32" fill="{acc}" font-size="8.5" class="font-mono">{escape_xml(sub_lines[0])}</text>
-  <text x="{text_x}" y="45" fill="{acc}" font-size="8.5" class="font-mono">{escape_xml(sub_lines[1])}</text>"""
+  <text x="{text_x}" y="32" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[0])}</text>
+  <text x="{text_x}" y="45" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[1])}</text>"""
 
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
@@ -1103,7 +1185,7 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
             text_x = 196
         elif st == "minimal":
             body = f'<rect x="1" y="2" width="{width-2}" height="{h-4}" fill="{bg}" stroke="{border}" stroke-width="1.5"/>'
-            badge = f'<rect x="16" y="11" width="130" height="26" fill="{panel}" stroke="{prim}" stroke-width="1"/><text x="81" y="28" fill="{prim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // MINIMAL</text>'
+            badge = f'<rect x="16" y="11" width="130" height="26" fill="{panel}" stroke="{prim}" stroke-width="1"/><text x="81" y="28" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // MINIMAL</text>'
             accents = f'<path d="M 5 12 L 5 5 L 14 5" fill="none" stroke="{prim}" stroke-width="1.5"/><path d="M {width-5} 12 L {width-5} 5 L {width-14} 5" fill="none" stroke="{prim}" stroke-width="1.5"/>'
             text_x = 158
         else:
@@ -1116,11 +1198,11 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
             text_block = f'<text x="{text_x}" y="28" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>'
         elif len(sub_lines) == 1:
             text_block = f"""<text x="{text_x}" y="22" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
-  <text x="{text_x}" y="36" fill="{acc}" font-size="9" class="font-mono">{escape_xml(sub_lines[0])}</text>"""
+  <text x="{text_x}" y="36" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[0])}</text>"""
         else:
             text_block = f"""<text x="{text_x}" y="20" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
-  <text x="{text_x}" y="34" fill="{acc}" font-size="9" class="font-mono">{escape_xml(sub_lines[0])}</text>
-  <text x="{text_x}" y="48" fill="{acc}" font-size="9" class="font-mono">{escape_xml(sub_lines[1])}</text>"""
+  <text x="{text_x}" y="34" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[0])}</text>
+  <text x="{text_x}" y="48" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[1])}</text>"""
 
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
@@ -1774,3 +1856,587 @@ def generate_splitter(style="cyberpunk", primary=None, accent=None,
 
     validate_svg(svg)
     return svg
+
+# ==============================================================================
+# DATA VISUALIZATION WIDGETS (v4.0)
+# ==============================================================================
+
+def generate_metrics(metrics=None, cards=None, style="cyberpunk", primary=None, accent=None, mode="auto", preset=None, width=850):
+    """
+    Renders 1 to 4 metric KPI cards in a full-width SVG row.
+    metrics / cards: list of dicts with: label, value, delta (optional), trend (optional), status (optional)
+    """
+    if metrics is None and cards is not None:
+        metrics = cards
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    prim = c["primary"]
+    acc = c["accent"]
+    panel = c["panel"]
+    border = c["border"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    title_front = c["title_front"]
+    success = c["success"]
+    warning = c["warning"]
+    st = style.lower()
+
+    if not metrics:
+        metrics = [{"label": "SYSTEM METRIC", "value": "100%", "delta": "+0%", "trend": "neutral"}]
+
+    card_list = metrics[:4]
+    n = len(card_list)
+    usable_w = width - 2
+    gap = 12
+    card_w = (usable_w - (n - 1) * gap) // n
+    h = 92
+    y = 3
+
+    cards_svg = []
+    for i, m in enumerate(card_list):
+        x = 1 + i * (card_w + gap)
+        label = escape_xml(m.get("label", f"METRIC {i+1}").upper())
+        val = escape_xml(m.get("value", "--"))
+        delta = m.get("delta")
+        trend = str(m.get("trend", "")).lower()
+        status = m.get("status")
+
+        # Trend styling
+        if trend == "up":
+            trend_col = success
+            trend_icon = "▲ "
+        elif trend == "down":
+            trend_col = warning
+            trend_icon = "▼ "
+        else:
+            trend_col = text_dim
+            trend_icon = "● " if delta else ""
+
+        # Style-specific card hull
+        if st == "tactical":
+            hull = f"""
+    <polygon points="{x+8},{y} {x+card_w},{y} {x+card_w},{y+h-8} {x+card_w-8},{y+h} {x},{y+h} {x},{y+8}" fill="{panel}" stroke="{border}" stroke-width="1.5"/>
+    <polygon points="{x+card_w-12},{y+3} {x+card_w-3},{y+3} {x+card_w-3},{y+12}" fill="{acc}"/>
+    <line x1="{x+10}" y1="{y+h-1}" x2="{x+card_w-10}" y2="{y+h-1}" stroke="{prim}" stroke-width="1.5" stroke-dasharray="4 2"/>
+"""
+        elif st == "minimal":
+            hull = f"""
+    <rect x="{x}" y="{y}" width="{card_w}" height="{h}" fill="{panel}" stroke="{border}" stroke-width="1"/>
+    <line x1="{x}" y1="{y}" x2="{x+card_w}" y2="{y}" stroke="{prim}" stroke-width="2"/>
+    <rect x="{x+card_w-6}" y="{y+6}" width="2" height="2" fill="{prim}"/>
+"""
+        else:  # cyberpunk
+            hull = f"""
+    <rect x="{x}" y="{y}" width="{card_w}" height="{h}" fill="{panel}" stroke="{border}" stroke-width="1.5"/>
+    <line x1="{x}" y1="{y+8}" x2="{x}" y2="{y}" stroke="{prim}" stroke-width="2"/>
+    <line x1="{x}" y1="{y}" x2="{x+8}" y2="{y}" stroke="{prim}" stroke-width="2"/>
+    <line x1="{x+card_w-8}" y1="{y}" x2="{x+card_w}" y2="{y}" stroke="{prim}" stroke-width="2"/>
+    <line x1="{x+card_w}" y1="{y}" x2="{x+card_w}" y2="{y+8}" stroke="{prim}" stroke-width="2"/>
+    <line x1="{x}" y1="{y+h-8}" x2="{x}" y2="{y+h}" stroke="{prim}" stroke-width="2"/>
+    <line x1="{x}" y1="{y+h}" x2="{x+8}" y2="{y+h}" stroke="{prim}" stroke-width="2"/>
+    <line x1="{x+card_w-8}" y1="{y+h}" x2="{x+card_w}" y2="{y+h}" stroke="{prim}" stroke-width="2"/>
+    <line x1="{x+card_w}" y1="{y+h-8}" x2="{x+card_w}" y2="{y+h}" stroke="{prim}" stroke-width="2"/>
+    <rect x="{x+6}" y="{y+6}" width="2" height="2" fill="{acc}"/>
+"""
+
+        status_markup = ""
+        if status:
+            stat_clean = escape_xml(status.upper())
+            status_markup = f"""<rect x="{x+card_w-68}" y="{y+10}" width="56" height="13" fill="{panel}" stroke="{acc}" stroke-width="1"/>
+    <text x="{x+card_w-40}" y="{y+20}" fill="{acc}" text-anchor="middle" class="font-mono-tag">{stat_clean}</text>"""
+
+        delta_markup = ""
+        if delta:
+            d_clean = escape_xml(delta)
+            delta_markup = f'<text x="{x+14}" y="{y+76}" fill="{trend_col}" class="font-mono-sub">{trend_icon}{d_clean}</text>'
+
+        # Mini sparkline decoration in bottom right of card
+        sp_x = x + card_w - 54
+        sp_y = y + 74
+        sparkline = f"""
+    <path d="M {sp_x} {sp_y+4} L {sp_x+10} {sp_y-2} L {sp_x+20} {sp_y+6} L {sp_x+30} {sp_y-6} L {sp_x+40} {sp_y}" fill="none" stroke="{prim}" stroke-width="1.2" stroke-opacity="0.4"/>
+    <circle cx="{sp_x+40}" cy="{sp_y}" r="2" fill="{acc}"/>
+"""
+
+        cards_svg.append(f"""  <g id="metric-card-{i}">
+    {hull}
+    <text x="{x+14}" y="{y+22}" fill="{text_dim}" class="font-mono-lbl">{label}</text>
+    {status_markup}
+    <text x="{x+14}" y="{y+54}" fill="{title_front}" class="font-mono-val">{val}</text>
+    {delta_markup}
+    {sparkline}
+  </g>""")
+
+    joined_cards = "\n".join(cards_svg)
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h+6}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-mono-lbl {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; }}
+      .font-mono-val {{ font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 26px; font-weight: 900; letter-spacing: -0.5px; }}
+      .font-mono-sub {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }}
+      .font-mono-tag {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; }}
+    </style>
+  </defs>
+{joined_cards}
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+def generate_progress(value=50, label="SYSTEM PROGRESS", sub=None, style="cyberpunk", primary=None, accent=None, mode="auto", preset=None, width=850):
+    """
+    Renders a segmented sci-fi HUD progress bar with dithering and status readout.
+    """
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    prim = c["primary"]
+    acc = c["accent"]
+    panel = c["panel"]
+    border = c["border"]
+    text_dim = c["text_dim"]
+    title_front = c["title_front"]
+    st = style.lower()
+
+    try:
+        val_clean = max(0, min(100, int(round(float(value)))))
+    except Exception:
+        val_clean = 50
+
+    lbl_clean = escape_xml(label)
+    sub_clean = escape_xml(sub if sub is not None else f"RUNTIME PROGRESS // {val_clean}% COMPLETE")
+
+    total_segments = 32
+    filled_segments = int(round(total_segments * (val_clean / 100)))
+
+    h = 68
+    track_x = 14
+    track_y = 28
+    track_w = width - 28
+    track_h = 14
+
+    seg_gap = 2
+    seg_w = (track_w - (total_segments - 1) * seg_gap) / total_segments
+
+    segments_svg = []
+    for s in range(total_segments):
+        sx = track_x + s * (seg_w + seg_gap)
+        if s < filled_segments - 1:
+            col = prim
+            op = "1.0"
+        elif s == filled_segments - 1:
+            col = acc  # Active front block
+            op = "1.0"
+        else:
+            col = border
+            op = "0.2"
+
+        segments_svg.append(f'<rect x="{sx:.1f}" y="{track_y}" width="{seg_w:.1f}" height="{track_h}" fill="{col}" fill-opacity="{op}"/>')
+
+    joined_segments = "\n    ".join(segments_svg)
+
+    # Style hull
+    if st == "tactical":
+        hull = f"""
+  <polygon points="1,2 {width-1},2 {width-1},{h-10} {width-10},{h-1} 10,{h-1} 1,{h-10}" fill="{panel}" stroke="{border}" stroke-width="1.5"/>
+  <polygon points="1,2 14,2 1,15" fill="{prim}"/>
+  <polygon points="{width-1},2 {width-14},2 {width-1},15" fill="{acc}"/>
+"""
+    elif st == "minimal":
+        hull = f"""
+  <rect x="1" y="2" width="{width-2}" height="{h-3}" fill="{panel}" stroke="{border}" stroke-width="1"/>
+  <line x1="1" y1="2" x2="{width-1}" y2="2" stroke="{prim}" stroke-width="2"/>
+"""
+    else:  # cyberpunk
+        hull = f"""
+  <rect x="1" y="2" width="{width-2}" height="{h-3}" fill="{panel}" stroke="{border}" stroke-width="1.5"/>
+  <rect x="1" y="2" width="6" height="6" fill="{prim}"/>
+  <rect x="{width-7}" y="2" width="6" height="6" fill="{acc}"/>
+  <rect x="1" y="{h-7}" width="6" height="6" fill="{acc}"/>
+  <rect x="{width-7}" y="{h-7}" width="6" height="6" fill="{prim}"/>
+"""
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-prog-lbl {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; }}
+      .font-prog-val {{ font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 12px; font-weight: 900; }}
+      .font-prog-sub {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }}
+    </style>
+  </defs>
+  {hull}
+  <!-- Label & Percentage Header -->
+  <text x="14" y="19" fill="{title_front}" class="font-prog-lbl">■ {lbl_clean}</text>
+  <rect x="{width-74}" y="7" width="60" height="15" fill="{panel}" stroke="{acc}" stroke-width="1"/>
+  <text x="{width-44}" y="19" fill="{acc}" text-anchor="middle" class="font-prog-val">{val_clean}%</text>
+
+  <!-- Track & Segments -->
+  <rect x="{track_x-1}" y="{track_y-1}" width="{track_w+2}" height="{track_h+2}" fill="none" stroke="{border}" stroke-width="1"/>
+  <g id="segments">
+    {joined_segments}
+  </g>
+
+  <!-- Subtext & Milestone Ticks -->
+  <text x="14" y="56" fill="{text_dim}" class="font-prog-sub">{sub_clean}</text>
+  <text x="{width-14}" y="56" fill="{text_dim}" text-anchor="end" class="font-prog-sub">0% ── 50% ── 100%</text>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+def generate_techstack(items=None, columns=5, style="cyberpunk", primary=None, accent=None, mode="auto", preset=None, width=850):
+    """
+    Renders a sci-fi HUD matrix of technology cards with embedded 20x20 pixel vector icons.
+    items: list of string names e.g. ["python", "cpp", "docker", "git", "linux"]
+    """
+    from generator.icons import get_tech_icon_svg
+
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    prim = c["primary"]
+    acc = c["accent"]
+    panel = c["panel"]
+    border = c["border"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    st = style.lower()
+
+    if items is None:
+        tech_list = ["python", "cpp", "rust", "docker", "git"]
+    elif isinstance(items, str):
+        tech_list = [x.strip() for x in items.split(",") if x.strip()]
+    else:
+        tech_list = list(items)
+
+    cols = max(2, min(int(columns), 8))
+    rows = (len(tech_list) + cols - 1) // cols
+
+    usable_w = width - 2
+    gap_x = 10
+    gap_y = 10
+    card_w = (usable_w - (cols - 1) * gap_x) // cols
+    card_h = 40
+    total_h = 10 + rows * (card_h + gap_y)
+
+    items_svg = []
+    for idx, item in enumerate(tech_list):
+        r = idx // cols
+        col = idx % cols
+        x = 1 + col * (card_w + gap_x)
+        y = 6 + r * (card_h + gap_y)
+
+        if isinstance(item, dict):
+            raw_name = str(item.get("name") or item.get("id") or item.get("icon") or "ITEM")
+            icon_key = str(item.get("icon") or raw_name)
+            sub_label = str(item.get("label", "")) if item.get("label") else None
+        else:
+            raw_name = str(item)
+            icon_key = raw_name
+            sub_label = None
+
+        clean_name = escape_xml(raw_name.upper())
+        icon_inner = get_tech_icon_svg(icon_key)
+
+        label_markup = ""
+        if sub_label:
+            lbl_clean = escape_xml(sub_label.upper())
+            label_markup = f'<text x="{x+card_w-8}" y="{y+25}" fill="{text_dim}" text-anchor="end" class="font-tech-sub">{lbl_clean}</text>'
+
+        if st == "tactical":
+            card_bg = f"""<polygon points="{x+6},{y} {x+card_w},{y} {x+card_w},{y+card_h-6} {x+card_w-6},{y+card_h} {x},{y+card_h} {x},{y+6}" fill="{panel}" stroke="{border}" stroke-width="1.2"/>
+    <line x1="{x+card_w-4}" y1="{y+2}" x2="{x+card_w-2}" y2="{y+4}" stroke="{acc}" stroke-width="1.5"/>"""
+        elif st == "minimal":
+            card_bg = f"""<rect x="{x}" y="{y}" width="{card_w}" height="{card_h}" fill="{panel}" stroke="{border}" stroke-width="1"/>
+    <line x1="{x}" y1="{y}" x2="{x+card_w}" y2="{y}" stroke="{prim}" stroke-width="1.5"/>"""
+        else:  # cyberpunk
+            card_bg = f"""<rect x="{x}" y="{y}" width="{card_w}" height="{card_h}" fill="{panel}" stroke="{border}" stroke-width="1.2"/>
+    <line x1="{x}" y1="{y+4}" x2="{x}" y2="{y}" stroke="{prim}" stroke-width="1.5"/>
+    <line x1="{x}" y1="{y}" x2="{x+4}" y2="{y}" stroke="{prim}" stroke-width="1.5"/>
+    <line x1="{x+card_w-4}" y1="{y+card_h}" x2="{x+card_w}" y2="{y+card_h}" stroke="{prim}" stroke-width="1.5"/>
+    <line x1="{x+card_w}" y1="{y+card_h-4}" x2="{x+card_w}" y2="{y+card_h}" stroke="{prim}" stroke-width="1.5"/>"""
+
+        items_svg.append(f"""  <g id="tech-{idx}">
+    {card_bg}
+    <g transform="translate({x+10}, {y+10})" color="{prim}">
+      {icon_inner}
+    </g>
+    <text x="{x+36}" y="{y+25}" fill="{text_main}" class="font-tech-name">{clean_name}</text>
+    {label_markup}
+  </g>""")
+
+    joined_items = "\n".join(items_svg)
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {total_h}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-tech-name {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; }}
+      .font-tech-sub {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; }}
+    </style>
+  </defs>
+{joined_items}
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+def generate_timeline(items=None, milestones=None, style="cyberpunk", primary=None, accent=None, mode="auto", preset=None, width=850):
+    """
+    Renders a vertical PCB data bus timeline with milestones and status nodes.
+    items / milestones: list of dicts with: title, date, status ("COMPLETED"|"IN_PROGRESS"|"PLANNED"), desc
+    """
+    if items is None and milestones is not None:
+        items = milestones
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    prim = c["primary"]
+    acc = c["accent"]
+    panel = c["panel"]
+    border = c["border"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    title_front = c["title_front"]
+    success = c["success"]
+    st = style.lower()
+
+    if not items:
+        items = [
+            {"title": "PHASE 1: RESEARCH", "date": "2026-Q1", "status": "COMPLETED", "desc": "Initial prototype and vector specification"},
+            {"title": "PHASE 2: CORE RUNTIME", "date": "2026-Q2", "status": "IN_PROGRESS", "desc": "Data visualization suite and multi-theming engine"},
+            {"title": "PHASE 3: HUD STUDIO", "date": "2026-Q3", "status": "PLANNED", "desc": "Interactive web editor and production rollout"}
+        ]
+
+    step_h = 66
+    k = len(items)
+    total_h = 16 + k * step_h
+    bus_x = 42
+
+    milestones_svg = []
+    for i, item in enumerate(items):
+        node_y = 28 + i * step_h
+        card_y = node_y - 18
+        card_x = 70
+        card_w = width - 72
+        card_h = 52
+
+        t = escape_xml(item.get("title", f"STAGE {i+1}").upper())
+        d = escape_xml(item.get("date", "2026"))
+        stat = str(item.get("status", "PLANNED")).upper()
+        desc = escape_xml(item.get("desc", ""))
+
+        if stat in ("COMPLETED", "DONE", "FINISHED"):
+            node_col = success
+            node_shape = f'<polygon points="{bus_x},{node_y-6} {bus_x+6},{node_y} {bus_x},{node_y+6} {bus_x-6},{node_y}" fill="{success}"/>'
+            stat_lbl = "● COMPLETED"
+        elif stat in ("IN_PROGRESS", "ACTIVE", "WIP"):
+            node_col = acc
+            node_shape = f"""<circle cx="{bus_x}" cy="{node_y}" r="6" fill="{acc}"/>
+    <circle cx="{bus_x}" cy="{node_y}" r="10" fill="none" stroke="{acc}" stroke-width="1.2" stroke-dasharray="2 2"/>"""
+            stat_lbl = "◉ IN_PROGRESS"
+        else:
+            node_col = text_dim
+            node_shape = f'<circle cx="{bus_x}" cy="{node_y}" r="5" fill="{panel}" stroke="{border}" stroke-width="1.5"/>'
+            stat_lbl = "○ PLANNED"
+
+        # Connector trace from bus to card
+        conn = f'<path d="M {bus_x+6} {node_y} L {card_x} {node_y}" stroke="{node_col}" stroke-width="1.5" stroke-dasharray="3 2"/>'
+
+        # Card hull
+        if st == "tactical":
+            c_hull = f"""<polygon points="{card_x+6},{card_y} {card_x+card_w},{card_y} {card_x+card_w},{card_y+card_h-6} {card_x+card_w-6},{card_y+card_h} {card_x},{card_y+card_h} {card_x},{card_y+6}" fill="{panel}" stroke="{border}" stroke-width="1.2"/>
+    <line x1="{card_x+1}" y1="{card_y+1}" x2="{card_x+1}" y2="{card_y+card_h-1}" stroke="{node_col}" stroke-width="2.5"/>"""
+        elif st == "minimal":
+            c_hull = f"""<rect x="{card_x}" y="{card_y}" width="{card_w}" height="{card_h}" fill="{panel}" stroke="{border}" stroke-width="1"/>
+    <line x1="{card_x}" y1="{card_y}" x2="{card_x}" y2="{card_y+card_h}" stroke="{node_col}" stroke-width="2"/>"""
+        else:  # cyberpunk
+            c_hull = f"""<rect x="{card_x}" y="{card_y}" width="{card_w}" height="{card_h}" fill="{panel}" stroke="{border}" stroke-width="1.2"/>
+    <line x1="{card_x}" y1="{card_y}" x2="{card_x+8}" y2="{card_y}" stroke="{node_col}" stroke-width="2"/>
+    <line x1="{card_x}" y1="{card_y}" x2="{card_x}" y2="{card_y+8}" stroke="{node_col}" stroke-width="2"/>
+    <rect x="{card_x+card_w-5}" y="{card_y+2}" width="3" height="3" fill="{node_col}"/>"""
+
+        milestones_svg.append(f"""  <g id="milestone-{i}">
+    {conn}
+    {node_shape}
+    {c_hull}
+    <!-- Milestone Header -->
+    <rect x="{card_x+12}" y="{card_y+9}" width="60" height="14" fill="{panel}" stroke="{border}" stroke-width="1"/>
+    <text x="{card_x+42}" y="{card_y+20}" fill="{text_dim}" text-anchor="middle" class="font-time-date">{d}</text>
+    <text x="{card_x+82}" y="{card_y+20}" fill="{title_front}" class="font-time-title">{t}</text>
+    <text x="{card_x+card_w-14}" y="{card_y+20}" fill="{node_col}" text-anchor="end" class="font-time-stat">{stat_lbl}</text>
+    <!-- Milestone Description -->
+    <text x="{card_x+14}" y="{card_y+40}" fill="{text_dim}" class="font-time-desc">{desc}</text>
+  </g>""")
+
+    joined_nodes = "\n".join(milestones_svg)
+    bus_end_y = 28 + (k - 1) * step_h + 10
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {total_h}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-time-date {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }}
+      .font-time-title {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 12px; font-weight: bold; }}
+      .font-time-stat {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }}
+      .font-time-desc {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: normal; }}
+    </style>
+  </defs>
+  <!-- Vertical Data PCB Bus -->
+  <line x1="{bus_x}" y1="14" x2="{bus_x}" y2="{bus_end_y}" stroke="{border}" stroke-width="2"/>
+  <circle cx="{bus_x}" cy="14" r="3" fill="{prim}"/>
+  <polygon points="{bus_x},{bus_end_y+6} {bus_x+4},{bus_end_y} {bus_x-4},{bus_end_y}" fill="{prim}"/>
+{joined_nodes}
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+# ==============================================================================
+# SOCIAL PREVIEW CARDS (v4.0 - 1280x640 OpenGraph)
+# ==============================================================================
+
+def generate_social(style="cyberpunk", primary=None, accent=None,
+                    title="PIXEL-KIT", subtitle="TRANSLUCENT RETRO HUD READMES",
+                    repo="Kazinagg/pixel-readme-kit", tags="PYTHON,SVG,HUD,RETRO",
+                    width=1280, height=640, mode="auto", preset=None):
+    """
+    Renders an OpenGraph Social Preview Card (1280x640) for GitHub repositories.
+    """
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    prim = c["primary"]
+    acc = c["accent"]
+    bg = c["bg"]
+    panel = c["panel"]
+    border = c["border"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    st = style.lower()
+
+    title_clean = escape_xml(title)
+    sub_clean = escape_xml(subtitle)
+    repo_clean = escape_xml(repo.upper())
+
+    # 3D Pixel Title at px_size=7 (or 6 if long)
+    px_size = 6 if len(title) > 14 else 7
+    pixel_markup, t_w, t_h = render_3d_text(
+        title, x=80, y=170, px_size=px_size,
+        front_color=c["title_front"], mid_shadow=c["title_mid"], dark_shadow=c["title_dark"],
+        spacing=2, max_width=750, allow_wrap=True
+    )
+
+    y_sub = 170 + t_h + 24
+    sub_w = min(720, max(320, int(len(subtitle) * 11) + 48))
+
+    # Parse technology/feature tags
+    if not tags:
+        tag_list = ["GITHUB", "OPEN-SOURCE", "v4.0"]
+    elif isinstance(tags, str):
+        tag_list = [t.strip().upper() for t in tags.split(",") if t.strip()]
+    else:
+        tag_list = [str(t).strip().upper() for t in tags if t]
+    tag_chips = []
+    curr_x = 80
+    for t_item in tag_list[:5]:
+        tw = int(len(t_item) * 9.5) + 28
+        tag_chips.append(f"""
+    <g transform="translate({curr_x}, 530)">
+      <rect x="0" y="0" width="{tw}" height="34" fill="{panel}" stroke="{prim}" stroke-width="1.2"/>
+      <rect x="0" y="0" width="4" height="34" fill="{prim}"/>
+      <text x="{tw//2 + 2}" y="22" fill="{acc}" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">{escape_xml(t_item)}</text>
+    </g>
+""")
+        curr_x += tw + 16
+    chips_markup = "".join(tag_chips)
+
+    # Chassis styling
+    if st == "tactical":
+        chassis = f"""
+  <polygon points="24 6, {width-24} 6, {width-6} 24, {width-6} {height-24}, {width-24} {height-6}, 24 {height-6}, 6 {height-24}, 6 24"
+           fill="{bg}" stroke="{border}" stroke-width="2.5"/>
+  <polygon points="32 14, {width-32} 14, {width-14} 32, {width-14} {height-32}, {width-32} {height-14}, 32 {height-14}, 14 {height-32}, 14 32"
+           fill="none" stroke="{prim}" stroke-width="1.5" opacity="0.6"/>
+  <!-- Corner Hazard Chevrons -->
+  <polygon points="40 18, 54 18, 36 36, 22 36" fill="{prim}"/>
+  <polygon points="62 18, 76 18, 58 36, 44 36" fill="{prim}"/>
+"""
+        reticle = f"""
+  <g transform="translate(1020, 320)">
+    <circle cx="0" cy="0" r="140" fill="none" stroke="{border}" stroke-width="2"/>
+    <circle cx="0" cy="0" r="90" fill="none" stroke="{prim}" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <circle cx="0" cy="0" r="40" fill="{panel}" stroke="{acc}" stroke-width="1.5"/>
+    <line x1="-160" y1="0" x2="160" y2="0" stroke="{prim}" stroke-width="1.5" stroke-dasharray="8 4"/>
+    <line x1="0" y1="-160" x2="0" y2="160" stroke="{prim}" stroke-width="1.5" stroke-dasharray="8 4"/>
+    <text x="0" y="5" fill="{prim}" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">LOCK-ON</text>
+  </g>
+"""
+    elif st == "minimal":
+        chassis = f"""
+  <rect x="8" y="8" width="{width-16}" height="{height-16}" fill="{bg}" stroke="{border}" stroke-width="2"/>
+  <line x1="8" y1="8" x2="{width-8}" y2="8" stroke="{prim}" stroke-width="4"/>
+  <rect x="14" y="14" width="8" height="8" fill="{prim}"/>
+  <rect x="{width-22}" y="14" width="8" height="8" fill="{acc}"/>
+  <rect x="14" y="{height-22}" width="8" height="8" fill="{acc}"/>
+  <rect x="{width-22}" y="{height-22}" width="8" height="8" fill="{prim}"/>
+"""
+        reticle = f"""
+  <g transform="translate(1020, 320)">
+    <rect x="-110" y="-110" width="220" height="220" fill="none" stroke="{border}" stroke-width="1.5"/>
+    <rect x="-80" y="-80" width="160" height="160" fill="{panel}" stroke="{prim}" stroke-width="1.5"/>
+    <line x1="-110" y1="0" x2="110" y2="0" stroke="{acc}" stroke-width="2"/>
+    <line x1="0" y1="-110" x2="0" y2="110" stroke="{acc}" stroke-width="2"/>
+    <circle cx="0" cy="0" r="6" fill="{prim}"/>
+  </g>
+"""
+    else:  # cyberpunk
+        chassis = f"""
+  <rect x="8" y="8" width="{width-16}" height="{height-16}" fill="{bg}" stroke="{border}" stroke-width="2"/>
+  <rect x="8" y="8" width="16" height="16" fill="{prim}"/>
+  <rect x="{width-24}" y="8" width="16" height="16" fill="{acc}"/>
+  <rect x="8" y="{height-24}" width="16" height="16" fill="{acc}"/>
+  <rect x="{width-24}" y="{height-24}" width="16" height="16" fill="{prim}"/>
+  <line x1="8" y1="48" x2="24" y2="48" stroke="{prim}" stroke-width="2"/>
+  <line x1="{width-24}" y1="{height-48}" x2="{width-8}" y2="{height-48}" stroke="{acc}" stroke-width="2"/>
+"""
+        reticle = f"""
+  <g transform="translate(1020, 320)">
+    <circle cx="0" cy="0" r="140" fill="none" stroke="{border}" stroke-width="2"/>
+    <circle cx="0" cy="0" r="100" fill="none" stroke="{prim}" stroke-width="2" stroke-dasharray="10 6"/>
+    <circle cx="0" cy="0" r="60" fill="{panel}" stroke="{acc}" stroke-width="2"/>
+    <line x1="-150" y1="0" x2="150" y2="0" stroke="{prim}" stroke-width="1.5"/>
+    <line x1="0" y1="-150" x2="0" y2="150" stroke="{prim}" stroke-width="1.5"/>
+    <circle cx="45" cy="-45" r="5" fill="{prim}"/>
+    <circle cx="-55" cy="35" r="4" fill="{acc}"/>
+  </g>
+"""
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
+    </style>
+  </defs>
+
+  {chassis}
+
+  <!-- TOP REPOSITORY HEADER -->
+  <rect x="80" y="56" width="380" height="34" fill="{panel}" stroke="{border}" stroke-width="1.2"/>
+  <text x="96" y="78" fill="{prim}" font-size="13" font-weight="bold" letter-spacing="1px" class="font-mono">■ REPOSITORY // {repo_clean}</text>
+  <rect x="470" y="56" width="140" height="34" fill="{panel}" stroke="{acc}" stroke-width="1.2"/>
+  <text x="540" y="78" fill="{acc}" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PUBLIC // v4.0</text>
+
+  <!-- 3D PIXEL TITLE -->
+  {pixel_markup}
+
+  <!-- SUBTITLE CALLOUT -->
+  <rect x="80" y="{y_sub}" width="{sub_w}" height="42" fill="{panel}" stroke="{acc}" stroke-width="1.5"/>
+  <text x="100" y="{y_sub + 27}" fill="{text_main}" font-size="15" font-weight="bold" class="font-mono">▶ {sub_clean}</text>
+
+  <!-- TECH / FEATURE TAGS ROW -->
+  {chips_markup}
+
+  <!-- RIGHT SIDE RETICLE -->
+  {reticle}
+
+  <!-- WATERMARK -->
+  <text x="{width-80}" y="{height-40}" fill="{text_dim}" font-size="12" font-weight="bold" text-anchor="end" class="font-mono">PIXEL-README-KIT // 1280x640 OPENGRAPH</text>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+

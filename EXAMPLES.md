@@ -1,4 +1,4 @@
-# 💡 PIXEL README KIT — ПРИМЕРЫ И РАБОЧИЙ ПРОЦЕСС (WORKFLOW)
+# 💡 PIXEL README KIT v4.0 — ПРИМЕРЫ И РАБОЧИЙ ПРОЦЕСС (WORKFLOW)
 
 <div id="top"></div>
 
@@ -23,7 +23,7 @@
 > [!TIP]
 > 🎯 **ГЛАВНАЯ ЦЕЛЬ ДИЗАЙН-СИСТЕМЫ**:
 > Избавить разработчика от ручного рисования SVG, выравнивания пикселей и подгонки таблиц под рендерер GitHub.
-> Вы пишете обычный декларативный Markdown-шаблон с директивами `<!-- pixel-kit:... -->`, а компилятор превращает его в профессиональный README.
+> Вы пишете обычный декларативный Markdown-шаблон с директивами `<!-- pixel-kit:... -->`, а компилятор превращает его в профессиональный README с живой анимацией и адаптивной темой.
 
 ---
 
@@ -31,9 +31,11 @@
 
 1. [Как устроен рабочий процесс (Workflow)](#1-как-устроен-рабочий-процесс-workflow)
 2. [Часть 1: Шаблон БЕЗ генерации (Исходный текст)](#2-часть-1-шаблон-без-генерации-исходный-текст)
-3. [Часть 2: Команда сборки (CLI Command)](#3-часть-2-команда-сборки-cli-command)
+3. [Часть 2: Команда сборки и новые флаги v4.0](#3-часть-2-команда-сборки-и-новые-флаги-v40)
 4. [Часть 3: Сгенерированный результат (Live Render)](#4-часть-3-сгенерированный-результат-live-render)
-5. [Часть 4: Автоматизация через GitHub Actions](#5-часть-4-автоматизация-через-github-actions)
+5. [Часть 4: Интерактивный Live Preview и HUD Studio](#5-часть-4-интерактивный-live-preview-и-hud-studio)
+6. [Часть 5: MCP Сервер для AI-агентов (Model Context Protocol)](#6-часть-5-mcp-сервер-для-ai-агентов-model-context-protocol)
+7. [Часть 6: Автоматизация через GitHub Actions](#7-часть-6-автоматизация-через-github-actions)
 
 ---
 
@@ -44,13 +46,16 @@
 │ 1. ИСХОДНЫЙ ШАБЛОН: EXAMPLE_TEMPLATE.md                    │
 │    - Декларативные директивы <!-- pixel-kit:... -->         │
 │    - Живой Markdown-текст, списки, таблицы и KaTeX          │
+│    - Инфографика v4.0: metrics, progress, techstack, timeline│
 └──────────────────────────────┬──────────────────────────────┘
                                │
                                ▼
 ┌─────────────────────────────────────────────────────────────┐
 │ 2. СБОРКА: python -m generator.cli compile                  │
-│    - Генератор автоматически создаёт все SVG в assets/      │
-│    - Подгоняет ширину чипов под длину текста                │
+│    - Инкрементальный кэш SHA-256 (сборка за ~10-40 мс)      │
+│    - GC мусорных файлов: --clean-assets                     │
+│    - Camo Cache-Buster для GitHub: --bust-cache             │
+│    - Безопасные мобильные шрифты >= 11px                    │
 │    - Оборачивает контент в 100% таблицы без боковых щелей   │
 └──────────────────────────────┬──────────────────────────────┘
                                │
@@ -58,7 +63,7 @@
 ┌─────────────────────────────────────────────────────────────┐
 │ 3. ГОТОВЫЙ РЕЗУЛЬТАТ: EXAMPLE.md (или README.md)            │
 │    - 100% валидный GitHub Flavored Markdown                 │
-│    - Идеальный контраст на тёмной и светлой темах           │
+│    - Идеальный контраст на тёмной и светлой темах (APCA Lc) │
 │    - Живая CSS-анимация: радар 360°, лазеры, эквалайзеры   │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -74,11 +79,11 @@
 
 <div align="center">
 
-<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="NEO-CORE" subtitle="CYBER-HUD AUTOMATION & KERNEL RUNTIME" spec1="HUD ARCHITECTURE: TRANSLUCENT GLASS & CYBER BRACKETS" spec2="TEXT INTEGRATION: 100% COPYABLE MARKDOWN & MATH" spec3="ANIMATION SUITE: RADAR // SCANLINE // LADDER CASCADE" tag="SYS_v2.2_ONLINE" out="assets/example/neo-header.svg" -->
+<!-- pixel-kit:header style="cyberpunk" primary="#00C8D7" accent="#A855F7" title="NEO-CORE" subtitle="CYBER-HUD AUTOMATION & KERNEL RUNTIME" spec1="HUD ARCHITECTURE: TRANSLUCENT GLASS & CYBER BRACKETS" spec2="TEXT INTEGRATION: 100% COPYABLE MARKDOWN & MATH" spec3="ANIMATION SUITE: RADAR // SCANLINE // LADDER CASCADE" tag="SYS_v4.0_ONLINE" out="assets/example/neo-header.svg" -->
 
 <br/><br/>
 
-<!-- pixel-kit:chip style="cyberpunk" type="closed" text="⚡ v2.2.0" out="assets/example/chip-version.svg" -->
+<!-- pixel-kit:chip style="cyberpunk" type="closed" text="⚡ v4.0.0" out="assets/example/chip-version.svg" -->
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="cyberpunk" type="pulse" text="● LIVE_NODE" out="assets/example/chip-status.svg" -->
 &nbsp;&nbsp;
@@ -116,51 +121,114 @@
 | Подсистема | Протокол | Статус | Задержка |
 | :--- | :--- | :--- | :--- |
 | **Fiber Pipeline** | `IPC_BUS // DMA` | `● ACTIVE` | `0.12 ms` |
-| **Translucent Glass** | `SVG_ALPHA_0.82` | `● STABLE` | `0.00 ms` |
+| **Adaptive Theme** | `SVG_CSS_VARS` | `● DUAL_THEME` | `0.00 ms` |
 | **Live Radar HUD** | `360_DEG_SWEEP` | `● SCANNING` | `16.6 ms (60 FPS)` |
 
 ```bash
 # Инициализация демо-проекта
 npm install neo-kernel-core
-npx neo-core --bootstrap
+neo-kernel init --profile=cyberpunk
 ```
 <!-- /pixel-kit:window -->
 
 <br/>
 
-<!-- 4. СВОРАЧИВАЕМЫЙ ТЕРМИНАЛ (DETAILS/SUMMARY) -->
-<!-- pixel-kit:terminal style="cyberpunk" title="ENVIRONMENT_CONFIGURATION" state="closed" out_top="assets/example/terminal-top-cyber.svg" out_bottom="assets/example/terminal-bottom-cyber.svg" -->
-```ini
-[RUNTIME]
-NODE_ENV=production
-HUD_OPACITY=0.82
-ACCENT_COLOR=#00C8D7
-SECONDARY_COLOR=#A855F7
-SCANLINE_FPS=60
+<!-- 4. КАРТОЧКИ МЕТРИК И KPI (METRICS) -->
+<!-- pixel-kit:metrics style="cyberpunk" primary="#00C8D7" accent="#A855F7" out="assets/example/neo-metrics.svg" -->
+- label="THROUGHPUT" value="48.2 GB/s" delta="+18.4% PEAK" trend="up"
+- label="FRAME LATENCY" value="0.14 ms" delta="p99 < 0.2ms" trend="up"
+- label="ACTIVE NODES" value="1,024" delta="+64 CLUSTERS" trend="up"
+- label="KERNEL HEALTH" value="99.98%" status="NOMINAL"
+<!-- /pixel-kit:metrics -->
+
+<br/>
+
+<!-- 5. ИНДИКАТОР ПРОГРЕССА И СТАТУСА (PROGRESS) -->
+<!-- pixel-kit:progress style="cyberpunk" value="88" label="NEO-CORE v4.0 DEPLOYMENT PROGRESS" sub="STAGE 04/04 // STABLE RUNTIME VERIFIED" primary="#00C8D7" accent="#A855F7" out="assets/example/neo-progress.svg" -->
+
+<br/>
+
+<!-- 6. СПЛИТТЕР ПОДМОДУЛЕЙ (SPLITTER) -->
+<!-- pixel-kit:splitter style="tactical" primary="#F59E0B" label="[TACTICAL: SECURITY_AND_FAILSAFE]" out="assets/example/splitter-tactical.svg" -->
+
+<br/>
+
+<!-- 7. ТАКТИЧЕСКОЕ ОКНО С ФАСКАМИ 45° (TACTICAL WINDOW) -->
+<!-- pixel-kit:window style="tactical" primary="#F59E0B" title="╔═ SEC.DEFENSE // SECTOR_LOCK_ALPHA.EXE" tag="[TACTICAL]" out_top="assets/example/frame-top-tactical.svg" out_bottom="assets/example/frame-bottom-tactical.svg" -->
+### ⚡ Тактический модуль мониторинга
+
+- Скосы под 45° с прижимными зубцами на `x=1` и `x=849`.
+- Исключены любые внешние разделители и прокладки.
+- Полная совместимость со светлой и тёмной темами GitHub.
+<!-- /pixel-kit:window -->
+
+<br/>
+
+<!-- 8. МАТРИЦА СТЕКА ТЕХНОЛОГИЙ (TECHSTACK) -->
+<!-- pixel-kit:techstack style="tactical" primary="#F59E0B" accent="#EA580C" items="python,rust,cpp,docker,git,linux" columns="6" out="assets/example/neo-techstack.svg" -->
+
+<br/>
+
+<!-- 9. ТАКТИЧЕСКИЙ ТАЙМЛАЙН / ДОРОЖНАЯ КАРТА (TIMELINE) -->
+<!-- pixel-kit:timeline style="cyberpunk" primary="#00C8D7" accent="#A855F7" out="assets/example/neo-timeline.svg" -->
+- stage="01" title="CORE ENGINE" date="2026-Q1" status="COMPLETED" desc="Vector pixel rendering pipeline"
+- stage="02" title="LIVE METRICS" date="2026-Q2" status="COMPLETED" desc="Realtime HUD KPI & progress widgets"
+- stage="03" title="STUDIO & MCP" date="2026-Q3" status="ACTIVE" desc="Zero-dep web studio & AI model protocol"
+- stage="04" title="GLOBAL CDN" date="2026-Q4" status="PLANNED" desc="Dynamic edge badge synthesis"
+<!-- /pixel-kit:timeline -->
+
+<br/>
+
+<!-- 10. ИНТЕРАКТИВНЫЙ ДРОУЭР / ТЕРМИНАЛ (DETAILS / SUMMARY) -->
+<!-- pixel-kit:terminal style="minimal" primary="#4F8BFF" title="SYSTEM.CONFIG.YAML" state="open" out_top="assets/example/terminal-top.svg" out_bottom="assets/example/terminal-bottom.svg" -->
+```yaml
+# neo-kernel.config.yaml
+runtime:
+  engine: "pixel-readme-kit-v4.0"
+  style: "cyberpunk"
+  theme:
+    mode: "auto"
+    primary: "#00C8D7"
+    accent: "#A855F7"
+telemetry:
+  radar_sweep: true
+  scanline: true
+  equalizer: "44.1kHz"
 ```
 <!-- /pixel-kit:terminal -->
 
+<br/>
+
+<div align="center">
+
+<!-- 11. ЗАКРЫВАЮЩАЯ ПЛАСТИНА ФУТЕРА (FOOTER) -->
+<!-- pixel-kit:footer style="cyberpunk" primary="#00C8D7" status="SYSTEM_ONLINE // ALL_CHANNELS_CLEAR" nav="НАВЕРХ К ШАПКЕ" out="assets/example/footer.svg" -->
+
 <br/><br/>
 
-<!-- pixel-kit:footer style="cyberpunk" status="SESSION_ONLINE // READY" nav="▲ НАВЕРХ" out="assets/example/neo-footer.svg" -->
+<sub>NEO-CORE v4.0 &bull; PIXEL README DESIGN SYSTEM &bull; 2026</sub>
+
+</div>
 ````
 
 ---
 
-## 3. Часть 2: Команда сборки (CLI Command)
+## 3. Часть 2: Команда сборки и новые флаги v4.0
 
-Чтобы превратить шаблон выше в готовый Markdown и сгенерировать все необходимые SVG-ассеты, выполняется всего одна команда:
+Чтобы превратить шаблон выше в готовый Markdown и сгенерировать все необходимые SVG-ассеты, выполняется команда компиляции:
 
 ```bash
 python -m generator.cli compile --input EXAMPLE_TEMPLATE.md --output EXAMPLE.md --assets-dir assets/example
 ```
 
-**Что делает компилятор**:
-- Парсит каждую директиву `<!-- pixel-kit:... -->`.
-- Вызывает генератор и сохраняет SVG с уникальными именами в указанную папку `--assets-dir`.
-- Рассчитывает точную адаптивную ширину для каждого чипа по количеству символов текста.
-- Оборачивает контент окон в таблицы на 100% ширины.
-- Заменяет директивы в Markdown на готовые теги `<img>` и форматированные блоки.
+### Продвинутые флаги компилятора:
+
+| Флаг | Назначение |
+| :--- | :--- |
+| `--clean-assets` | **Garbage Collector**: сканирует папку `--assets-dir` и автоматически удаляет старые сиротские SVG, на которые больше нет ссылок в шаблоне. |
+| `--dry-run-clean` | Выводит список файлов-сирот без их фактического удаления. |
+| `--no-cache` | Принудительно отключает инкрементальный кэш и пересобирает все ассеты с нуля. |
+| `--bust-cache` | **GitHub Camo Cache-Buster**: добавляет хэш контента `?v=<hash>` к путям изображений, пробивая жесткое прокси-кэширование GitHub при обновлении SVG. |
 
 ---
 
@@ -170,13 +238,15 @@ python -m generator.cli compile --input EXAMPLE_TEMPLATE.md --output EXAMPLE.md 
 
 ---
 
+<div id="top"></div>
+
 <div align="center">
 
 <img src="assets/example/neo-header.svg" width="100%" alt="NEO-CORE" />
 
 <br/><br/>
 
-<img src="assets/example/chip-version.svg" alt="⚡ v2.2.0" />
+<img src="assets/example/chip-version.svg" alt="⚡ v4.0.0" />
 &nbsp;&nbsp;
 <img src="assets/example/chip-status.svg" alt="● LIVE_NODE" />
 &nbsp;&nbsp;
@@ -186,19 +256,19 @@ python -m generator.cli compile --input EXAMPLE_TEMPLATE.md --output EXAMPLE.md 
 
 <br/><br/>
 
-<img src="assets/example/divider-top.svg" width="100%" />
+<img src="assets/example/divider-top.svg" width="100%" alt="Divider cyberpunk" />
 
 </div>
 
 <br/>
 
 <!-- 1. АВТОНОМНЫЙ АЛЕРТ (CALLOUT) -->
-<img src="assets/example/callout-arch.svg" width="100%" />
+<img src="assets/example/callout-arch.svg" width="100%" alt="RUNTIME ARCHITECTURE // ZERO CAMO PROXY OVERFLOW" />
 
 <br/>
 
 <!-- 2. БЛОК ЦИТАТЫ С ХЕДЕРОМ (QUOTE) -->
-> <img src="assets/example/callout-quote-warn.svg" width="100%" />
+> <img src="assets/example/callout-quote-warn.svg" width="100%" alt="CRITICAL CONSTRAINT // FULL-WIDTH COMPLIANCE" />
 >
 > **Внимание оператора**: все контентные окна обязаны использовать 100% табличную обертку (`<table width="100%"><tr><td width="2000">...</td></tr></table>`). 
 > Это гарантирует, что зубцы крышек на `x=1` и `x=849` ложатся ровно на серые рамки GitHub без боковых зазоров на любых дисплеях.
@@ -219,13 +289,13 @@ python -m generator.cli compile --input EXAMPLE_TEMPLATE.md --output EXAMPLE.md 
 | Подсистема | Протокол | Статус | Задержка |
 | :--- | :--- | :--- | :--- |
 | **Fiber Pipeline** | `IPC_BUS // DMA` | `● ACTIVE` | `0.12 ms` |
-| **Translucent Glass** | `SVG_ALPHA_0.82` | `● STABLE` | `0.00 ms` |
+| **Adaptive Theme** | `SVG_CSS_VARS` | `● DUAL_THEME` | `0.00 ms` |
 | **Live Radar HUD** | `360_DEG_SWEEP` | `● SCANNING` | `16.6 ms (60 FPS)` |
 
 ```bash
 # Инициализация демо-проекта
 npm install neo-kernel-core
-npx neo-core --bootstrap
+neo-kernel init --profile=cyberpunk
 ```
 
 </td>
@@ -236,75 +306,200 @@ npx neo-core --bootstrap
 
 <br/>
 
-<!-- 4. СВОРАЧИВАЕМЫЙ ТЕРМИНАЛ (DETAILS/SUMMARY) -->
-<details >
-<summary><kbd>▶ ENVIRONMENT_CONFIGURATION</kbd> <b>[ НАЖМИТЕ ДЛЯ СВОРАЧИВАНИЯ / РАЗВОРАЧИВАНИЯ ]</b> <code>[CLICK TO EXPAND]</code></summary>
+<!-- 4. КАРТОЧКИ МЕТРИК И KPI (METRICS) -->
+<img src="assets/example/neo-metrics.svg" width="100%" alt="Metrics" />
 
 <br/>
 
-<img src="assets/example/terminal-top-cyber.svg" width="100%" />
+<!-- 5. ИНДИКАТОР ПРОГРЕССА И СТАТУСА (PROGRESS) -->
+<img src="assets/example/neo-progress.svg" width="100%" alt="NEO-CORE v4.0 DEPLOYMENT PROGRESS" />
+
+<br/>
+
+<!-- 6. СПЛИТТЕР ПОДМОДУЛЕЙ (SPLITTER) -->
+<img src="assets/example/splitter-tactical.svg" width="100%" alt="[TACTICAL: SECURITY_AND_FAILSAFE]" />
+
+<br/>
+
+<!-- 7. ТАКТИЧЕСКОЕ ОКНО С ФАСКАМИ 45° (TACTICAL WINDOW) -->
+<img src="assets/example/frame-top-tactical.svg" width="100%" />
 
 <table width="100%">
 <tr>
 <td width="2000">
 
-```ini
-[RUNTIME]
-NODE_ENV=production
-HUD_OPACITY=0.82
-ACCENT_COLOR=#00C8D7
-SECONDARY_COLOR=#A855F7
-SCANLINE_FPS=60
+### ⚡ Тактический модуль мониторинга
+
+- Скосы под 45° с прижимными зубцами на `x=1` и `x=849`.
+- Исключены любые внешние разделители и прокладки.
+- Полная совместимость со светлой и тёмной темами GitHub.
+
+</td>
+</tr>
+</table>
+
+<img src="assets/example/frame-bottom-tactical.svg" width="100%" />
+
+<br/>
+
+<!-- 8. МАТРИЦА СТЕКА ТЕХНОЛОГИЙ (TECHSTACK) -->
+<img src="assets/example/neo-techstack.svg" width="100%" alt="Tech Stack" />
+
+<br/>
+
+<!-- 9. ТАКТИЧЕСКИЙ ТАЙМЛАЙН / ДОРОЖНАЯ КАРТА (TIMELINE) -->
+<img src="assets/example/neo-timeline.svg" width="100%" alt="Timeline" />
+
+<br/>
+
+<!-- 10. ИНТЕРАКТИВНЫЙ ДРОУЭР / ТЕРМИНАЛ (DETAILS / SUMMARY) -->
+<details open>
+<summary><kbd>▶ SYSTEM.CONFIG.YAML</kbd> <b>[ НАЖМИТЕ ДЛЯ СВОРАЧИВАНИЯ / РАЗВОРАЧИВАНИЯ ]</b> <code>[STATE: EXPANDED]</code></summary>
+
+<br/>
+
+<img src="assets/example/terminal-top.svg" width="100%" />
+
+<table width="100%">
+<tr>
+<td width="2000">
+
+```yaml
+# neo-kernel.config.yaml
+runtime:
+  engine: "pixel-readme-kit-v4.0"
+  style: "cyberpunk"
+  theme:
+    mode: "auto"
+    primary: "#00C8D7"
+    accent: "#A855F7"
+telemetry:
+  radar_sweep: true
+  scanline: true
+  equalizer: "44.1kHz"
 ```
 
 </td>
 </tr>
 </table>
 
-<img src="assets/example/terminal-bottom-cyber.svg" width="100%" />
+<img src="assets/example/terminal-bottom.svg" width="100%" />
 
 </details>
 
+<br/>
+
+<div align="center">
+
+<!-- 11. ЗАКРЫВАЮЩАЯ ПЛАСТИНА ФУТЕРА (FOOTER) -->
+<a href="#top"><img src="assets/example/footer.svg" width="100%" alt="НАВЕРХ К ШАПКЕ" /></a>
+
 <br/><br/>
 
-<a href="#top"><img src="assets/example/neo-footer.svg" width="100%" alt="▲ НАВЕРХ" /></a>
+<sub>NEO-CORE v4.0 &bull; PIXEL README DESIGN SYSTEM &bull; 2026</sub>
+
+</div>
 
 ---
 
-## 5. Часть 4: Автоматизация через GitHub Actions
+## 5. Часть 4: Интерактивный Live Preview и HUD Studio
 
-Вы можете автоматически пересобирать свой `README.md` при каждом `git push`, добавив следующий файл в `.github/workflows/compile-readme.yml`:
+В версию 4.0 встроен локальный веб-сервер и графическая студия, работающая **без единой внешней зависимости (Zero Dependencies)**:
+
+```bash
+# Запуск интерактивной студии с авто-открытием браузера:
+python -m generator.cli studio --open
+
+# Или запуск сервера Live Preview для файла:
+python -m generator.cli serve --template README.template.md --port 8080 --open
+```
+
+### Возможности HUD Studio:
+1. **Мгновенный рендеринг SVG (< 50 мс)**: изменения любых параметров (цвета, стиль, текст заголовка, бейджи) отображаются на лету через API `/api/render`.
+2. **SSE Live-Reload**: при редактировании `README.template.md` в любой IDE страница браузера обновляется автоматически за 300 мс без перезагрузки.
+3. **HUD Debug Mode**: наложение 20px сетки выравнивания и живой мониторинг бюджета символов (Character Budget Warning Badges) прямо на холсте.
+4. **Конструктор директив**: кнопки «Копировать директиву» и «Вставить в шаблон» для мгновенного переноса готового блока в ваш проект.
+
+---
+
+## 6. Часть 5: MCP Сервер для AI-агентов (Model Context Protocol)
+
+Для AI-ассистентов (Antigravity, Claude Desktop, Cursor, Roo-Code) комплект поставляется с нативным stdio MCP сервером:
+
+```bash
+# Запуск сервера:
+python -m generator.mcp_server
+```
+
+### Конфигурация Claude Desktop (`claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "pixel-readme": {
+      "command": "python",
+      "args": ["-m", "generator.mcp_server"],
+      "cwd": "/path/to/pixel-readme-kit"
+    }
+  }
+}
+```
+
+Сервер предоставляет 12 специализированных инструментов:
+- `pixel_compile_template` — полная сборка шаблона с кэшированием и очисткой.
+- `pixel_generate_header` — шапки с поддержкой 3 стилей и компактного режима.
+- `pixel_generate_metrics` — карточки KPI и метрик производительности.
+- `pixel_generate_progress` — многосегментные полосы прогресса.
+- `pixel_generate_techstack` — сетка технологий с пиксельными иконками.
+- `pixel_generate_timeline` — таймлайн и дорожная карта.
+- `pixel_generate_social` — баннер 1280x640 OpenGraph Social Preview.
+- `pixel_generate_callout`, `pixel_generate_frame`, `pixel_generate_chip`, `pixel_generate_divider`, `pixel_generate_splitter`.
+
+---
+
+## 7. Часть 6: Автоматизация через GitHub Actions
+
+В репозиторий уже включён готовый пайплайн [.github/workflows/pixel-compile.yml](.github/workflows/pixel-compile.yml), который:
+1. Прогоняет полный юнит-тест сьют на Python 3.11 и 3.12.
+2. При push в `main` автоматически компилирует все `*.template.md` файлы.
+3. Валидирует 100% полученных SVG через `xml.etree.ElementTree`.
+4. Делает коммит и пуш с меткой `[skip ci]`.
 
 ```yaml
-name: Compile Pixel README
+name: Pixel Kit Test & Auto-Compiler
 
 on:
   push:
+    branches: [main]
     paths:
-      - 'README.template.md'
+      - '*.template.md'
       - 'generator/**'
+      - 'presets/**'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - run: python -m unittest discover tests -v
 
-      - name: Compile README from template
-        run: |
-          python -m generator.cli compile --input README.template.md --output README.md --assets-dir assets/generated
-
-      - name: Commit and push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+  compile:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          commit_message: "docs(readme): automated recompilation from template [skip ci]"
-          file_pattern: "README.md assets/generated/*.svg"
+          python-version: '3.12'
+      - run: |
+          python -m generator.cli compile --input README.template.md --output README.md --assets-dir assets/generated
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-compile pixel-readme-kit templates [skip ci]"
 ```
 
 ---

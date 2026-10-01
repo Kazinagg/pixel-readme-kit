@@ -178,14 +178,43 @@
     - Автоматическая валидация всех SVG через `xml.etree.ElementTree`.
     - Автоматический коммит и пуш обновленных файлов с меткой `[skip ci]`.
 
+- [X] **10. Архитектура v4.0: Инкрементальный кэш, сборщик мусора и MCP-сервер (Sprint 1)**
+  - `generator/cache.py`: инкрементальный SHA-256 кэш сборки (`.pixel-cache.json`), сокращающий время рекомпиляции с секунд до 10-40 мс.
+  - `generator/compiler.py`: встроенный Garbage Collector (`--clean-assets`, `--dry-run-clean`), автоматически очищающий сиротские SVG.
+  - `generator/scaffolder.py`: CLI-команда `init` для мгновенного развёртывания шаблонов с профилями `cyberpunk`, `tactical`, `minimal`.
+  - `generator/mcp_server.py`: нативный stdio JSON-RPC MCP сервер для Claude Desktop, Antigravity и Cursor с 12 инструментами.
+
+- [X] **11. Визуализация данных и инфографика v4.0 (Sprint 2)**
+  - `generator/icons.py`: встроенный реестр чистых монохромных пиксельных иконок без внешних зависимостей (Python, Rust, C++, Docker, Git, Linux, K8s, Go, JS, TS, React, Vue, Terminal, Database, Shield, CPU, Network, Radar, Zap).
+  - Карточки метрик и KPI (`generate_metrics`, `<!-- pixel-kit:metrics -->`).
+  - Многосегментные индикаторы прогресса (`generate_progress`, `<!-- pixel-kit:progress -->`).
+  - Сетка стека технологий (`generate_techstack`, `<!-- pixel-kit:techstack -->`).
+  - Печатная плата / таймлайн дорожной карты (`generate_timeline`, `<!-- pixel-kit:timeline -->`).
+
+- [X] **12. Мобильная адаптивность, Camo и Social Card v4.0 (Sprint 3)**
+  - Mobile Font Safety: строгий аудит и поднятие всех шрифтов до $\ge 11$px (включая бейджи и футеры).
+  - Компактный хедер (`compact="true"`, 84px): компактная шапка для подмодулей и вложенных разделов.
+  - GitHub Camo Cache-Buster (`--bust-cache`): генерация `?v=<hash>` перед якорными ссылками `#gh-*-mode-only`.
+  - OpenGraph 1280x640 Social Card (`generate_social`, `<!-- pixel-kit:social -->`, `cli.py social`).
+
+- [X] **13. Интерактивный Live Preview и HUD Studio v4.0 (Sprint 4)**
+  - `generator/server.py`: встроенный веб-сервер на стандартной библиотеке Python без внешних зависимостей.
+  - Realtime SVG Rendering API (`/api/render`) с задержкой генерации < 50 мс.
+  - SSE Live-Reload (`/events`): автоматическое обновление страницы за 300 мс при сохранении шаблона.
+  - Web HUD Studio (`STUDIO_HTML`): интерактивный графический конструктор блоков, переключение GitHub тем, генератор директив.
+  - HUD Debug Mode: 20px сетка позиционирования и индикаторы предупреждения о превышении бюджета символов.
+  - Команды CLI: `python -m generator.cli studio --open` и `python -m generator.cli serve --template FILE`.
+
+- [X] **14. Документация, Каталог, Навык Агента и Полная Регрессия (Sprint 5)**
+  - Обновлены `README.template.md` и скомпилирован `README.md`.
+  - Обновлены `CATALOG.template.md` (секции 10–15) и скомпилирован `CATALOG.md`.
+  - Обновлены `EXAMPLE_TEMPLATE.md` и `EXAMPLE.md` со всеми виджетами v4.0.
+  - Создано подробное интерактивное руководство `EXAMPLES.md`.
+  - Обновлен навык `.agents/skills/pixel-readme/SKILL.md` с полным описанием архитектуры, директив, студии и MCP-сервера.
+  - 52 из 52 автоматизированных тестов успешно проходят (`python -m unittest discover tests`).
+
 ---
 
-## 🛠️ Как продолжить работу завтра:
+## 🚀 Релиз Pixel Readme Kit v4.0 завершён!
+Все 5 запланированных эпиков успешно реализованы, протестированы и задокументированы.
 
-1. Открыть Antigravity в папке проекта:
-   ```
-   D:\ForWorkStudy\Projects\pixel-readme-kit
-   ```
-2. Попросить ассистента:
-   > *"Продолжаем работу по TODO.md. Начни с ПРИОРИТЕТА 1: пиксельные списки для каждого стиля и создание Главных Боттомов (Master Footers)."*
-   >
