@@ -14,7 +14,7 @@
 &nbsp;&nbsp;
 <a href="#top"><img src="assets/generated/chip-readme-version.svg" alt="● v4.0.0 STABLE" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg" alt="★ 1" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg" alt="★ 2" /></a>
 &nbsp;&nbsp;
 <a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg" alt="🍴 0" /></a>
 &nbsp;&nbsp;

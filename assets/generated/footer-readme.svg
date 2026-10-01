@@ -59,18 +59,18 @@
 
   <!-- Top Micro-Rail -->
   <line x1="12" y1="9" x2="838" y2="9" stroke="var(--primary)" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
-  <text x="14" y="16" fill="var(--accent)" font-size="8" font-weight="bold" class="font-mono">[SYS_EOF: 0x00FF]</text>
-  <text x="836" y="16" fill="var(--accent)" font-size="8" font-weight="bold" text-anchor="end" class="font-mono">// BUS_SPEED: 64Gbps //</text>
+  <text x="14" y="16" fill="var(--accent)" font-size="11" font-weight="bold" class="font-mono">[SYS_EOF: 0x00FF]</text>
+  <text x="836" y="16" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="end" class="font-mono">// BUS_SPEED: 64Gbps //</text>
 
   <!-- Left Main Status Readout -->
   <circle cx="26" cy="35" r="4.5" fill="var(--primary)" class="led"/>
   <circle cx="26" cy="35" r="1.5" fill="#FFFFFF"/>
   <rect x="38" y="26" width="76" height="18" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1"/>
-  <text x="76" y="38" fill="var(--primary)" font-size="8.5" font-weight="bold" text-anchor="middle" class="font-mono">SYS_STATUS</text>
+  <text x="76" y="38" fill="var(--primary)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">SYS_STATUS</text>
   <text x="124" y="40" fill="var(--primary)" font-size="12" font-weight="bold" class="font-mono">SESSION_ONLINE // READY</text>
 
   <!-- Secondary Diagnostics Sub-line -->
-  <text x="24" y="61" fill="var(--text-dim)" font-size="8.5" class="font-mono"><tspan fill="var(--accent)">RUNTIME:</tspan> BUFFER_CLEARED <tspan fill="rgba(148, 163, 184, 0.4)">|</tspan> <tspan fill="var(--accent)">PACKET_LOSS:</tspan> 0.00% <tspan fill="rgba(148, 163, 184, 0.4)">|</tspan> <tspan fill="var(--accent)">LINK_QUALITY:</tspan> 100%_LOCKED</text>
+  <text x="24" y="61" fill="var(--text-dim)" font-size="11" class="font-mono"><tspan fill="var(--accent)">RUNTIME:</tspan> BUFFER_CLEARED <tspan fill="rgba(148, 163, 184, 0.4)">|</tspan> <tspan fill="var(--accent)">PACKET_LOSS:</tspan> 0.00% <tspan fill="rgba(148, 163, 184, 0.4)">|</tspan> <tspan fill="var(--accent)">LINK_QUALITY:</tspan> 100%_LOCKED</text>
 
   <!-- Center PCB Pulse / Mini Matrix -->
   <g transform="translate(390, 30)">
@@ -79,7 +79,7 @@
     <circle cx="0" cy="6" r="3" fill="var(--primary)"/>
     <circle cx="70" cy="6" r="3" fill="var(--primary)"/>
     <rect x="25" y="0" width="20" height="12" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1"/>
-    <text x="35" y="9" fill="var(--primary)" font-size="7" font-weight="bold" text-anchor="middle" class="font-mono">EOF</text>
+    <text x="35" y="9" fill="var(--primary)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">EOF</text>
   </g>
 
   <!-- Right Return To Top Button -->
@@ -89,8 +89,8 @@
     <rect x="177" y="0" width="3" height="3" fill="var(--primary)"/>
     <rect x="0" y="33" width="3" height="3" fill="var(--primary)"/>
     <rect x="177" y="33" width="3" height="3" fill="var(--primary)"/>
-    <text x="90" y="21" fill="var(--primary)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">▲ НАВЕРХ</text>
-    <text x="90" y="31" fill="var(--text-dim)" font-size="7" text-anchor="middle" class="font-mono">[ CLICK TO RETURN ]</text>
+    <text x="90" y="21" fill="var(--primary)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ НАВЕРХ</text>
+    <text x="90" y="31" fill="var(--text-dim)" font-size="11" text-anchor="middle" class="font-mono">[ CLICK TO RETURN ]</text>
   </g>
 
   <!-- Bottom Grounding Notch -->
