@@ -159,7 +159,8 @@ def cmd_chip(args):
         "preset": args.preset,
         "chip_type": args.type,
         "text": chip_text,
-        "width": args.width
+        "width": args.width,
+        "decay_dir": getattr(args, "decay_dir", "right")
     }, f"chip-{args.style}-{args.type}")
 
 def cmd_divider(args):
@@ -398,6 +399,7 @@ def main():
     p_chp.add_argument("--github", choices=["stars", "forks", "issues", "license", "watchers", "version", "release"], help="Fetch live GitHub stat for label")
     p_chp.add_argument("--repo", default="Kazinagg/pixel-readme-kit", help="GitHub repo for live stats (e.g. Kazinagg/pixel-readme-kit)")
     p_chp.add_argument("--width", type=int, help="Optional manual width override in px (default: auto-calculated from text)")
+    p_chp.add_argument("--decay-dir", choices=["right", "left", "both"], default="right", help="Decay direction: right, left, both (default: right)")
     p_chp.add_argument("--output", "-o", help="Target SVG destination path")
     p_chp.set_defaults(func=cmd_chip)
 

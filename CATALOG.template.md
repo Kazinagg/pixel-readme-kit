@@ -10,7 +10,7 @@
 
 <!-- pixel-kit:chip style="cyberpunk" type="closed" text="🏠 ГЛАВНАЯ (README)" href="README.md" out="assets/generated/chip-cat-home.svg" -->
 &nbsp;&nbsp;
-<!-- pixel-kit:chip style="tactical" type="decay" text="💡 ПРИМЕРЫ И РАЗБОР" href="EXAMPLES.md" out="assets/generated/chip-cat-examples.svg" -->
+<!-- pixel-kit:chip style="tactical" type="closed" text="💡 ПРИМЕРЫ И РАЗБОР" href="EXAMPLES.md" out="assets/generated/chip-cat-examples.svg" -->
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="minimal" type="pulse" text="▲ НАВЕРХ" href="#top" out="assets/generated/chip-cat-top.svg" -->
 

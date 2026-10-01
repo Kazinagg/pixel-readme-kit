@@ -12,7 +12,7 @@
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="minimal" type="closed" text="LICENSE // MIT" out="assets/example/chip-license.svg" -->
 &nbsp;&nbsp;
-<!-- pixel-kit:chip style="tactical" type="decay" text="SEC: CLEAR" out="assets/example/chip-security.svg" -->
+<!-- pixel-kit:chip style="tactical" type="closed" text="SEC: CLEAR" out="assets/example/chip-security.svg" -->
 
 <br/><br/>
 

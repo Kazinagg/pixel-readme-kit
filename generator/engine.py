@@ -1450,7 +1450,8 @@ def estimate_chip_width(text, font_size=10, char_w=7.0):
 
 
 def generate_chip(style="cyberpunk", primary=None, accent=None,
-                  chip_type="closed", text="CHIP_LABEL", width=None, height=26, mode="auto", preset=None):
+                  chip_type="closed", text="CHIP_LABEL", width=None, height=26, mode="auto", preset=None,
+                  decay_dir="right"):
     c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
@@ -1463,24 +1464,89 @@ def generate_chip(style="cyberpunk", primary=None, accent=None,
     text_clean = escape_xml(text)
     st = style.lower()
     ct = chip_type.lower()
+    dd = (decay_dir or "right").lower()
     text_w = estimate_chip_width(text)
 
     if st == "tactical":
         if ct == "decay":
-            # Tactical Hazard Slash Decay (45° diagonal slashes fading out)
-            left_pad = 22  # Chamfer (7px) + arrow (8..13px) + padding
-            right_pad = 14 # Padding before 45° slant
-            box_bot_r = int(left_pad + text_w + right_pad)
-            box_top_r = box_bot_r + 14
-            s1_t, s1_b = box_top_r + 5, box_bot_r + 5
-            s2_t, s2_b = s1_t + 9, s1_b + 9
-            s3_t, s3_b = s2_t + 8, s2_b + 8
-            s4_t, s4_b = s3_t + 8, s3_b + 8
-            calc_w = s4_t + 6
-            w = width if width is not None else calc_w
-            text_x = left_pad + int(text_w / 2)
+            if dd == "both":
+                slash_zone = 26
+                left_pad = slash_zone + 10
+                right_pad = 10
+                box_l = slash_zone + 2
+                box_r = int(left_pad + text_w + right_pad)
+                calc_w = box_r + slash_zone + 2
+                w = width if width is not None else calc_w
+                text_x = int(w / 2)
+                l1_t, l1_b = 2, 2
+                l2_t, l2_b = l1_t + 6, l1_b + 6
+                l3_t, l3_b = l2_t + 6, l2_b + 6
+                l4_t, l4_b = l3_t + 6, l3_b + 6
+                r1_t, r1_b = box_r + 4, box_r + 4
+                r2_t, r2_b = r1_t + 6, r1_b + 6
+                r3_t, r3_b = r2_t + 6, r2_b + 6
+                r4_t, r4_b = r3_t + 6, r3_b + 6
+                svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
+    </style>
+  </defs>
+  <polygon points="{box_l+5} 1, {box_r-5} 1, {box_r} 6, {box_r} 20, {box_r-5} 25, {box_l+5} 25, {box_l} 20, {box_l} 6" fill="{bg}"/>
+  <polygon points="{box_l+5} 1, {box_r-5} 1, {box_r} 6, {box_r} 20, {box_r-5} 25, {box_l+5} 25, {box_l} 20, {box_l} 6" fill="{panel}" stroke="{prim}" stroke-width="1.5"/>
+  <polygon points="{l1_t+3} 9, {l1_t+5} 9, {l1_b+3} 17, {l1_b+1} 17" fill="{prim}" opacity="0.2"/>
+  <polygon points="{l2_t+2.5} 6, {l2_t+5} 6, {l2_b+2.5} 20, {l2_b} 20" fill="{prim}" opacity="0.4"/>
+  <polygon points="{l3_t+3} 3, {l3_t+6} 3, {l3_b+3} 23, {l3_b} 23" fill="{prim}" opacity="0.65"/>
+  <polygon points="{l4_t} 1, {l4_t+3.5} 1, {l4_b+3.5} 25, {l4_b} 25" fill="{prim}" opacity="0.9"/>
+  <polygon points="{r1_t} 1, {r1_t+3.5} 1, {r1_b+3.5} 25, {r1_b} 25" fill="{prim}" opacity="0.9"/>
+  <polygon points="{r2_t} 3, {r2_t+3} 3, {r2_b+3} 23, {r2_b} 23" fill="{prim}" opacity="0.65"/>
+  <polygon points="{r3_t} 6, {r3_t+2.5} 6, {r3_b+2.5} 20, {r3_b} 20" fill="{prim}" opacity="0.4"/>
+  <polygon points="{r4_t} 9, {r4_t+2} 9, {r4_b+2} 17, {r4_b} 17" fill="{prim}" opacity="0.2"/>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+</svg>"""
+            elif dd == "left":
+                slash_zone = 26
+                left_pad = slash_zone + 14
+                right_pad = 16
+                box_l = slash_zone + 2
+                calc_w = int(left_pad + text_w + right_pad)
+                w = width if width is not None else calc_w
+                text_x = left_pad + int(text_w / 2)
+                l1_t, l1_b = 2, 2
+                l2_t, l2_b = l1_t + 6, l1_b + 6
+                l3_t, l3_b = l2_t + 6, l2_b + 6
+                l4_t, l4_b = l3_t + 6, l3_b + 6
+                svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
+    </style>
+  </defs>
+  <polygon points="{box_l+5} 1, {w-8} 1, {w-2} 7, {w-2} 19, {w-8} 25, {box_l+5} 25, {box_l} 20, {box_l} 6" fill="{bg}"/>
+  <polygon points="{box_l+5} 1, {w-8} 1, {w-2} 7, {w-2} 19, {w-8} 25, {box_l+5} 25, {box_l} 20, {box_l} 6" fill="{panel}" stroke="{prim}" stroke-width="1.5"/>
+  <polygon points="{l1_t+3} 9, {l1_t+5} 9, {l1_b+3} 17, {l1_b+1} 17" fill="{prim}" opacity="0.2"/>
+  <polygon points="{l2_t+2.5} 6, {l2_t+5} 6, {l2_b+2.5} 20, {l2_b} 20" fill="{prim}" opacity="0.4"/>
+  <polygon points="{l3_t+3} 3, {l3_t+6} 3, {l3_b+3} 23, {l3_b} 23" fill="{prim}" opacity="0.65"/>
+  <polygon points="{l4_t} 1, {l4_t+3.5} 1, {l4_b+3.5} 25, {l4_b} 25" fill="{prim}" opacity="0.9"/>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+</svg>"""
+            else:
+                # Tactical Hazard Slash Decay Right (default)
+                left_pad = 22  # Chamfer (7px) + arrow (8..13px) + padding
+                right_pad = 14 # Padding before 45° slant
+                box_bot_r = int(left_pad + text_w + right_pad)
+                box_top_r = box_bot_r + 14
+                s1_t, s1_b = box_top_r + 5, box_bot_r + 5
+                s2_t, s2_b = s1_t + 9, s1_b + 9
+                s3_t, s3_b = s2_t + 8, s2_b + 8
+                s4_t, s4_b = s3_t + 8, s3_b + 8
+                calc_w = s4_t + 6
+                w = width if width is not None else calc_w
+                text_x = left_pad + int(text_w / 2)
 
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
+                svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       {css_vars}

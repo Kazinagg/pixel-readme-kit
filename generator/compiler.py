@@ -834,9 +834,11 @@ class MarkdownCompiler:
                 if not link_url:
                     link_url = stat_link
 
+            decay_dir = attrs.get("decay_dir") or attrs.get("direction", "right")
+
             return self._render_asset_markup(
                 generate_chip,
-                {"style": style, "primary": prim, "accent": acc, "chip_type": ctype, "text": text_val, "width": w_val, "preset": preset},
+                {"style": style, "primary": prim, "accent": acc, "chip_type": ctype, "text": text_val, "width": w_val, "preset": preset, "decay_dir": decay_dir},
                 attrs,
                 f"chip-{style}-{ctype}",
                 alt=text_val,

@@ -156,8 +156,11 @@ class TestEngine(unittest.TestCase):
     def test_generate_chip(self):
         for style in ["cyberpunk", "tactical", "minimal"]:
             for ctype in ["closed", "decay", "pulse"]:
-                svg = generate_chip(style=style, chip_type=ctype, text="⚡ v3.0.0")
+                svg = generate_chip(style=style, chip_type=ctype, text="⚡ v4.0.0")
                 self.assert_valid_svg(svg)
+            for ddir in ["right", "left", "both"]:
+                svg_decay = generate_chip(style=style, chip_type="decay", text="DECAY_TEST", decay_dir=ddir)
+                self.assert_valid_svg(svg_decay)
 
     def test_generate_divider_and_splitter(self):
         for style in ["cyberpunk", "tactical", "minimal"]:

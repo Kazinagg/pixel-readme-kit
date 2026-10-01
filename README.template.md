@@ -10,13 +10,13 @@
 
 <!-- pixel-kit:chip style="cyberpunk" type="closed" text="📚 КАТАЛОГ БЛОКОВ" href="CATALOG.md" out="assets/generated/chip-readme-catalog.svg" -->
 &nbsp;&nbsp;
-<!-- pixel-kit:chip style="tactical" type="decay" text="💡 ПРИМЕРЫ И РАЗБОР" href="EXAMPLES.md" out="assets/generated/chip-readme-examples.svg" -->
+<!-- pixel-kit:chip style="tactical" type="closed" text="💡 ПРИМЕРЫ И РАЗБОР" href="EXAMPLES.md" out="assets/generated/chip-readme-examples.svg" -->
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="minimal" type="pulse" text="● v4.0.0 STABLE" href="#top" out="assets/generated/chip-readme-version.svg" -->
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="cyberpunk" type="closed" github="stars" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-stars.svg" -->
 &nbsp;&nbsp;
-<!-- pixel-kit:chip style="tactical" type="decay" github="forks" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-forks.svg" -->
+<!-- pixel-kit:chip style="tactical" type="closed" github="forks" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-forks.svg" -->
 &nbsp;&nbsp;
 <!-- pixel-kit:chip style="minimal" type="pulse" github="license" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-license.svg" -->
 
