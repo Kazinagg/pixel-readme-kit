@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="assets/example/neo-header.svg?v=1f611714" width="100%" alt="NEO-CORE" />
+<img src="assets/example/neo-header.svg?v=2d7243f9" width="100%" alt="NEO-CORE" />
 
 <br/><br/>
 
@@ -23,12 +23,12 @@
 <br/>
 
 <!-- 1. АВТОНОМНЫЙ АЛЕРТ (CALLOUT) -->
-<img src="assets/example/callout-arch.svg?v=4ae4c327" width="100%" alt="RUNTIME ARCHITECTURE // ZERO CAMO PROXY OVERFLOW" />
+<img src="assets/example/callout-arch.svg?v=437464d1" width="100%" alt="RUNTIME ARCHITECTURE // ZERO CAMO PROXY OVERFLOW" />
 
 <br/>
 
 <!-- 2. БЛОК ЦИТАТЫ С ХЕДЕРОМ (QUOTE) -->
-> <img src="assets/example/callout-quote-warn.svg?v=4259a112" width="100%" alt="CRITICAL CONSTRAINT // FULL-WIDTH COMPLIANCE" />
+> <img src="assets/example/callout-quote-warn.svg?v=ad1620f2" width="100%" alt="CRITICAL CONSTRAINT // FULL-WIDTH COMPLIANCE" />
 >
 > **Внимание оператора**: все контентные окна обязаны использовать 100% табличную обертку (`<table width="100%"><tr><td width="2000">...</td></tr></table>`). 
 > Это гарантирует, что зубцы крышек на `x=1` и `x=849` ложатся ровно на серые рамки GitHub без боковых зазоров на любых дисплеях.
@@ -36,7 +36,7 @@
 <br/>
 
 <!-- 3. ИНТЕРАКТИВНОЕ ОКНО CYBERPUNK (WINDOW) -->
-<img src="assets/example/frame-top-cyber.svg?v=1025e471" width="100%" />
+<img src="assets/example/frame-top-cyber.svg?v=ddaf8b5a" width="100%" />
 
 <table width="100%">
 <tr>
@@ -62,7 +62,7 @@ neo-kernel init --profile=cyberpunk
 </tr>
 </table>
 
-<img src="assets/example/frame-bottom-cyber.svg?v=cff38047" width="100%" />
+<img src="assets/example/frame-bottom-cyber.svg?v=6590162d" width="100%" />
 
 <br/>
 
@@ -82,7 +82,7 @@ neo-kernel init --profile=cyberpunk
 <br/>
 
 <!-- 7. ТАКТИЧЕСКОЕ ОКНО С ФАСКАМИ 45° (TACTICAL WINDOW) -->
-<img src="assets/example/frame-top-tactical.svg?v=f86af3fa" width="100%" />
+<img src="assets/example/frame-top-tactical.svg?v=d8b51cdc" width="100%" />
 
 <table width="100%">
 <tr>
@@ -98,7 +98,7 @@ neo-kernel init --profile=cyberpunk
 </tr>
 </table>
 
-<img src="assets/example/frame-bottom-tactical.svg?v=dab11bea" width="100%" />
+<img src="assets/example/frame-bottom-tactical.svg?v=a294921f" width="100%" />
 
 <br/>
 
@@ -118,7 +118,7 @@ neo-kernel init --profile=cyberpunk
 
 <br/>
 
-<img src="assets/example/terminal-top.svg?v=c427eefe" width="100%" />
+<img src="assets/example/terminal-top.svg?v=6c471177" width="100%" />
 
 <table width="100%">
 <tr>
@@ -143,7 +143,7 @@ telemetry:
 </tr>
 </table>
 
-<img src="assets/example/terminal-bottom.svg?v=704e4ffa" width="100%" />
+<img src="assets/example/terminal-bottom.svg?v=f4a250b8" width="100%" />
 
 </details>
 
@@ -152,7 +152,7 @@ telemetry:
 <div align="center">
 
 <!-- 11. ЗАКРЫВАЮЩАЯ ПЛАСТИНА ФУТЕРА (FOOTER) -->
-<a href="#top"><img src="assets/example/footer.svg?v=0ad6694e" width="100%" alt="НАВЕРХ К ШАПКЕ" /></a>
+<a href="#top"><img src="assets/example/footer.svg?v=62e711bc" width="100%" alt="НАВЕРХ К ШАПКЕ" /></a>
 
 <br/><br/>
 
