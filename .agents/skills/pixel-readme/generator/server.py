@@ -4114,12 +4114,21 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
         except Exception as e:
             return f"<div style='padding:20px;color:#f85149;'>Compilation Error: {e}</div>"
 
-    def markdown_to_html(self, md: str) -> str:
+    @classmethod
+    def markdown_to_html(cls, *args, **kwargs) -> str:
         """
         Lightweight yet complete GitHub Flavored Markdown converter for README preview.
         Uses MarkdownIt with GFM tables and strikethroughs enabled when available,
-        with task list checkboxes, GitHub alert callouts, and seamless fallbacks.
+        with task list checkboxes, GitHub alert callouts, and robust zero-dependency fallbacks.
+        Supports both cls.markdown_to_html(md) and handler.markdown_to_html(handler, md).
         """
+        if len(args) == 1:
+            md = args[0]
+        elif len(args) >= 2:
+            md = args[1]
+        else:
+            md = kwargs.get("md", "")
+
         try:
             from markdown_it import MarkdownIt
             md_parser = MarkdownIt().enable('table').enable('strikethrough')
@@ -4155,18 +4164,84 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
             )
             return html
         except Exception:
-            return self._fallback_markdown_to_html(md)
+            return cls._fallback_markdown_to_html(md)
 
-    def _fallback_markdown_to_html(self, md: str) -> str:
-        """Fallback line-based markdown converter if markdown-it is unavailable."""
+    @classmethod
+    def _fallback_markdown_to_html(cls, md: str) -> str:
+        """
+        Pure Python fallback GFM-compatible markdown converter when markdown-it is unavailable.
+        Supports tables, task lists, code blocks, alerts, and inline styling.
+        """
         lines = md.split("\n")
         out = []
         in_code_block = False
         in_list = False
         in_blockquote = False
+        in_table = False
+        table_headers = []
+        table_rows = []
 
-        for line in lines:
-            if line.strip().startswith("```"):
+        def flush_table():
+            nonlocal in_table, table_headers, table_rows
+            if not in_table:
+                return
+            t_html = ["<table>"]
+            if table_headers:
+                t_html.append("<thead><tr>")
+                for h in table_headers:
+                    t_html.append(f"<th>{cls._format_inline_md(h.strip())}</th>")
+                t_html.append("</tr></thead>")
+            if table_rows:
+                t_html.append("<tbody>")
+                for r in table_rows:
+                    t_html.append("<tr>")
+                    for c in r:
+                        t_html.append(f"<td>{cls._format_inline_md(c.strip())}</td>")
+                    t_html.append("</tr>")
+                t_html.append("</tbody>")
+            t_html.append("</table>")
+            out.append("".join(t_html))
+            in_table = False
+            table_headers = []
+            table_rows = []
+
+        i = 0
+        while i < len(lines):
+            line = lines[i]
+            trimmed = line.strip()
+
+            # 1. GFM Table Detection
+            if trimmed.startswith("|") and trimmed.endswith("|"):
+                if in_list:
+                    out.append("</ul>")
+                    in_list = False
+                if in_blockquote:
+                    out.append("</blockquote>")
+                    in_blockquote = False
+
+                cells = [c for c in trimmed.split("|")[1:-1]]
+                if not in_table:
+                    # Check if next line is table delimiter (| :--- | :--- |)
+                    if i + 1 < len(lines) and re.match(r'^\s*\|(?:\s*:?-+:?\s*\|)+\s*$', lines[i+1].strip()):
+                        in_table = True
+                        table_headers = cells
+                        table_rows = []
+                        i += 2  # skip header and delimiter
+                        continue
+                    else:
+                        out.append(f"<p>{cls._format_inline_md(line)}</p>")
+                        i += 1
+                        continue
+                else:
+                    table_rows.append(cells)
+                    i += 1
+                    continue
+            else:
+                if in_table:
+                    flush_table()
+
+            # 2. Code blocks
+            if trimmed.startswith("```"):
                 if not in_code_block:
                     if in_list:
                         out.append("</ul>")
@@ -4175,19 +4250,21 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
                         out.append("</blockquote>")
                         in_blockquote = False
                     in_code_block = True
-                    lang = line.strip()[3:].strip()
+                    lang = trimmed[3:].strip()
                     out.append(f"<pre class='gh-code-block' data-lang='{lang}'><code>")
                 else:
                     in_code_block = False
                     out.append("</code></pre>")
+                i += 1
                 continue
 
             if in_code_block:
                 escaped = line.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
                 out.append(escaped)
+                i += 1
                 continue
 
-            trimmed = line.strip()
+            # 3. Raw HTML preserved
             if trimmed.startswith("<") or trimmed.startswith("<!--") or trimmed.endswith(">"):
                 if in_list:
                     out.append("</ul>")
@@ -4196,6 +4273,7 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
                     out.append("</blockquote>")
                     in_blockquote = False
                 out.append(line)
+                i += 1
                 continue
 
             if not trimmed:
@@ -4206,8 +4284,10 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
                     out.append("</blockquote>")
                     in_blockquote = False
                 out.append("")
+                i += 1
                 continue
 
+            # 4. Headings
             m_h = re.match(r'^(#{1,6})\s+(.*)$', line)
             if m_h:
                 if in_list:
@@ -4219,8 +4299,10 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
                 level = len(m_h.group(1))
                 h_text = m_h.group(2)
                 out.append(f"<h{level} class='gh-h{level}'>{h_text}</h{level}>")
+                i += 1
                 continue
 
+            # 5. Horizontal rules
             if trimmed in ("---", "***", "___"):
                 if in_list:
                     out.append("</ul>")
@@ -4229,8 +4311,33 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
                     out.append("</blockquote>")
                     in_blockquote = False
                 out.append("<hr class='gh-hr'>")
+                i += 1
                 continue
 
+            # 6. GitHub Alert Callouts (> [!NOTE], etc.)
+            m_alert = re.match(r'^>\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*$', line, re.IGNORECASE)
+            if m_alert:
+                if in_list:
+                    out.append("</ul>")
+                    in_list = False
+                if in_blockquote:
+                    out.append("</blockquote>")
+                    in_blockquote = False
+                alert_type = m_alert.group(1).upper()
+                alert_body_lines = []
+                i += 1
+                while i < len(lines) and lines[i].startswith(">"):
+                    alert_body_lines.append(lines[i].lstrip("> ").strip())
+                    i += 1
+                body = "<br>".join(cls._format_inline_md(b) for b in alert_body_lines if b)
+                title = alert_type.capitalize()
+                out.append(f"""<div class="markdown-alert markdown-alert-{alert_type.lower()}">
+  <p class="markdown-alert-title">{title}</p>
+  <div>{body}</div>
+</div>""")
+                continue
+
+            # 7. Blockquotes
             if line.startswith("> "):
                 if in_list:
                     out.append("</ul>")
@@ -4238,27 +4345,54 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
                 if not in_blockquote:
                     out.append("<blockquote>")
                     in_blockquote = True
-                bq_content = self._format_inline_md(line[2:])
+                bq_content = cls._format_inline_md(line[2:])
                 out.append(f"<p>{bq_content}</p>")
+                i += 1
                 continue
             elif in_blockquote:
                 out.append("</blockquote>")
                 in_blockquote = False
 
+            # 8. GFM Task List items
+            m_task_checked = re.match(r'^[-*]\s+\[[xX]\]\s+(.*)$', line)
+            m_task_open = re.match(r'^[-*]\s+\[ \]\s+(.*)$', line)
+            if m_task_checked:
+                if not in_list:
+                    out.append("<ul>")
+                    in_list = True
+                item_content = cls._format_inline_md(m_task_checked.group(1))
+                out.append(f'<li class="task-list-item"><input type="checkbox" checked disabled class="task-list-item-checkbox"> {item_content}</li>')
+                i += 1
+                continue
+            elif m_task_open:
+                if not in_list:
+                    out.append("<ul>")
+                    in_list = True
+                item_content = cls._format_inline_md(m_task_open.group(1))
+                out.append(f'<li class="task-list-item"><input type="checkbox" disabled class="task-list-item-checkbox"> {item_content}</li>')
+                i += 1
+                continue
+
+            # 9. Standard unordered lists
             if line.startswith("- ") or line.startswith("* "):
                 if not in_list:
                     out.append("<ul>")
                     in_list = True
-                item_content = self._format_inline_md(line[2:])
+                item_content = cls._format_inline_md(line[2:])
                 out.append(f"<li>{item_content}</li>")
+                i += 1
                 continue
             elif in_list:
                 out.append("</ul>")
                 in_list = False
 
-            p_content = self._format_inline_md(line)
+            # 10. Paragraphs
+            p_content = cls._format_inline_md(line)
             out.append(f"<p>{p_content}</p>")
+            i += 1
 
+        if in_table:
+            flush_table()
         if in_code_block:
             out.append("</code></pre>")
         if in_list:
@@ -4268,11 +4402,13 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
 
         return "\n".join(out)
 
-    def _format_inline_md(self, text: str) -> str:
-        """Formats inline markdown elements like bold, italic, code, links, images."""
+    @classmethod
+    def _format_inline_md(cls, text: str) -> str:
+        """Formats inline markdown elements like bold, italic, code, links, images, strikethrough."""
         text = re.sub(r'`([^`]+)`', r'<code class="gh-inline-code">\1</code>', text)
         text = re.sub(r'!\[(.*?)\]\((.*?)\)', r'<img src="\2" alt="\1" class="gh-img" />', text)
         text = re.sub(r'\[(.*?)\]\((.*?)\)', r'<a href="\2" class="gh-link">\1</a>', text)
+        text = re.sub(r'~~(.+?)~~', r'<del>\1</del>', text)
         text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
         text = re.sub(r'\*([^*]+)\*', r'<em>\1</em>', text)
         return text

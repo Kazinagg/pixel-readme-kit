@@ -215,6 +215,13 @@ class TestV4Sprint4(unittest.TestCase):
         self.assertIn("task-list-item-checkbox", html)
         self.assertIn("markdown-alert-note", html)
 
+        # Explicitly verify pure-Python fallback (critical for CI without markdown_it)
+        fallback_html = handler._fallback_markdown_to_html(gfm_md)
+        self.assertIn("<table>", fallback_html)
+        self.assertIn("<th", fallback_html)
+        self.assertIn("task-list-item-checkbox", fallback_html)
+        self.assertIn("markdown-alert-note", fallback_html)
+
     def test_13_timeline_and_global_theme(self):
         # 1. Timeline render with milestones
         t_url = f"{self.base_url}/api/render?block_type=timeline&body=" + urllib.parse.quote('milestone title="ALPHA" date="2026-Q1" status="COMPLETED" desc="Testing"')
