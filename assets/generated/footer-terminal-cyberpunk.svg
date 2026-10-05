@@ -8,6 +8,7 @@
         --border-chassis: #D0D7DE;
         --primary: #0969DA;
         --accent: #8250DF;
+        --tertiary: #CF222E;
         --title-front: #0969DA;
         --title-mid: #0550AE;
         --title-dark: #033D8B;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(30, 41, 59, 0.85);
           --primary: #00C8D7;
           --accent: #A855F7;
+          --tertiary: #FF0055;
           --title-front: #00C8D7;
           --title-mid: #006B74;
           --title-dark: #002B2F;
@@ -43,7 +45,7 @@
       }
 
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
-      @keyframes blinkLed { 0%, 100% { fill: var(--primary); opacity: 1; } 50% { fill: #1E293B; opacity: 0.3; } }
+      @keyframes blinkLed { 0%, 100% { fill: var(--primary); opacity: 1; } 50% { fill: var(--border-chassis); opacity: 0.3; } }
       .led { animation: blinkLed 1.8s infinite steps(1); }
     </style>
   </defs>
@@ -64,9 +66,9 @@
 
   <!-- Left Main Status Readout -->
   <circle cx="26" cy="35" r="4.5" fill="var(--primary)" class="led"/>
-  <circle cx="26" cy="35" r="1.5" fill="#FFFFFF"/>
-  <rect x="38" y="26" width="76" height="18" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1"/>
-  <text x="76" y="38" fill="var(--primary)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">SYS_STATUS</text>
+  <circle cx="26" cy="35" r="1.5" fill="var(--tertiary)"/>
+  <rect x="38" y="26" width="76" height="18" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="76" y="38" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">SYS_STATUS</text>
   <text x="124" y="40" fill="var(--primary)" font-size="12" font-weight="bold" class="font-mono">SESSION_ONLINE // BUFFER_FLUSHED</text>
 
   <!-- Secondary Diagnostics Sub-line -->
@@ -75,9 +77,9 @@
   <!-- Center PCB Pulse / Mini Matrix -->
   <g transform="translate(390, 30)">
     <line x1="0" y1="6" x2="70" y2="6" stroke="var(--border-chassis)" stroke-width="2"/>
-    <line x1="0" y1="6" x2="35" y2="6" stroke="var(--primary)" stroke-width="2"/>
+    <line x1="0" y1="6" x2="35" y2="6" stroke="var(--accent)" stroke-width="2"/>
     <circle cx="0" cy="6" r="3" fill="var(--primary)"/>
-    <circle cx="70" cy="6" r="3" fill="var(--primary)"/>
+    <circle cx="70" cy="6" r="3" fill="var(--accent)"/>
     <rect x="25" y="0" width="20" height="12" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1"/>
     <text x="35" y="9" fill="var(--primary)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">EOF</text>
   </g>
@@ -85,12 +87,12 @@
   <!-- Right Return To Top Button -->
   <g transform="translate(655, 22)" class="btn-hover">
     <rect x="0" y="0" width="180" height="36" fill="rgba(0, 200, 215, 0.16)" stroke="var(--primary)" stroke-width="1.5"/>
-    <rect x="0" y="0" width="3" height="3" fill="var(--primary)"/>
-    <rect x="177" y="0" width="3" height="3" fill="var(--primary)"/>
-    <rect x="0" y="33" width="3" height="3" fill="var(--primary)"/>
-    <rect x="177" y="33" width="3" height="3" fill="var(--primary)"/>
+    <rect x="0" y="0" width="4" height="4" fill="var(--accent)"/>
+    <rect x="176" y="0" width="4" height="4" fill="var(--accent)"/>
+    <rect x="0" y="32" width="4" height="4" fill="var(--accent)"/>
+    <rect x="176" y="32" width="4" height="4" fill="var(--accent)"/>
     <text x="90" y="21" fill="var(--primary)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ ВЕРНУТЬСЯ В НАЧАЛО</text>
-    <text x="90" y="31" fill="var(--text-dim)" font-size="11" text-anchor="middle" class="font-mono">[ CLICK TO RETURN ]</text>
+    <text x="90" y="31" fill="var(--accent)" font-size="11" text-anchor="middle" class="font-mono">[ CLICK TO RETURN ]</text>
   </g>
 
   <!-- Bottom Grounding Notch -->

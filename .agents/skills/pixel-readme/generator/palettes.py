@@ -18,6 +18,7 @@ THEMES = {
         "warning": "#F59E0B",      # Cyber Amber Gold
         "warning_glow": "rgba(245, 158, 11, 0.35)",
         "accent": "#FF0055",       # Laser Magenta / Red
+        "tertiary": "#FF0055",
         "text_main": "#F8F8F2",
         "text_dim": "#94A3B8",
         "shadow_dark": "#050B14",
@@ -38,6 +39,7 @@ THEMES = {
         "warning": "#EAB308",      # Cyber Yellow
         "warning_glow": "rgba(234, 179, 8, 0.35)",
         "accent": "#FF0055",
+        "tertiary": "#FF0055",
         "text_main": "#E8FFE8",
         "text_dim": "#6EE7B7",
         "shadow_dark": "#020A04",
@@ -58,6 +60,7 @@ THEMES = {
         "warning": "#D97706",
         "warning_glow": "rgba(217, 119, 6, 0.35)",
         "accent": "#EF4444",       # Signal Red
+        "tertiary": "#EF4444",
         "text_main": "#FFFBEB",
         "text_dim": "#FCD34D",
         "shadow_dark": "#0A0702",
@@ -78,6 +81,7 @@ THEMES = {
         "warning": "#F59E0B",
         "warning_glow": "rgba(245, 158, 11, 0.35)",
         "accent": "#06B6D4",       # Cyan Accent
+        "tertiary": "#06B6D4",
         "text_main": "#F1F5F9",
         "text_dim": "#94A3B8",
         "shadow_dark": "#0A0C14",

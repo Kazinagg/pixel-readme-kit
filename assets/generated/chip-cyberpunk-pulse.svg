@@ -8,6 +8,7 @@
         --border-chassis: #D0D7DE;
         --primary: #0969DA;
         --accent: #8250DF;
+        --tertiary: #CF222E;
         --title-front: #0969DA;
         --title-mid: #0550AE;
         --title-dark: #033D8B;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(30, 41, 59, 0.85);
           --primary: #00C8D7;
           --accent: #A855F7;
+          --tertiary: #FF0055;
           --title-front: #00C8D7;
           --title-mid: #006B74;
           --title-dark: #002B2F;
@@ -43,15 +45,15 @@
       }
 
       .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
-      @keyframes blinkLed { 0%, 100% { fill: var(--primary); } 50% { fill: #1E293B; } }
+      @keyframes blinkLed { 0%, 100% { fill: var(--primary); opacity: 1; } 50% { fill: var(--border-chassis); opacity: 0.3; } }
       .led { animation: blinkLed 1.4s infinite steps(1); }
     </style>
   </defs>
   <rect x="1" y="1" width="122" height="24" fill="var(--bg-glass)"/>
   <rect x="1" y="1" width="122" height="24" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/>
   <rect x="1" y="1" width="3" height="3" fill="var(--primary)"/>
-  <rect x="120" y="1" width="3" height="3" fill="var(--primary)"/>
-  <rect x="1" y="22" width="3" height="3" fill="var(--primary)"/>
+  <rect x="120" y="1" width="3" height="3" fill="var(--accent)"/>
+  <rect x="1" y="22" width="3" height="3" fill="var(--accent)"/>
   <rect x="120" y="22" width="3" height="3" fill="var(--primary)"/>
   <circle cx="14" cy="13" r="3.5" fill="var(--primary)" class="led"/>
   <text x="66" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">● LED_PULSE</text>

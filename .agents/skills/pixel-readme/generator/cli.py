@@ -128,7 +128,8 @@ def cmd_callout(args):
         "callout_type": args.type,
         "title": args.title,
         "subtitle": args.subtitle,
-        "is_quote": args.quote
+        "is_quote": args.quote,
+        "badge_color": getattr(args, "badge_color", None)
     }, f"{prefix}-{args.style}-{args.type}")
 
 def cmd_frame(args):
@@ -316,7 +317,7 @@ def cmd_init(args):
     print(f"[*] Next step: customize {out} and run:")
     print(f"    python -m generator.cli compile --input {out}")
 
-def main():
+def build_parser():
     parser = argparse.ArgumentParser(
         prog="pixel-kit",
         description="Pixel Readme Kit v3.0 — Multi-Mode Cyberpunk / Tactical / Minimal HUD Generator & Markdown Compiler"
@@ -369,6 +370,7 @@ def main():
     p_clt.add_argument("--title", default="SYSTEM ARCHITECTURE NOTICE", help="Callout header title text")
     p_clt.add_argument("--subtitle", default="Dual-theme contrast > 7:1 // Monospace typography", help="Callout subtext message")
     p_clt.add_argument("--quote", action="store_true", help="Generate quote header sub-variant (open left edge + dashed bottom line)")
+    p_clt.add_argument("--badge-color", help="Custom hex color or GitHub alert name for badge and strip")
     p_clt.add_argument("--output", "-o", help="Target SVG destination path")
     p_clt.set_defaults(func=cmd_callout)
 
@@ -426,7 +428,7 @@ def main():
 
     # 8. COMPILE
     p_cmp = subparsers.add_parser("compile", help="Compile README template markdown containing pixel-kit directives")
-    p_cmp.add_argument("--input", "-i", default="README.template.md", help="Input Markdown template filepath (default: README.template.md)")
+    p_cmp.add_argument("--input", "-i", "--template", default="README.template.md", help="Input Markdown template filepath (default: README.template.md)")
     p_cmp.add_argument("--output", "-o", default=None, help="Output compiled Markdown filepath (default: README.md or matching *.md)")
     p_cmp.add_argument("--assets-dir", default="assets/generated", help="Folder where generated SVGs will be stored")
     p_cmp.add_argument("--clean-assets", action="store_true", help="Remove unused/orphan SVG files from assets directory")
@@ -515,7 +517,7 @@ def main():
 
     # 15. SERVE / STUDIO (Live Preview & Interactive HUD Studio)
     p_srv = subparsers.add_parser("serve", help="Launch live preview HTTP server with SSE reload and HUD Studio")
-    p_srv.add_argument("--input", "-i", default="README.template.md", help="Input Markdown template file to watch (default: README.template.md)")
+    p_srv.add_argument("--input", "-i", "--template", default="README.template.md", help="Input Markdown template file to watch (default: README.template.md)")
     p_srv.add_argument("--output", "-o", default=None, help="Target compiled markdown file (default: README.md)")
     p_srv.add_argument("--assets-dir", default="assets/generated", help="Folder where generated SVGs are stored")
     p_srv.add_argument("--port", "-p", type=int, default=3000, help="HTTP server port (default: 3000)")
@@ -523,12 +525,17 @@ def main():
     p_srv.set_defaults(func=cmd_serve)
 
     p_std = subparsers.add_parser("studio", help="Alias for serve: open HUD Studio in browser")
-    p_std.add_argument("--input", "-i", default="README.template.md", help="Input Markdown template file to watch (default: README.template.md)")
+    p_std.add_argument("--input", "-i", "--template", default="README.template.md", help="Input Markdown template file to watch (default: README.template.md)")
     p_std.add_argument("--output", "-o", default=None, help="Target compiled markdown file (default: README.md)")
     p_std.add_argument("--assets-dir", default="assets/generated", help="Folder where generated SVGs are stored")
     p_std.add_argument("--port", "-p", type=int, default=3000, help="HTTP server port (default: 3000)")
     p_std.add_argument("--open", action="store_true", default=True, help="Automatically open browser upon launch")
     p_std.set_defaults(func=cmd_serve)
+
+    return parser
+
+def main():
+    parser = build_parser()
 
     if len(sys.argv) == 1:
         parser.print_help()

@@ -8,6 +8,7 @@
         --border-chassis: #E2E8F0;
         --primary: #1D4ED8;
         --accent: #6D28D9;
+        --tertiary: #0891B2;
         --title-front: #1D4ED8;
         --title-mid: #1E40AF;
         --title-dark: #0F172A;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(41, 46, 66, 0.85);
           --primary: #4F8BFF;
           --accent: #A855F7;
+          --tertiary: #06B6D4;
           --title-front: #4F8BFF;
           --title-mid: #2563EB;
           --title-dark: #1E3A8A;
@@ -48,13 +50,13 @@
   <!-- Background Glass (Flush left to connect with markdown quote border) -->
   <rect x="0" y="0" width="850" height="42" fill="var(--bg-glass)"/>
   <!-- Top Rail -->
-  <line x1="0" y1="2" x2="849" y2="2" stroke="var(--primary)" stroke-width="1.5"/><path d="M 849 2 L 849 14" fill="none" stroke="var(--primary)" stroke-width="1.5"/><rect x="846" y="2" width="4" height="4" fill="var(--accent)"/>
+  <line x1="0" y1="2" x2="849" y2="2" stroke="#8957e5" stroke-width="1.5"/><path d="M 849 2 L 849 14" fill="none" stroke="#8957e5" stroke-width="1.5"/><rect x="846" y="2" width="4" height="4" fill="var(--accent)"/>
   <!-- Badge -->
-  <rect x="8" y="8" width="115" height="24" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1"/><text x="65" y="23" fill="var(--primary)" font-size="9.5" font-weight="bold" text-anchor="middle" class="font-mono">INFO // MINIMAL</text>
+  <rect x="8" y="8" width="115" height="24" fill="var(--bg-panel)" stroke="#8957e5" stroke-width="1"/><text x="65" y="23" fill="#8957e5" font-size="9.5" font-weight="bold" text-anchor="middle" class="font-mono">INFO // MINIMAL</text>
   <!-- Title & Subtitle (Properly offset past badge edge) -->
   <text x="136" y="20" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">MINIMAL QUOTE HEADER</text>
   <text x="136" y="33" fill="var(--accent)" font-size="11" class="font-mono">Тонкая линия Hairline без левой границы</text>
   <!-- DASHED BOTTOM LINE: Bridges into live markdown text -->
-  <line x1="0" y1="41" x2="845" y2="41" stroke="var(--primary)" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.75"/>
+  <line x1="0" y1="41" x2="845" y2="41" stroke="#8957e5" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.75"/>
   
 </svg>

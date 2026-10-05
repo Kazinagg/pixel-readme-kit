@@ -8,6 +8,7 @@
         --border-chassis: #D0D7DE;
         --primary: #0969DA;
         --accent: #8250DF;
+        --tertiary: #CF222E;
         --title-front: #0969DA;
         --title-mid: #0550AE;
         --title-dark: #033D8B;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(30, 41, 59, 0.85);
           --primary: #00C8D7;
           --accent: #A855F7;
+          --tertiary: #FF0055;
           --title-front: #00C8D7;
           --title-mid: #006B74;
           --title-dark: #002B2F;
@@ -47,8 +49,8 @@
         50%, 100% { opacity: 0; }
       }
       @keyframes ledFlicker {
-        0%, 100% { fill: var(--status); }
-        50% { fill: #004411; }
+        0%, 100% { fill: var(--status); opacity: 1; }
+        50% { fill: var(--status); opacity: 0.2; }
       }
       @keyframes crtScanline {
         0% { transform: translateY(0px); opacity: 0; }
@@ -94,27 +96,28 @@
   <rect x="6" y="6" width="838" height="270" fill="none" stroke="var(--border-chassis)" stroke-width="2"/>
   <rect x="12" y="12" width="826" height="258" fill="none" stroke="var(--primary)" stroke-width="2" opacity="0.85"/>
 
-  <!-- CORNER ACCENT BRACKETS -->
+  <!-- CORNER ACCENT BRACKETS (PRIMARY + SECONDARY DUAL-TONE) -->
   <rect x="6" y="6" width="24" height="6" fill="var(--primary)"/>
   <rect x="6" y="6" width="6" height="24" fill="var(--primary)"/>
-  <rect x="820" y="6" width="24" height="6" fill="var(--primary)"/>
-  <rect x="838" y="6" width="6" height="24" fill="var(--primary)"/>
-  <rect x="6" y="270" width="24" height="6" fill="var(--primary)"/>
-  <rect x="6" y="252" width="6" height="24" fill="var(--primary)"/>
+  <rect x="820" y="6" width="24" height="6" fill="var(--accent)"/>
+  <rect x="838" y="6" width="6" height="24" fill="var(--accent)"/>
+  <rect x="6" y="270" width="24" height="6" fill="var(--accent)"/>
+  <rect x="6" y="252" width="6" height="24" fill="var(--accent)"/>
   <rect x="820" y="270" width="24" height="6" fill="var(--primary)"/>
   <rect x="838" y="252" width="6" height="24" fill="var(--primary)"/>
 
   <!-- TOP CONSOLE STATUS BAR -->
   <rect x="14" y="14" width="822" height="22" fill="var(--bg-panel)"/>
-  <line x1="14" y1="36" x2="836" y2="36" stroke="var(--primary)" stroke-width="1.5" opacity="0.6"/>
+  <line x1="14" y1="36" x2="260" y2="36" stroke="var(--primary)" stroke-width="1.5" opacity="0.8"/>
+  <line x1="260" y1="36" x2="836" y2="36" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
 
   <circle cx="28" cy="25" r="4" fill="var(--status)" class="status-led"/>
   <text x="38" y="29" fill="var(--status)" font-size="11" font-weight="bold" class="font-mono">SYS: ONLINE // 0x00</text>
 
-  <rect x="175" y="19" width="2" height="12" fill="var(--border-chassis)"/>
+  <rect x="175" y="19" width="2" height="12" fill="var(--accent)" opacity="0.7"/>
   <text x="188" y="29" fill="var(--text-dim)" font-size="11" class="font-mono">HUD: ACTIVE_SYS</text>
 
-  <rect x="360" y="19" width="2" height="12" fill="var(--border-chassis)"/>
+  <rect x="360" y="19" width="2" height="12" fill="var(--accent)" opacity="0.7"/>
   <text x="372" y="29" fill="var(--text-dim)" font-size="11" class="font-mono">MODE: CYBERPUNK_HUD</text>
 
   <!-- Tag right-anchored to never collide with window controls -->
@@ -125,7 +128,7 @@
   <text x="770" y="28" fill="var(--text-dim)" font-size="10" font-weight="bold" class="font-mono">_</text>
   <rect x="787" y="19" width="16" height="12" fill="var(--border-chassis)"/>
   <text x="791" y="29" fill="var(--text-dim)" font-size="11" font-weight="bold" class="font-mono">□</text>
-  <rect x="809" y="19" width="16" height="12" fill="#FF0055"/><text x="813" y="29" fill="#FFFFFF" font-size="11" font-weight="bold" class="font-mono">×</text>
+  <rect x="809" y="19" width="16" height="12" fill="var(--tertiary)"/><text x="813" y="29" fill="var(--text-main)" font-size="11" font-weight="bold" class="font-mono">×</text>
 
   <!-- 3D PIXEL TITLE -->
   <g class="pixel-text-3d">
@@ -172,7 +175,7 @@
   <g transform="translate(525, 12)">
     <rect x="0" y="198" width="5" height="6" fill="var(--primary)" class="w1"/>
     <rect x="8" y="186" width="5" height="18" fill="var(--accent)" class="w2"/>
-    <rect x="16" y="192" width="5" height="12" fill="#FF0055" class="w3"/>
+    <rect x="16" y="192" width="5" height="12" fill="var(--tertiary)" class="w3"/>
     <rect x="24" y="182" width="5" height="22" fill="var(--warning)" class="w4"/>
   </g>
 
@@ -181,6 +184,16 @@
   <g transform="translate(630, 60)">
     <rect x="0" y="0" width="170" height="140" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="2"/>
     <rect x="4" y="4" width="162" height="132" fill="none" stroke="var(--primary)" stroke-width="1" opacity="0.6"/>
+
+    <!-- Radar Corner Accent Tabs in Secondary Accent -->
+    <rect x="0" y="0" width="8" height="2" fill="var(--accent)"/>
+    <rect x="0" y="0" width="2" height="8" fill="var(--accent)"/>
+    <rect x="162" y="0" width="8" height="2" fill="var(--accent)"/>
+    <rect x="168" y="0" width="2" height="8" fill="var(--accent)"/>
+    <rect x="0" y="138" width="8" height="2" fill="var(--accent)"/>
+    <rect x="0" y="132" width="2" height="8" fill="var(--accent)"/>
+    <rect x="162" y="138" width="8" height="2" fill="var(--accent)"/>
+    <rect x="168" y="132" width="2" height="8" fill="var(--accent)"/>
 
     <!-- Concentric Range Rings -->
     <circle cx="85" cy="70" r="50" fill="none" stroke="var(--primary)" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
@@ -197,7 +210,7 @@
     </g>
 
     <!-- Pulsing Radar Target Blips -->
-    <circle cx="110" cy="50" r="3" fill="#FF0055">
+    <circle cx="110" cy="50" r="3" fill="var(--tertiary)">
       <animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite"/>
     </circle>
     <circle cx="65" cy="85" r="2.5" fill="var(--status)">
@@ -210,6 +223,6 @@
 
   <!-- BOTTOM STATUS LINE -->
   <line x1="14" y1="256" x2="836" y2="256" stroke="var(--border-chassis)" stroke-width="1"/>
-  <text x="24" y="267" fill="var(--text-dim)" font-size="9" class="font-mono">HUD_ARCH: V3.0 // DUAL_THEME: PASS // SMART_LAYOUT</text>
+  <text x="24" y="267" fill="var(--accent)" font-size="9" class="font-mono">HUD_ARCH: V4.3 <tspan fill="var(--text-dim)">//</tspan> DUAL_THEME: PASS <tspan fill="var(--text-dim)">//</tspan> SMART_LAYOUT</text>
   <text x="826" y="267" fill="var(--primary)" font-size="9" font-weight="bold" text-anchor="end" class="font-mono">READY // ID: 0xDEADBEEF</text>
 </svg>

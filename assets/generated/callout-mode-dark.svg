@@ -6,10 +6,10 @@
     </style>
   </defs>
   <!-- Body Chassis -->
-  <polygon points="12 2, 838 2, 848 12, 848 36, 838 46, 12 46, 2 36, 2 12" fill="rgba(20, 14, 6, 0.88)" stroke="#F59E0B" stroke-width="1.5"/>
+  <polygon points="12 2, 838 2, 848 12, 848 36, 838 46, 12 46, 2 36, 2 12" fill="rgba(20, 14, 6, 0.88)" stroke="#2f81f7" stroke-width="1.5"/>
   <!-- Badges & Accents -->
-  <polygon points="34 10, 175 10, 182 17, 182 31, 175 38, 34 38" fill="rgba(30, 22, 10, 0.82)" stroke="#F59E0B" stroke-width="1.5"/><text x="105" y="28" fill="#F59E0B" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ NOTE // HAZARD</text>
-  <polygon points="10 8, 16 8, 8 20, 2 20" fill="#F59E0B" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="#F59E0B" opacity="0.6"/><circle cx="825" cy="24" r="8" fill="none" stroke="#F59E0B" stroke-width="1.5"/><polygon points="822 24, 828 20, 828 28" fill="#F59E0B"/>
+  <polygon points="34 10, 175 10, 182 17, 182 31, 175 38, 34 38" fill="rgba(30, 22, 10, 0.82)" stroke="#2f81f7" stroke-width="1.5"/><text x="105" y="28" fill="#2f81f7" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ NOTE // HAZARD</text>
+  <polygon points="10 8, 16 8, 8 20, 2 20" fill="#2f81f7" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="#2f81f7" opacity="0.6"/><circle cx="825" cy="24" r="8" fill="none" stroke="#2f81f7" stroke-width="1.5"/><polygon points="822 24, 828 20, 828 28" fill="#2f81f7"/>
   <!-- Text Content (Properly offset past badge edge) -->
   <text x="196" y="22" fill="#FFFBEB" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">STATIC DARK THEME</text>
   <text x="196" y="36" fill="#EA580C" font-size="11" class="font-mono">Guaranteed contrast on dark backgrounds</text>

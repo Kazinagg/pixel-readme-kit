@@ -8,6 +8,7 @@
         --border-chassis: #E2E8F0;
         --primary: #4F8BFF;
         --accent: #A855F7;
+        --tertiary: #0891B2;
         --title-front: #4F8BFF;
         --title-mid: #2f5399;
         --title-dark: #17294c;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(41, 46, 66, 0.85);
           --primary: #4F8BFF;
           --accent: #A855F7;
+          --tertiary: #06B6D4;
           --title-front: #4F8BFF;
           --title-mid: #233e72;
           --title-dark: #0b1426;
@@ -101,7 +103,7 @@
   <g transform="translate(730, 98)">
     <rect x="0" y="28" width="8" height="12" fill="var(--primary)" class="eq1"/>
     <rect x="14" y="12" width="8" height="28" fill="var(--accent)" class="eq2"/>
-    <rect x="28" y="22" width="8" height="18" fill="#06B6D4" class="eq3"/>
+    <rect x="28" y="22" width="8" height="18" fill="var(--tertiary)" class="eq3"/>
     <rect x="42" y="6" width="8" height="34" fill="var(--warning)" class="eq4"/>
     <rect x="56" y="18" width="8" height="22" fill="var(--status)" class="eq5"/>
     <text x="32" y="52" fill="var(--primary)" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">LIVE_AUDIO</text>

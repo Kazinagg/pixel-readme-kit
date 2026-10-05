@@ -8,6 +8,7 @@
         --border-chassis: #D0D7DE;
         --primary: #00C8D7;
         --accent: #8250DF;
+        --tertiary: #CF222E;
         --title-front: #00C8D7;
         --title-mid: #007881;
         --title-dark: #003c40;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(30, 41, 59, 0.85);
           --primary: #00C8D7;
           --accent: #A855F7;
+          --tertiary: #FF0055;
           --title-front: #00C8D7;
           --title-mid: #005a60;
           --title-dark: #001e20;
@@ -50,8 +52,8 @@
   <line x1="849" y1="0" x2="849" y2="12" stroke="var(--primary)" stroke-width="2.5"/><rect x="846" y="0" width="4" height="5" fill="var(--primary)"/>
   <line x1="1" y1="12" x2="849" y2="12" stroke="var(--border-chassis)" stroke-width="3"/>
   <line x1="6" y1="12" x2="844" y2="12" stroke="var(--primary)" stroke-width="1.5" opacity="0.85"/>
-  <path d="M 1 12 L 1 20 L 16 20" fill="none" stroke="var(--primary)" stroke-width="1.5"/><rect x="1" y="17" width="4" height="4" fill="var(--primary)"/>
-  <path d="M 849 12 L 849 20 L 834 20" fill="none" stroke="var(--primary)" stroke-width="1.5"/><rect x="845" y="17" width="4" height="4" fill="var(--primary)"/>
-  <rect x="320" y="4" width="210" height="16" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1"/>
+  <path d="M 1 12 L 1 20 L 16 20" fill="none" stroke="var(--primary)" stroke-width="1.5"/><rect x="1" y="17" width="4" height="4" fill="var(--accent)"/>
+  <path d="M 849 12 L 849 20 L 834 20" fill="none" stroke="var(--primary)" stroke-width="1.5"/><rect x="845" y="17" width="4" height="4" fill="var(--accent)"/>
+  <rect x="320" y="4" width="210" height="16" fill="var(--bg-glass)" stroke="var(--accent)" stroke-width="1"/>
   <text x="425" y="15" fill="var(--primary)" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">╚═ [ONLINE] ═╝</text>
 </svg>

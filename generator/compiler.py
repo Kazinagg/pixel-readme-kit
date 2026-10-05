@@ -106,16 +106,16 @@ def fetch_github_stat(repo, stat_type):
                 res = (f"★ {count}", def_link)
             elif st == "forks":
                 count = format_count(data.get("forks_count", 0))
-                res = (f"🍴 {count}", def_link)
+                res = (f"FORKS: {count}", def_link)
             elif st == "issues":
                 count = format_count(data.get("open_issues_count", 0))
                 res = (f"● ISSUES: {count}", def_link)
             elif st == "watchers":
                 count = format_count(data.get("subscribers_count", 0))
-                res = (f"👁 {count}", def_link)
+                res = (f"WATCHERS: {count}", def_link)
             elif st == "license":
                 lic = (data.get("license") or {}).get("spdx_id") or "MIT"
-                res = (f"⚖ {lic}", def_link)
+                res = (f"LICENSE: {lic}", def_link)
             else:
                 res = (f"{st.upper()}", def_link)
 
@@ -124,9 +124,9 @@ def fetch_github_stat(repo, stat_type):
     except Exception:
         fallback_text = {
             "stars": "★ STARS",
-            "forks": "🍴 FORKS",
+            "forks": "FORKS",
             "issues": "● ISSUES",
-            "license": "⚖ LICENSE",
+            "license": "LICENSE: MIT",
             "version": "v1.0.0",
             "release": "v1.0.0",
         }.get(st, st.upper())
@@ -379,6 +379,7 @@ class MarkdownCompiler:
             tag = attrs.get("tag", "[OPEN_HUD]")
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            tert = attrs.get("tertiary", None)
             preset = attrs.get("preset", None)
 
             attrs_top = dict(attrs)
@@ -398,14 +399,14 @@ class MarkdownCompiler:
 
             rendered_top = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "frame_type": "top", "title": title, "tag": tag, "preset": preset, "tag_url": tag_url, "close_url": close_url},
+                {"style": style, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "top", "title": title, "tag": tag, "preset": preset, "tag_url": tag_url, "close_url": close_url},
                 attrs_top,
                 f"frame-top-{style}",
                 is_full_width=True
             )
             rendered_bot = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "frame_type": "bottom", "title": title, "tag": tag, "preset": preset},
+                {"style": style, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "bottom", "title": title, "tag": tag, "preset": preset},
                 attrs_bot,
                 f"frame-bottom-{style}",
                 is_full_width=True
@@ -469,6 +470,7 @@ class MarkdownCompiler:
             state = attrs.get("state", "open").lower()
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            tert = attrs.get("tertiary", None)
             preset = attrs.get("preset", None)
 
             attrs_top = dict(attrs)
@@ -485,14 +487,14 @@ class MarkdownCompiler:
 
             rendered_top = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "frame_type": "top", "title": f"╔═ {title} // RUNTIME.SYS", "preset": preset},
+                {"style": style, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "top", "title": f"╔═ {title} // RUNTIME.SYS", "preset": preset},
                 attrs_top,
                 f"terminal-top-{style}",
                 is_full_width=True
             )
             rendered_bot = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "frame_type": "bottom", "preset": preset},
+                {"style": style, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "bottom", "preset": preset},
                 attrs_bot,
                 f"terminal-bottom-{style}",
                 is_full_width=True
@@ -542,13 +544,14 @@ class MarkdownCompiler:
             title = attrs.get("title", "SPECIFICATION NOTICE")
             sub = attrs.get("subtitle", "Content flows into live blockquote text")
             badge = attrs.get("badge", "NOTE")
+            badge_color = attrs.get("badge_color", None)
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
             preset = attrs.get("preset", None)
 
             rendered_q = self._render_asset_markup(
                 generate_callout,
-                {"style": style, "primary": prim, "accent": acc, "callout_type": badge, "title": title, "subtitle": sub, "is_quote": True, "preset": preset},
+                {"style": style, "primary": prim, "accent": acc, "callout_type": badge, "title": title, "subtitle": sub, "is_quote": True, "preset": preset, "badge_color": badge_color},
                 attrs,
                 f"callout-quote-{style}",
                 alt=title,
@@ -675,6 +678,7 @@ class MarkdownCompiler:
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
             preset = attrs.get("preset", None)
+            tert = attrs.get("tertiary", None)
 
             spec1 = attrs.get("spec1", None)
             spec2 = attrs.get("spec2", None)
@@ -688,7 +692,7 @@ class MarkdownCompiler:
             return self._render_asset_markup(
                 generate_header,
                 {
-                    "style": style, "primary": prim, "accent": acc, "title": title,
+                    "style": style, "primary": prim, "accent": acc, "tertiary": tert, "title": title,
                     "subtitle": sub, "tag": tag, "spec1": spec1, "spec2": spec2,
                     "spec3": spec3, "specs": specs, "preset": preset,
                     "tag_url": tag_url, "close_url": close_url, "compact": compact
@@ -715,11 +719,12 @@ class MarkdownCompiler:
             sub = attrs.get("sub") or attrs.get("sub_text") or None
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
+            tert = attrs.get("tertiary", None)
             preset = attrs.get("preset", None)
 
             return self._render_asset_markup(
                 generate_footer,
-                {"style": style, "primary": prim, "accent": acc, "status": status, "nav_text": nav, "sub_text": sub, "preset": preset},
+                {"style": style, "primary": prim, "accent": acc, "tertiary": tert, "status": status, "nav_text": nav, "sub_text": sub, "preset": preset},
                 attrs,
                 f"footer-{style}",
                 alt=nav,
@@ -739,6 +744,7 @@ class MarkdownCompiler:
             attrs = parse_directive_attrs(m.group(1))
             style = attrs.get("style", "cyberpunk")
             ctype = attrs.get("type", "note")
+            badge_color = attrs.get("badge_color", None)
             title = attrs.get("title", "SYSTEM SPECIFICATION")
             sub = attrs.get("subtitle", "")
             prim = attrs.get("primary", None)
@@ -747,7 +753,7 @@ class MarkdownCompiler:
 
             return self._render_asset_markup(
                 generate_callout,
-                {"style": style, "primary": prim, "accent": acc, "callout_type": ctype, "title": title, "subtitle": sub, "is_quote": False, "preset": preset},
+                {"style": style, "primary": prim, "accent": acc, "callout_type": ctype, "title": title, "subtitle": sub, "is_quote": False, "preset": preset, "badge_color": badge_color},
                 attrs,
                 f"callout-{style}-{ctype}",
                 alt=title,

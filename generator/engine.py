@@ -53,6 +53,7 @@ THEME_PALETTES = {
             "border": "rgba(30, 41, 59, 0.85)",
             "primary": "#00C8D7",
             "accent": "#A855F7",
+            "tertiary": "#FF0055",
             "title_front": "#00C8D7",
             "title_mid": "#006B74",
             "title_dark": "#002B2F",
@@ -68,6 +69,7 @@ THEME_PALETTES = {
             "border": "#D0D7DE",
             "primary": "#0969DA",
             "accent": "#8250DF",
+            "tertiary": "#CF222E",
             "title_front": "#0969DA",
             "title_mid": "#0550AE",
             "title_dark": "#033D8B",
@@ -85,6 +87,7 @@ THEME_PALETTES = {
             "border": "rgba(50, 36, 16, 0.85)",
             "primary": "#F59E0B",
             "accent": "#EA580C",
+            "tertiary": "#EF4444",
             "title_front": "#F59E0B",
             "title_mid": "#92400E",
             "title_dark": "#451A03",
@@ -100,6 +103,7 @@ THEME_PALETTES = {
             "border": "#FDE68A",
             "primary": "#B45309",
             "accent": "#C2410C",
+            "tertiary": "#B91C1C",
             "title_front": "#B45309",
             "title_mid": "#78350F",
             "title_dark": "#451A03",
@@ -117,6 +121,7 @@ THEME_PALETTES = {
             "border": "rgba(41, 46, 66, 0.85)",
             "primary": "#4F8BFF",
             "accent": "#A855F7",
+            "tertiary": "#06B6D4",
             "title_front": "#4F8BFF",
             "title_mid": "#2563EB",
             "title_dark": "#1E3A8A",
@@ -132,6 +137,7 @@ THEME_PALETTES = {
             "border": "#E2E8F0",
             "primary": "#1D4ED8",
             "accent": "#6D28D9",
+            "tertiary": "#0891B2",
             "title_front": "#1D4ED8",
             "title_mid": "#1E40AF",
             "title_dark": "#0F172A",
@@ -193,7 +199,7 @@ def get_shadow_colors(primary_hex, style="cyberpunk"):
         return base["title_mid"], base["title_dark"]
     return darken_hex(primary_hex, 0.45), darken_hex(primary_hex, 0.15)
 
-def resolve_theme(style, mode="auto", primary=None, accent=None, preset=None):
+def resolve_theme(style, mode="auto", primary=None, accent=None, preset=None, tertiary=None):
     st = style.lower() if style else "cyberpunk"
     pal = THEME_PALETTES.get(st, THEME_PALETTES["cyberpunk"])
     dark_vals = dict(pal["dark"])
@@ -204,6 +210,7 @@ def resolve_theme(style, mode="auto", primary=None, accent=None, preset=None):
         if preset_data:
             p_prim = preset_data.get("primary")
             p_acc = preset_data.get("accent") or preset_data.get("secondary")
+            p_tert = preset_data.get("tertiary") or (preset_data.get("accent") if preset_data.get("secondary") else None)
             p_succ = preset_data.get("success")
             p_warn = preset_data.get("warning")
             p_bg = preset_data.get("bg_glass") or preset_data.get("bg")
@@ -214,6 +221,8 @@ def resolve_theme(style, mode="auto", primary=None, accent=None, preset=None):
                 primary = p_prim
             if p_acc and not accent:
                 accent = p_acc
+            if p_tert and not tertiary:
+                tertiary = p_tert
             if p_succ:
                 dark_vals["success"] = p_succ
                 light_vals["success"] = darken_hex(p_succ, 0.7) if is_light_color(p_succ) else p_succ
@@ -241,6 +250,10 @@ def resolve_theme(style, mode="auto", primary=None, accent=None, preset=None):
         dark_vals["accent"] = accent
         light_vals["accent"] = darken_hex(accent, 0.7) if is_light_color(accent) else accent
 
+    if tertiary:
+        dark_vals["tertiary"] = tertiary
+        light_vals["tertiary"] = darken_hex(tertiary, 0.7) if is_light_color(tertiary) else tertiary
+
     m = mode.lower() if mode else "auto"
     if m == "dark":
         return dark_vals, ""
@@ -258,6 +271,7 @@ def resolve_theme(style, mode="auto", primary=None, accent=None, preset=None):
             "border": "var(--border-chassis)",
             "primary": "var(--primary)",
             "accent": "var(--accent)",
+            "tertiary": "var(--tertiary)",
             "title_front": "var(--title-front)",
             "title_mid": "var(--title-mid)",
             "title_dark": "var(--title-dark)",
@@ -274,6 +288,7 @@ def resolve_theme(style, mode="auto", primary=None, accent=None, preset=None):
         --border-chassis: {light_vals['border']};
         --primary: {light_vals['primary']};
         --accent: {light_vals['accent']};
+        --tertiary: {light_vals['tertiary']};
         --title-front: {light_vals['title_front']};
         --title-mid: {light_vals['title_mid']};
         --title-dark: {light_vals['title_dark']};
@@ -290,6 +305,7 @@ def resolve_theme(style, mode="auto", primary=None, accent=None, preset=None):
           --border-chassis: {dark_vals['border']};
           --primary: {dark_vals['primary']};
           --accent: {dark_vals['accent']};
+          --tertiary: {dark_vals['tertiary']};
           --title-front: {dark_vals['title_front']};
           --title-mid: {dark_vals['title_mid']};
           --title-dark: {dark_vals['title_dark']};
@@ -310,8 +326,8 @@ def resolve_theme(style, mode="auto", primary=None, accent=None, preset=None):
 """
         return colors, css_vars
 
-def resolve_colors(style, primary=None, accent=None, mode="auto", preset=None):
-    c, _ = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+def resolve_colors(style, primary=None, accent=None, mode="auto", preset=None, tertiary=None):
+    c, _ = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     return c["primary"], c["accent"], c["bg"]
 
 
@@ -368,13 +384,14 @@ def normalize_specs(specs=None, spec1=None, spec2=None, spec3=None, default_colo
 def _generate_compact_header(style="cyberpunk", primary=None, accent=None,
                              title="PIXEL-KIT", subtitle="TRANSLUCENT HUD DESIGN SYSTEM",
                              tag="SYSTEM_ACTIVE", width=850, height=None, mode="auto", preset=None,
-                             tag_url=None, close_url=None):
+                             tag_url=None, close_url=None, tertiary=None):
     """
     Renders a low-profile compact banner (~84px height) optimized for mobile viewports.
     """
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
+    tertiary_col = c["tertiary"]
     bg = c["bg"]
     panel = c["panel"]
     border = c["border"]
@@ -444,17 +461,18 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
                     title="PIXEL-KIT", subtitle="TRANSLUCENT HUD DESIGN SYSTEM",
                     specs=None, spec1=None, spec2=None, spec3=None,
                     tag="SYSTEM_ACTIVE", width=850, height=None, mode="auto", preset=None,
-                    tag_url=None, close_url=None, compact=False):
+                    tag_url=None, close_url=None, compact=False, tertiary=None):
     if compact and str(compact).lower() in ("true", "1", "yes", "compact"):
         return _generate_compact_header(
             style=style, primary=primary, accent=accent, title=title, subtitle=subtitle,
             tag=tag, width=width, height=height, mode=mode, preset=preset,
-            tag_url=tag_url, close_url=close_url
+            tag_url=tag_url, close_url=close_url, tertiary=tertiary
         )
 
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
+    tertiary_col = c["tertiary"]
     bg = c["bg"]
     panel = c["panel"]
     border = c["border"]
@@ -677,7 +695,7 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
   <g transform="translate({width-120}, {eq_y})">
     <rect x="0" y="28" width="8" height="12" fill="{prim}" class="eq1"/>
     <rect x="14" y="12" width="8" height="28" fill="{acc}" class="eq2"/>
-    <rect x="28" y="22" width="8" height="18" fill="#06B6D4" class="eq3"/>
+    <rect x="28" y="22" width="8" height="18" fill="{tertiary_col}" class="eq3"/>
     <rect x="42" y="6" width="8" height="34" fill="{warning}" class="eq4"/>
     <rect x="56" y="18" width="8" height="22" fill="{success}" class="eq5"/>
     <text x="32" y="52" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">LIVE_AUDIO</text>
@@ -725,7 +743,7 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
   <g transform="translate(525, {eq_offset})">
     <rect x="0" y="198" width="5" height="6" fill="{prim}" class="w1"/>
     <rect x="8" y="186" width="5" height="18" fill="{acc}" class="w2"/>
-    <rect x="16" y="192" width="5" height="12" fill="#FF0055" class="w3"/>
+    <rect x="16" y="192" width="5" height="12" fill="{tertiary_col}" class="w3"/>
     <rect x="24" y="182" width="5" height="22" fill="{warning}" class="w4"/>
   </g>
 """
@@ -752,8 +770,8 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
         50%, 100% {{ opacity: 0; }}
       }}
       @keyframes ledFlicker {{
-        0%, 100% {{ fill: {success}; }}
-        50% {{ fill: #004411; }}
+        0%, 100% {{ fill: {success}; opacity: 1; }}
+        50% {{ fill: {success}; opacity: 0.2; }}
       }}
       @keyframes crtScanline {{
         0% {{ transform: translateY(0px); opacity: 0; }}
@@ -799,27 +817,28 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
   <rect x="6" y="6" width="{width-12}" height="{h-12}" fill="none" stroke="{border}" stroke-width="2"/>
   <rect x="12" y="12" width="{width-24}" height="{h-24}" fill="none" stroke="{prim}" stroke-width="2" opacity="0.85"/>
 
-  <!-- CORNER ACCENT BRACKETS -->
+  <!-- CORNER ACCENT BRACKETS (PRIMARY + SECONDARY DUAL-TONE) -->
   <rect x="6" y="6" width="24" height="6" fill="{prim}"/>
   <rect x="6" y="6" width="6" height="24" fill="{prim}"/>
-  <rect x="{width-30}" y="6" width="24" height="6" fill="{prim}"/>
-  <rect x="{width-12}" y="6" width="6" height="24" fill="{prim}"/>
-  <rect x="6" y="{h-12}" width="24" height="6" fill="{prim}"/>
-  <rect x="6" y="{h-30}" width="6" height="24" fill="{prim}"/>
+  <rect x="{width-30}" y="6" width="24" height="6" fill="{acc}"/>
+  <rect x="{width-12}" y="6" width="6" height="24" fill="{acc}"/>
+  <rect x="6" y="{h-12}" width="24" height="6" fill="{acc}"/>
+  <rect x="6" y="{h-30}" width="6" height="24" fill="{acc}"/>
   <rect x="{width-30}" y="{h-12}" width="24" height="6" fill="{prim}"/>
   <rect x="{width-12}" y="{h-30}" width="6" height="24" fill="{prim}"/>
 
   <!-- TOP CONSOLE STATUS BAR -->
   <rect x="14" y="14" width="{width-28}" height="22" fill="{panel}"/>
-  <line x1="14" y1="36" x2="{width-14}" y2="36" stroke="{prim}" stroke-width="1.5" opacity="0.6"/>
+  <line x1="14" y1="36" x2="260" y2="36" stroke="{prim}" stroke-width="1.5" opacity="0.8"/>
+  <line x1="260" y1="36" x2="{width-14}" y2="36" stroke="{acc}" stroke-width="1.5" opacity="0.5"/>
 
   <circle cx="28" cy="25" r="4" fill="{success}" class="status-led"/>
   <text x="38" y="29" fill="{success}" font-size="11" font-weight="bold" class="font-mono">SYS: ONLINE // 0x00</text>
 
-  <rect x="175" y="19" width="2" height="12" fill="{border}"/>
+  <rect x="175" y="19" width="2" height="12" fill="{acc}" opacity="0.7"/>
   <text x="188" y="29" fill="{text_dim}" font-size="11" class="font-mono">HUD: ACTIVE_SYS</text>
 
-  <rect x="360" y="19" width="2" height="12" fill="{border}"/>
+  <rect x="360" y="19" width="2" height="12" fill="{acc}" opacity="0.7"/>
   <text x="372" y="29" fill="{text_dim}" font-size="11" class="font-mono">MODE: {st.upper()}_HUD</text>
 
   <!-- Tag right-anchored to never collide with window controls -->
@@ -830,7 +849,7 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
   <text x="{width-80}" y="28" fill="{text_dim}" font-size="10" font-weight="bold" class="font-mono">_</text>
   <rect x="{width-63}" y="19" width="16" height="12" fill="{border}"/>
   <text x="{width-59}" y="29" fill="{text_dim}" font-size="11" font-weight="bold" class="font-mono">□</text>
-  {f'<a href="{escape_xml(close_url)}" target="_blank" class="btn-hover">' if close_url else ''}<rect x="{width-41}" y="19" width="16" height="12" fill="#FF0055"/><text x="{width-37}" y="29" fill="#FFFFFF" font-size="11" font-weight="bold" class="font-mono">×</text>{'</a>' if close_url else ''}
+  {f'<a href="{escape_xml(close_url)}" target="_blank" class="btn-hover">' if close_url else ''}<rect x="{width-41}" y="19" width="16" height="12" fill="{tertiary_col}"/><text x="{width-37}" y="29" fill="{text_main}" font-size="11" font-weight="bold" class="font-mono">×</text>{'</a>' if close_url else ''}
 
   <!-- 3D PIXEL TITLE -->
   {pixel_markup}
@@ -854,6 +873,16 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
     <rect x="0" y="0" width="170" height="140" fill="{panel}" stroke="{border}" stroke-width="2"/>
     <rect x="4" y="4" width="162" height="132" fill="none" stroke="{prim}" stroke-width="1" opacity="0.6"/>
 
+    <!-- Radar Corner Accent Tabs in Secondary Accent -->
+    <rect x="0" y="0" width="8" height="2" fill="{acc}"/>
+    <rect x="0" y="0" width="2" height="8" fill="{acc}"/>
+    <rect x="162" y="0" width="8" height="2" fill="{acc}"/>
+    <rect x="168" y="0" width="2" height="8" fill="{acc}"/>
+    <rect x="0" y="138" width="8" height="2" fill="{acc}"/>
+    <rect x="0" y="132" width="2" height="8" fill="{acc}"/>
+    <rect x="162" y="138" width="8" height="2" fill="{acc}"/>
+    <rect x="168" y="132" width="2" height="8" fill="{acc}"/>
+
     <!-- Concentric Range Rings -->
     <circle cx="85" cy="70" r="50" fill="none" stroke="{prim}" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
     <circle cx="85" cy="70" r="35" fill="none" stroke="{prim}" stroke-width="1" opacity="0.3"/>
@@ -869,7 +898,7 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
     </g>
 
     <!-- Pulsing Radar Target Blips -->
-    <circle cx="110" cy="50" r="3" fill="#FF0055">
+    <circle cx="110" cy="50" r="3" fill="{tertiary_col}">
       <animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite"/>
     </circle>
     <circle cx="65" cy="85" r="2.5" fill="{success}">
@@ -882,7 +911,7 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
 
   <!-- BOTTOM STATUS LINE -->
   <line x1="14" y1="{h-26}" x2="{width-14}" y2="{h-26}" stroke="{border}" stroke-width="1"/>
-  <text x="24" y="{h-15}" fill="{text_dim}" font-size="9" class="font-mono">HUD_ARCH: V3.0 // DUAL_THEME: PASS // SMART_LAYOUT</text>
+  <text x="24" y="{h-15}" fill="{acc}" font-size="9" class="font-mono">HUD_ARCH: V4.3 <tspan fill="{text_dim}">//</tspan> DUAL_THEME: PASS <tspan fill="{text_dim}">//</tspan> SMART_LAYOUT</text>
   <text x="{width-24}" y="{h-15}" fill="{prim}" font-size="9" font-weight="bold" text-anchor="end" class="font-mono">READY // ID: 0xDEADBEEF</text>
 </svg>"""
 
@@ -896,10 +925,11 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
 
 def generate_footer(style="cyberpunk", primary=None, accent=None,
                     status="SESSION_ACTIVE // STANDBY", nav_text="RETURN TO TOP",
-                    sub_text=None, width=850, height=76, mode="auto", preset=None):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+                    sub_text=None, width=850, height=76, mode="auto", preset=None, tertiary=None):
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
+    tertiary_col = c["tertiary"]
     bg = c["bg"]
     border = c["border"]
     panel = c["panel"]
@@ -932,15 +962,15 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
 
   <!-- Top Tactical Hazard Rail -->
   <polygon points="26 8, 32 8, 24 18, 18 18" fill="{prim}" opacity="0.85"/>
-  <polygon points="36 8, 42 8, 34 18, 28 18" fill="{prim}" opacity="0.85"/>
-  <polygon points="46 8, 52 8, 44 18, 38 18" fill="{prim}" opacity="0.85"/>
+  <polygon points="36 8, 42 8, 34 18, 28 18" fill="{acc}" opacity="0.85"/>
+  <polygon points="46 8, 52 8, 44 18, 38 18" fill="{tertiary_col}" opacity="0.85"/>
   <text x="64" y="16" fill="{acc}" font-size="11" font-weight="bold" letter-spacing="1.5" class="font-mono">SEC_DEFCON_1 // FIELD_TERMINATION_PROTOCOL</text>
   <line x1="390" y1="13" x2="{width-210}" y2="13" stroke="{prim}" stroke-width="1" stroke-dasharray="8,4" opacity="0.4"/>
   <text x="{width-200}" y="16" fill="{acc}" font-size="11" font-weight="bold" class="font-mono">[SEC_CLEAR]</text>
 
   <!-- Left Main Status Readout -->
-  <polygon points="24 26, 116 26, 122 32, 122 42, 116 48, 24 48" fill="rgba(245, 158, 11, 0.22)" stroke="{prim}" stroke-width="1.5"/>
-  <text x="70" y="40" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ ARMED ▲</text>
+  <polygon points="24 26, 116 26, 122 32, 122 42, 116 48, 24 48" fill="rgba(245, 158, 11, 0.22)" stroke="{acc}" stroke-width="1.5"/>
+  <text x="70" y="40" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ ARMED ▲</text>
   <text x="132" y="42" fill="{prim}" font-size="12" font-weight="bold" class="font-mono">{status_clean}</text>
 
   <!-- Sub-diagnostic Telemetry -->
@@ -949,9 +979,9 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <!-- Center Chevron Cascade -->
   <g transform="translate({width//2 - 25}, 36)">
     <polygon points="0 0, 7 5, 0 10" fill="{prim}" opacity="0.5"/>
-    <polygon points="12 0, 19 5, 12 10" fill="{prim}" opacity="0.8"/>
+    <polygon points="12 0, 19 5, 12 10" fill="{acc}" opacity="0.8"/>
     <polygon points="24 0, 31 5, 24 10" fill="{prim}" opacity="1"/>
-    <polygon points="36 0, 43 5, 36 10" fill="{prim}" opacity="0.8"/>
+    <polygon points="36 0, 43 5, 36 10" fill="{acc}" opacity="0.8"/>
     <polygon points="48 0, 55 5, 48 10" fill="{prim}" opacity="0.5"/>
   </g>
 
@@ -979,8 +1009,8 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <!-- Corner Hairline Hooks -->
   <path d="M 6 16 L 6 6 L 16 6" fill="none" stroke="{prim}" stroke-width="1.5"/>
   <path d="M {width-6} 16 L {width-6} 6 L {width-16} 6" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <path d="M 6 {height-16} L 6 {height-6} L 16 {height-6}" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <path d="M {width-6} {height-16} L {width-6} {height-6} L {width-16} {height-6}" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M 6 {height-16} L 6 {height-6} L 16 {height-6}" fill="none" stroke="{acc}" stroke-width="1.5"/>
+  <path d="M {width-6} {height-16} L {width-6} {height-6} L {width-16} {height-6}" fill="none" stroke="{acc}" stroke-width="1.5"/>
 
   <!-- Top Micro-Header Line -->
   <text x="24" y="16" fill="{text_dim}" font-size="11" class="font-mono">// TERMINAL_SESSION // KERNEL v3.0</text>
@@ -1000,7 +1030,7 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
     <rect x="0" y="4" width="3" height="12" fill="{prim}" opacity="0.6"/>
     <rect x="6" y="1" width="3" height="18" fill="{acc}" opacity="0.8"/>
     <rect x="12" y="7" width="3" height="9" fill="{prim}" opacity="0.5"/>
-    <rect x="18" y="0" width="3" height="20" fill="{acc}" opacity="1"/>
+    <rect x="18" y="0" width="3" height="20" fill="{tertiary_col}" opacity="1"/>
     <rect x="24" y="5" width="3" height="11" fill="{prim}" opacity="0.7"/>
     <rect x="30" y="2" width="3" height="16" fill="{acc}" opacity="0.8"/>
     <rect x="36" y="6" width="3" height="10" fill="{prim}" opacity="0.5"/>
@@ -1022,7 +1052,7 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
     <style>
       {css_vars}
       .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
-      @keyframes blinkLed {{ 0%, 100% {{ fill: {prim}; opacity: 1; }} 50% {{ fill: #1E293B; opacity: 0.3; }} }}
+      @keyframes blinkLed {{ 0%, 100% {{ fill: {prim}; opacity: 1; }} 50% {{ fill: {border}; opacity: 0.3; }} }}
       .led {{ animation: blinkLed 1.8s infinite steps(1); }}
     </style>
   </defs>
@@ -1043,9 +1073,9 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
 
   <!-- Left Main Status Readout -->
   <circle cx="26" cy="35" r="4.5" fill="{prim}" class="led"/>
-  <circle cx="26" cy="35" r="1.5" fill="#FFFFFF"/>
-  <rect x="38" y="26" width="76" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
-  <text x="76" y="38" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">SYS_STATUS</text>
+  <circle cx="26" cy="35" r="1.5" fill="{tertiary_col}"/>
+  <rect x="38" y="26" width="76" height="18" fill="{panel}" stroke="{acc}" stroke-width="1.2"/>
+  <text x="76" y="38" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">SYS_STATUS</text>
   <text x="124" y="40" fill="{prim}" font-size="12" font-weight="bold" class="font-mono">{status_clean}</text>
 
   <!-- Secondary Diagnostics Sub-line -->
@@ -1054,9 +1084,9 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <!-- Center PCB Pulse / Mini Matrix -->
   <g transform="translate({width//2 - 35}, 30)">
     <line x1="0" y1="6" x2="70" y2="6" stroke="{border}" stroke-width="2"/>
-    <line x1="0" y1="6" x2="35" y2="6" stroke="{prim}" stroke-width="2"/>
+    <line x1="0" y1="6" x2="35" y2="6" stroke="{acc}" stroke-width="2"/>
     <circle cx="0" cy="6" r="3" fill="{prim}"/>
-    <circle cx="70" cy="6" r="3" fill="{prim}"/>
+    <circle cx="70" cy="6" r="3" fill="{acc}"/>
     <rect x="25" y="0" width="20" height="12" fill="{bg}" stroke="{prim}" stroke-width="1"/>
     <text x="35" y="9" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">EOF</text>
   </g>
@@ -1064,12 +1094,12 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <!-- Right Return To Top Button -->
   <g transform="translate({width-195}, 22)" class="btn-hover">
     <rect x="0" y="0" width="180" height="36" fill="rgba(0, 200, 215, 0.16)" stroke="{prim}" stroke-width="1.5"/>
-    <rect x="0" y="0" width="3" height="3" fill="{prim}"/>
-    <rect x="177" y="0" width="3" height="3" fill="{prim}"/>
-    <rect x="0" y="33" width="3" height="3" fill="{prim}"/>
-    <rect x="177" y="33" width="3" height="3" fill="{prim}"/>
+    <rect x="0" y="0" width="4" height="4" fill="{acc}"/>
+    <rect x="176" y="0" width="4" height="4" fill="{acc}"/>
+    <rect x="0" y="32" width="4" height="4" fill="{acc}"/>
+    <rect x="176" y="32" width="4" height="4" fill="{acc}"/>
     <text x="90" y="21" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{clean_nav}</text>
-    <text x="90" y="31" fill="{text_dim}" font-size="11" text-anchor="middle" class="font-mono">[ CLICK TO RETURN ]</text>
+    <text x="90" y="31" fill="{acc}" font-size="11" text-anchor="middle" class="font-mono">[ CLICK TO RETURN ]</text>
   </g>
 
   <!-- Bottom Grounding Notch -->
@@ -1085,10 +1115,22 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
 # 3. CALLOUTS & QUOTE HEADERS
 # ---------------------------------------------------------------------------
 
+GITHUB_ALERT_COLORS = {
+    "NOTE": "#2f81f7",
+    "TIP": "#238636",
+    "IMPORTANT": "#8957e5",
+    "WARNING": "#d29922",
+    "CAUTION": "#f85149",
+    "CRITICAL": "#f85149",
+    "SUCCESS": "#238636",
+    "INFO": "#8957e5",
+}
+
 def generate_callout(style="cyberpunk", primary=None, accent=None,
                      callout_type="note", title="SYSTEM SPECIFICATION",
                      subtitle="Dual-theme contrast > 7:1 // Monospace typography",
-                     is_quote=False, width=850, height=None, mode="auto", preset=None):
+                     is_quote=False, width=850, height=None, mode="auto", preset=None,
+                     badge_color=None):
     c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
     prim = c["primary"]
     acc = c["accent"]
@@ -1097,6 +1139,22 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
     panel = c["panel"]
     text_main = c["text_main"]
     text_dim = c["text_dim"]
+
+    c_type_upper = str(callout_type).strip().upper() if callout_type else "NOTE"
+    if badge_color:
+        b_str = str(badge_color).strip()
+        if b_str.startswith("#"):
+            badge_col = b_str
+        elif b_str.lower() == "theme":
+            badge_col = prim
+        elif b_str.upper() in GITHUB_ALERT_COLORS:
+            badge_col = GITHUB_ALERT_COLORS[b_str.upper()]
+        else:
+            badge_col = b_str
+    elif primary is not None:
+        badge_col = prim
+    else:
+        badge_col = GITHUB_ALERT_COLORS.get(c_type_upper, prim)
 
     title_clean = escape_xml(title)
     sub_raw = str(subtitle).strip() if subtitle else ""
@@ -1126,20 +1184,20 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
         h = height if height else def_h
         if st == "tactical":
             dash_w = "8,4"
-            top_rail = f'<line x1="0" y1="2" x2="{width-12}" y2="2" stroke="{prim}" stroke-width="2"/><line x1="{width-12}" y1="2" x2="{width-1}" y2="13" stroke="{prim}" stroke-width="2"/><line x1="{width-1}" y1="13" x2="{width-1}" y2="{h-4}" stroke="{prim}" stroke-width="2"/>'
-            badge = f'<polygon points="6 6, 12 6, 4 18, 0 18" fill="{prim}" opacity="0.6"/><polygon points="16 6, 22 6, 14 18, 8 18" fill="{prim}" opacity="0.6"/><polygon points="28 8, 165 8, 172 15, 172 27, 165 34, 28 34" fill="{panel}" stroke="{prim}" stroke-width="1.5"/><text x="96" y="24" fill="{prim}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">▲ {tag_clean} // HAZARD</text>'
+            top_rail = f'<line x1="0" y1="2" x2="{width-12}" y2="2" stroke="{badge_col}" stroke-width="2"/><line x1="{width-12}" y1="2" x2="{width-1}" y2="13" stroke="{badge_col}" stroke-width="2"/><line x1="{width-1}" y1="13" x2="{width-1}" y2="{h-4}" stroke="{badge_col}" stroke-width="2"/>'
+            badge = f'<polygon points="6 6, 12 6, 4 18, 0 18" fill="{badge_col}" opacity="0.6"/><polygon points="16 6, 22 6, 14 18, 8 18" fill="{badge_col}" opacity="0.6"/><polygon points="28 8, 165 8, 172 15, 172 27, 165 34, 28 34" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><text x="96" y="24" fill="{badge_col}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">▲ {tag_clean} // HAZARD</text>'
             text_x = 186
-            arrow_poly = f'<polygon points="{width-10} {h-5}, {width-2} {h-5}, {width-6} {h-1}" fill="{prim}"/>'
+            arrow_poly = f'<polygon points="{width-10} {h-5}, {width-2} {h-5}, {width-6} {h-1}" fill="{badge_col}"/>'
         elif st == "minimal":
             dash_w = "5,4"
-            top_rail = f'<line x1="0" y1="2" x2="{width-1}" y2="2" stroke="{prim}" stroke-width="1.5"/><path d="M {width-1} 2 L {width-1} 14" fill="none" stroke="{prim}" stroke-width="1.5"/><rect x="{width-4}" y="2" width="4" height="4" fill="{acc}"/>'
-            badge = f'<rect x="8" y="8" width="115" height="24" fill="{panel}" stroke="{prim}" stroke-width="1"/><text x="65" y="23" fill="{prim}" font-size="9.5" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // MINIMAL</text>'
+            top_rail = f'<line x1="0" y1="2" x2="{width-1}" y2="2" stroke="{badge_col}" stroke-width="1.5"/><path d="M {width-1} 2 L {width-1} 14" fill="none" stroke="{badge_col}" stroke-width="1.5"/><rect x="{width-4}" y="2" width="4" height="4" fill="{acc}"/>'
+            badge = f'<rect x="8" y="8" width="115" height="24" fill="{panel}" stroke="{badge_col}" stroke-width="1"/><text x="65" y="23" fill="{badge_col}" font-size="9.5" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // MINIMAL</text>'
             text_x = 136
             arrow_poly = ""
         else:
             dash_w = "6,4"
-            top_rail = f'<line x1="0" y1="2" x2="{width-1}" y2="2" stroke="{prim}" stroke-width="2"/><line x1="{width-1}" y1="2" x2="{width-1}" y2="{h-4}" stroke="{prim}" stroke-width="2"/><rect x="{width-6}" y="2" width="5" height="5" fill="{prim}"/>'
-            badge = f'<rect x="8" y="8" width="120" height="24" fill="{panel}" stroke="{prim}" stroke-width="1.5"/><circle cx="20" cy="20" r="3.5" fill="{prim}"/><text x="73" y="24" fill="{prim}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // 0x01</text>'
+            top_rail = f'<line x1="0" y1="2" x2="{width-1}" y2="2" stroke="{badge_col}" stroke-width="2"/><line x1="{width-1}" y1="2" x2="{width-1}" y2="{h-4}" stroke="{badge_col}" stroke-width="2"/><rect x="{width-6}" y="2" width="5" height="5" fill="{badge_col}"/>'
+            badge = f'<rect x="8" y="8" width="120" height="24" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><circle cx="20" cy="20" r="3.5" fill="{badge_col}"/><text x="73" y="24" fill="{badge_col}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // 0x01</text>'
             text_x = 142
             arrow_poly = ""
 
@@ -1169,7 +1227,7 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
   <!-- Title & Subtitle (Properly offset past badge edge) -->
   {text_block}
   <!-- DASHED BOTTOM LINE: Bridges into live markdown text -->
-  <line x1="0" y1="{h-1}" x2="{width-5}" y2="{h-1}" stroke="{prim}" stroke-width="1.5" stroke-dasharray="{dash_w}" opacity="0.75"/>
+  <line x1="0" y1="{h-1}" x2="{width-5}" y2="{h-1}" stroke="{badge_col}" stroke-width="1.5" stroke-dasharray="{dash_w}" opacity="0.75"/>
   {arrow_poly}
 </svg>"""
 
@@ -1179,19 +1237,19 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
         h = height if height else def_h
         mid_y = h // 2
         if st == "tactical":
-            body = f'<polygon points="12 2, {width-12} 2, {width-2} 12, {width-2} {h-12}, {width-12} {h-2}, 12 {h-2}, 2 {h-12}, 2 12" fill="{bg}" stroke="{prim}" stroke-width="1.5"/>'
-            badge = f'<polygon points="34 10, 175 10, 182 17, 182 31, 175 38, 34 38" fill="{panel}" stroke="{prim}" stroke-width="1.5"/><text x="105" y="28" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ {tag_clean} // HAZARD</text>'
-            accents = f'<polygon points="10 8, 16 8, 8 20, 2 20" fill="{prim}" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="{prim}" opacity="0.6"/><circle cx="{width-25}" cy="{mid_y}" r="8" fill="none" stroke="{prim}" stroke-width="1.5"/><polygon points="{width-28} {mid_y}, {width-22} {mid_y-4}, {width-22} {mid_y+4}" fill="{prim}"/>'
+            body = f'<polygon points="12 2, {width-12} 2, {width-2} 12, {width-2} {h-12}, {width-12} {h-2}, 12 {h-2}, 2 {h-12}, 2 12" fill="{bg}" stroke="{badge_col}" stroke-width="1.5"/>'
+            badge = f'<polygon points="34 10, 175 10, 182 17, 182 31, 175 38, 34 38" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><text x="105" y="28" fill="{badge_col}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ {tag_clean} // HAZARD</text>'
+            accents = f'<polygon points="10 8, 16 8, 8 20, 2 20" fill="{badge_col}" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="{badge_col}" opacity="0.6"/><circle cx="{width-25}" cy="{mid_y}" r="8" fill="none" stroke="{badge_col}" stroke-width="1.5"/><polygon points="{width-28} {mid_y}, {width-22} {mid_y-4}, {width-22} {mid_y+4}" fill="{badge_col}"/>'
             text_x = 196
         elif st == "minimal":
             body = f'<rect x="1" y="2" width="{width-2}" height="{h-4}" fill="{bg}" stroke="{border}" stroke-width="1.5"/>'
-            badge = f'<rect x="16" y="11" width="130" height="26" fill="{panel}" stroke="{prim}" stroke-width="1"/><text x="81" y="28" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // MINIMAL</text>'
-            accents = f'<path d="M 5 12 L 5 5 L 14 5" fill="none" stroke="{prim}" stroke-width="1.5"/><path d="M {width-5} 12 L {width-5} 5 L {width-14} 5" fill="none" stroke="{prim}" stroke-width="1.5"/>'
+            badge = f'<rect x="16" y="11" width="130" height="26" fill="{panel}" stroke="{badge_col}" stroke-width="1"/><text x="81" y="28" fill="{badge_col}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // MINIMAL</text>'
+            accents = f'<path d="M 5 12 L 5 5 L 14 5" fill="none" stroke="{badge_col}" stroke-width="1.5"/><path d="M {width-5} 12 L {width-5} 5 L {width-14} 5" fill="none" stroke="{badge_col}" stroke-width="1.5"/>'
             text_x = 158
         else:
-            body = f'<rect x="2" y="2" width="{width-4}" height="{h-4}" fill="{bg}" stroke="{prim}" stroke-width="1.5"/><rect x="2" y="2" width="5" height="5" fill="{prim}"/><rect x="{width-7}" y="2" width="5" height="5" fill="{prim}"/><rect x="2" y="{h-7}" width="5" height="5" fill="{prim}"/><rect x="{width-7}" y="{h-7}" width="5" height="5" fill="{prim}"/>'
-            badge = f'<rect x="14" y="10" width="140" height="28" fill="{panel}" stroke="{prim}" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="{prim}"/><text x="88" y="28" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // 0x01</text>'
-            accents = f'<rect x="{width-35}" y="{mid_y - 10}" width="20" height="20" fill="{panel}"/><text x="{width-25}" y="{mid_y + 4}" fill="{prim}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>'
+            body = f'<rect x="2" y="2" width="{width-4}" height="{h-4}" fill="{bg}" stroke="{badge_col}" stroke-width="1.5"/><rect x="2" y="2" width="5" height="5" fill="{badge_col}"/><rect x="{width-7}" y="2" width="5" height="5" fill="{badge_col}"/><rect x="2" y="{h-7}" width="5" height="5" fill="{badge_col}"/><rect x="{width-7}" y="{h-7}" width="5" height="5" fill="{badge_col}"/>'
+            badge = f'<rect x="14" y="10" width="140" height="28" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="{badge_col}"/><text x="88" y="28" fill="{badge_col}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // 0x01</text>'
+            accents = f'<rect x="{width-35}" y="{mid_y - 10}" width="20" height="20" fill="{panel}"/><text x="{width-25}" y="{mid_y + 4}" fill="{badge_col}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>'
             text_x = 168
 
         if not has_sub:
@@ -1246,10 +1304,11 @@ def format_bottom_tag(tag):
 def generate_frame(style="cyberpunk", primary=None, accent=None,
                    frame_type="top", title="╔═ SYSTEM.CORE // RUNTIME.SYS",
                    tag="[OPEN_HUD]", width=850, height=None, mode="auto", preset=None,
-                   tag_url=None, close_url=None):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+                   tag_url=None, close_url=None, tertiary=None):
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
+    tertiary_col = c["tertiary"]
     bg = c["bg"]
     border = c["border"]
     panel = c["panel"]
@@ -1276,7 +1335,7 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
     <style>
       {css_vars}
       .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
-      @keyframes blinkLed {{ 0%, 100% {{ fill: {prim}; }} 50% {{ fill: #1E293B; }} }}
+      @keyframes blinkLed {{ 0%, 100% {{ fill: {prim}; opacity: 1; }} 50% {{ fill: {border}; opacity: 0.3; }} }}
       .led {{ animation: blinkLed 1.8s infinite steps(1); }}
     </style>
   </defs>
@@ -1286,7 +1345,7 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
            fill="{bg}" stroke="{border}" stroke-width="2"/>
   <polygon points="14 7, {width-14} 7, {width-4} 16, {width-4} 29, 4 29, 4 16"
            fill="none" stroke="{prim}" stroke-width="1.5" opacity="0.85"/>
-  <line x1="20" y1="32" x2="{width-20}" y2="32" stroke="{prim}" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
+  <line x1="20" y1="32" x2="{width-20}" y2="32" stroke="{acc}" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
 
   <!-- DOWNWARD PRONGS (FLUSH TO EDGES x=1..{width-1}) -->
   <line x1="1" y1="26" x2="1" y2="{h}" stroke="{prim}" stroke-width="2.5"/>
@@ -1299,7 +1358,7 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
 
   <!-- Title Text -->
   <text x="36" y="22" fill="{prim}" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">
-    {title_clean}
+    <tspan fill="{acc}">[//]</tspan> {title_clean}
   </text>
 
   <!-- Right Status Tag -->
@@ -1311,8 +1370,8 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   <text x="{width-64}" y="21" fill="{text_dim}" font-size="10" font-weight="bold" class="font-mono">_</text>
   <rect x="{width-50}" y="11" width="14" height="14" fill="{panel}"/>
   <text x="{width-47}" y="22" fill="{text_dim}" font-size="10" font-weight="bold" class="font-mono">□</text>
-  {close_link_open}<rect x="{width-32}" y="11" width="14" height="14" fill="#FF0055"/>
-  <text x="{width-28}" y="22" fill="#FFFFFF" font-size="10" font-weight="bold" class="font-mono">×</text>{close_link_close}
+  {close_link_open}<rect x="{width-32}" y="11" width="14" height="14" fill="{tertiary_col}"/>
+  <text x="{width-28}" y="22" fill="{text_main}" font-size="10" font-weight="bold" class="font-mono">×</text>{close_link_close}
 </svg>"""
 
         elif st == "minimal":
@@ -1326,7 +1385,7 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   </defs>
   <rect x="0" y="0" width="{width}" height="{h}" fill="{bg}"/>
   <path d="M 4 14 L 4 4 L 14 4" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <path d="M {width-4} 14 L {width-4} 4 L {width-14} 4" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M {width-4} 14 L {width-4} 4 L {width-14} 4" fill="none" stroke="{acc}" stroke-width="1.5"/>
   <line x1="8" y1="{h-2}" x2="{width-8}" y2="{h-2}" stroke="{prim}" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
   <circle cx="24" cy="18" r="4" fill="{prim}"/>
   <text x="36" y="22" fill="{prim}" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">{title_clean}</text>
@@ -1334,7 +1393,7 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   <text x="{width-128}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>{tag_link_close}
   <rect x="{width-68}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-64}" y="21" fill="{text_dim}" font-size="10" class="font-mono">_</text>
   <rect x="{width-50}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-47}" y="22" fill="{text_dim}" font-size="10" class="font-mono">□</text>
-  {close_link_open}<rect x="{width-32}" y="11" width="14" height="14" fill="#FF0055"/><text x="{width-28}" y="22" fill="#FFFFFF" font-size="10" class="font-mono">×</text>{close_link_close}
+  {close_link_open}<rect x="{width-32}" y="11" width="14" height="14" fill="{tertiary_col}"/><text x="{width-28}" y="22" fill="{text_main}" font-size="10" font-weight="bold" class="font-mono">×</text>{close_link_close}
 </svg>"""
 
         else:
@@ -1344,26 +1403,26 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
     <style>
       {css_vars}
       .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
-      @keyframes blinkLed {{ 0%, 100% {{ fill: {prim}; }} 50% {{ fill: #1E293B; }} }}
+      @keyframes blinkLed {{ 0%, 100% {{ fill: {prim}; opacity: 1; }} 50% {{ fill: {border}; opacity: 0.3; }} }}
       .led {{ animation: blinkLed 1.8s infinite steps(1); }}
     </style>
   </defs>
   <rect x="1" y="4" width="{width-2}" height="28" fill="{bg}" stroke="{border}" stroke-width="2"/>
   <rect x="3" y="6" width="{width-6}" height="24" fill="none" stroke="{prim}" stroke-width="1.5" opacity="0.85"/>
   <rect x="1" y="4" width="5" height="5" fill="{prim}"/>
-  <rect x="{width-6}" y="4" width="5" height="5" fill="{prim}"/>
+  <rect x="{width-6}" y="4" width="5" height="5" fill="{acc}"/>
   <!-- Downward Embracing Prongs (Flush x=1 and x={width-1}) -->
   <line x1="1" y1="24" x2="1" y2="{h}" stroke="{prim}" stroke-width="2.5"/>
   <rect x="0" y="32" width="4" height="6" fill="{prim}"/>
   <line x1="{width-1}" y1="24" x2="{width-1}" y2="{h}" stroke="{prim}" stroke-width="2.5"/>
   <rect x="{width-4}" y="32" width="4" height="6" fill="{prim}"/>
   <circle cx="24" cy="18" r="4" fill="{prim}" class="led"/>
-  <text x="36" y="22" fill="{prim}" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">{title_clean}</text>
+  <text x="36" y="22" fill="{prim}" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono"><tspan fill="{acc}">[//]</tspan> {title_clean}</text>
   {tag_link_open}<rect x="{width-180}" y="9" width="105" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
   <text x="{width-128}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>{tag_link_close}
   <rect x="{width-68}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-64}" y="21" fill="{text_dim}" font-size="10" class="font-mono">_</text>
   <rect x="{width-50}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-47}" y="22" fill="{text_dim}" font-size="10" class="font-mono">□</text>
-  {close_link_open}<rect x="{width-32}" y="11" width="14" height="14" fill="#FF0055"/><text x="{width-28}" y="22" fill="#FFFFFF" font-size="10" class="font-mono">×</text>{close_link_close}
+  {close_link_open}<rect x="{width-32}" y="11" width="14" height="14" fill="{tertiary_col}"/><text x="{width-28}" y="22" fill="{text_main}" font-size="10" font-weight="bold" class="font-mono">×</text>{close_link_close}
 </svg>"""
 
     else:
@@ -1385,10 +1444,10 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   <rect x="{width-4}" y="0" width="4" height="5" fill="{prim}"/>
 
   <polygon points="1 10, {width-1} 10, {width-12} 20, 12 20" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
-  <line x1="12" y1="20" x2="{width-12}" y2="20" stroke="{prim}" stroke-width="2"/>
+  <line x1="12" y1="20" x2="{width-12}" y2="20" stroke="{acc}" stroke-width="2"/>
 
   <!-- Center Status Buffer Readout -->
-  <rect x="{width//2 - 105}" y="4" width="210" height="16" fill="{bg}" stroke="{prim}" stroke-width="1"/>
+  <rect x="{width//2 - 105}" y="4" width="210" height="16" fill="{bg}" stroke="{acc}" stroke-width="1"/>
   <text x="{width//2}" y="15" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
     {bot_tag_clean}
   </text>
@@ -1405,7 +1464,7 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   </defs>
   <rect x="0" y="0" width="{width}" height="{h}" fill="{bg}"/>
   <path d="M 4 8 L 4 18 L 14 18" fill="none" stroke="{prim}" stroke-width="1.5"/>
-  <path d="M {width-4} 8 L {width-4} 18 L {width-14} 18" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M {width-4} 8 L {width-4} 18 L {width-14} 18" fill="none" stroke="{acc}" stroke-width="1.5"/>
   <line x1="8" y1="2" x2="{width-8}" y2="2" stroke="{prim}" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
   <text x="{width//2}" y="15" fill="{prim}" font-size="9" font-weight="bold" letter-spacing="1.5" text-anchor="middle" class="font-mono">{bot_tag_clean}</text>
 </svg>"""
@@ -1424,9 +1483,9 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   <line x1="{width-1}" y1="0" x2="{width-1}" y2="12" stroke="{prim}" stroke-width="2.5"/><rect x="{width-4}" y="0" width="4" height="5" fill="{prim}"/>
   <line x1="1" y1="12" x2="{width-1}" y2="12" stroke="{border}" stroke-width="3"/>
   <line x1="6" y1="12" x2="{width-6}" y2="12" stroke="{prim}" stroke-width="1.5" opacity="0.85"/>
-  <path d="M 1 12 L 1 20 L 16 20" fill="none" stroke="{prim}" stroke-width="1.5"/><rect x="1" y="17" width="4" height="4" fill="{prim}"/>
-  <path d="M {width-1} 12 L {width-1} 20 L {width-16} 20" fill="none" stroke="{prim}" stroke-width="1.5"/><rect x="{width-5}" y="17" width="4" height="4" fill="{prim}"/>
-  <rect x="{width//2 - 105}" y="4" width="210" height="16" fill="{bg}" stroke="{prim}" stroke-width="1"/>
+  <path d="M 1 12 L 1 20 L 16 20" fill="none" stroke="{prim}" stroke-width="1.5"/><rect x="1" y="17" width="4" height="4" fill="{acc}"/>
+  <path d="M {width-1} 12 L {width-1} 20 L {width-16} 20" fill="none" stroke="{prim}" stroke-width="1.5"/><rect x="{width-5}" y="17" width="4" height="4" fill="{acc}"/>
+  <rect x="{width//2 - 105}" y="4" width="210" height="16" fill="{bg}" stroke="{acc}" stroke-width="1"/>
   <text x="{width//2}" y="15" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{bot_tag_clean}</text>
 </svg>"""
 
@@ -1532,6 +1591,36 @@ def generate_chip(style="cyberpunk", primary=None, accent=None,
   <polygon points="{l4_t} 1, {l4_t+3.5} 1, {l4_b+3.5} 25, {l4_b} 25" fill="{prim}" opacity="0.9"/>
   <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
 </svg>"""
+            elif dd == "left":
+                # Tactical Hazard Slash Decay Left
+                slash_zone = 26
+                left_pad = slash_zone + 12
+                right_pad = 16
+                box_l = slash_zone + 2
+                box_r = int(left_pad + text_w + right_pad)
+                calc_w = box_r + 4
+                w = width if width is not None else calc_w
+                text_x = left_pad + int(text_w / 2)
+                l1_t, l1_b = 2, 2
+                l2_t, l2_b = l1_t + 6, l1_b + 6
+                l3_t, l3_b = l2_t + 6, l2_b + 6
+                l4_t, l4_b = l3_t + 6, l3_b + 6
+                svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
+    </style>
+  </defs>
+  <polygon points="{box_l+5} 1, {w-8} 1, {w-2} 7, {w-2} 19, {w-8} 25, {box_l+5} 25, {box_l} 20, {box_l} 6" fill="{bg}"/>
+  <polygon points="{box_l+5} 1, {w-8} 1, {w-2} 7, {w-2} 19, {w-8} 25, {box_l+5} 25, {box_l} 20, {box_l} 6" fill="{panel}" stroke="{prim}" stroke-width="1.5"/>
+  <polygon points="{l1_t+3} 9, {l1_t+5} 9, {l1_b+3} 17, {l1_b+1} 17" fill="{prim}" opacity="0.2"/>
+  <polygon points="{l2_t+2.5} 6, {l2_t+5} 6, {l2_b+2.5} 20, {l2_b} 20" fill="{prim}" opacity="0.4"/>
+  <polygon points="{l3_t+3} 3, {l3_t+6} 3, {l3_b+3} 23, {l3_b} 23" fill="{prim}" opacity="0.65"/>
+  <polygon points="{l4_t} 1, {l4_t+3.5} 1, {l4_b+3.5} 25, {l4_b} 25" fill="{prim}" opacity="0.9"/>
+  <polygon points="{w-14} 9, {w-9} 13, {w-14} 17" fill="{prim}"/>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+</svg>"""
             else:
                 # Tactical Hazard Slash Decay Right (default)
                 left_pad = 22  # Chamfer (7px) + arrow (8..13px) + padding
@@ -1611,17 +1700,91 @@ def generate_chip(style="cyberpunk", primary=None, accent=None,
 
     elif st == "minimal":
         if ct == "decay":
-            # Minimal Glass Micro-Stipple Dissolution
-            left_pad = 16  # Corner bracket (4..8) + padding
-            right_pad = 14
-            box_r = int(left_pad + text_w + right_pad)
-            dash_end = box_r + 16
-            c1, c2, c3, c4 = box_r + 7, box_r + 14, box_r + 21, box_r + 28
-            calc_w = box_r + 34
-            w = width if width is not None else calc_w
-            text_x = left_pad + int(text_w / 2)
+            if dd == "both":
+                dissolve_zone = 32
+                box_l = dissolve_zone + 2
+                left_pad = dissolve_zone + 14
+                right_pad = 14
+                box_r = int(left_pad + text_w + right_pad)
+                calc_w = box_r + dissolve_zone + 4
+                w = width if width is not None else calc_w
+                text_x = int(w / 2)
+                dash_start = box_l - 16
+                dash_end = box_r + 16
 
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
+                cl1, cl2, cl3, cl4 = box_l - 7, box_l - 14, box_l - 21, box_l - 28
+                cr1, cr2, cr3, cr4 = box_r + 7, box_r + 14, box_r + 21, box_r + 28
+
+                svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
+    </style>
+  </defs>
+  <path d="M {box_r} 1 L {box_l} 1 L {box_l} 25 L {box_r} 25" fill="{bg}"/>
+  <path d="M {box_r} 1 L {box_l} 1 L {box_l} 25 L {box_r} 25" fill="{panel}" stroke="{prim}" stroke-width="1"/>
+  <line x1="{dash_start}" y1="1" x2="{box_l}" y2="1" stroke="{prim}" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  <line x1="{dash_start}" y1="25" x2="{box_l}" y2="25" stroke="{prim}" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  <line x1="{box_r}" y1="1" x2="{dash_end}" y2="1" stroke="{prim}" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  <line x1="{box_r}" y1="25" x2="{dash_end}" y2="25" stroke="{prim}" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  <g fill="{prim}">
+    <circle cx="{cl1}" cy="6" r="1.2" opacity="0.8"/><circle cx="{cl1}" cy="11" r="1.2" opacity="0.8"/><circle cx="{cl1}" cy="15" r="1.2" opacity="0.8"/><circle cx="{cl1}" cy="20" r="1.2" opacity="0.8"/>
+    <circle cx="{cl2}" cy="8" r="1.1" opacity="0.55"/><circle cx="{cl2}" cy="13" r="1.1" opacity="0.55"/><circle cx="{cl2}" cy="18" r="1.1" opacity="0.55"/>
+    <circle cx="{cl3}" cy="10" r="1" opacity="0.35"/><circle cx="{cl3}" cy="16" r="1" opacity="0.35"/>
+    <circle cx="{cl4}" cy="7" r="0.8" opacity="0.2"/><circle cx="{cl4}" cy="14" r="0.8" opacity="0.2"/>
+    <circle cx="{cr1}" cy="6" r="1.2" opacity="0.8"/><circle cx="{cr1}" cy="11" r="1.2" opacity="0.8"/><circle cx="{cr1}" cy="15" r="1.2" opacity="0.8"/><circle cx="{cr1}" cy="20" r="1.2" opacity="0.8"/>
+    <circle cx="{cr2}" cy="8" r="1.1" opacity="0.55"/><circle cx="{cr2}" cy="13" r="1.1" opacity="0.55"/><circle cx="{cr2}" cy="18" r="1.1" opacity="0.55"/>
+    <circle cx="{cr3}" cy="10" r="1" opacity="0.35"/><circle cx="{cr3}" cy="16" r="1" opacity="0.35"/>
+    <circle cx="{cr4}" cy="7" r="0.8" opacity="0.2"/><circle cx="{cr4}" cy="14" r="0.8" opacity="0.2"/>
+  </g>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+</svg>"""
+            elif dd == "left":
+                dissolve_zone = 32
+                box_l = dissolve_zone + 2
+                left_pad = dissolve_zone + 14
+                right_pad = 16
+                box_r = int(left_pad + text_w + right_pad)
+                calc_w = box_r + 4
+                w = width if width is not None else calc_w
+                text_x = left_pad + int(text_w / 2)
+                dash_start = box_l - 16
+                cl1, cl2, cl3, cl4 = box_l - 7, box_l - 14, box_l - 21, box_l - 28
+
+                svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
+    </style>
+  </defs>
+  <path d="M {box_l} 1 L {w-2} 1 L {w-2} 25 L {box_l} 25" fill="{bg}"/>
+  <path d="M {box_l} 1 L {w-2} 1 L {w-2} 25 L {box_l} 25" fill="{panel}" stroke="{prim}" stroke-width="1"/>
+  <line x1="{dash_start}" y1="1" x2="{box_l}" y2="1" stroke="{prim}" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  <line x1="{dash_start}" y1="25" x2="{box_l}" y2="25" stroke="{prim}" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  <path d="M {w-5} 8 L {w-5} 4 L {w-9} 4" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <path d="M {w-5} 18 L {w-5} 22 L {w-9} 22" fill="none" stroke="{prim}" stroke-width="1.5"/>
+  <g fill="{prim}">
+    <circle cx="{cl1}" cy="6" r="1.2" opacity="0.8"/><circle cx="{cl1}" cy="11" r="1.2" opacity="0.8"/><circle cx="{cl1}" cy="15" r="1.2" opacity="0.8"/><circle cx="{cl1}" cy="20" r="1.2" opacity="0.8"/>
+    <circle cx="{cl2}" cy="8" r="1.1" opacity="0.55"/><circle cx="{cl2}" cy="13" r="1.1" opacity="0.55"/><circle cx="{cl2}" cy="18" r="1.1" opacity="0.55"/>
+    <circle cx="{cl3}" cy="10" r="1" opacity="0.35"/><circle cx="{cl3}" cy="16" r="1" opacity="0.35"/>
+    <circle cx="{cl4}" cy="7" r="0.8" opacity="0.2"/><circle cx="{cl4}" cy="14" r="0.8" opacity="0.2"/>
+  </g>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+</svg>"""
+            else:
+                # Minimal Glass Micro-Stipple Dissolution Right (default)
+                left_pad = 16  # Corner bracket (4..8) + padding
+                right_pad = 14
+                box_r = int(left_pad + text_w + right_pad)
+                dash_end = box_r + 16
+                c1, c2, c3, c4 = box_r + 7, box_r + 14, box_r + 21, box_r + 28
+                calc_w = box_r + 34
+                w = width if width is not None else calc_w
+                text_x = left_pad + int(text_w / 2)
+
+                svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       {css_vars}
@@ -1696,16 +1859,84 @@ def generate_chip(style="cyberpunk", primary=None, accent=None,
     else:
         # Cyberpunk Chips
         if ct == "decay":
-            # Pixel Matrix Dither Decay
-            left_pad = 18  # Corner pixels + vertical bar (7..10) + padding
-            right_pad = 14
-            box_r = int(left_pad + text_w + right_pad)
-            d1, d2, d3, d4, d5 = box_r + 2, box_r + 8, box_r + 14, box_r + 20, box_r + 24
-            calc_w = box_r + 28
-            w = width if width is not None else calc_w
-            text_x = left_pad + int(text_w / 2)
+            if dd == "both":
+                dither_zone = 26
+                box_l = dither_zone + 2
+                left_pad = dither_zone + 12
+                right_pad = 12
+                box_r = int(left_pad + text_w + right_pad)
+                calc_w = box_r + dither_zone + 4
+                w = width if width is not None else calc_w
+                text_x = int(w / 2)
 
-            svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
+                dl1, dl2, dl3, dl4, dl5 = box_l - 2, box_l - 8, box_l - 14, box_l - 20, box_l - 24
+                dr1, dr2, dr3, dr4, dr5 = box_r + 2, box_r + 8, box_r + 14, box_r + 20, box_r + 24
+
+                svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
+    </style>
+  </defs>
+  <path d="M {box_r} 1 L {box_l} 1 L {box_l} 25 L {box_r} 25" fill="{bg}"/>
+  <path d="M {box_r} 1 L {box_l} 1 L {box_l} 25 L {box_r} 25" fill="{panel}" stroke="{prim}" stroke-width="1.5"/>
+  <g fill="{prim}">
+    <!-- Left Dither -->
+    <rect x="{dl1-3}" y="3" width="3" height="3"/><rect x="{dl1-3}" y="9" width="3" height="3"/><rect x="{dl1-3}" y="15" width="3" height="3"/><rect x="{dl1-3}" y="20" width="3" height="3"/>
+    <rect x="{dl2-2}" y="5" width="2" height="2"/><rect x="{dl2-2}" y="12" width="2" height="2"/><rect x="{dl2-2}" y="18" width="2" height="2"/>
+    <rect x="{dl3-2}" y="7" width="2" height="2" opacity="0.7"/><rect x="{dl3-2}" y="15" width="2" height="2" opacity="0.7"/>
+    <rect x="{dl4-1.5}" y="10" width="1.5" height="1.5" opacity="0.45"/><rect x="{dl5-1}" y="6" width="1" height="1" opacity="0.3"/>
+    <!-- Right Dither -->
+    <rect x="{dr1}" y="3" width="3" height="3"/><rect x="{dr1}" y="9" width="3" height="3"/><rect x="{dr1}" y="15" width="3" height="3"/><rect x="{dr1}" y="20" width="3" height="3"/>
+    <rect x="{dr2}" y="5" width="2" height="2"/><rect x="{dr2}" y="12" width="2" height="2"/><rect x="{dr2}" y="18" width="2" height="2"/>
+    <rect x="{dr3}" y="7" width="2" height="2" opacity="0.7"/><rect x="{dr3}" y="15" width="2" height="2" opacity="0.7"/>
+    <rect x="{dr4}" y="10" width="1.5" height="1.5" opacity="0.45"/><rect x="{dr5}" y="6" width="1" height="1" opacity="0.3"/>
+  </g>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+</svg>"""
+            elif dd == "left":
+                dither_zone = 26
+                box_l = dither_zone + 2
+                left_pad = dither_zone + 12
+                right_pad = 18
+                box_r = int(left_pad + text_w + right_pad)
+                calc_w = box_r + 4
+                w = width if width is not None else calc_w
+                text_x = left_pad + int(text_w / 2)
+                dl1, dl2, dl3, dl4, dl5 = box_l - 2, box_l - 8, box_l - 14, box_l - 20, box_l - 24
+
+                svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
+    </style>
+  </defs>
+  <path d="M {box_l} 1 L {w-2} 1 L {w-2} 25 L {box_l} 25" fill="{bg}"/>
+  <path d="M {box_l} 1 L {w-2} 1 L {w-2} 25 L {box_l} 25" fill="{panel}" stroke="{prim}" stroke-width="1.5"/>
+  <rect x="{w-4}" y="1" width="3" height="3" fill="{prim}"/>
+  <rect x="{w-4}" y="22" width="3" height="3" fill="{prim}"/>
+  <rect x="{w-10}" y="8" width="3" height="10" fill="{prim}"/>
+  <g fill="{prim}">
+    <rect x="{dl1-3}" y="3" width="3" height="3"/><rect x="{dl1-3}" y="9" width="3" height="3"/><rect x="{dl1-3}" y="15" width="3" height="3"/><rect x="{dl1-3}" y="20" width="3" height="3"/>
+    <rect x="{dl2-2}" y="5" width="2" height="2"/><rect x="{dl2-2}" y="12" width="2" height="2"/><rect x="{dl2-2}" y="18" width="2" height="2"/>
+    <rect x="{dl3-2}" y="7" width="2" height="2" opacity="0.7"/><rect x="{dl3-2}" y="15" width="2" height="2" opacity="0.7"/>
+    <rect x="{dl4-1.5}" y="10" width="1.5" height="1.5" opacity="0.45"/><rect x="{dl5-1}" y="6" width="1" height="1" opacity="0.3"/>
+  </g>
+  <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
+</svg>"""
+            else:
+                # Pixel Matrix Dither Decay Right (default)
+                left_pad = 18  # Corner pixels + vertical bar (7..10) + padding
+                right_pad = 14
+                box_r = int(left_pad + text_w + right_pad)
+                d1, d2, d3, d4, d5 = box_r + 2, box_r + 8, box_r + 14, box_r + 20, box_r + 24
+                calc_w = box_r + 28
+                w = width if width is not None else calc_w
+                text_x = left_pad + int(text_w / 2)
+
+                svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {height}" width="{w}" height="{height}" shape-rendering="crispEdges">
   <defs>
     <style>
       {css_vars}
@@ -1738,15 +1969,15 @@ def generate_chip(style="cyberpunk", primary=None, accent=None,
     <style>
       {css_vars}
       .chip-text {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }}
-      @keyframes blinkLed {{ 0%, 100% {{ fill: {prim}; }} 50% {{ fill: #1E293B; }} }}
+      @keyframes blinkLed {{ 0%, 100% {{ fill: {prim}; opacity: 1; }} 50% {{ fill: {border}; opacity: 0.3; }} }}
       .led {{ animation: blinkLed 1.4s infinite steps(1); }}
     </style>
   </defs>
   <rect x="1" y="1" width="{w-2}" height="{height-2}" fill="{bg}"/>
   <rect x="1" y="1" width="{w-2}" height="{height-2}" fill="{panel}" stroke="{prim}" stroke-width="1.5"/>
   <rect x="1" y="1" width="3" height="3" fill="{prim}"/>
-  <rect x="{w-4}" y="1" width="3" height="3" fill="{prim}"/>
-  <rect x="1" y="{height-4}" width="3" height="3" fill="{prim}"/>
+  <rect x="{w-4}" y="1" width="3" height="3" fill="{acc}"/>
+  <rect x="1" y="{height-4}" width="3" height="3" fill="{acc}"/>
   <rect x="{w-4}" y="{height-4}" width="3" height="3" fill="{prim}"/>
   <circle cx="14" cy="13" r="3.5" fill="{prim}" class="led"/>
   <text x="{text_x}" y="17" fill="{prim}" text-anchor="middle" class="chip-text">{text_clean}</text>
@@ -1914,10 +2145,12 @@ def generate_splitter(style="cyberpunk", primary=None, accent=None,
   </defs>
   <line x1="1" y1="11" x2="330" y2="11" stroke="{prim}" stroke-width="1.5"/>
   <line x1="520" y1="11" x2="{width-1}" y2="11" stroke="{prim}" stroke-width="1.5"/>
-  <rect x="1" y="8" width="6" height="6" fill="{prim}"/>
-  <rect x="{width-7}" y="8" width="6" height="6" fill="{prim}"/>
+  <rect x="1" y="8" width="6" height="6" fill="{acc}"/>
+  <rect x="{width-7}" y="8" width="6" height="6" fill="{acc}"/>
   <rect x="340" y="2" width="170" height="18" fill="{bg}" stroke="{prim}" stroke-width="1.5"/>
-  <text x="425" y="14" fill="{prim}" text-anchor="middle" class="font-mono">{lbl_clean}</text>
+  <rect x="340" y="2" width="4" height="4" fill="{acc}"/>
+  <rect x="506" y="2" width="4" height="4" fill="{acc}"/>
+  <text x="425" y="14" fill="{prim}" text-anchor="middle" class="font-mono"><tspan fill="{acc}">//</tspan> {lbl_clean} <tspan fill="{acc}">//</tspan></text>
 </svg>"""
 
     validate_svg(svg)

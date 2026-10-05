@@ -8,6 +8,7 @@
         --border-chassis: #FDE68A;
         --primary: #B45309;
         --accent: #C2410C;
+        --tertiary: #B91C1C;
         --title-front: #B45309;
         --title-mid: #78350F;
         --title-dark: #451A03;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(50, 36, 16, 0.85);
           --primary: #F59E0B;
           --accent: #EA580C;
+          --tertiary: #EF4444;
           --title-front: #F59E0B;
           --title-mid: #92400E;
           --title-dark: #451A03;

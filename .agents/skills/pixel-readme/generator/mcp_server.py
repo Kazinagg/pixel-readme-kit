@@ -113,7 +113,8 @@ def tool_render_block(
                 style=style, mode=mode, preset=preset, primary=primary, accent=accent,
                 callout_type=callout_type or p.get("callout_type", "note"),
                 title=title or p.get("title") or "SYSTEM NOTICE",
-                subtitle=subtitle or p.get("subtitle", "")
+                subtitle=subtitle or p.get("subtitle", ""),
+                badge_color=p.get("badge_color")
             )
         elif btype == "frame":
             svg = generate_frame(

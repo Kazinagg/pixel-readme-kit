@@ -2,3 +2,10 @@ __pycache__/
 *.pyc
 .DS_Store
 .pixel-cache.json
+*.egg-info/
+scratch/
+.codebase-memory/
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/pixel-readme/
