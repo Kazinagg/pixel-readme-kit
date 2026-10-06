@@ -48,7 +48,7 @@
    - Модульные окна контента, интерактивные терминалы, матрицы стека, плашки алертов и футеры.
 2. **Оформление профилей разработчиков (Developer Profiles)**:
    - Флагманские карточки профиля (`<img src="assets/generated/profile-cyberpunk-1.svg?v=6bdd3389" width="100%" alt="ALEX DEVELOPER" />`) со стилизованным аватаром, LED-индикатором статуса, 3D-типографикой и био.
-   - График динамики звёзд и активности (`<img src="assets/generated/starchart-cyberpunk-1.svg?v=def57661" width="100%" alt="STAR GROWTH TRAJECTORY" />`) с координатной сеткой и градиентной заливкой.
+   - График динамики звёзд и активности (`<img src="assets/generated/starchart-cyberpunk-1.svg?v=3c60e4fb" width="100%" alt="STAR GROWTH TRAJECTORY" />`) с координатной сеткой и градиентной заливкой.
    - Витрины ключевых проектов и социальные чипы.
 
 <br/>
@@ -63,7 +63,7 @@
 
 ### График динамики звёзд (Star Growth Trajectory)
 
-<img src="assets/generated/starchart-readme-demo.svg?v=c7a55bf8" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
+<img src="assets/generated/starchart-readme-demo.svg?v=ae8d7798" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
 
 <br/>
 
