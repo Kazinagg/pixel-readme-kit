@@ -47,10 +47,10 @@
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }
     </style>
   </defs>
-  <line x1="1" y1="11" x2="330" y2="11" stroke="var(--primary)" stroke-width="1.5"/>
-  <line x1="520" y1="11" x2="849" y2="11" stroke="var(--primary)" stroke-width="1.5"/>
+  <line x1="1" y1="11" x2="305" y2="11" stroke="var(--primary)" stroke-width="1.5"/>
+  <line x1="545" y1="11" x2="849" y2="11" stroke="var(--primary)" stroke-width="1.5"/>
   <polygon points="1 11, 8 7, 8 15" fill="var(--primary)"/>
   <polygon points="849 11, 842 7, 842 15" fill="var(--primary)"/>
-  <polygon points="340 3, 510 3, 516 11, 510 19, 340 19, 334 11" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1"/>
+  <polygon points="315 3, 535 3, 541 11, 535 19, 315 19, 309 11" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1"/>
   <text x="425" y="14" fill="var(--primary)" text-anchor="middle" class="font-mono">▲ [TACTICAL: SECURITY_AND_FAILSAFE] ▲</text>
 </svg>

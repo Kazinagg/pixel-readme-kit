@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 26" width="212" height="26" shape-rendering="crispEdges">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 243 26" width="243" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
       
@@ -47,12 +47,12 @@
       .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
     </style>
   </defs>
-  <polygon points="7 1, 176 1, 162 25, 7 25, 1 19, 1 7" fill="var(--bg-glass)"/>
-  <polygon points="7 1, 176 1, 162 25, 7 25, 1 19, 1 7" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/>
+  <polygon points="7 1, 207 1, 193 25, 7 25, 1 19, 1 7" fill="var(--bg-glass)"/>
+  <polygon points="7 1, 207 1, 193 25, 7 25, 1 19, 1 7" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/>
   <polygon points="8 13, 13 9, 13 17" fill="var(--primary)"/>
-  <polygon points="181 1, 185 1, 171 25, 167 25" fill="var(--primary)" opacity="0.9"/>
-  <polygon points="190 3, 193.5 3, 179.5 23, 176 23" fill="var(--primary)" opacity="0.65"/>
-  <polygon points="198 6, 201 6, 187 20, 184 20" fill="var(--primary)" opacity="0.4"/>
-  <polygon points="206 9, 208 9, 194 17, 192 17" fill="var(--primary)" opacity="0.2"/>
-  <text x="85" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">HAZARD_SLASHES ///</text>
+  <polygon points="212 1, 216 1, 202 25, 198 25" fill="var(--primary)" opacity="0.9"/>
+  <polygon points="221 3, 224.5 3, 210.5 23, 207 23" fill="var(--primary)" opacity="0.65"/>
+  <polygon points="229 6, 232 6, 218 20, 215 20" fill="var(--primary)" opacity="0.4"/>
+  <polygon points="237 9, 239 9, 225 17, 223 17" fill="var(--primary)" opacity="0.2"/>
+  <text x="100" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">HAZARD_SLASHES ///</text>
 </svg>

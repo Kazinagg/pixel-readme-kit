@@ -158,7 +158,7 @@
     
     <text x="42" y="209" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="209" fill="var(--text-main)" font-size="11" class="font-mono">RADAR SWEEP:</text>
-    <text x="200" y="209" fill="var(--primary)" font-size="11" font-weight="bold" class="font-mono">360° ACTIVE INDEFINITE</text>
+    <text x="200" y="209" fill="var(--accent)" font-size="11" font-weight="bold" class="font-mono">360° ACTIVE INDEFINITE</text>
 
     <text x="42" y="229" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="229" fill="var(--text-main)" font-size="11" class="font-mono">CRT SCANLINE:</text>
@@ -166,7 +166,7 @@
 
     <text x="42" y="249" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="249" fill="var(--text-main)" font-size="11" class="font-mono">CHASSIS:</text>
-    <text x="200" y="249" fill="var(--status)" font-size="11" font-weight="bold" class="font-mono">TRANSLUCENT GLASS MATRIX</text>
+    <text x="200" y="249" fill="var(--accent)" font-size="11" font-weight="bold" class="font-mono">TRANSLUCENT GLASS MATRIX</text>
 
     <rect x="500" y="239" width="8" height="12" fill="var(--primary)" class="cursor-blink"/>
   </g>

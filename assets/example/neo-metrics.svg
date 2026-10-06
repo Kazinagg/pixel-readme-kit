@@ -65,7 +65,7 @@
 
     <text x="15" y="25" fill="var(--text-dim)" class="font-mono-lbl">THROUGHPUT</text>
     
-    <text x="15" y="57" fill="var(--title-front)" class="font-mono-val">48.2 GB/s</text>
+    <text x="15" y="57" fill="var(--title-front)" font-size="18" class="font-mono-val">48.2 GB/s</text>
     <text x="15" y="79" fill="var(--status)" class="font-mono-sub">▲ +18.4% PEAK</text>
     
     <path d="M 150 81 L 160 75 L 170 83 L 180 71 L 190 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>
@@ -87,7 +87,7 @@
 
     <text x="230" y="25" fill="var(--text-dim)" class="font-mono-lbl">FRAME LATENCY</text>
     
-    <text x="230" y="57" fill="var(--title-front)" class="font-mono-val">0.14 ms</text>
+    <text x="230" y="57" fill="var(--title-front)" font-size="21" class="font-mono-val">0.14 ms</text>
     <text x="230" y="79" fill="var(--status)" class="font-mono-sub">▲ p99 &lt; 0.2ms</text>
     
     <path d="M 365 81 L 375 75 L 385 83 L 395 71 L 405 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>
@@ -109,7 +109,7 @@
 
     <text x="445" y="25" fill="var(--text-dim)" class="font-mono-lbl">ACTIVE NODES</text>
     
-    <text x="445" y="57" fill="var(--title-front)" class="font-mono-val">1,024</text>
+    <text x="445" y="57" fill="var(--title-front)" font-size="26" class="font-mono-val">1,024</text>
     <text x="445" y="79" fill="var(--status)" class="font-mono-sub">▲ +64 CLUSTERS</text>
     
     <path d="M 580 81 L 590 75 L 600 83 L 610 71 L 620 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>
@@ -130,9 +130,9 @@
     <rect x="652" y="9" width="2" height="2" fill="var(--accent)"/>
 
     <text x="660" y="25" fill="var(--text-dim)" class="font-mono-lbl">KERNEL HEALTH</text>
-    <rect x="781" y="13" width="56" height="13" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
-    <text x="809" y="23" fill="var(--accent)" text-anchor="middle" class="font-mono-tag">NOMINAL</text>
-    <text x="660" y="57" fill="var(--title-front)" class="font-mono-val">99.98%</text>
+    <rect x="779" y="13" width="58" height="13" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="808" y="23" fill="var(--accent)" text-anchor="middle" class="font-mono-tag">NOMINAL</text>
+    <text x="660" y="57" fill="var(--title-front)" font-size="26" class="font-mono-val">99.98%</text>
     
     
     <path d="M 795 81 L 805 75 L 815 83 L 825 71 L 835 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>

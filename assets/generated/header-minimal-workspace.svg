@@ -92,11 +92,11 @@
 
   <!-- SPECS TELEMETRY -->
   
-  <text x="42" y="173" fill="var(--primary)" font-size="10" class="font-mono">// SPECTRUM: <tspan fill="var(--text-main)">5-BAND REALTIME AUDIO</tspan></text>
+  <text x="42" y="173" fill="var(--primary)" font-size="10" class="font-mono">// SPECTRUM: <tspan fill="var(--accent)">5-BAND REALTIME AUDIO</tspan></text>
 
-  <text x="42" y="191" fill="var(--primary)" font-size="10" class="font-mono">// THEME: <tspan fill="var(--text-main)">TOKYO NIGHT DUAL-TONE</tspan></text>
+  <text x="42" y="191" fill="var(--primary)" font-size="10" class="font-mono">// THEME: <tspan fill="var(--accent)">TOKYO NIGHT DUAL-TONE</tspan></text>
 
-  <text x="42" y="209" fill="var(--primary)" font-size="10" class="font-mono">// LATENCY: <tspan fill="var(--text-main)">0.12ms ULTRA-LOW</tspan></text>
+  <text x="42" y="209" fill="var(--primary)" font-size="10" class="font-mono">// LATENCY: <tspan fill="var(--accent)">0.12ms ULTRA-LOW</tspan></text>
 
 
   <!-- EQUALIZER BARS (RIGHT SIDE) -->

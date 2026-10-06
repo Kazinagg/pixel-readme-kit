@@ -62,9 +62,9 @@
     <line x1="70" y1="10" x2="70" y2="18" stroke="var(--status)" stroke-width="2"/>
     <rect x="843" y="12" width="3" height="3" fill="var(--status)"/>
     <!-- Milestone Header -->
-    <rect x="82" y="19" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-    <text x="112" y="30" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026-Q1</text>
-    <text x="152" y="30" fill="var(--title-front)" class="font-time-title">CORE ENGINE</text>
+    <rect x="82" y="19" width="64" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="114" y="30" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026-Q1</text>
+    <text x="156" y="30" fill="var(--title-front)" class="font-time-title">CORE ENGINE</text>
     <text x="834" y="30" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
     <!-- Milestone Description -->
     <text x="84" y="50" fill="var(--text-dim)" class="font-time-desc">Vector pixel rendering pipeline</text>
@@ -77,9 +77,9 @@
     <line x1="70" y1="76" x2="70" y2="84" stroke="var(--status)" stroke-width="2"/>
     <rect x="843" y="78" width="3" height="3" fill="var(--status)"/>
     <!-- Milestone Header -->
-    <rect x="82" y="85" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-    <text x="112" y="96" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026-Q2</text>
-    <text x="152" y="96" fill="var(--title-front)" class="font-time-title">LIVE METRICS</text>
+    <rect x="82" y="85" width="64" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="114" y="96" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026-Q2</text>
+    <text x="156" y="96" fill="var(--title-front)" class="font-time-title">LIVE METRICS</text>
     <text x="834" y="96" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
     <!-- Milestone Description -->
     <text x="84" y="116" fill="var(--text-dim)" class="font-time-desc">Realtime HUD KPI &amp; progress widgets</text>
@@ -93,9 +93,9 @@
     <line x1="70" y1="142" x2="70" y2="150" stroke="var(--accent)" stroke-width="2"/>
     <rect x="843" y="144" width="3" height="3" fill="var(--accent)"/>
     <!-- Milestone Header -->
-    <rect x="82" y="151" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-    <text x="112" y="162" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026-Q3</text>
-    <text x="152" y="162" fill="var(--title-front)" class="font-time-title">STUDIO &amp; MCP</text>
+    <rect x="82" y="151" width="64" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="114" y="162" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026-Q3</text>
+    <text x="156" y="162" fill="var(--title-front)" class="font-time-title">STUDIO &amp; MCP</text>
     <text x="834" y="162" fill="var(--accent)" text-anchor="end" class="font-time-stat">◉ IN_PROGRESS</text>
     <!-- Milestone Description -->
     <text x="84" y="182" fill="var(--text-dim)" class="font-time-desc">Zero-dep web studio &amp; AI model protocol</text>
@@ -108,9 +108,9 @@
     <line x1="70" y1="208" x2="70" y2="216" stroke="var(--text-dim)" stroke-width="2"/>
     <rect x="843" y="210" width="3" height="3" fill="var(--text-dim)"/>
     <!-- Milestone Header -->
-    <rect x="82" y="217" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-    <text x="112" y="228" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026-Q4</text>
-    <text x="152" y="228" fill="var(--title-front)" class="font-time-title">GLOBAL CDN</text>
+    <rect x="82" y="217" width="64" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="114" y="228" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026-Q4</text>
+    <text x="156" y="228" fill="var(--title-front)" class="font-time-title">GLOBAL CDN</text>
     <text x="834" y="228" fill="var(--text-dim)" text-anchor="end" class="font-time-stat">○ PLANNED</text>
     <!-- Milestone Description -->
     <text x="84" y="248" fill="var(--text-dim)" class="font-time-desc">Dynamic edge badge synthesis</text>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 26" width="135" height="26" shape-rendering="crispEdges">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171 26" width="171" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
       
@@ -47,12 +47,12 @@
       .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
     </style>
   </defs>
-  <rect x="1" y="1" width="133" height="24" fill="var(--bg-glass)"/>
-  <rect x="1" y="1" width="133" height="24" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/>
+  <rect x="1" y="1" width="169" height="24" fill="var(--bg-glass)"/>
+  <rect x="1" y="1" width="169" height="24" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/>
   <rect x="1" y="1" width="3" height="3" fill="var(--primary)"/>
-  <rect x="131" y="1" width="3" height="3" fill="var(--primary)"/>
+  <rect x="167" y="1" width="3" height="3" fill="var(--primary)"/>
   <rect x="1" y="22" width="3" height="3" fill="var(--primary)"/>
-  <rect x="131" y="22" width="3" height="3" fill="var(--primary)"/>
+  <rect x="167" y="22" width="3" height="3" fill="var(--primary)"/>
   <rect x="8" y="8" width="4" height="10" fill="var(--primary)"/>
-  <text x="70" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">⚡ CLOSED_PILL</text>
+  <text x="88" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">⚡ CLOSED_PILL</text>
 </svg>
