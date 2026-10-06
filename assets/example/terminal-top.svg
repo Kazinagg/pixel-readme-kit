@@ -8,6 +8,7 @@
         --border-chassis: #E2E8F0;
         --primary: #4F8BFF;
         --accent: #6D28D9;
+        --tertiary: #0891B2;
         --title-front: #4F8BFF;
         --title-mid: #2f5399;
         --title-dark: #17294c;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(41, 46, 66, 0.85);
           --primary: #4F8BFF;
           --accent: #A855F7;
+          --tertiary: #06B6D4;
           --title-front: #4F8BFF;
           --title-mid: #233e72;
           --title-dark: #0b1426;
@@ -47,7 +49,7 @@
   </defs>
   <rect x="0" y="0" width="850" height="38" fill="var(--bg-glass)"/>
   <path d="M 4 14 L 4 4 L 14 4" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
-  <path d="M 846 14 L 846 4 L 836 4" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
+  <path d="M 846 14 L 846 4 L 836 4" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
   <line x1="8" y1="36" x2="842" y2="36" stroke="var(--primary)" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
   <circle cx="24" cy="18" r="4" fill="var(--primary)"/>
   <text x="36" y="22" fill="var(--primary)" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">╔═ SYSTEM.CONFIG.YAML // RUNTIME.SYS</text>
@@ -55,5 +57,5 @@
   <text x="722" y="22" fill="var(--primary)" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[OPEN_HUD]</text>
   <rect x="782" y="11" width="14" height="14" fill="var(--bg-panel)"/><text x="786" y="21" fill="var(--text-dim)" font-size="10" class="font-mono">_</text>
   <rect x="800" y="11" width="14" height="14" fill="var(--bg-panel)"/><text x="803" y="22" fill="var(--text-dim)" font-size="10" class="font-mono">□</text>
-  <rect x="818" y="11" width="14" height="14" fill="#FF0055"/><text x="822" y="22" fill="#FFFFFF" font-size="10" class="font-mono">×</text>
+  <rect x="818" y="11" width="14" height="14" fill="var(--tertiary)"/><text x="822" y="22" fill="var(--text-main)" font-size="10" font-weight="bold" class="font-mono">×</text>
 </svg>

@@ -4,19 +4,19 @@
 
 <div align="center">
 
-<img src="assets/generated/header-catalog-banner.svg" width="100%" alt="COMPONENT CATALOG" />
+<img src="assets/generated/header-catalog-banner.svg?v=de9d6b75" width="100%" alt="COMPONENT CATALOG" />
 
 <br/><br/>
 
-<a href="README.md"><img src="assets/generated/chip-cat-home.svg" alt="🏠 ГЛАВНАЯ (README)" /></a>
+<a href="README.md"><img src="assets/generated/chip-cat-home.svg?v=9f0bc613" alt="🏠 ГЛАВНАЯ (README)" /></a>
 &nbsp;&nbsp;
-<a href="EXAMPLES.md"><img src="assets/generated/chip-cat-examples.svg" alt="💡 ПРИМЕРЫ И РАЗБОР" /></a>
+<a href="EXAMPLES.md"><img src="assets/generated/chip-cat-examples.svg?v=5c397cdd" alt="💡 ПРИМЕРЫ И РАЗБОР" /></a>
 &nbsp;&nbsp;
-<a href="#top"><img src="assets/generated/chip-cat-top.svg" alt="▲ НАВЕРХ" /></a>
+<a href="#top"><img src="assets/generated/chip-cat-top.svg?v=5f57d106" alt="▲ НАВЕРХ" /></a>
 
 <br/><br/>
 
-<img src="assets/generated/divider-cat-spectrum.svg" width="100%" alt="Divider minimal" />
+<img src="assets/generated/divider-cat-spectrum.svg?v=b70f9c6d" width="100%" alt="Divider minimal" />
 
 </div>
 
@@ -53,56 +53,56 @@
 ## 1. Заглавные шапки (Master Headers — 3 стиля)
 
 ### 1.1 Cyberpunk Terminal (Радар 360° + CRT Scanline + Эквалайзер + Теги 3 уровня)
-<img src="assets/generated/header-terminal-cyberpunk.svg" width="100%" alt="CYBERPUNK TERMINAL" />
+<img src="assets/generated/header-terminal-cyberpunk.svg?v=75457f0d" width="100%" alt="CYBERPUNK TERMINAL" />
 
 <br/>
 
 ### 1.2 Tactical Military HUD (Прицельный лазер + 45° Chamfers + Теги 3 уровня)
-<img src="assets/generated/header-tactical-amber.svg" width="100%" alt="TACTICAL MILITARY HUD" />
+<img src="assets/generated/header-tactical-amber.svg?v=84687fc7" width="100%" alt="TACTICAL MILITARY HUD" />
 
 <br/>
 
 ### 1.3 Minimal Glass (Частотный эквалайзер спектра + Теги 3 уровня)
-<img src="assets/generated/header-minimal-workspace.svg" width="100%" alt="MINIMAL GLASS WORKSPACE" />
+<img src="assets/generated/header-minimal-workspace.svg?v=f76734c1" width="100%" alt="MINIMAL GLASS WORKSPACE" />
 
 <br/>
 
 ### 1.4 Чистая версия шапки (Без тегов 3 уровня — область под подзаголовком чистая)
-<img src="assets/generated/header-minimal-clean.svg" width="100%" alt="MINIMAL CLEAN WORKSPACE" />
+<img src="assets/generated/header-minimal-clean.svg?v=ecc3ea7d" width="100%" alt="MINIMAL CLEAN WORKSPACE" />
 
 ---
 
 ## 2. Закрывающие пластины (Master Footers — 3 стиля во всю ширину)
 
 ### 2.1 Cyberpunk Terminal Footer
-<a href="#top"><img src="assets/generated/footer-terminal-cyberpunk.svg" width="100%" alt="▲ ВЕРНУТЬСЯ В НАЧАЛО" /></a>
+<a href="#top"><img src="assets/generated/footer-terminal-cyberpunk.svg?v=a399d40a" width="100%" alt="▲ ВЕРНУТЬСЯ В НАЧАЛО" /></a>
 
 <br/>
 
 ### 2.2 Tactical Military Footer
-<a href="#top"><img src="assets/generated/footer-tactical-amber.svg" width="100%" alt="▲ НАВЕРХ" /></a>
+<a href="#top"><img src="assets/generated/footer-tactical-amber.svg?v=83f67f02" width="100%" alt="▲ НАВЕРХ" /></a>
 
 <br/>
 
 ### 2.3 Minimal Glass Footer
-<a href="#top"><img src="assets/generated/footer-minimal-tokyo.svg" width="100%" alt="▲ RETURN TOP" /></a>
+<a href="#top"><img src="assets/generated/footer-minimal-tokyo.svg?v=d26e076a" width="100%" alt="▲ RETURN TOP" /></a>
 
 ---
 
 ## 3. Инлайн-плашки и алерты (Callouts)
 
 ### 3.1 Cyberpunk Note
-<img src="assets/generated/callout-cyberpunk-note.svg" width="100%" alt="NOTE // РЕКОМЕНДАЦИЯ АРХИТЕКТУРЫ" />
+<img src="assets/generated/callout-cyberpunk-note.svg?v=857abd9d" width="100%" alt="NOTE // РЕКОМЕНДАЦИЯ АРХИТЕКТУРЫ" />
 
 <br/>
 
 ### 3.2 Tactical Warning
-<img src="assets/generated/callout-tactical-warning.svg" width="100%" alt="WARNING // ОГРАНИЧЕНИЕ ШИРИНЫ" />
+<img src="assets/generated/callout-tactical-warning.svg?v=5245d248" width="100%" alt="WARNING // ОГРАНИЧЕНИЕ ШИРИНЫ" />
 
 <br/>
 
 ### 3.3 Minimal Info
-<img src="assets/generated/callout-minimal-note.svg" width="100%" alt="INFO // СИСТЕМНОЕ СООБЩЕНИЕ" />
+<img src="assets/generated/callout-minimal-note.svg?v=9fdb01d3" width="100%" alt="INFO // СИСТЕМНОЕ СООБЩЕНИЕ" />
 
 ---
 
@@ -111,21 +111,21 @@
 Плашки цитат имеют открытый левый край (стыкующийся с серой полосой цитаты GitHub) и пунктирную нижнюю линию:
 
 ### 4.1 Cyberpunk Quote Header
-> <img src="assets/generated/callout-quote-cyberpunk.svg" width="100%" alt="CYBERPUNK QUOTE HEADER" />
+> <img src="assets/generated/callout-quote-cyberpunk.svg?v=d0bdfeb3" width="100%" alt="CYBERPUNK QUOTE HEADER" />
 >
 > > **Живой текст цитаты**: плашка бесшовно открыта слева к серой линии `border-left`, а пунктирная нижняя линия направляет внимание оператора в текст.
 
 <br/>
 
 ### 4.2 Tactical Quote Header
-> <img src="assets/generated/callout-quote-tactical.svg" width="100%" alt="TACTICAL QUOTE HEADER" />
+> <img src="assets/generated/callout-quote-tactical.svg?v=36a92dc5" width="100%" alt="TACTICAL QUOTE HEADER" />
 >
 > > **Тактическое оповещение**: плашка цитаты в тактическом стиле идеально выравнивается по высоте со стандартной серой чертой цитирования GitHub.
 
 <br/>
 
 ### 4.3 Minimal Quote Header
-> <img src="assets/generated/callout-quote-minimal.svg" width="100%" alt="MINIMAL QUOTE HEADER" />
+> <img src="assets/generated/callout-quote-minimal.svg?v=507e0f87" width="100%" alt="MINIMAL QUOTE HEADER" />
 >
 > > **Минималистичная цитата**: лёгкая элегантная рамка без перегрузки интерфейса.
 
@@ -134,7 +134,7 @@
 ## 5. Рамки окон (Window Frames)
 
 ### 5.1 Cyberpunk Window (Скобы-кронштейны + Накрытие x=1..849)
-<img src="assets/generated/frame-top-brackets-cyan.svg" width="100%" />
+<img src="assets/generated/frame-top-brackets-cyan.svg?v=fa0fbdd5" width="100%" />
 
 <table width="100%">
 <tr>
@@ -148,12 +148,12 @@
 </tr>
 </table>
 
-<img src="assets/generated/frame-bottom-brackets-cyan.svg" width="100%" />
+<img src="assets/generated/frame-bottom-brackets-cyan.svg?v=5cfae8f8" width="100%" />
 
 <br/>
 
 ### 5.2 Tactical Window (45° Chamfers без прокладки)
-<img src="assets/generated/frame-top-chamfer-amber.svg" width="100%" />
+<img src="assets/generated/frame-top-chamfer-amber.svg?v=ca195e26" width="100%" />
 
 <table width="100%">
 <tr>
@@ -167,7 +167,7 @@
 </tr>
 </table>
 
-<img src="assets/generated/frame-bottom-chamfer-amber.svg" width="100%" />
+<img src="assets/generated/frame-bottom-chamfer-amber.svg?v=691a687c" width="100%" />
 
 <br/>
 
@@ -175,7 +175,7 @@
 <table width="100%">
 <tr>
 <td width="100%" align="center">
-<img src="assets/generated/frame-top-table-minimal-tokyo.svg" width="100%" />
+<img src="assets/generated/frame-top-table-minimal-tokyo.svg?v=23678308" width="100%" />
 </td>
 </tr>
 <tr>
@@ -189,7 +189,7 @@
 </tr>
 <tr>
 <td width="100%" align="center">
-<img src="assets/generated/frame-bottom-table-minimal-tokyo.svg" width="100%" />
+<img src="assets/generated/frame-bottom-table-minimal-tokyo.svg?v=766a9742" width="100%" />
 </td>
 </tr>
 </table>
@@ -204,7 +204,7 @@
 
 <br/>
 
-<img src="assets/generated/terminal-top-cyberpunk.svg" width="100%" />
+<img src="assets/generated/terminal-top-cyberpunk.svg?v=50a4eec4" width="100%" />
 
 <table width="100%">
 <tr>
@@ -220,7 +220,7 @@ python -m generator.cli --help
 </tr>
 </table>
 
-<img src="assets/generated/terminal-bottom-cyberpunk.svg" width="100%" />
+<img src="assets/generated/terminal-bottom-cyberpunk.svg?v=f94f1e66" width="100%" />
 
 </details>
 
@@ -232,7 +232,7 @@ python -m generator.cli --help
 
 <br/>
 
-<img src="assets/generated/terminal-top-minimal.svg" width="100%" />
+<img src="assets/generated/terminal-top-minimal.svg?v=9647b064" width="100%" />
 
 <table width="100%">
 <tr>
@@ -247,7 +247,7 @@ python -m generator.cli compile --input README.template.md --output README.md
 </tr>
 </table>
 
-<img src="assets/generated/terminal-bottom-minimal.svg" width="100%" />
+<img src="assets/generated/terminal-bottom-minimal.svg?v=7211b7b5" width="100%" />
 
 </details>
 
@@ -258,55 +258,55 @@ python -m generator.cli compile --input README.template.md --output README.md
 Размер чипов автоматически адаптируется под количество символов текста и эмодзи:
 
 ### 7.1 Cyberpunk Chips
-<img src="assets/generated/chip-cyberpunk-closed.svg" alt="⚡ CLOSED_PILL" />
+<img src="assets/generated/chip-cyberpunk-closed.svg?v=111cc8ce" alt="⚡ CLOSED_PILL" />
 &nbsp;&nbsp;
-<img src="assets/generated/chip-cyberpunk-decay.svg" alt="DECAY_DITHER" />
+<img src="assets/generated/chip-cyberpunk-decay.svg?v=50c22bc9" alt="DECAY_DITHER" />
 &nbsp;&nbsp;
-<img src="assets/generated/chip-cyberpunk-pulse.svg" alt="● LED_PULSE" />
+<img src="assets/generated/chip-cyberpunk-pulse.svg?v=f50a40ea" alt="● LED_PULSE" />
 
 <br/><br/>
 
 ### 7.2 Tactical Military Chips
-<img src="assets/generated/chip-tactical-closed.svg" alt="SEC: CLEAR" />
+<img src="assets/generated/chip-tactical-closed.svg?v=d2c1f65c" alt="SEC: CLEAR" />
 &nbsp;&nbsp;
-<img src="assets/generated/chip-tactical-decay.svg" alt="HAZARD_SLASHES ///" />
+<img src="assets/generated/chip-tactical-decay.svg?v=428b9085" alt="HAZARD_SLASHES ///" />
 &nbsp;&nbsp;
-<img src="assets/generated/chip-tactical-pulse.svg" alt="TARGET: LOCK" />
+<img src="assets/generated/chip-tactical-pulse.svg?v=1fe0fbd5" alt="TARGET: LOCK" />
 
 <br/><br/>
 
 ### 7.3 Minimal Glass Chips
-<img src="assets/generated/chip-minimal-closed.svg" alt="LICENSE // MIT" />
+<img src="assets/generated/chip-minimal-closed.svg?v=6f60005a" alt="LICENSE // MIT" />
 &nbsp;&nbsp;
-<img src="assets/generated/chip-minimal-decay.svg" alt="STIPPLE_DISSOLVE" />
+<img src="assets/generated/chip-minimal-decay.svg?v=26969832" alt="STIPPLE_DISSOLVE" />
 &nbsp;&nbsp;
-<img src="assets/generated/chip-minimal-pulse.svg" alt="● BEACON_LIVE" />
+<img src="assets/generated/chip-minimal-pulse.svg?v=5ada654d" alt="● BEACON_LIVE" />
 
 ---
 
 ## 8. Разделители и сплиттеры подмодулей
 
 ### 8.1 Cyberpunk PCB Divider (Бегущий пакет данных)
-<img src="assets/generated/divider-pcb-cyan.svg" width="100%" alt="Divider cyberpunk" />
+<img src="assets/generated/divider-pcb-cyan.svg?v=524561bf" width="100%" alt="Divider cyberpunk" />
 
 <br/>
 
 ### 8.2 Tactical Laser Divider (Прицельный луч)
-<img src="assets/generated/divider-laser-amber.svg" width="100%" alt="Divider tactical" />
+<img src="assets/generated/divider-laser-amber.svg?v=5415d6a7" width="100%" alt="Divider tactical" />
 
 <br/>
 
 ### 8.3 Minimal Spectrum Divider (Частотный эквалайзер)
-<img src="assets/generated/divider-spectrum-tokyo.svg" width="100%" alt="Divider minimal" />
+<img src="assets/generated/divider-spectrum-tokyo.svg?v=7f2cc080" width="100%" alt="Divider minimal" />
 
 <br/>
 
 ### 8.4 Сплиттеры подмодулей (Flush x=1..849)
-<img src="assets/generated/splitter-terminal-cyberpunk.svg" width="100%" alt="[MODULE: IPC_BUS // CORE]" />
+<img src="assets/generated/splitter-terminal-cyberpunk.svg?v=180eb0da" width="100%" alt="[MODULE: IPC_BUS // CORE]" />
 <br/>
-<img src="assets/generated/splitter-tactical-amber.svg" width="100%" alt="[TARGET: SUB_SYSTEM_ALPHA]" />
+<img src="assets/generated/splitter-tactical-amber.svg?v=592f3d0e" width="100%" alt="[TARGET: SUB_SYSTEM_ALPHA]" />
 <br/>
-<img src="assets/generated/splitter-decay-tokyo.svg" width="100%" alt="[AUDIO: FREQUENCY_BAND_01]" />
+<img src="assets/generated/splitter-decay-tokyo.svg?v=bd7b27d8" width="100%" alt="[AUDIO: FREQUENCY_BAND_01]" />
 
 ---
 
@@ -316,22 +316,22 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 ### 9.1 Режим `mode="auto"` (Адаптивный SVG по умолчанию)
 Автоматически адаптирует цвета к теме ОС или GitHub:
-<img src="assets/generated/callout-mode-auto.svg" width="100%" alt="ADAPTIVE AUTO MODE" />
+<img src="assets/generated/callout-mode-auto.svg?v=98a493a2" width="100%" alt="ADAPTIVE AUTO MODE" />
 
 <br/>
 
 ### 9.2 Режим `mode="dark"` (Всегда тёмная палитра)
-<img src="assets/generated/callout-mode-dark.svg" width="100%" alt="STATIC DARK THEME" />
+<img src="assets/generated/callout-mode-dark.svg?v=32e6d2ce" width="100%" alt="STATIC DARK THEME" />
 
 <br/>
 
 ### 9.3 Режим `mode="light"` (Всегда светлая палитра)
-<img src="assets/generated/callout-mode-light.svg" width="100%" alt="STATIC LIGHT THEME" />
+<img src="assets/generated/callout-mode-light.svg?v=5ffc3021" width="100%" alt="STATIC LIGHT THEME" />
 
 <br/>
 
 ### 9.4 Режим `mode="transparent"` (Прозрачный фон)
-<img src="assets/generated/callout-mode-transparent.svg" width="100%" alt="TRANSPARENT BACKGROUND" />
+<img src="assets/generated/callout-mode-transparent.svg?v=2158312b" width="100%" alt="TRANSPARENT BACKGROUND" />
 
 ---
 
@@ -339,7 +339,7 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Полноширинные карточки для отображения бенчмарков, статусов и аналитики с угловыми скобами и трендами:
 
-<img src="assets/generated/metrics-catalog.svg" width="100%" alt="Metrics" />
+<img src="assets/generated/metrics-catalog.svg?v=a6d63ab9" width="100%" alt="Metrics" />
 
 ---
 
@@ -347,7 +347,7 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Научно-фантастические шкалы с пиксельным дизерингом и динамическим бейджем:
 
-<img src="assets/generated/progress-catalog.svg" width="100%" alt="SYSTEM MIGRATION (v4.0)" />
+<img src="assets/generated/progress-catalog.svg?v=8ab172a3" width="100%" alt="SYSTEM MIGRATION (v4.0)" />
 
 ---
 
@@ -355,7 +355,7 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Сетка карточек с векторными пиксельными иконками (Python, C++, Rust, Docker, Linux, Git, OpenGL и др.):
 
-<img src="assets/generated/techstack-catalog.svg" width="100%" alt="Tech Stack" />
+<img src="assets/generated/techstack-catalog.svg?v=cf3148da" width="100%" alt="Tech Stack" />
 
 ---
 
@@ -363,7 +363,7 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Вертикальные шины данных для демонстрации релизов, этапов дорожной карты и статусов задач:
 
-<img src="assets/generated/timeline-catalog.svg" width="100%" alt="Timeline" />
+<img src="assets/generated/timeline-catalog.svg?v=b0a3940e" width="100%" alt="Timeline" />
 
 ---
 
@@ -372,17 +372,17 @@ python -m generator.cli compile --input README.template.md --output README.md
 Премиальные баннеры для превью репозитория при шеринге в Twitter, LinkedIn, Telegram и Discord:
 
 ### 14.1 Cyberpunk Social Card
-<img src="assets/generated/social-catalog-cyberpunk.svg" width="100%" alt="PIXEL-KIT v5.0" />
+<img src="assets/generated/social-catalog-cyberpunk.svg?v=a63624e8" width="100%" alt="PIXEL-KIT v5.0" />
 
 <br/>
 
 ### 14.2 Tactical Military Social Card
-<img src="assets/generated/social-catalog-tactical.svg" width="100%" alt="DEFENSE-KIT v5.0" />
+<img src="assets/generated/social-catalog-tactical.svg?v=13671ba4" width="100%" alt="DEFENSE-KIT v5.0" />
 
 <br/>
 
 ### 14.3 Minimal Glass Social Card
-<img src="assets/generated/social-catalog-minimal.svg" width="100%" alt="STUDIO-KIT v5.0" />
+<img src="assets/generated/social-catalog-minimal.svg?v=e4deff5b" width="100%" alt="STUDIO-KIT v5.0" />
 
 ---
 
@@ -391,17 +391,17 @@ python -m generator.cli compile --input README.template.md --output README.md
 Облегченный вариант без телеметрии и радара — идеален для мобильных экранов и лаконичных README:
 
 ### 15.1 Cyberpunk Compact Header
-<img src="assets/generated/header-compact-cyberpunk.svg" width="100%" alt="CYBER-CORE" />
+<img src="assets/generated/header-compact-cyberpunk.svg?v=c5492704" width="100%" alt="CYBER-CORE" />
 
 <br/>
 
 ### 15.2 Tactical Military Compact Header
-<img src="assets/generated/header-compact-tactical.svg" width="100%" alt="TACTICAL-OPS" />
+<img src="assets/generated/header-compact-tactical.svg?v=ef7f1bf9" width="100%" alt="TACTICAL-OPS" />
 
 <br/>
 
 ### 15.3 Minimal Glass Compact Header
-<img src="assets/generated/header-compact-minimal.svg" width="100%" alt="MINIMAL-SYS" />
+<img src="assets/generated/header-compact-minimal.svg?v=5c0fe1c0" width="100%" alt="MINIMAL-SYS" />
 
 ---
 
@@ -410,17 +410,17 @@ python -m generator.cli compile --input README.template.md --output README.md
 Полноширинный векторный SVG-график (850×230) с координатной сеткой, градиентной заливкой области (Area Fill), пиковыми метками и индикацией темпа прироста для репозиториев и профилей:
 
 ### 16.1 Cyberpunk Star History
-<img src="assets/generated/starchart-cyberpunk.svg" width="100%" alt="OPEN SOURCE TRAJECTORY // TELEMETRY" />
+<img src="assets/generated/starchart-cyberpunk.svg?v=66544757" width="100%" alt="OPEN SOURCE TRAJECTORY // TELEMETRY" />
 
 <br/>
 
 ### 16.2 Tactical Military Star History
-<img src="assets/generated/starchart-tactical.svg" width="100%" alt="TACTICAL METRICS // GROWTH CURVE" />
+<img src="assets/generated/starchart-tactical.svg?v=50df5852" width="100%" alt="TACTICAL METRICS // GROWTH CURVE" />
 
 <br/>
 
 ### 16.3 Minimal Glass Star History
-<img src="assets/generated/starchart-minimal.svg" width="100%" alt="ANALYTICS // REPO EXPANSION" />
+<img src="assets/generated/starchart-minimal.svg?v=f8609c71" width="100%" alt="ANALYTICS // REPO EXPANSION" />
 
 ---
 
@@ -429,19 +429,19 @@ python -m generator.cli compile --input README.template.md --output README.md
 Флагманская карточка (850×190) для оформления шапки профиля разработчика `username/username` со стилизованным аватаром, LED-индикатором статуса, 3D-типографикой и био:
 
 ### 17.1 Cyberpunk Profile Dossier
-<img src="assets/generated/profile-cyberpunk.svg" width="100%" alt="ALEX DEVELOPER" />
+<img src="assets/generated/profile-cyberpunk.svg?v=6bdd3389" width="100%" alt="ALEX DEVELOPER" />
 
 <br/>
 
 ### 17.2 Tactical Military Profile Dossier
-<img src="assets/generated/profile-tactical.svg" width="100%" alt="MARCUS VANCE" />
+<img src="assets/generated/profile-tactical.svg?v=354aa81f" width="100%" alt="MARCUS VANCE" />
 
 <br/>
 
 ### 17.3 Minimal Glass Profile Dossier
-<img src="assets/generated/profile-minimal.svg" width="100%" alt="SARAH CHEN" />
+<img src="assets/generated/profile-minimal.svg?v=ddfa9b00" width="100%" alt="SARAH CHEN" />
 
 <br/><br/>
 
-<a href="#top"><img src="assets/generated/footer-bottom-nav.svg" width="100%" alt="▲ НАВЕРХ" /></a>
+<a href="#top"><img src="assets/generated/footer-bottom-nav.svg?v=61236133" width="100%" alt="▲ НАВЕРХ" /></a>
 
