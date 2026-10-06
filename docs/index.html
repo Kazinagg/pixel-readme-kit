@@ -329,6 +329,66 @@
       color: #79c0ff;
     }
 
+    /* ROADMAP TEASER */
+    .roadmap-teaser {
+      background: linear-gradient(135deg, rgba(17, 21, 28, 0.9) 0%, rgba(13, 17, 23, 0.95) 100%);
+      border: 1px dashed rgba(0, 255, 204, 0.35);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 64px;
+      position: relative;
+    }
+    .teaser-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 10px;
+      background: rgba(0, 255, 204, 0.12);
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      border-radius: 4px;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+    .roadmap-teaser h3 {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .roadmap-teaser p.teaser-lead {
+      color: var(--text-dim);
+      font-size: 14.5px;
+      margin-bottom: 24px;
+      max-width: 820px;
+    }
+    .teaser-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .teaser-item {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .teaser-item h4 {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .teaser-item p {
+      font-size: 13.5px;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+    .teaser-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--primary);
+      opacity: 0.85;
+    }
+
     /* FOOTER */
     footer.site-footer {
       border-top: 1px solid var(--panel-border);
@@ -378,17 +438,17 @@
       </div>
     </section>
 
-    <!-- 3 PARADIGMS SELECTOR -->
+    <!-- PIXEL STYLE THEMES SELECTOR -->
     <section id="showcase">
       <div class="section-title">
-        <h2>Component Gallery &amp; Presets</h2>
-        <p>Explore high-impact blocks across 3 distinct aesthetic paradigms</p>
+        <h2>Pixel Style: Core Thematic Suites</h2>
+        <p>Explore our signature Pixel / Retro-Tech geometry across 3 iconic color themes</p>
       </div>
 
       <div class="paradigm-selector">
-        <button class="paradigm-btn active" onclick="setParadigm('cyberpunk')">⚡ Pixel / Retro-Tech</button>
-        <button class="paradigm-btn" onclick="setParadigm('slate')">🔲 Clean Modern Vector</button>
-        <button class="paradigm-btn" onclick="setParadigm('corporate')">💼 Corporate &amp; Academic</button>
+        <button class="paradigm-btn active" onclick="setParadigm('cyberpunk')">⚡ Cyberpunk</button>
+        <button class="paradigm-btn" onclick="setParadigm('tactical')">🎯 Tactical HUD</button>
+        <button class="paradigm-btn" onclick="setParadigm('tokyo')">🌆 Tokyo Sunset</button>
       </div>
 
       <div class="showcase-grid">
@@ -402,7 +462,7 @@
             <img id="preview-profile" src="assets/profile-readme-demo.svg" alt="Profile Dossier Card" onerror="this.src='https://dummyimage.com/600x134/11151c/00ffcc.png&text=Profile+Dossier+Card'">
           </div>
           <div class="card-code">
-            <code id="code-profile">&lt;!-- pixel-kit:profile username="Kazinagg" auto_fetch="true" --&gt;</code>
+            <code id="code-profile">&lt;!-- pixel-kit:profile username="Kazinagg" style="cyberpunk" auto_fetch="true" --&gt;</code>
           </div>
         </div>
 
@@ -416,7 +476,7 @@
             <img id="preview-starchart" src="assets/starchart-readme-demo.svg" alt="Star Growth Trajectory" onerror="this.src='https://dummyimage.com/600x160/11151c/00ffcc.png&text=Star+Growth+Trajectory'">
           </div>
           <div class="card-code">
-            <code id="code-starchart">&lt;!-- pixel-kit:starchart repo="owner/repo" auto_fetch="true" --&gt;</code>
+            <code id="code-starchart">&lt;!-- pixel-kit:starchart repo="owner/repo" style="cyberpunk" auto_fetch="true" --&gt;</code>
           </div>
         </div>
 
@@ -430,7 +490,7 @@
             <img id="preview-metrics" src="assets/metrics-readme.svg" alt="KPI Metrics" onerror="this.src='https://dummyimage.com/600x65/11151c/00ffcc.png&text=KPI+Metrics+Row'">
           </div>
           <div class="card-code">
-            <code id="code-metrics">&lt;!-- pixel-kit:metrics repo="owner/repo" auto_fetch="true" --&gt;</code>
+            <code id="code-metrics">&lt;!-- pixel-kit:metrics repo="owner/repo" style="cyberpunk" auto_fetch="true" --&gt;</code>
           </div>
         </div>
 
@@ -445,6 +505,25 @@
           </div>
           <div class="card-code">
             <code id="code-header">&lt;!-- pixel-kit:header style="cyberpunk" title="MY-PROJECT" --&gt;</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROADMAP TEASER: FUTURE STYLES -->
+      <div class="roadmap-teaser">
+        <div class="teaser-badge">🚀 ROADMAP // MULTI-STYLE ARCHITECTURE</div>
+        <h3>Future Visual Paradigms in Active Development</h3>
+        <p class="teaser-lead">Pixel Readme Kit is expanding from retro-pixel graphics into a universal design system. Two entirely distinct geometrical styles with dedicated themes are currently being developed:</p>
+        <div class="teaser-grid">
+          <div class="teaser-item">
+            <h4>🔲 Style 2: Modern Clean Vector</h4>
+            <p>Silky-smooth rounded borders, zero-dither gradients, pure vector typography, and ultra-crisp 1px strokes for modern web &amp; SaaS libraries.</p>
+            <span class="teaser-tag">Themes: slate-dark &bull; nordic-frost &bull; linear-violet</span>
+          </div>
+          <div class="teaser-item">
+            <h4>💼 Style 3: Corporate &amp; Academic</h4>
+            <p>Austere high-contrast layouts, LaTeX/arXiv research dossier cards, academic paper tables, and strict Swiss minimalist typography.</p>
+            <span class="teaser-tag">Themes: academic-paper &bull; enterprise-navy &bull; swiss-mono</span>
           </div>
         </div>
       </div>
@@ -523,17 +602,7 @@ jobs:
         codeMetrics: '<!-- pixel-kit:metrics repo="owner/repo" style="cyberpunk" auto_fetch="true" -->',
         codeHeader: '<!-- pixel-kit:header style="cyberpunk" title="MY-PROJECT" -->'
       },
-      slate: {
-        profile: 'assets/profile-minimal.svg',
-        starchart: 'assets/starchart-minimal.svg',
-        metrics: 'assets/metrics-catalog.svg',
-        header: 'assets/header-minimal-clean.svg',
-        codeProfile: '<!-- pixel-kit:profile username="Kazinagg" style="minimal" auto_fetch="true" -->',
-        codeStarchart: '<!-- pixel-kit:starchart repo="owner/repo" style="minimal" auto_fetch="true" -->',
-        codeMetrics: '<!-- pixel-kit:metrics repo="owner/repo" style="minimal" auto_fetch="true" -->',
-        codeHeader: '<!-- pixel-kit:header style="minimal" title="MY-PROJECT" -->'
-      },
-      corporate: {
+      tactical: {
         profile: 'assets/profile-tactical.svg',
         starchart: 'assets/starchart-tactical.svg',
         metrics: 'assets/metrics-readme.svg',
@@ -542,6 +611,16 @@ jobs:
         codeStarchart: '<!-- pixel-kit:starchart repo="owner/repo" style="tactical" auto_fetch="true" -->',
         codeMetrics: '<!-- pixel-kit:metrics repo="owner/repo" style="tactical" auto_fetch="true" -->',
         codeHeader: '<!-- pixel-kit:header style="tactical" title="MY-PROJECT" -->'
+      },
+      tokyo: {
+        profile: 'assets/profile-tokyo.svg',
+        starchart: 'assets/starchart-tokyo.svg',
+        metrics: 'assets/metrics-tokyo.svg',
+        header: 'assets/header-tokyo.svg',
+        codeProfile: '<!-- pixel-kit:profile username="Kazinagg" preset="presets/tokyo.json" auto_fetch="true" -->',
+        codeStarchart: '<!-- pixel-kit:starchart repo="owner/repo" preset="presets/tokyo.json" auto_fetch="true" -->',
+        codeMetrics: '<!-- pixel-kit:metrics repo="owner/repo" preset="presets/tokyo.json" auto_fetch="true" -->',
+        codeHeader: '<!-- pixel-kit:header preset="presets/tokyo.json" title="MY-PROJECT" -->'
       }
     };
 
