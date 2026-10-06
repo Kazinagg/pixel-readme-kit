@@ -330,3 +330,29 @@
 - [X] **Автоматизированное стресс-тестирование**:
   - Создан тестовый модуль `tests/test_text_overflow_robustness.py` (16 тестов) с проверкой строк от 100 до 300 символов, отсутствия пробелов и валидности XML.
 
+---
+
+## 🧱 6. Архитектурная декомпозиция и домен тем (Sprint v5.1 / Modular Core & Theme Creator)
+
+### 🧩 Задача 1: Разделение монолитов ядра (`engine.py` и `server.py`)
+- [X] **Декомпозиция SVG-движка (`generator/components/` & `generator/layout/`)**:
+  - `generator/layout/text_layout.py` — моноширинная верстка, расчет пиксельной ширины, безопасный перенос и усечение строк.
+  - `generator/components/` — 9 изолированных модулей для всех типов визуальных блоков (`header`, `footer`, `callout`, `frame`, `chip`, `divider`, `metrics`, `timeline`, `social`).
+  - `generator/engine.py` — сверхкомпактный фасад обратной совместимости (~110 строк вместо 3 433 строк), 100% совместимый со старыми импортами и глобальными словарями.
+- [X] **Декомпозиция HUD Studio (`generator/studio/`)**:
+  - Выделение монолитной 3 266-строчной HTML/CSS/JS строки в статические веб-исходники (`generator/studio/static/index.html`, `studio.css`, `app.js`, `theme_studio.js`).
+  - Модульные HTTP-хендлеры запросов в `generator/studio/handlers/` (`render_handler`, `template_handler`, `theme_handler`, `git_handler`).
+  - Фасад `generator/server.py` сокращен с 4 569 строк до чистых ~45 строк.
+
+### 🎨 Задача 2: Домен тем и единый источник правды (`generator/themes/`)
+- [X] **Централизованный реестр тем (`ThemeRegistry`)**:
+  - Единый источник правды для всех тем и пресетов (`presets/*.json`, встроенные темы, алиасы).
+  - Устранена рассинхронизация между Python-генератором, CLI, шаблонами и веб-студией.
+  - Колористика и математика цвета (`darken_hex`, `lighten_hex`, WCAG `contrast_ratio`, `get_shadow_colors`).
+- [X] **Интерактивный конструктор тем и колор-гармонайзер (Theme Creator & Studio UI)**:
+  - `generator/themes/creator.py` — алгоритмическая генерация адаптивной светлой и темной палитры (триадная, комплементарная, аналогичная стратегии).
+  - API эндпоинты `/api/themes`, `/api/themes/generate`, `/api/themes/save`.
+  - Модуль Студии `theme_studio.js` с модальным окном «■ THEME STUDIO», превью компонентов и сохранением пресетов в `presets/*.json` одним кликом.
+- [X] **100% покрытие тестами и обратная совместимость**:
+  - Все 130 тестов (включая 14 новых тестов в `test_themes_and_studio_modular.py`) зеленые.
+

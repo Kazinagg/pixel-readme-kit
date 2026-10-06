@@ -181,6 +181,9 @@ THEMES["corporate_blue"] = THEMES["corporate-blue"]
 THEMES["academic_paper"] = THEMES["academic-paper"]
 THEMES["modern_slate"] = THEMES["modern-slate"]
 
+# Re-export modern Theme domain utilities
+from generator.themes import ThemeRegistry, theme_registry, resolve_theme, load_preset
+
 def get_theme(theme_name="cyberpunk"):
     return THEMES.get(theme_name, THEMES["cyberpunk"])
 

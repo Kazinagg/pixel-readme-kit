@@ -1,0 +1,161 @@
+"""Divider and splitter components for Pixel Readme Kit."""
+from typing import Optional, Any
+from generator.themes import resolve_theme
+from generator.layout import measure_mono_text_width, clamp_text_to_width
+from generator.components.base import escape_xml, validate_svg
+
+def generate_divider(style="cyberpunk", primary=None, accent=None, width=850, height=28, mode="auto", preset=None):
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    prim = c["primary"]
+    acc = c["accent"]
+    bg = c["bg"]
+    border = c["border"]
+    st = style.lower()
+
+    if st == "tactical":
+        # Pulsing Aiming Laser Divider
+        svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }}
+      @keyframes laserPulse {{ 0%, 100% {{ opacity: 0.95; }} 50% {{ opacity: 0.35; }} }}
+      .laser {{ animation: laserPulse 1.4s infinite ease-in-out; }}
+    </style>
+  </defs>
+  <line x1="20" y1="14" x2="350" y2="14" stroke="{prim}" stroke-width="1.5"/>
+  <line x1="500" y1="14" x2="{width-20}" y2="14" stroke="{prim}" stroke-width="1.5"/>
+  <polygon points="12 14, 20 8, 20 20" fill="{prim}"/>
+  <polygon points="{width-12} 14, {width-20} 8, {width-20} 20" fill="{prim}"/>
+  <polygon points="360 4, 490 4, 498 14, 490 24, 360 24, 352 14" fill="{bg}" stroke="{prim}" stroke-width="1.5"/>
+  <text x="425" y="17" fill="{prim}" text-anchor="middle" class="font-mono laser">▲ TACTICAL // LASER ▲</text>
+</svg>"""
+
+    elif st == "minimal":
+        # Frequency Spectrum Equalizer Divider
+        bars = []
+        for i in range(15):
+            bx = 365 + i * 8
+            bh = 6 + (i * 7 % 18)
+            by = 14 - bh // 2
+            col = prim if i % 2 == 0 else acc
+            bars.append(f'<rect x="{bx}" y="{by}" width="4" height="{bh}" fill="{col}" class="s-bar"/>')
+        bars_markup = "".join(bars)
+
+        svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 8px; font-weight: bold; letter-spacing: 1px; }}
+      @keyframes barPulse {{ 0%, 100% {{ transform: scaleY(0.4); opacity: 0.5; }} 50% {{ transform: scaleY(1.2); opacity: 1; }} }}
+      .s-bar {{ transform-origin: center; animation: barPulse 1.6s infinite ease-in-out; }}
+    </style>
+  </defs>
+  <line x1="20" y1="14" x2="345" y2="14" stroke="{border}" stroke-width="1.5"/>
+  <line x1="505" y1="14" x2="{width-20}" y2="14" stroke="{border}" stroke-width="1.5"/>
+  <line x1="60" y1="14" x2="330" y2="14" stroke="{prim}" stroke-width="1" opacity="0.6" stroke-dasharray="12,4"/>
+  <line x1="520" y1="14" x2="{width-60}" y2="14" stroke="{prim}" stroke-width="1" opacity="0.6" stroke-dasharray="12,4"/>
+  <path d="M 20 8 L 20 14 L 32 14" fill="none" stroke="{prim}" stroke-width="1.5"/><rect x="20" y="12" width="4" height="4" fill="{acc}"/>
+  <path d="M {width-20} 8 L {width-20} 14 L {width-32} 14" fill="none" stroke="{prim}" stroke-width="1.5"/><rect x="{width-24}" y="12" width="4" height="4" fill="{acc}"/>
+  <text x="240" y="11" fill="{prim}" text-anchor="middle" opacity="0.7" class="font-mono">// 44.1 kHz //</text>
+  <text x="610" y="11" fill="{prim}" text-anchor="middle" opacity="0.7" class="font-mono">// SPECTRUM_HUD //</text>
+  <rect x="355" y="2" width="140" height="24" fill="{bg}" stroke="{border}" stroke-width="1"/>
+  {bars_markup}
+</svg>"""
+
+    else:
+        # Cyberpunk PCB Trace Flow Divider
+        svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; letter-spacing: 1px; }}
+      @keyframes pcbTrace {{ 0% {{ stroke-dashoffset: 400; }} 100% {{ stroke-dashoffset: 0; }} }}
+      .packet {{ stroke-dasharray: 40, 200; animation: pcbTrace 2.8s infinite linear; }}
+    </style>
+  </defs>
+  <line x1="10" y1="14" x2="{width-10}" y2="14" stroke="{border}" stroke-width="2"/>
+  <line x1="10" y1="14" x2="{width-10}" y2="14" stroke="{prim}" stroke-width="2" class="packet"/>
+  <circle cx="20" cy="14" r="4" fill="{prim}"/><circle cx="{width-20}" cy="14" r="4" fill="{prim}"/>
+  <rect x="{width//2 - 90}" y="4" width="180" height="20" fill="{bg}" stroke="{prim}" stroke-width="1.5"/>
+  <text x="{width//2}" y="17" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[PCB: DATA_PACKET_FLOW]</text>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+def generate_splitter(style="cyberpunk", primary=None, accent=None,
+                      label="[MODULE: SUB_SYSTEM]", width=850, height=22, mode="auto", preset=None):
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    prim = c["primary"]
+    acc = c["accent"]
+    bg = c["bg"]
+    border = c["border"]
+    lbl_clean = escape_xml(label)
+    st = style.lower()
+
+    mid_x = width // 2
+    max_lbl_w = width - 80
+    lbl_disp = clamp_text_to_width(lbl_clean, max_lbl_w - 40, 9)
+    text_w = measure_mono_text_width(lbl_disp, 9) + 40
+    box_w = max(140, min(max_lbl_w, int(text_w)))
+    x1 = mid_x - box_w // 2
+    x2 = mid_x + box_w // 2
+    l_end = max(1, x1 - 10)
+    r_start = min(width - 1, x2 + 10)
+
+    if st == "tactical":
+        svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }}
+    </style>
+  </defs>
+  <line x1="1" y1="11" x2="{l_end}" y2="11" stroke="{prim}" stroke-width="1.5"/>
+  <line x1="{r_start}" y1="11" x2="{width-1}" y2="11" stroke="{prim}" stroke-width="1.5"/>
+  <polygon points="1 11, 8 7, 8 15" fill="{prim}"/>
+  <polygon points="{width-1} 11, {width-8} 7, {width-8} 15" fill="{prim}"/>
+  <polygon points="{x1} 3, {x2} 3, {x2+6} 11, {x2} 19, {x1} 19, {x1-6} 11" fill="{bg}" stroke="{prim}" stroke-width="1"/>
+  <text x="{mid_x}" y="14" fill="{prim}" text-anchor="middle" class="font-mono">▲ {lbl_disp} ▲</text>
+</svg>"""
+
+    elif st == "minimal":
+        svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }}
+    </style>
+  </defs>
+  <line x1="1" y1="11" x2="{l_end}" y2="11" stroke="{border}" stroke-width="1"/>
+  <line x1="{r_start}" y1="11" x2="{width-1}" y2="11" stroke="{border}" stroke-width="1"/>
+  <rect x="{x1}" y="2" width="{box_w}" height="18" fill="{bg}" stroke="{prim}" stroke-width="1"/>
+  <text x="{mid_x}" y="14" fill="{prim}" text-anchor="middle" class="font-mono">{lbl_disp}</text>
+</svg>"""
+
+    else:
+        svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }}
+    </style>
+  </defs>
+  <line x1="1" y1="11" x2="{l_end}" y2="11" stroke="{prim}" stroke-width="1.5"/>
+  <line x1="{r_start}" y1="11" x2="{width-1}" y2="11" stroke="{prim}" stroke-width="1.5"/>
+  <rect x="1" y="8" width="6" height="6" fill="{acc}"/>
+  <rect x="{width-7}" y="8" width="6" height="6" fill="{acc}"/>
+  <rect x="{x1}" y="2" width="{box_w}" height="18" fill="{bg}" stroke="{prim}" stroke-width="1.5"/>
+  <rect x="{x1}" y="2" width="4" height="4" fill="{acc}"/>
+  <rect x="{x2-4}" y="2" width="4" height="4" fill="{acc}"/>
+  <text x="{mid_x}" y="14" fill="{prim}" text-anchor="middle" class="font-mono"><tspan fill="{acc}">//</tspan> {lbl_disp} <tspan fill="{acc}">//</tspan></text>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+# ==============================================================================
+# DATA VISUALIZATION WIDGETS (v4.0)
+# ==============================================================================
+

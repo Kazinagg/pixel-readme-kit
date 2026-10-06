@@ -158,7 +158,7 @@
     
     <text x="42" y="182" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="182" fill="var(--text-main)" font-size="11" class="font-mono">ENGINE:</text>
-    <text x="200" y="182" fill="var(--primary)" font-size="11" font-weight="bold" class="font-mono">HIGH-PERFORMANCE RUNTIME</text>
+    <text x="200" y="182" fill="var(--accent)" font-size="11" font-weight="bold" class="font-mono">HIGH-PERFORMANCE RUNTIME</text>
 
     <text x="42" y="202" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="202" fill="var(--text-main)" font-size="11" class="font-mono">ARCHITECTURE:</text>
@@ -166,7 +166,7 @@
 
     <text x="42" y="222" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="222" fill="var(--text-main)" font-size="11" class="font-mono">COMPLIANCE:</text>
-    <text x="200" y="222" fill="var(--status)" font-size="11" font-weight="bold" class="font-mono">GITHUB DUAL-THEME READY</text>
+    <text x="200" y="222" fill="var(--accent)" font-size="11" font-weight="bold" class="font-mono">GITHUB DUAL-THEME READY</text>
 
     <rect x="500" y="212" width="8" height="12" fill="var(--primary)" class="cursor-blink"/>
   </g>
