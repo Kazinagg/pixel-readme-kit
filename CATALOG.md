@@ -371,7 +371,18 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Премиальные баннеры для превью репозитория при шеринге в Twitter, LinkedIn, Telegram и Discord:
 
-<img src="assets/generated/social-catalog.svg" width="100%" alt="PIXEL-KIT v4.0" />
+### 14.1 Cyberpunk Social Card
+<img src="assets/generated/social-catalog-cyberpunk.svg" width="100%" alt="PIXEL-KIT v5.0" />
+
+<br/>
+
+### 14.2 Tactical Military Social Card
+<img src="assets/generated/social-catalog-tactical.svg" width="100%" alt="DEFENSE-KIT v5.0" />
+
+<br/>
+
+### 14.3 Minimal Glass Social Card
+<img src="assets/generated/social-catalog-minimal.svg" width="100%" alt="STUDIO-KIT v5.0" />
 
 ---
 
@@ -379,7 +390,18 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Облегченный вариант без телеметрии и радара — идеален для мобильных экранов и лаконичных README:
 
-<img src="assets/generated/header-compact-catalog.svg" width="100%" alt="MICRO-SERVICE" />
+### 15.1 Cyberpunk Compact Header
+<img src="assets/generated/header-compact-cyberpunk.svg" width="100%" alt="CYBER-CORE" />
+
+<br/>
+
+### 15.2 Tactical Military Compact Header
+<img src="assets/generated/header-compact-tactical.svg" width="100%" alt="TACTICAL-OPS" />
+
+<br/>
+
+### 15.3 Minimal Glass Compact Header
+<img src="assets/generated/header-compact-minimal.svg" width="100%" alt="MINIMAL-SYS" />
 
 ---
 
@@ -387,7 +409,18 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Полноширинный векторный SVG-график (850×230) с координатной сеткой, градиентной заливкой области (Area Fill), пиковыми метками и индикацией темпа прироста для репозиториев и профилей:
 
-<img src="assets/generated/starchart-catalog.svg" width="100%" alt="OPEN SOURCE TRAJECTORY // TELEMETRY" />
+### 16.1 Cyberpunk Star History
+<img src="assets/generated/starchart-cyberpunk.svg" width="100%" alt="OPEN SOURCE TRAJECTORY // TELEMETRY" />
+
+<br/>
+
+### 16.2 Tactical Military Star History
+<img src="assets/generated/starchart-tactical.svg" width="100%" alt="TACTICAL METRICS // GROWTH CURVE" />
+
+<br/>
+
+### 16.3 Minimal Glass Star History
+<img src="assets/generated/starchart-minimal.svg" width="100%" alt="ANALYTICS // REPO EXPANSION" />
 
 ---
 
@@ -395,7 +428,18 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Флагманская карточка (850×190) для оформления шапки профиля разработчика `username/username` со стилизованным аватаром, LED-индикатором статуса, 3D-типографикой и био:
 
-<img src="assets/generated/profile-catalog.svg" width="100%" alt="ALEX DEVELOPER" />
+### 17.1 Cyberpunk Profile Dossier
+<img src="assets/generated/profile-cyberpunk.svg" width="100%" alt="ALEX DEVELOPER" />
+
+<br/>
+
+### 17.2 Tactical Military Profile Dossier
+<img src="assets/generated/profile-tactical.svg" width="100%" alt="MARCUS VANCE" />
+
+<br/>
+
+### 17.3 Minimal Glass Profile Dossier
+<img src="assets/generated/profile-minimal.svg" width="100%" alt="SARAH CHEN" />
 
 <br/><br/>
 

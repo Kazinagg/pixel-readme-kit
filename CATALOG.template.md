@@ -310,7 +310,18 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Премиальные баннеры для превью репозитория при шеринге в Twitter, LinkedIn, Telegram и Discord:
 
-<!-- pixel-kit:social style="cyberpunk" title="PIXEL-KIT v4.0" subtitle="RETRO-CYBERPUNK HUD DESIGN SYSTEM" repo="Kazinagg/pixel-readme-kit" tags="PYTHON,SVG,CYBERPUNK,MCP" out="assets/generated/social-catalog.svg" -->
+### 14.1 Cyberpunk Social Card
+<!-- pixel-kit:social style="cyberpunk" title="PIXEL-KIT v5.0" subtitle="RETRO-CYBERPUNK HUD DESIGN SYSTEM" repo="Kazinagg/pixel-readme-kit" tags="PYTHON,SVG,CYBERPUNK,MCP" out="assets/generated/social-catalog-cyberpunk.svg" -->
+
+<br/>
+
+### 14.2 Tactical Military Social Card
+<!-- pixel-kit:social style="tactical" title="DEFENSE-KIT v5.0" subtitle="TACTICAL MILITARY HUD SYSTEM" repo="Kazinagg/pixel-readme-kit" tags="RUST,LINUX,TACTICAL,OPS" out="assets/generated/social-catalog-tactical.svg" -->
+
+<br/>
+
+### 14.3 Minimal Glass Social Card
+<!-- pixel-kit:social style="minimal" title="STUDIO-KIT v5.0" subtitle="MINIMAL GLASS WORKSPACE" repo="Kazinagg/pixel-readme-kit" tags="TYPESCRIPT,REACT,DESIGN,UI" out="assets/generated/social-catalog-minimal.svg" -->
 
 ---
 
@@ -318,7 +329,18 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Облегченный вариант без телеметрии и радара — идеален для мобильных экранов и лаконичных README:
 
-<!-- pixel-kit:header style="tactical" title="MICRO-SERVICE" subtitle="LEAN HIGH-PERFORMANCE RUNTIME" tag="V4.0" compact="true" out="assets/generated/header-compact-catalog.svg" -->
+### 15.1 Cyberpunk Compact Header
+<!-- pixel-kit:header style="cyberpunk" title="CYBER-CORE" subtitle="HIGH-SPEED NEURAL ENGINE" tag="v5.0" compact="true" out="assets/generated/header-compact-cyberpunk.svg" -->
+
+<br/>
+
+### 15.2 Tactical Military Compact Header
+<!-- pixel-kit:header style="tactical" title="TACTICAL-OPS" subtitle="LEAN HIGH-PERFORMANCE RUNTIME" tag="v5.0" compact="true" out="assets/generated/header-compact-tactical.svg" -->
+
+<br/>
+
+### 15.3 Minimal Glass Compact Header
+<!-- pixel-kit:header style="minimal" title="MINIMAL-SYS" subtitle="CLEAN MONOCHROME INTERFACE" tag="v5.0" compact="true" out="assets/generated/header-compact-minimal.svg" -->
 
 ---
 
@@ -326,7 +348,18 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Полноширинный векторный SVG-график (850×230) с координатной сеткой, градиентной заливкой области (Area Fill), пиковыми метками и индикацией темпа прироста для репозиториев и профилей:
 
-<!-- pixel-kit:starchart style="cyberpunk" repo="Kazinagg/pixel-readme-kit" points="20,80,240,650,1200,2100" current="2,100" delta="+92% past 6m" title="OPEN SOURCE TRAJECTORY // TELEMETRY" out="assets/generated/starchart-catalog.svg" -->
+### 16.1 Cyberpunk Star History
+<!-- pixel-kit:starchart style="cyberpunk" repo="Kazinagg/pixel-readme-kit" points="20,80,240,650,1200,2100" current="2,100" delta="+92% past 6m" title="OPEN SOURCE TRAJECTORY // TELEMETRY" out="assets/generated/starchart-cyberpunk.svg" -->
+
+<br/>
+
+### 16.2 Tactical Military Star History
+<!-- pixel-kit:starchart style="tactical" repo="Kazinagg/pixel-readme-kit" points="15,60,180,450,920,1650" current="1,650" delta="+78% past 6m" title="TACTICAL METRICS // GROWTH CURVE" out="assets/generated/starchart-tactical.svg" -->
+
+<br/>
+
+### 16.3 Minimal Glass Star History
+<!-- pixel-kit:starchart style="minimal" repo="Kazinagg/pixel-readme-kit" points="30,110,320,780,1400,2400" current="2,400" delta="+85% past 6m" title="ANALYTICS // REPO EXPANSION" out="assets/generated/starchart-minimal.svg" -->
 
 ---
 
@@ -334,7 +367,18 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 Флагманская карточка (850×190) для оформления шапки профиля разработчика `username/username` со стилизованным аватаром, LED-индикатором статуса, 3D-типографикой и био:
 
-<!-- pixel-kit:profile style="cyberpunk" name="ALEX DEVELOPER" role="FULLSTACK & SYSTEMS ARCHITECT" bio="Building high-performance runtimes and resilient developer tooling." status="AVAILABLE FOR HIRE" location="REMOTE // UTC+3" badge="LEVEL_99" out="assets/generated/profile-catalog.svg" -->
+### 17.1 Cyberpunk Profile Dossier
+<!-- pixel-kit:profile style="cyberpunk" name="ALEX DEVELOPER" role="FULLSTACK & SYSTEMS ARCHITECT" bio="Building high-performance runtimes and resilient developer tooling." status="AVAILABLE FOR HIRE" location="REMOTE // UTC+3" badge="LEVEL_99" out="assets/generated/profile-cyberpunk.svg" -->
+
+<br/>
+
+### 17.2 Tactical Military Profile Dossier
+<!-- pixel-kit:profile style="tactical" name="MARCUS VANCE" role="SECURITY & SYSTEMS OPERATOR" bio="Hardening infrastructure and mission-critical cloud telemetry." status="MISSION READY" location="DEFENSE GRID // UTC" badge="OPERATOR" out="assets/generated/profile-tactical.svg" -->
+
+<br/>
+
+### 17.3 Minimal Glass Profile Dossier
+<!-- pixel-kit:profile style="minimal" name="SARAH CHEN" role="STAFF SOFTWARE ENGINEER" bio="Crafting elegant APIs, developer tools and clean architecture." status="OPEN TO CHAT" location="SAN FRANCISCO // PST" badge="STAFF" out="assets/generated/profile-minimal.svg" -->
 
 <br/><br/>
 
