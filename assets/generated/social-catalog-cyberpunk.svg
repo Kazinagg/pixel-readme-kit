@@ -59,10 +59,10 @@
 
 
   <!-- TOP REPOSITORY HEADER -->
-  <rect x="80" y="56" width="380" height="34" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+  <rect x="80" y="56" width="365" height="34" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
   <text x="96" y="78" fill="var(--primary)" font-size="13" font-weight="bold" letter-spacing="1px" class="font-mono">■ REPOSITORY // KAZINAGG/PIXEL-README-KIT</text>
-  <rect x="470" y="56" width="140" height="34" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
-  <text x="540" y="78" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PUBLIC // v4.0</text>
+  <rect x="459" y="56" width="140" height="34" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="529" y="78" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PUBLIC // v5.0</text>
 
   <!-- 3D PIXEL TITLE -->
   <g class="pixel-text-3d">
@@ -75,33 +75,33 @@
 </g>
 
   <!-- SUBTITLE CALLOUT -->
-  <rect x="80" y="345" width="411" height="42" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.5"/>
+  <rect x="80" y="345" width="369" height="42" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.5"/>
   <text x="100" y="372" fill="var(--text-main)" font-size="15" font-weight="bold" class="font-mono">▶ RETRO-CYBERPUNK HUD DESIGN SYSTEM</text>
 
   <!-- TECH / FEATURE TAGS ROW -->
   
     <g transform="translate(80, 530)">
-      <rect x="0" y="0" width="85" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+      <rect x="0" y="0" width="71" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="44" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PYTHON</text>
+      <text x="37" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PYTHON</text>
     </g>
 
-    <g transform="translate(181, 530)">
-      <rect x="0" y="0" width="56" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+    <g transform="translate(167, 530)">
+      <rect x="0" y="0" width="49" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="30" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">SVG</text>
+      <text x="26" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">SVG</text>
     </g>
 
-    <g transform="translate(253, 530)">
-      <rect x="0" y="0" width="113" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+    <g transform="translate(232, 530)">
+      <rect x="0" y="0" width="93" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="58" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">CYBERPUNK</text>
+      <text x="48" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">CYBERPUNK</text>
     </g>
 
-    <g transform="translate(382, 530)">
-      <rect x="0" y="0" width="56" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+    <g transform="translate(341, 530)">
+      <rect x="0" y="0" width="49" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="30" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">MCP</text>
+      <text x="26" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">MCP</text>
     </g>
 
 

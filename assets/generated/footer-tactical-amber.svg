@@ -64,7 +64,7 @@
   <!-- Left Main Status Readout -->
   <polygon points="24 26, 116 26, 122 32, 122 42, 116 48, 24 48" fill="rgba(245, 158, 11, 0.22)" stroke="var(--accent)" stroke-width="1.5"/>
   <text x="70" y="40" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ ARMED ▲</text>
-  <text x="132" y="42" fill="var(--primary)" font-size="12" font-weight="bold" class="font-mono">PERIMETER_SECURE // COMM_LINK_OPEN</text>
+  <text x="132" y="42" fill="var(--primary)" font-size="12" font-weight="bold" class="font-mono">PERIMETER_SECURE // COMM_LINK...</text>
 
   <!-- Sub-diagnostic Telemetry -->
   <text x="24" y="63" fill="var(--accent)" font-size="11" class="font-mono">GRID: 34-BRAVO // CHECKSUM: 0x9AF4B // SENSORS: PASSIVE_SCAN // AUTH: VERIFIED</text>

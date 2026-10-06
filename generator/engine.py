@@ -308,6 +308,82 @@ def validate_svg(svg_content):
     except ET.ParseError as e:
         raise ValueError(f"Generated SVG has invalid XML syntax: {e}\nSVG Content:\n{svg_content}")
 
+def measure_mono_text_width(text, font_size=11):
+    """
+    Estimates the pixel width of text rendered with monospace font (JetBrains Mono, Fira Code, etc.).
+    Standard monospace character pitch is approx 0.60 to 0.62 * font_size.
+    Wide/Unicode symbols (such as arrows, stars, blocks) are approx 1.1 to 1.35 * font_size.
+    """
+    if not text:
+        return 0.0
+    w = 0.0
+    char_pitch = font_size * 0.61
+    for ch in str(text):
+        code = ord(ch)
+        if code > 0x2000 or ch in "★⚡●▲▼■◆▶◀ℹ✓✗🏛️🧬":
+            w += font_size * 1.25
+        else:
+            w += char_pitch
+    return w
+
+def clamp_text_to_width(text, max_width, font_size=11, suffix="..."):
+    """
+    Clamps/truncates text with a suffix if its rendered width exceeds max_width.
+    """
+    if not text:
+        return ""
+    text_str = str(text)
+    if measure_mono_text_width(text_str, font_size) <= max_width:
+        return text_str
+
+    suffix_w = measure_mono_text_width(suffix, font_size)
+    target_w = max(0, max_width - suffix_w)
+
+    clamped = text_str
+    while clamped and measure_mono_text_width(clamped, font_size) > target_w:
+        clamped = clamped[:-1]
+
+    return (clamped.rstrip() + suffix) if clamped else text_str[:1]
+
+def wrap_text_to_lines(text, max_width, font_size=11, max_lines=2, suffix="..."):
+    """
+    Splits text across lines based on word boundaries, respecting max_width and max_lines.
+    The final line is truncated with suffix if there is remaining overflow.
+    """
+    if not text:
+        return []
+    words = str(text).strip().split()
+    if not words:
+        return []
+
+    lines = []
+    curr_line = []
+
+    for i, w in enumerate(words):
+        test_line = " ".join(curr_line + [w])
+        if measure_mono_text_width(test_line, font_size) <= max_width or not curr_line:
+            curr_line.append(w)
+        else:
+            lines.append(" ".join(curr_line))
+            curr_line = [w]
+            if len(lines) == max_lines - 1:
+                # Last allowed line, accumulate rest
+                remaining_words = words[i:]
+                last_line = " ".join(remaining_words)
+                lines.append(clamp_text_to_width(last_line, max_width, font_size, suffix=suffix))
+                curr_line = []
+                break
+
+    if curr_line and len(lines) < max_lines:
+        line_str = " ".join(curr_line)
+        if measure_mono_text_width(line_str, font_size) > max_width:
+            line_str = clamp_text_to_width(line_str, max_width, font_size, suffix=suffix)
+        lines.append(line_str)
+    elif curr_line and lines:
+        lines[-1] = clamp_text_to_width(lines[-1] + " " + " ".join(curr_line), max_width, font_size, suffix=suffix)
+
+    return lines
+
 def is_light_color(hex_str):
     if not hex_str or not isinstance(hex_str, str):
         return False
@@ -555,10 +631,13 @@ def _generate_compact_header(style="cyberpunk", primary=None, accent=None,
     if y_sub > h - 18:
         h = y_sub + 22
 
-    tag_w = min(200, max(120, len(tag) * 8 + 24))
+    tag_w = min(200, max(120, int(measure_mono_text_width(tag_clean, 11) + 24)))
     tag_x = width - tag_w - 24
     status_widget = f"""  <rect x="{tag_x}" y="24" width="{tag_w}" height="32" fill="{panel}" stroke="{prim}" stroke-width="1.2"/>
   <text x="{tag_x + tag_w//2}" y="44" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>"""
+
+    avail_sub_w = max(60, tag_x - 46)
+    sub_disp = clamp_text_to_width(f"■ {sub_clean}", avail_sub_w, 11)
 
     if st == "tactical":
         hull = f"""  <polygon points="12 2, {width-12} 2, {width-2} 12, {width-2} {h-12}, {width-12} {h-2}, 12 {h-2}, 2 {h-12}, 2 12" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
@@ -591,7 +670,7 @@ def _generate_compact_header(style="cyberpunk", primary=None, accent=None,
   </defs>
 {hull}
   {pixel_markup}
-  <text x="34" y="{y_sub + 12}" fill="{text_dim}" font-size="11" font-weight="bold" class="font-mono">■ {sub_clean}</text>
+  <text x="34" y="{y_sub + 12}" fill="{text_dim}" font-size="11" font-weight="bold" class="font-mono">{sub_disp}</text>
 {status_widget}
 </svg>"""
 
@@ -631,8 +710,11 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
     tag_clean = escape_xml(tag)
     st = style.lower()
 
-    # Dynamic subtitle box width
-    sub_w = min(480, max(260, int(len(subtitle) * 7.5) + 36))
+    # Dynamic subtitle box width and safe clamp
+    sub_w = min(480, max(260, int(measure_mono_text_width(subtitle, 11) + 40)))
+    sub_tactical = clamp_text_to_width(f"[TARGET] {sub_clean}", sub_w - 24, 11)
+    sub_minimal = clamp_text_to_width(f"⚡ {sub_clean}", sub_w - 24, 11)
+    sub_cyberpunk = clamp_text_to_width(f"⚡ {sub_clean}", sub_w - 24, 11)
 
     # Normalize specs (max 3 items, [] if omitted)
     norm_specs = normalize_specs(specs=specs, spec1=spec1, spec2=spec2, spec3=spec3, default_color=None)
@@ -655,8 +737,12 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
                 val = spec[1]
                 val_col = spec[2] if (len(spec) > 2 and spec[2]) else text_main
                 y = y_specs_start + i * 20
+                lbl_disp = clamp_text_to_width(lbl, 140, 11)
+                prefix = f"&gt; {lbl_disp}: "
+                avail_val_w = max(40, 480 - int(measure_mono_text_width(prefix, 11)))
+                val_disp = clamp_text_to_width(val, avail_val_w, 11)
                 spec_lines.append(f"""
-  <text x="42" y="{y}" fill="{prim}" font-size="11" class="font-mono">&gt; {escape_xml(lbl)}: <tspan fill="{val_col}">{escape_xml(val)}</tspan></text>
+  <text x="42" y="{y}" fill="{prim}" font-size="11" class="font-mono">&gt; {escape_xml(lbl_disp)}: <tspan fill="{val_col}">{escape_xml(val_disp)}</tspan></text>
 """)
             last_spec_y = y_specs_start + (len(norm_specs[:3]) - 1) * 20
             content_bottom = last_spec_y + 6
@@ -721,7 +807,7 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
   <!-- SUBTITLE -->
   <rect x="42" y="{y_sub}" width="{sub_w}" height="24" fill="{panel}" stroke="{acc}" stroke-width="1"/>
   <text x="54" y="{y_sub+16}" fill="{text_main}" font-size="11" font-weight="bold" class="font-mono">
-    [TARGET] {sub_clean}
+    {sub_tactical}
   </text>
 
   <!-- SPECS TELEMETRY -->
@@ -769,8 +855,12 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
                 val = spec[1]
                 val_col = spec[2] if (len(spec) > 2 and spec[2]) else text_main
                 y = y_specs_start + i * 18
+                lbl_disp = clamp_text_to_width(lbl, 140, 10)
+                prefix = f"// {lbl_disp}: "
+                avail_val_w = max(40, 480 - int(measure_mono_text_width(prefix, 10)))
+                val_disp = clamp_text_to_width(val, avail_val_w, 10)
                 spec_lines.append(f"""
-  <text x="42" y="{y}" fill="{prim}" font-size="10" class="font-mono">// {escape_xml(lbl)}: <tspan fill="{val_col}">{escape_xml(val)}</tspan></text>
+  <text x="42" y="{y}" fill="{prim}" font-size="10" class="font-mono">// {escape_xml(lbl_disp)}: <tspan fill="{val_col}">{escape_xml(val_disp)}</tspan></text>
 """)
             last_spec_y = y_specs_start + (len(norm_specs[:3]) - 1) * 18
             content_bottom = last_spec_y + 4
@@ -826,7 +916,7 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
   <!-- SUBTITLE CHIP -->
   <g transform="translate(42, {y_sub})">
     <rect x="0" y="0" width="{sub_w}" height="22" fill="{panel}" stroke="{acc}" stroke-width="1"/>
-    <text x="12" y="15" fill="{text_main}" font-size="11" font-weight="bold" class="font-mono">⚡ {sub_clean}</text>
+    <text x="12" y="15" fill="{text_main}" font-size="11" font-weight="bold" class="font-mono">{sub_minimal}</text>
   </g>
 
   <!-- SPECS TELEMETRY -->
@@ -864,10 +954,15 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
                 val = spec[1]
                 col = spec[2] if (len(spec) > 2 and spec[2]) else default_colors[i % 3]
                 y_pos = y_teletype_start + i * 20
+                lbl_disp = clamp_text_to_width(lbl, 130, 11)
+                lbl_w = measure_mono_text_width(f"{lbl_disp}:", 11)
+                val_x = max(200, int(60 + lbl_w + 12))
+                avail_val_w = max(40, 480 - val_x)
+                val_disp = clamp_text_to_width(val, avail_val_w, 11)
                 teletype_svg.append(f"""
     <text x="42" y="{y_pos}" fill="{success}" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
-    <text x="60" y="{y_pos}" fill="{text_main}" font-size="11" class="font-mono">{escape_xml(lbl)}:</text>
-    <text x="210" y="{y_pos}" fill="{col}" font-size="11" font-weight="bold" class="font-mono">{escape_xml(val)}</text>
+    <text x="60" y="{y_pos}" fill="{text_main}" font-size="11" class="font-mono">{escape_xml(lbl_disp)}:</text>
+    <text x="{val_x}" y="{y_pos}" fill="{col}" font-size="11" font-weight="bold" class="font-mono">{escape_xml(val_disp)}</text>
 """)
 
             last_y = y_teletype_start + (len(norm_specs[:3]) - 1) * 20
@@ -1003,7 +1098,7 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
     <rect x="-2" y="22" width="6" height="6" fill="{acc}"/>
     <rect x="{sub_w-4}" y="22" width="6" height="6" fill="{acc}"/>
     <text x="12" y="18" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="1" class="font-mono">
-      ⚡ {sub_clean}
+      {sub_cyberpunk}
     </text>
   </g>
 
@@ -1082,12 +1177,15 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
     st = style.lower()
 
     clean_nav = nav_clean.strip()
-    if not clean_nav.startswith("▲") and not clean_nav.startswith("["):
-        clean_nav = f"▲ {clean_nav} ▲"
+    clean_nav = clamp_text_to_width(clean_nav, 150, 11)
+    status_tactical = clamp_text_to_width(status_clean, 240, 12)
+    status_minimal = clamp_text_to_width(status_clean, 300, 11.5)
+    status_cyber = clamp_text_to_width(status_clean, 250, 12)
 
     if st == "tactical":
         sub_default = "GRID: 34-BRAVO // CHECKSUM: 0x9AF4B // SENSORS: PASSIVE_SCAN // AUTH: VERIFIED"
         sub_disp = escape_xml(sub_text if sub_text else sub_default)
+        sub_disp = clamp_text_to_width(sub_disp, width - 230, 11)
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
@@ -1112,7 +1210,7 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <!-- Left Main Status Readout -->
   <polygon points="24 26, 116 26, 122 32, 122 42, 116 48, 24 48" fill="rgba(245, 158, 11, 0.22)" stroke="{acc}" stroke-width="1.5"/>
   <text x="70" y="40" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ ARMED ▲</text>
-  <text x="132" y="42" fill="{prim}" font-size="12" font-weight="bold" class="font-mono">{status_clean}</text>
+  <text x="132" y="42" fill="{prim}" font-size="12" font-weight="bold" class="font-mono">{status_tactical}</text>
 
   <!-- Sub-diagnostic Telemetry -->
   <text x="24" y="63" fill="{acc}" font-size="11" class="font-mono">{sub_disp}</text>
@@ -1137,6 +1235,7 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
     elif st == "minimal":
         sub_default = "LATENCY: 0.04ms • ALL SYSTEMS GREEN • MIT LICENSE 2026"
         sub_disp = escape_xml(sub_text if sub_text else sub_default)
+        sub_disp = clamp_text_to_width(sub_disp, width - 230, 11)
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
@@ -1161,7 +1260,7 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <!-- Main Status Row -->
   <circle cx="28" cy="38" r="4" fill="{prim}"/>
   <circle cx="28" cy="38" r="7" fill="none" stroke="{prim}" stroke-width="1" opacity="0.4"/>
-  <text x="44" y="42" fill="{text_main}" font-size="11.5" font-weight="bold" class="font-mono">STATUS: <tspan fill="{prim}">{status_clean}</tspan></text>
+  <text x="44" y="42" fill="{text_main}" font-size="11.5" font-weight="bold" class="font-mono">STATUS: <tspan fill="{prim}">{status_minimal}</tspan></text>
 
   <!-- Secondary Telemetry Line -->
   <text x="24" y="62" fill="{text_dim}" font-size="11" class="font-mono">{sub_disp}</text>
@@ -1188,6 +1287,9 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
         # Cyberpunk Chassis
         sub_default = '<tspan fill="' + acc + '">RUNTIME:</tspan> BUFFER_CLEARED <tspan fill="rgba(148, 163, 184, 0.4)">|</tspan> <tspan fill="' + acc + '">PACKET_LOSS:</tspan> 0.00% <tspan fill="rgba(148, 163, 184, 0.4)">|</tspan> <tspan fill="' + acc + '">LINK_QUALITY:</tspan> 100%_LOCKED'
         sub_disp = sub_text if sub_text else sub_default
+        if sub_text:
+            sub_disp = escape_xml(sub_text)
+            sub_disp = clamp_text_to_width(sub_disp, width - 230, 11)
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
@@ -1217,7 +1319,7 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
   <circle cx="26" cy="35" r="1.5" fill="{tertiary_col}"/>
   <rect x="38" y="26" width="76" height="18" fill="{panel}" stroke="{acc}" stroke-width="1.2"/>
   <text x="76" y="38" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">SYS_STATUS</text>
-  <text x="124" y="40" fill="{prim}" font-size="12" font-weight="bold" class="font-mono">{status_clean}</text>
+  <text x="124" y="40" fill="{prim}" font-size="12" font-weight="bold" class="font-mono">{status_cyber}</text>
 
   <!-- Secondary Diagnostics Sub-line -->
   <text x="24" y="61" fill="{text_dim}" font-size="11" class="font-mono">{sub_disp}</text>
@@ -1303,52 +1405,50 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
     st = style.lower()
     has_sub = bool(sub_raw)
 
-    sub_lines = []
-    if has_sub:
-        if len(sub_raw) > 105 and " " in sub_raw:
-            words = sub_raw.split()
-            l1, l2 = [], []
-            c_len = 0
-            for w in words:
-                if c_len + len(w) + 1 <= 100 or not l1:
-                    l1.append(w)
-                    c_len += len(w) + 1
-                else:
-                    l2.append(w)
-            sub_lines = [" ".join(l1), " ".join(l2)]
-        else:
-            sub_lines = [sub_raw]
-
     if is_quote:
-        # Quote Header Callout (Open Left Edge + Dashed Bottom)
-        def_h = 56 if len(sub_lines) > 1 else 42
-        h = height if height else def_h
         if st == "tactical":
             dash_w = "8,4"
-            top_rail = f'<line x1="0" y1="2" x2="{width-12}" y2="2" stroke="{badge_col}" stroke-width="2"/><line x1="{width-12}" y1="2" x2="{width-1}" y2="13" stroke="{badge_col}" stroke-width="2"/><line x1="{width-1}" y1="13" x2="{width-1}" y2="{h-4}" stroke="{badge_col}" stroke-width="2"/>'
-            badge = f'<polygon points="6 6, 12 6, 4 18, 0 18" fill="{badge_col}" opacity="0.6"/><polygon points="16 6, 22 6, 14 18, 8 18" fill="{badge_col}" opacity="0.6"/><polygon points="28 8, 165 8, 172 15, 172 27, 165 34, 28 34" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><text x="96" y="24" fill="{badge_col}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">▲ {tag_clean} // HAZARD</text>'
-            text_x = 186
-            arrow_poly = f'<polygon points="{width-10} {h-5}, {width-2} {h-5}, {width-6} {h-1}" fill="{badge_col}"/>'
+            tag_str = f"▲ {tag_clean} // HAZARD"
+            bw = max(144, int(measure_mono_text_width(tag_str, 10) + 24))
+            badge = f'<polygon points="6 6, 12 6, 4 18, 0 18" fill="{badge_col}" opacity="0.6"/><polygon points="16 6, 22 6, 14 18, 8 18" fill="{badge_col}" opacity="0.6"/><polygon points="28 8, {28+bw-7} 8, {28+bw} 15, {28+bw} 27, {28+bw-7} 34, 28 34" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><text x="{28 + bw//2}" y="24" fill="{badge_col}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">{tag_str}</text>'
+            text_x = 28 + bw + 14
         elif st == "minimal":
             dash_w = "5,4"
-            top_rail = f'<line x1="0" y1="2" x2="{width-1}" y2="2" stroke="{badge_col}" stroke-width="1.5"/><path d="M {width-1} 2 L {width-1} 14" fill="none" stroke="{badge_col}" stroke-width="1.5"/><rect x="{width-4}" y="2" width="4" height="4" fill="{acc}"/>'
-            badge = f'<rect x="8" y="8" width="115" height="24" fill="{panel}" stroke="{badge_col}" stroke-width="1"/><text x="65" y="23" fill="{badge_col}" font-size="9.5" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // MINIMAL</text>'
-            text_x = 136
-            arrow_poly = ""
+            tag_str = f"{tag_clean} // MINIMAL"
+            bw = max(115, int(measure_mono_text_width(tag_str, 9.5) + 20))
+            badge = f'<rect x="8" y="8" width="{bw}" height="24" fill="{panel}" stroke="{badge_col}" stroke-width="1"/><text x="{8 + bw//2}" y="23" fill="{badge_col}" font-size="9.5" font-weight="bold" text-anchor="middle" class="font-mono">{tag_str}</text>'
+            text_x = 8 + bw + 14
         else:
             dash_w = "6,4"
+            tag_str = f"{tag_clean} // 0x01"
+            bw = max(120, int(measure_mono_text_width(tag_str, 10) + 32))
+            badge = f'<rect x="8" y="8" width="{bw}" height="24" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><circle cx="20" cy="20" r="3.5" fill="{badge_col}"/><text x="{20 + (bw-12)//2}" y="24" fill="{badge_col}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">{tag_str}</text>'
+            text_x = 8 + bw + 14
+
+        avail_w = max(100, width - text_x - 20)
+        title_disp = clamp_text_to_width(title_clean, avail_w, 11)
+        sub_lines = wrap_text_to_lines(sub_raw, avail_w, 11, max_lines=2) if has_sub else []
+
+        def_h = 56 if len(sub_lines) > 1 else 42
+        h = height if height else def_h
+
+        if st == "tactical":
+            top_rail = f'<line x1="0" y1="2" x2="{width-12}" y2="2" stroke="{badge_col}" stroke-width="2"/><line x1="{width-12}" y1="2" x2="{width-1}" y2="13" stroke="{badge_col}" stroke-width="2"/><line x1="{width-1}" y1="13" x2="{width-1}" y2="{h-4}" stroke="{badge_col}" stroke-width="2"/>'
+            arrow_poly = f'<polygon points="{width-10} {h-5}, {width-2} {h-5}, {width-6} {h-1}" fill="{badge_col}"/>'
+        elif st == "minimal":
+            top_rail = f'<line x1="0" y1="2" x2="{width-1}" y2="2" stroke="{badge_col}" stroke-width="1.5"/><path d="M {width-1} 2 L {width-1} 14" fill="none" stroke="{badge_col}" stroke-width="1.5"/><rect x="{width-4}" y="2" width="4" height="4" fill="{acc}"/>'
+            arrow_poly = ""
+        else:
             top_rail = f'<line x1="0" y1="2" x2="{width-1}" y2="2" stroke="{badge_col}" stroke-width="2"/><line x1="{width-1}" y1="2" x2="{width-1}" y2="{h-4}" stroke="{badge_col}" stroke-width="2"/><rect x="{width-6}" y="2" width="5" height="5" fill="{badge_col}"/>'
-            badge = f'<rect x="8" y="8" width="120" height="24" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><circle cx="20" cy="20" r="3.5" fill="{badge_col}"/><text x="73" y="24" fill="{badge_col}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // 0x01</text>'
-            text_x = 142
             arrow_poly = ""
 
         if not has_sub:
-            text_block = f'<text x="{text_x}" y="25" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>'
+            text_block = f'<text x="{text_x}" y="25" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_disp}</text>'
         elif len(sub_lines) == 1:
-            text_block = f"""<text x="{text_x}" y="20" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
+            text_block = f"""<text x="{text_x}" y="20" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_disp}</text>
   <text x="{text_x}" y="33" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[0])}</text>"""
         else:
-            text_block = f"""<text x="{text_x}" y="19" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
+            text_block = f"""<text x="{text_x}" y="19" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_disp}</text>
   <text x="{text_x}" y="32" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[0])}</text>
   <text x="{text_x}" y="45" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[1])}</text>"""
 
@@ -1374,32 +1474,47 @@ def generate_callout(style="cyberpunk", primary=None, accent=None,
 
     else:
         # Autonomous Closed Callout (48px or 62px)
+        if st == "tactical":
+            tag_str = f"▲ {tag_clean} // HAZARD"
+            bw = max(148, int(measure_mono_text_width(tag_str, 11) + 24))
+            badge = f'<polygon points="34 10, {34+bw-7} 10, {34+bw} 17, {34+bw} 31, {34+bw-7} 38, 34 38" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><text x="{34 + bw//2}" y="28" fill="{badge_col}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_str}</text>'
+            text_x = 34 + bw + 14
+        elif st == "minimal":
+            tag_str = f"{tag_clean} // MINIMAL"
+            bw = max(130, int(measure_mono_text_width(tag_str, 11) + 20))
+            badge = f'<rect x="16" y="11" width="{bw}" height="26" fill="{panel}" stroke="{badge_col}" stroke-width="1"/><text x="{16 + bw//2}" y="28" fill="{badge_col}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_str}</text>'
+            text_x = 16 + bw + 14
+        else:
+            tag_str = f"{tag_clean} // 0x01"
+            bw = max(140, int(measure_mono_text_width(tag_str, 11) + 36))
+            badge = f'<rect x="14" y="10" width="{bw}" height="28" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="{badge_col}"/><text x="{26 + (bw-12)//2}" y="28" fill="{badge_col}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_str}</text>'
+            text_x = 14 + bw + 14
+
+        avail_w = max(100, width - text_x - 45)
+        title_disp = clamp_text_to_width(title_clean, avail_w, 11)
+        sub_lines = wrap_text_to_lines(sub_raw, avail_w, 11, max_lines=2) if has_sub else []
+
         def_h = 62 if len(sub_lines) > 1 else 48
         h = height if height else def_h
         mid_y = h // 2
+
         if st == "tactical":
             body = f'<polygon points="12 2, {width-12} 2, {width-2} 12, {width-2} {h-12}, {width-12} {h-2}, 12 {h-2}, 2 {h-12}, 2 12" fill="{bg}" stroke="{badge_col}" stroke-width="1.5"/>'
-            badge = f'<polygon points="34 10, 175 10, 182 17, 182 31, 175 38, 34 38" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><text x="105" y="28" fill="{badge_col}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ {tag_clean} // HAZARD</text>'
             accents = f'<polygon points="10 8, 16 8, 8 20, 2 20" fill="{badge_col}" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="{badge_col}" opacity="0.6"/><circle cx="{width-25}" cy="{mid_y}" r="8" fill="none" stroke="{badge_col}" stroke-width="1.5"/><polygon points="{width-28} {mid_y}, {width-22} {mid_y-4}, {width-22} {mid_y+4}" fill="{badge_col}"/>'
-            text_x = 196
         elif st == "minimal":
             body = f'<rect x="1" y="2" width="{width-2}" height="{h-4}" fill="{bg}" stroke="{border}" stroke-width="1.5"/>'
-            badge = f'<rect x="16" y="11" width="130" height="26" fill="{panel}" stroke="{badge_col}" stroke-width="1"/><text x="81" y="28" fill="{badge_col}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // MINIMAL</text>'
             accents = f'<path d="M 5 12 L 5 5 L 14 5" fill="none" stroke="{badge_col}" stroke-width="1.5"/><path d="M {width-5} 12 L {width-5} 5 L {width-14} 5" fill="none" stroke="{badge_col}" stroke-width="1.5"/>'
-            text_x = 158
         else:
             body = f'<rect x="2" y="2" width="{width-4}" height="{h-4}" fill="{bg}" stroke="{badge_col}" stroke-width="1.5"/><rect x="2" y="2" width="5" height="5" fill="{badge_col}"/><rect x="{width-7}" y="2" width="5" height="5" fill="{badge_col}"/><rect x="2" y="{h-7}" width="5" height="5" fill="{badge_col}"/><rect x="{width-7}" y="{h-7}" width="5" height="5" fill="{badge_col}"/>'
-            badge = f'<rect x="14" y="10" width="140" height="28" fill="{panel}" stroke="{badge_col}" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="{badge_col}"/><text x="88" y="28" fill="{badge_col}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean} // 0x01</text>'
             accents = f'<rect x="{width-35}" y="{mid_y - 10}" width="20" height="20" fill="{panel}"/><text x="{width-25}" y="{mid_y + 4}" fill="{badge_col}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>'
-            text_x = 168
 
         if not has_sub:
-            text_block = f'<text x="{text_x}" y="28" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>'
+            text_block = f'<text x="{text_x}" y="28" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_disp}</text>'
         elif len(sub_lines) == 1:
-            text_block = f"""<text x="{text_x}" y="22" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
+            text_block = f"""<text x="{text_x}" y="22" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_disp}</text>
   <text x="{text_x}" y="36" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[0])}</text>"""
         else:
-            text_block = f"""<text x="{text_x}" y="20" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_clean}</text>
+            text_block = f"""<text x="{text_x}" y="20" fill="{text_main}" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">{title_disp}</text>
   <text x="{text_x}" y="34" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[0])}</text>
   <text x="{text_x}" y="48" fill="{acc}" font-size="11" class="font-mono">{escape_xml(sub_lines[1])}</text>"""
 
@@ -1462,6 +1577,11 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
     st = style.lower()
     is_top = (frame_type.lower() == "top")
 
+    title_disp = clamp_text_to_width(title_clean, width - 230, 12)
+    tag_disp = clamp_text_to_width(tag_clean, 95, 9)
+    bot_w = max(210, min(width - 60, int(measure_mono_text_width(bot_tag_clean, 9) + 24)))
+    bx = (width - bot_w) // 2
+
     if is_top:
         h = height if height else 38
         tag_link_open = f'<a href="{escape_xml(tag_url)}" target="_blank" class="btn-hover">' if tag_url else ''
@@ -1499,12 +1619,12 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
 
   <!-- Title Text -->
   <text x="36" y="22" fill="{prim}" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">
-    <tspan fill="{acc}">[//]</tspan> {title_clean}
+    <tspan fill="{acc}">[//]</tspan> {title_disp}
   </text>
 
   <!-- Right Status Tag -->
   {tag_link_open}<rect x="{width-180}" y="9" width="105" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
-  <text x="{width-127}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>{tag_link_close}
+  <text x="{width-127}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_disp}</text>{tag_link_close}
 
   <!-- Window controls [ _ ] [ □ ] [ × ] -->
   <rect x="{width-68}" y="11" width="14" height="14" fill="{panel}"/>
@@ -1529,9 +1649,9 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   <path d="M {width-4} 14 L {width-4} 4 L {width-14} 4" fill="none" stroke="{acc}" stroke-width="1.5"/>
   <line x1="8" y1="{h-2}" x2="{width-8}" y2="{h-2}" stroke="{prim}" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
   <circle cx="24" cy="18" r="4" fill="{prim}"/>
-  <text x="36" y="22" fill="{prim}" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">{title_clean}</text>
+  <text x="36" y="22" fill="{prim}" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">{title_disp}</text>
   {tag_link_open}<rect x="{width-180}" y="9" width="105" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
-  <text x="{width-128}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>{tag_link_close}
+  <text x="{width-128}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_disp}</text>{tag_link_close}
   <rect x="{width-68}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-64}" y="21" fill="{text_dim}" font-size="10" class="font-mono">_</text>
   <rect x="{width-50}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-47}" y="22" fill="{text_dim}" font-size="10" class="font-mono">□</text>
   {close_link_open}<rect x="{width-32}" y="11" width="14" height="14" fill="{tertiary_col}"/><text x="{width-28}" y="22" fill="{text_main}" font-size="10" font-weight="bold" class="font-mono">×</text>{close_link_close}
@@ -1558,9 +1678,9 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   <line x1="{width-1}" y1="24" x2="{width-1}" y2="{h}" stroke="{prim}" stroke-width="2.5"/>
   <rect x="{width-4}" y="32" width="4" height="6" fill="{prim}"/>
   <circle cx="24" cy="18" r="4" fill="{prim}" class="led"/>
-  <text x="36" y="22" fill="{prim}" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono"><tspan fill="{acc}">[//]</tspan> {title_clean}</text>
+  <text x="36" y="22" fill="{prim}" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono"><tspan fill="{acc}">[//]</tspan> {title_disp}</text>
   {tag_link_open}<rect x="{width-180}" y="9" width="105" height="18" fill="{panel}" stroke="{prim}" stroke-width="1"/>
-  <text x="{width-128}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_clean}</text>{tag_link_close}
+  <text x="{width-128}" y="22" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{tag_disp}</text>{tag_link_close}
   <rect x="{width-68}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-64}" y="21" fill="{text_dim}" font-size="10" class="font-mono">_</text>
   <rect x="{width-50}" y="11" width="14" height="14" fill="{panel}"/><text x="{width-47}" y="22" fill="{text_dim}" font-size="10" class="font-mono">□</text>
   {close_link_open}<rect x="{width-32}" y="11" width="14" height="14" fill="{tertiary_col}"/><text x="{width-28}" y="22" fill="{text_main}" font-size="10" font-weight="bold" class="font-mono">×</text>{close_link_close}
@@ -1588,7 +1708,7 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   <line x1="12" y1="20" x2="{width-12}" y2="20" stroke="{acc}" stroke-width="2"/>
 
   <!-- Center Status Buffer Readout -->
-  <rect x="{width//2 - 105}" y="4" width="210" height="16" fill="{bg}" stroke="{acc}" stroke-width="1"/>
+  <rect x="{bx}" y="4" width="{bot_w}" height="16" fill="{bg}" stroke="{acc}" stroke-width="1"/>
   <text x="{width//2}" y="15" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">
     {bot_tag_clean}
   </text>
@@ -1626,7 +1746,7 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
   <line x1="6" y1="12" x2="{width-6}" y2="12" stroke="{prim}" stroke-width="1.5" opacity="0.85"/>
   <path d="M 1 12 L 1 20 L 16 20" fill="none" stroke="{prim}" stroke-width="1.5"/><rect x="1" y="17" width="4" height="4" fill="{acc}"/>
   <path d="M {width-1} 12 L {width-1} 20 L {width-16} 20" fill="none" stroke="{prim}" stroke-width="1.5"/><rect x="{width-5}" y="17" width="4" height="4" fill="{acc}"/>
-  <rect x="{width//2 - 105}" y="4" width="210" height="16" fill="{bg}" stroke="{acc}" stroke-width="1"/>
+  <rect x="{bx}" y="4" width="{bot_w}" height="16" fill="{bg}" stroke="{acc}" stroke-width="1"/>
   <text x="{width//2}" y="15" fill="{prim}" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">{bot_tag_clean}</text>
 </svg>"""
 
@@ -1665,7 +1785,9 @@ def generate_chip(style="cyberpunk", primary=None, accent=None,
     st = style.lower()
     ct = chip_type.lower()
     dd = (decay_dir or "right").lower()
-    text_w = estimate_chip_width(text)
+    if width is not None:
+        text_clean = clamp_text_to_width(text_clean, max(20, width - 36), 10)
+    text_w = estimate_chip_width(text_clean)
 
     if st == "tactical":
         if ct == "decay":
@@ -2246,6 +2368,16 @@ def generate_splitter(style="cyberpunk", primary=None, accent=None,
     lbl_clean = escape_xml(label)
     st = style.lower()
 
+    mid_x = width // 2
+    max_lbl_w = width - 80
+    lbl_disp = clamp_text_to_width(lbl_clean, max_lbl_w - 40, 9)
+    text_w = measure_mono_text_width(lbl_disp, 9) + 40
+    box_w = max(140, min(max_lbl_w, int(text_w)))
+    x1 = mid_x - box_w // 2
+    x2 = mid_x + box_w // 2
+    l_end = max(1, x1 - 10)
+    r_start = min(width - 1, x2 + 10)
+
     if st == "tactical":
         svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
@@ -2254,12 +2386,12 @@ def generate_splitter(style="cyberpunk", primary=None, accent=None,
       .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }}
     </style>
   </defs>
-  <line x1="1" y1="11" x2="330" y2="11" stroke="{prim}" stroke-width="1.5"/>
-  <line x1="520" y1="11" x2="{width-1}" y2="11" stroke="{prim}" stroke-width="1.5"/>
+  <line x1="1" y1="11" x2="{l_end}" y2="11" stroke="{prim}" stroke-width="1.5"/>
+  <line x1="{r_start}" y1="11" x2="{width-1}" y2="11" stroke="{prim}" stroke-width="1.5"/>
   <polygon points="1 11, 8 7, 8 15" fill="{prim}"/>
   <polygon points="{width-1} 11, {width-8} 7, {width-8} 15" fill="{prim}"/>
-  <polygon points="340 3, 510 3, 516 11, 510 19, 340 19, 334 11" fill="{bg}" stroke="{prim}" stroke-width="1"/>
-  <text x="425" y="14" fill="{prim}" text-anchor="middle" class="font-mono">▲ {lbl_clean} ▲</text>
+  <polygon points="{x1} 3, {x2} 3, {x2+6} 11, {x2} 19, {x1} 19, {x1-6} 11" fill="{bg}" stroke="{prim}" stroke-width="1"/>
+  <text x="{mid_x}" y="14" fill="{prim}" text-anchor="middle" class="font-mono">▲ {lbl_disp} ▲</text>
 </svg>"""
 
     elif st == "minimal":
@@ -2270,10 +2402,10 @@ def generate_splitter(style="cyberpunk", primary=None, accent=None,
       .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }}
     </style>
   </defs>
-  <line x1="1" y1="11" x2="340" y2="11" stroke="{border}" stroke-width="1"/>
-  <line x1="510" y1="11" x2="{width-1}" y2="11" stroke="{border}" stroke-width="1"/>
-  <rect x="350" y="2" width="150" height="18" fill="{bg}" stroke="{prim}" stroke-width="1"/>
-  <text x="425" y="14" fill="{prim}" text-anchor="middle" class="font-mono">{lbl_clean}</text>
+  <line x1="1" y1="11" x2="{l_end}" y2="11" stroke="{border}" stroke-width="1"/>
+  <line x1="{r_start}" y1="11" x2="{width-1}" y2="11" stroke="{border}" stroke-width="1"/>
+  <rect x="{x1}" y="2" width="{box_w}" height="18" fill="{bg}" stroke="{prim}" stroke-width="1"/>
+  <text x="{mid_x}" y="14" fill="{prim}" text-anchor="middle" class="font-mono">{lbl_disp}</text>
 </svg>"""
 
     else:
@@ -2284,14 +2416,14 @@ def generate_splitter(style="cyberpunk", primary=None, accent=None,
       .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }}
     </style>
   </defs>
-  <line x1="1" y1="11" x2="330" y2="11" stroke="{prim}" stroke-width="1.5"/>
-  <line x1="520" y1="11" x2="{width-1}" y2="11" stroke="{prim}" stroke-width="1.5"/>
+  <line x1="1" y1="11" x2="{l_end}" y2="11" stroke="{prim}" stroke-width="1.5"/>
+  <line x1="{r_start}" y1="11" x2="{width-1}" y2="11" stroke="{prim}" stroke-width="1.5"/>
   <rect x="1" y="8" width="6" height="6" fill="{acc}"/>
   <rect x="{width-7}" y="8" width="6" height="6" fill="{acc}"/>
-  <rect x="340" y="2" width="170" height="18" fill="{bg}" stroke="{prim}" stroke-width="1.5"/>
-  <rect x="340" y="2" width="4" height="4" fill="{acc}"/>
-  <rect x="506" y="2" width="4" height="4" fill="{acc}"/>
-  <text x="425" y="14" fill="{prim}" text-anchor="middle" class="font-mono"><tspan fill="{acc}">//</tspan> {lbl_clean} <tspan fill="{acc}">//</tspan></text>
+  <rect x="{x1}" y="2" width="{box_w}" height="18" fill="{bg}" stroke="{prim}" stroke-width="1.5"/>
+  <rect x="{x1}" y="2" width="4" height="4" fill="{acc}"/>
+  <rect x="{x2-4}" y="2" width="4" height="4" fill="{acc}"/>
+  <text x="{mid_x}" y="14" fill="{prim}" text-anchor="middle" class="font-mono"><tspan fill="{acc}">//</tspan> {lbl_disp} <tspan fill="{acc}">//</tspan></text>
 </svg>"""
 
     validate_svg(svg)
@@ -2381,13 +2513,30 @@ def generate_metrics(metrics=None, cards=None, style="cyberpunk", primary=None, 
         status_markup = ""
         if status:
             stat_clean = escape_xml(status.upper())
-            status_markup = f"""<rect x="{x+card_w-68}" y="{y+10}" width="56" height="13" fill="{panel}" stroke="{acc}" stroke-width="1"/>
-    <text x="{x+card_w-40}" y="{y+20}" fill="{acc}" text-anchor="middle" class="font-mono-tag">{stat_clean}</text>"""
+            stat_w = max(56, int(measure_mono_text_width(stat_clean, 10) + 16))
+            status_markup = f"""<rect x="{x+card_w-stat_w-12}" y="{y+10}" width="{stat_w}" height="13" fill="{panel}" stroke="{acc}" stroke-width="1"/>
+    <text x="{x+card_w-12-stat_w//2}" y="{y+20}" fill="{acc}" text-anchor="middle" class="font-mono-tag">{stat_clean}</text>"""
+            label_disp = clamp_text_to_width(label, card_w - stat_w - 30, 11)
+        else:
+            label_disp = clamp_text_to_width(label, card_w - 28, 11)
+
+        val_str = str(val)
+        val_len = len(val_str)
+        if val_len > 12:
+            val_fs = 14
+        elif val_len > 8:
+            val_fs = 18
+        elif val_len > 6:
+            val_fs = 21
+        else:
+            val_fs = 26
+        val_disp = clamp_text_to_width(val_str, card_w - 28, val_fs)
 
         delta_markup = ""
         if delta:
             d_clean = escape_xml(delta)
-            delta_markup = f'<text x="{x+14}" y="{y+76}" fill="{trend_col}" class="font-mono-sub">{trend_icon}{d_clean}</text>'
+            d_disp = clamp_text_to_width(d_clean, card_w - 68, 11)
+            delta_markup = f'<text x="{x+14}" y="{y+76}" fill="{trend_col}" class="font-mono-sub">{trend_icon}{d_disp}</text>'
 
         # Mini sparkline decoration in bottom right of card
         sp_x = x + card_w - 54
@@ -2399,9 +2548,9 @@ def generate_metrics(metrics=None, cards=None, style="cyberpunk", primary=None, 
 
         cards_svg.append(f"""  <g id="metric-card-{i}">
     {hull}
-    <text x="{x+14}" y="{y+22}" fill="{text_dim}" class="font-mono-lbl">{label}</text>
+    <text x="{x+14}" y="{y+22}" fill="{text_dim}" class="font-mono-lbl">{label_disp}</text>
     {status_markup}
-    <text x="{x+14}" y="{y+54}" fill="{title_front}" class="font-mono-val">{val}</text>
+    <text x="{x+14}" y="{y+54}" fill="{title_front}" font-size="{val_fs}" class="font-mono-val">{val_disp}</text>
     {delta_markup}
     {sparkline}
   </g>""")
@@ -2442,7 +2591,11 @@ def generate_progress(value=50, label="SYSTEM PROGRESS", sub=None, style="cyberp
         val_clean = 50
 
     lbl_clean = escape_xml(label)
-    sub_clean = escape_xml(sub if sub is not None else f"RUNTIME PROGRESS // {val_clean}% COMPLETE")
+    sub_raw = sub if sub is not None else f"RUNTIME PROGRESS // {val_clean}% COMPLETE"
+    sub_clean = escape_xml(sub_raw)
+
+    lbl_disp = clamp_text_to_width(f"■ {lbl_clean}", width - 95, 11)
+    sub_disp = clamp_text_to_width(sub_clean, width - 200, 11)
 
     total_segments = 32
     filled_segments = int(round(total_segments * (val_clean / 100)))
@@ -2505,7 +2658,7 @@ def generate_progress(value=50, label="SYSTEM PROGRESS", sub=None, style="cyberp
   </defs>
   {hull}
   <!-- Label & Percentage Header -->
-  <text x="14" y="19" fill="{title_front}" class="font-prog-lbl">■ {lbl_clean}</text>
+  <text x="14" y="19" fill="{title_front}" class="font-prog-lbl">{lbl_disp}</text>
   <rect x="{width-74}" y="7" width="60" height="15" fill="{panel}" stroke="{acc}" stroke-width="1"/>
   <text x="{width-44}" y="19" fill="{acc}" text-anchor="middle" class="font-prog-val">{val_clean}%</text>
 
@@ -2516,7 +2669,7 @@ def generate_progress(value=50, label="SYSTEM PROGRESS", sub=None, style="cyberp
   </g>
 
   <!-- Subtext & Milestone Ticks -->
-  <text x="14" y="56" fill="{text_dim}" class="font-prog-sub">{sub_clean}</text>
+  <text x="14" y="56" fill="{text_dim}" class="font-prog-sub">{sub_disp}</text>
   <text x="{width-14}" y="56" fill="{text_dim}" text-anchor="end" class="font-prog-sub">0% ── 50% ── 100%</text>
 </svg>"""
 
@@ -2578,7 +2731,13 @@ def generate_techstack(items=None, columns=5, style="cyberpunk", primary=None, a
         label_markup = ""
         if sub_label:
             lbl_clean = escape_xml(sub_label.upper())
-            label_markup = f'<text x="{x+card_w-8}" y="{y+25}" fill="{text_dim}" text-anchor="end" class="font-tech-sub">{lbl_clean}</text>'
+            lbl_disp = clamp_text_to_width(lbl_clean, card_w // 2 - 10, 10)
+            sub_w = measure_mono_text_width(lbl_disp, 10)
+            max_name_w = max(40, card_w - 42 - int(sub_w) - 10)
+            clean_disp = clamp_text_to_width(clean_name, max_name_w, 11)
+            label_markup = f'<text x="{x+card_w-8}" y="{y+25}" fill="{text_dim}" text-anchor="end" class="font-tech-sub">{lbl_disp}</text>'
+        else:
+            clean_disp = clamp_text_to_width(clean_name, card_w - 44, 11)
 
         if st == "tactical":
             card_bg = f"""<polygon points="{x+6},{y} {x+card_w},{y} {x+card_w},{y+card_h-6} {x+card_w-6},{y+card_h} {x},{y+card_h} {x},{y+6}" fill="{panel}" stroke="{border}" stroke-width="1.2"/>
@@ -2598,7 +2757,7 @@ def generate_techstack(items=None, columns=5, style="cyberpunk", primary=None, a
     <g transform="translate({x+10}, {y+10})" color="{prim}">
       {icon_inner}
     </g>
-    <text x="{x+36}" y="{y+25}" fill="{text_main}" class="font-tech-name">{clean_name}</text>
+    <text x="{x+36}" y="{y+25}" fill="{text_main}" class="font-tech-name">{clean_disp}</text>
     {label_markup}
   </g>""")
 
@@ -2690,17 +2849,23 @@ def generate_timeline(items=None, milestones=None, style="cyberpunk", primary=No
     <line x1="{card_x}" y1="{card_y}" x2="{card_x}" y2="{card_y+8}" stroke="{node_col}" stroke-width="2"/>
     <rect x="{card_x+card_w-5}" y="{card_y+2}" width="3" height="3" fill="{node_col}"/>"""
 
+        # Dynamic date width and text clamps
+        dw = max(60, min(130, int(measure_mono_text_width(d, 11) + 18)))
+        max_title_w = max(60, card_w - dw - 165)
+        t_disp = clamp_text_to_width(t, max_title_w, 12)
+        desc_disp = clamp_text_to_width(desc, card_w - 28, 11)
+
         milestones_svg.append(f"""  <g id="milestone-{i}">
     {conn}
     {node_shape}
     {c_hull}
     <!-- Milestone Header -->
-    <rect x="{card_x+12}" y="{card_y+9}" width="60" height="14" fill="{panel}" stroke="{border}" stroke-width="1"/>
-    <text x="{card_x+42}" y="{card_y+20}" fill="{text_dim}" text-anchor="middle" class="font-time-date">{d}</text>
-    <text x="{card_x+82}" y="{card_y+20}" fill="{title_front}" class="font-time-title">{t}</text>
+    <rect x="{card_x+12}" y="{card_y+9}" width="{dw}" height="14" fill="{panel}" stroke="{border}" stroke-width="1"/>
+    <text x="{card_x+12 + dw//2}" y="{card_y+20}" fill="{text_dim}" text-anchor="middle" class="font-time-date">{d}</text>
+    <text x="{card_x+12 + dw + 10}" y="{card_y+20}" fill="{title_front}" class="font-time-title">{t_disp}</text>
     <text x="{card_x+card_w-14}" y="{card_y+20}" fill="{node_col}" text-anchor="end" class="font-time-stat">{stat_lbl}</text>
     <!-- Milestone Description -->
-    <text x="{card_x+14}" y="{card_y+40}" fill="{text_dim}" class="font-time-desc">{desc}</text>
+    <text x="{card_x+14}" y="{card_y+40}" fill="{text_dim}" class="font-time-desc">{desc_disp}</text>
   </g>""")
 
     joined_nodes = "\n".join(milestones_svg)
@@ -2751,6 +2916,12 @@ def generate_social(style="cyberpunk", primary=None, accent=None,
     sub_clean = escape_xml(subtitle)
     repo_clean = escape_xml(repo.upper())
 
+    # Repository header bar
+    repo_header_str = f"■ REPOSITORY // {repo_clean}"
+    repo_box_w = min(540, max(360, int(measure_mono_text_width(repo_header_str, 13) + 32)))
+    repo_disp = clamp_text_to_width(repo_header_str, repo_box_w - 28, 13)
+    badge2_x = 80 + repo_box_w + 14
+
     # 3D Pixel Title at px_size=7 (or 6 if long)
     px_size = 6 if len(title) > 14 else 7
     pixel_markup, t_w, t_h = render_3d_text(
@@ -2760,11 +2931,13 @@ def generate_social(style="cyberpunk", primary=None, accent=None,
     )
 
     y_sub = 170 + t_h + 24
-    sub_w = min(720, max(320, int(len(subtitle) * 11) + 48))
+    max_sub_w = 740
+    sub_disp = clamp_text_to_width(sub_clean, max_sub_w - 50, 15)
+    sub_w = min(max_sub_w, max(320, int(measure_mono_text_width(f"▶ {sub_disp}", 15) + 40)))
 
     # Parse technology/feature tags
     if not tags:
-        tag_list = ["GITHUB", "OPEN-SOURCE", "v4.0"]
+        tag_list = ["GITHUB", "OPEN-SOURCE", "v5.0"]
     elif isinstance(tags, str):
         tag_list = [t.strip().upper() for t in tags.split(",") if t.strip()]
     else:
@@ -2772,12 +2945,15 @@ def generate_social(style="cyberpunk", primary=None, accent=None,
     tag_chips = []
     curr_x = 80
     for t_item in tag_list[:5]:
-        tw = int(len(t_item) * 9.5) + 28
+        t_clean = escape_xml(t_item)
+        tw = int(measure_mono_text_width(t_clean, 12) + 28)
+        if curr_x + tw > 860:
+            break
         tag_chips.append(f"""
     <g transform="translate({curr_x}, 530)">
       <rect x="0" y="0" width="{tw}" height="34" fill="{panel}" stroke="{prim}" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="{prim}"/>
-      <text x="{tw//2 + 2}" y="22" fill="{acc}" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">{escape_xml(t_item)}</text>
+      <text x="{tw//2 + 2}" y="22" fill="{acc}" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">{t_clean}</text>
     </g>
 """)
         curr_x += tw + 16
@@ -2855,17 +3031,17 @@ def generate_social(style="cyberpunk", primary=None, accent=None,
   {chassis}
 
   <!-- TOP REPOSITORY HEADER -->
-  <rect x="80" y="56" width="380" height="34" fill="{panel}" stroke="{border}" stroke-width="1.2"/>
-  <text x="96" y="78" fill="{prim}" font-size="13" font-weight="bold" letter-spacing="1px" class="font-mono">■ REPOSITORY // {repo_clean}</text>
-  <rect x="470" y="56" width="140" height="34" fill="{panel}" stroke="{acc}" stroke-width="1.2"/>
-  <text x="540" y="78" fill="{acc}" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PUBLIC // v4.0</text>
+  <rect x="80" y="56" width="{repo_box_w}" height="34" fill="{panel}" stroke="{border}" stroke-width="1.2"/>
+  <text x="96" y="78" fill="{prim}" font-size="13" font-weight="bold" letter-spacing="1px" class="font-mono">{repo_disp}</text>
+  <rect x="{badge2_x}" y="56" width="140" height="34" fill="{panel}" stroke="{acc}" stroke-width="1.2"/>
+  <text x="{badge2_x + 70}" y="78" fill="{acc}" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PUBLIC // v5.0</text>
 
   <!-- 3D PIXEL TITLE -->
   {pixel_markup}
 
   <!-- SUBTITLE CALLOUT -->
   <rect x="80" y="{y_sub}" width="{sub_w}" height="42" fill="{panel}" stroke="{acc}" stroke-width="1.5"/>
-  <text x="100" y="{y_sub + 27}" fill="{text_main}" font-size="15" font-weight="bold" class="font-mono">▶ {sub_clean}</text>
+  <text x="100" y="{y_sub + 27}" fill="{text_main}" font-size="15" font-weight="bold" class="font-mono">▶ {sub_disp}</text>
 
   <!-- TECH / FEATURE TAGS ROW -->
   {chips_markup}
@@ -2982,19 +3158,24 @@ def generate_starchart(style="cyberpunk", primary=None, accent=None,
         x_ticks.append(f'<line x1="{cx:.1f}" y1="{pad_top}" x2="{cx:.1f}" y2="{pad_bot}" stroke="{border}" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/>')
         x_labels.append(f'<text x="{cx:.1f}" y="{pad_bot + 18}" fill="{text_dim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{lbl}</text>')
 
-    # Data points circles
+    # Peak Callout Tag & Data points circles
     dots = []
+    callout_text = f"★ {cur_val}"
+    callout_w = max(76, int(measure_mono_text_width(callout_text, 11) + 20))
+
     for i, (cx, cy, val) in enumerate(coords):
         if i == len(coords) - 1:
+            tag_y = cy + 12 if cy < 65 else cy - 30
+            tag_x = max(pad_left, min(width - callout_w - 14, cx - callout_w // 2))
             dots.append(f"""
     <!-- Peak Milestone Marker -->
     <circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{acc}" opacity="0.25"/>
     <circle cx="{cx:.1f}" cy="{cy:.1f}" r="5.5" fill="{bg}" stroke="{acc}" stroke-width="2"/>
     <circle cx="{cx:.1f}" cy="{cy:.1f}" r="2.5" fill="{prim}"/>
     <!-- Peak Callout Tag -->
-    <g transform="translate({cx - 40:.1f}, {cy - 30:.1f})">
-      <rect x="0" y="0" width="80" height="22" rx="3" fill="{panel}" stroke="{acc}" stroke-width="1.2"/>
-      <text x="40" y="15" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">★ {cur_val}</text>
+    <g transform="translate({tag_x:.1f}, {tag_y:.1f})">
+      <rect x="0" y="0" width="{callout_w}" height="22" rx="3" fill="{panel}" stroke="{acc}" stroke-width="1.2"/>
+      <text x="{callout_w // 2}" y="15" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{callout_text}</text>
     </g>""")
         else:
             dots.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="3.5" fill="{panel}" stroke="{prim}" stroke-width="1.8"/>')
@@ -3021,6 +3202,38 @@ def generate_starchart(style="cyberpunk", primary=None, accent=None,
   <rect x="{width-9}" y="{height-9}" width="8" height="8" fill="{prim}"/>
 """
 
+    # Dynamic Stats Badges
+    badge1_text = f"★ {cur_val}"
+    badge1_w = max(90, int(measure_mono_text_width(badge1_text, 12) + 24))
+    badge2_text = delta_clean
+    badge2_w = max(90, int(measure_mono_text_width(badge2_text, 11) + 24))
+    badges_total_w = badge1_w + 8 + badge2_w
+    badges_x = width - badges_total_w - 20
+
+    # Dynamic Header Bar and Title / Repo Positioning
+    max_hdr_w = badges_x - 32
+    title_disp = f"★ {title_clean}"
+    title_w = measure_mono_text_width(title_disp, 11.5)
+
+    if title_w > max_hdr_w - 30:
+        title_disp = clamp_text_to_width(title_disp, max_hdr_w - 30, 11.5)
+        title_w = measure_mono_text_width(title_disp, 11.5)
+        repo_markup = ""
+        bar_w = int(title_w + 26)
+    else:
+        repo_disp = f"// {repo_clean}"
+        avail_repo_w = max_hdr_w - title_w - 35
+        if avail_repo_w >= 40:
+            repo_disp = clamp_text_to_width(repo_disp, avail_repo_w, 11)
+            repo_x = int(32 + title_w + 14)
+            repo_markup = f'<text x="{repo_x}" y="35" fill="{text_dim}" font-size="11" class="font-mono">{repo_disp}</text>'
+            bar_w = int(repo_x + measure_mono_text_width(repo_disp, 11) + 14)
+        else:
+            repo_markup = ""
+            bar_w = int(title_w + 26)
+
+    bar_w = min(max_hdr_w, max(260, bar_w))
+
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
     <style>
@@ -3036,17 +3249,17 @@ def generate_starchart(style="cyberpunk", primary=None, accent=None,
   {chassis}
 
   <!-- HEADER BAR -->
-  <rect x="20" y="16" width="340" height="28" fill="{panel}" stroke="{border}" stroke-width="1"/>
+  <rect x="20" y="16" width="{bar_w}" height="28" fill="{panel}" stroke="{border}" stroke-width="1"/>
   <rect x="20" y="16" width="4" height="28" fill="{prim}"/>
-  <text x="32" y="35" fill="{prim}" font-size="11.5" font-weight="bold" letter-spacing="0.5px" class="font-mono">★ {title_clean}</text>
-  <text x="230" y="35" fill="{text_dim}" font-size="11" class="font-mono">// {repo_clean}</text>
+  <text x="32" y="35" fill="{prim}" font-size="11.5" font-weight="bold" letter-spacing="0.5px" class="font-mono">{title_disp}</text>
+  {repo_markup}
 
   <!-- STATS BADGES -->
-  <g transform="translate({width - 240}, 16)">
-    <rect x="0" y="0" width="110" height="28" fill="{panel}" stroke="{prim}" stroke-width="1"/>
-    <text x="55" y="19" fill="{prim}" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">★ {cur_val}</text>
-    <rect x="118" y="0" width="102" height="28" fill="{panel}" stroke="{acc}" stroke-width="1"/>
-    <text x="169" y="19" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{delta_clean}</text>
+  <g transform="translate({badges_x}, 16)">
+    <rect x="0" y="0" width="{badge1_w}" height="28" fill="{panel}" stroke="{prim}" stroke-width="1"/>
+    <text x="{badge1_w // 2}" y="19" fill="{prim}" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">{badge1_text}</text>
+    <rect x="{badge1_w + 8}" y="0" width="{badge2_w}" height="28" fill="{panel}" stroke="{acc}" stroke-width="1"/>
+    <text x="{badge1_w + 8 + badge2_w // 2}" y="19" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{badge2_text}</text>
   </g>
 
   <!-- GRID & AXES -->
@@ -3139,10 +3352,28 @@ def generate_profile_card(style="cyberpunk", primary=None, accent=None,
   <line x1="{width-16}" y1="{height-36}" x2="{width-1}" y2="{height-36}" stroke="{acc}" stroke-width="2"/>
 """
 
-    # Safe bio truncation to prevent horizontal overflow beyond chassis
-    bio_max_chars = int((width - 180 - 40) / 7.2)
-    if len(bio_clean) > bio_max_chars:
-        bio_clean = bio_clean[:bio_max_chars - 3] + "..."
+    # Dynamic badges and status pills (top right)
+    badge_disp = clamp_text_to_width(badge_clean, 120, 10.5)
+    badge_w = max(70, int(measure_mono_text_width(badge_disp, 10.5) + 20))
+    status_disp = clamp_text_to_width(status_clean, 160, 10)
+    status_w = max(90, int(measure_mono_text_width(status_disp, 10) + 32))
+    pills_gap = 8
+    pills_total_w = badge_w + pills_gap + status_w
+    pills_x = width - pills_total_w - 20
+
+    # Top breadcrumb dossier (between avatar right margin x=180 and pills_x)
+    avail_dossier_w = max(60, pills_x - 180 - 15)
+    dossier_full = f"■ DOSSIER // {loc_clean}"
+    dossier_disp = clamp_text_to_width(dossier_full, avail_dossier_w - 24, 11)
+    dossier_w = max(120, min(avail_dossier_w, int(measure_mono_text_width(dossier_disp, 11) + 24)))
+
+    # Role pill
+    max_role_w = width - 180 - 30
+    role_disp = clamp_text_to_width(f"▶ {role_clean}", max_role_w - 28, 12)
+    role_w = max(160, min(max_role_w, int(measure_mono_text_width(role_disp, 12) + 28)))
+
+    # Bio summary
+    bio_disp = clamp_text_to_width(bio_clean, width - 180 - 30, 12)
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
@@ -3169,16 +3400,16 @@ def generate_profile_card(style="cyberpunk", primary=None, accent=None,
   </g>
 
   <!-- TOP BREADCRUMB -->
-  <rect x="180" y="24" width="280" height="24" fill="{panel}" stroke="{border}" stroke-width="1"/>
-  <text x="192" y="40" fill="{prim}" font-size="11" font-weight="bold" class="font-mono">■ DOSSIER // {loc_clean}</text>
+  <rect x="180" y="24" width="{dossier_w}" height="24" fill="{panel}" stroke="{border}" stroke-width="1"/>
+  <text x="192" y="40" fill="{prim}" font-size="11" font-weight="bold" class="font-mono">{dossier_disp}</text>
 
   <!-- BADGE AND STATUS PILLS (TOP RIGHT) -->
-  <g transform="translate({width - 290}, 24)">
-    <rect x="0" y="0" width="110" height="24" fill="{panel}" stroke="{acc}" stroke-width="1"/>
-    <text x="55" y="16" fill="{acc}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{badge_clean}</text>
-    <rect x="118" y="0" width="150" height="24" fill="{panel}" stroke="{success}" stroke-width="1"/>
-    <circle cx="130" cy="12" r="3" fill="{success}"/>
-    <text x="195" y="16" fill="{success}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">{status_clean}</text>
+  <g transform="translate({pills_x}, 24)">
+    <rect x="0" y="0" width="{badge_w}" height="24" fill="{panel}" stroke="{acc}" stroke-width="1"/>
+    <text x="{badge_w // 2}" y="16" fill="{acc}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{badge_disp}</text>
+    <rect x="{badge_w + pills_gap}" y="0" width="{status_w}" height="24" fill="{panel}" stroke="{success}" stroke-width="1"/>
+    <circle cx="{badge_w + pills_gap + 12}" y="12" r="3" fill="{success}"/>
+    <text x="{badge_w + pills_gap + 12 + (status_w - 12) // 2}" y="16" fill="{success}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">{status_disp}</text>
   </g>
 
   <!-- 3D NAME TYPOGRAPHY -->
@@ -3186,13 +3417,13 @@ def generate_profile_card(style="cyberpunk", primary=None, accent=None,
 
   <!-- ROLE PILL -->
   <g transform="translate(180, 116)">
-    <rect x="0" y="0" width="{min(630, max(180, int(len(role)*9.5) + 30))}" height="26" fill="{panel}" stroke="{prim}" stroke-width="1.2"/>
+    <rect x="0" y="0" width="{role_w}" height="26" fill="{panel}" stroke="{prim}" stroke-width="1.2"/>
     <rect x="0" y="0" width="4" height="26" fill="{prim}"/>
-    <text x="14" y="17" fill="{acc}" font-size="12" font-weight="bold" class="font-mono">▶ {role_clean}</text>
+    <text x="14" y="17" fill="{acc}" font-size="12" font-weight="bold" class="font-mono">{role_disp}</text>
   </g>
 
   <!-- BIO SUMMARY -->
-  <text x="182" y="166" fill="{text_main}" font-size="12" font-weight="normal" class="font-mono">{bio_clean}</text>
+  <text x="182" y="166" fill="{text_main}" font-size="12" font-weight="normal" class="font-mono">{bio_disp}</text>
 </svg>"""
 
     validate_svg(svg)

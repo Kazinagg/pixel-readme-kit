@@ -142,13 +142,13 @@
 
   <!-- SUB-BADGE: ROLE & SPECIALIZATION -->
   <g transform="translate(42, 153)">
-    <rect x="0" y="0" width="336" height="26" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="2"/>
+    <rect x="0" y="0" width="308" height="26" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="2"/>
     <rect x="-2" y="-2" width="6" height="6" fill="var(--accent)"/>
-    <rect x="332" y="-2" width="6" height="6" fill="var(--accent)"/>
+    <rect x="304" y="-2" width="6" height="6" fill="var(--accent)"/>
     <rect x="-2" y="22" width="6" height="6" fill="var(--accent)"/>
-    <rect x="332" y="22" width="6" height="6" fill="var(--accent)"/>
+    <rect x="304" y="22" width="6" height="6" fill="var(--accent)"/>
     <text x="12" y="18" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="1" class="font-mono">
-      ⚡ RADAR 360 // CRT SCANLINE // SPEC MATRIX
+      ⚡ RADAR 360 // CRT SCANLINE // SPEC MA...
     </text>
   </g>
 
@@ -158,15 +158,15 @@
     
     <text x="42" y="209" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="209" fill="var(--text-main)" font-size="11" class="font-mono">RADAR SWEEP:</text>
-    <text x="210" y="209" fill="var(--primary)" font-size="11" font-weight="bold" class="font-mono">360° ACTIVE INDEFINITE</text>
+    <text x="200" y="209" fill="var(--primary)" font-size="11" font-weight="bold" class="font-mono">360° ACTIVE INDEFINITE</text>
 
     <text x="42" y="229" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="229" fill="var(--text-main)" font-size="11" class="font-mono">CRT SCANLINE:</text>
-    <text x="210" y="229" fill="var(--accent)" font-size="11" font-weight="bold" class="font-mono">HARDWARE ACCELERATED</text>
+    <text x="200" y="229" fill="var(--accent)" font-size="11" font-weight="bold" class="font-mono">HARDWARE ACCELERATED</text>
 
     <text x="42" y="249" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="249" fill="var(--text-main)" font-size="11" class="font-mono">CHASSIS:</text>
-    <text x="210" y="249" fill="var(--status)" font-size="11" font-weight="bold" class="font-mono">TRANSLUCENT GLASS MATRIX</text>
+    <text x="200" y="249" fill="var(--status)" font-size="11" font-weight="bold" class="font-mono">TRANSLUCENT GLASS MATRIX</text>
 
     <rect x="500" y="239" width="8" height="12" fill="var(--primary)" class="cursor-blink"/>
   </g>

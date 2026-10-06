@@ -65,7 +65,7 @@
 
     <text x="15" y="25" fill="var(--text-dim)" class="font-mono-lbl">CACHE ACCELERATION</text>
     
-    <text x="15" y="57" fill="var(--title-front)" class="font-mono-val">0.02s</text>
+    <text x="15" y="57" fill="var(--title-front)" font-size="26" class="font-mono-val">0.02s</text>
     <text x="15" y="79" fill="var(--status)" class="font-mono-sub">▲ 98% faster builds</text>
     
     <path d="M 150 81 L 160 75 L 170 83 L 180 71 L 190 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>
@@ -86,9 +86,9 @@
     <rect x="222" y="9" width="2" height="2" fill="var(--accent)"/>
 
     <text x="230" y="25" fill="var(--text-dim)" class="font-mono-lbl">TEST COVERAGE</text>
-    <rect x="351" y="13" width="56" height="13" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
-    <text x="379" y="23" fill="var(--accent)" text-anchor="middle" class="font-mono-tag">100% PASS</text>
-    <text x="230" y="57" fill="var(--title-front)" class="font-mono-val">99 / 99</text>
+    <rect x="337" y="13" width="70" height="13" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="372" y="23" fill="var(--accent)" text-anchor="middle" class="font-mono-tag">100% PASS</text>
+    <text x="230" y="57" fill="var(--title-front)" font-size="21" class="font-mono-val">99 / 99</text>
     
     
     <path d="M 365 81 L 375 75 L 385 83 L 395 71 L 405 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>
@@ -110,7 +110,7 @@
 
     <text x="445" y="25" fill="var(--text-dim)" class="font-mono-lbl">COMPONENTS SUITE</text>
     
-    <text x="445" y="57" fill="var(--title-front)" class="font-mono-val">14 BLOCKS</text>
+    <text x="445" y="57" fill="var(--title-front)" font-size="18" class="font-mono-val">14 BLOCKS</text>
     <text x="445" y="79" fill="var(--status)" class="font-mono-sub">▲ +2 new in v5.0</text>
     
     <path d="M 580 81 L 590 75 L 600 83 L 610 71 L 620 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>
@@ -131,9 +131,9 @@
     <rect x="652" y="9" width="2" height="2" fill="var(--accent)"/>
 
     <text x="660" y="25" fill="var(--text-dim)" class="font-mono-lbl">RUNTIME DEPS</text>
-    <rect x="781" y="13" width="56" height="13" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
-    <text x="809" y="23" fill="var(--accent)" text-anchor="middle" class="font-mono-tag">STD-LIB ONLY</text>
-    <text x="660" y="57" fill="var(--title-front)" class="font-mono-val">0 EXT</text>
+    <rect x="748" y="13" width="89" height="13" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="793" y="23" fill="var(--accent)" text-anchor="middle" class="font-mono-tag">STD-LIB ONLY</text>
+    <text x="660" y="57" fill="var(--title-front)" font-size="26" class="font-mono-val">0 EXT</text>
     
     
     <path d="M 795 81 L 805 75 L 815 83 L 825 71 L 835 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>

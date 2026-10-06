@@ -47,12 +47,12 @@
       .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }
     </style>
   </defs>
-  <line x1="1" y1="11" x2="330" y2="11" stroke="var(--primary)" stroke-width="1.5"/>
-  <line x1="520" y1="11" x2="849" y2="11" stroke="var(--primary)" stroke-width="1.5"/>
+  <line x1="1" y1="11" x2="327" y2="11" stroke="var(--primary)" stroke-width="1.5"/>
+  <line x1="523" y1="11" x2="849" y2="11" stroke="var(--primary)" stroke-width="1.5"/>
   <rect x="1" y="8" width="6" height="6" fill="var(--accent)"/>
   <rect x="843" y="8" width="6" height="6" fill="var(--accent)"/>
-  <rect x="340" y="2" width="170" height="18" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1.5"/>
-  <rect x="340" y="2" width="4" height="4" fill="var(--accent)"/>
-  <rect x="506" y="2" width="4" height="4" fill="var(--accent)"/>
+  <rect x="337" y="2" width="177" height="18" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1.5"/>
+  <rect x="337" y="2" width="4" height="4" fill="var(--accent)"/>
+  <rect x="509" y="2" width="4" height="4" fill="var(--accent)"/>
   <text x="425" y="14" fill="var(--primary)" text-anchor="middle" class="font-mono"><tspan fill="var(--accent)">//</tspan> [MODULE: IPC_BUS // CORE] <tspan fill="var(--accent)">//</tspan></text>
 </svg>

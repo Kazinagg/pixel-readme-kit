@@ -54,8 +54,8 @@
   <!-- Badge -->
   <rect x="8" y="8" width="115" height="24" fill="var(--bg-panel)" stroke="#8957e5" stroke-width="1"/><text x="65" y="23" fill="#8957e5" font-size="9.5" font-weight="bold" text-anchor="middle" class="font-mono">INFO // MINIMAL</text>
   <!-- Title & Subtitle (Properly offset past badge edge) -->
-  <text x="136" y="20" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">MINIMAL QUOTE HEADER</text>
-  <text x="136" y="33" fill="var(--accent)" font-size="11" class="font-mono">Тонкая линия Hairline без левой границы</text>
+  <text x="137" y="20" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">MINIMAL QUOTE HEADER</text>
+  <text x="137" y="33" fill="var(--accent)" font-size="11" class="font-mono">Тонкая линия Hairline без левой границы</text>
   <!-- DASHED BOTTOM LINE: Bridges into live markdown text -->
   <line x1="0" y1="41" x2="845" y2="41" stroke="#8957e5" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.75"/>
   

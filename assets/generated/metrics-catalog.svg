@@ -65,7 +65,7 @@
 
     <text x="15" y="25" fill="var(--text-dim)" class="font-mono-lbl">CACHE ACCEL</text>
     
-    <text x="15" y="57" fill="var(--title-front)" class="font-mono-val">0.02s</text>
+    <text x="15" y="57" fill="var(--title-front)" font-size="26" class="font-mono-val">0.02s</text>
     <text x="15" y="79" fill="var(--status)" class="font-mono-sub">▲ 98% faster builds</text>
     
     <path d="M 221 81 L 231 75 L 241 83 L 251 71 L 261 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>
@@ -86,9 +86,9 @@
     <rect x="293" y="9" width="2" height="2" fill="var(--accent)"/>
 
     <text x="301" y="25" fill="var(--text-dim)" class="font-mono-lbl">TEST SUITE</text>
-    <rect x="493" y="13" width="56" height="13" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
-    <text x="521" y="23" fill="var(--accent)" text-anchor="middle" class="font-mono-tag">OPTIMAL</text>
-    <text x="301" y="57" fill="var(--title-front)" class="font-mono-val">52 PASS</text>
+    <rect x="491" y="13" width="58" height="13" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="520" y="23" fill="var(--accent)" text-anchor="middle" class="font-mono-tag">OPTIMAL</text>
+    <text x="301" y="57" fill="var(--title-front)" font-size="21" class="font-mono-val">52 PASS</text>
     
     
     <path d="M 507 81 L 517 75 L 527 83 L 537 71 L 547 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>
@@ -110,7 +110,7 @@
 
     <text x="587" y="25" fill="var(--text-dim)" class="font-mono-lbl">COMPONENTS</text>
     
-    <text x="587" y="57" fill="var(--title-front)" class="font-mono-val">12 TYPES</text>
+    <text x="587" y="57" fill="var(--title-front)" font-size="21" class="font-mono-val">12 TYPES</text>
     <text x="587" y="79" fill="var(--status)" class="font-mono-sub">▲ +5 new in v4</text>
     
     <path d="M 793 81 L 803 75 L 813 83 L 823 71 L 833 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>

@@ -50,7 +50,7 @@
   <!-- Body Chassis -->
   <rect x="2" y="2" width="846" height="44" fill="var(--bg-glass)" stroke="#2f81f7" stroke-width="1.5"/><rect x="2" y="2" width="5" height="5" fill="#2f81f7"/><rect x="843" y="2" width="5" height="5" fill="#2f81f7"/><rect x="2" y="41" width="5" height="5" fill="#2f81f7"/><rect x="843" y="41" width="5" height="5" fill="#2f81f7"/>
   <!-- Badges & Accents -->
-  <rect x="14" y="10" width="140" height="28" fill="var(--bg-panel)" stroke="#2f81f7" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="#2f81f7"/><text x="88" y="28" fill="#2f81f7" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">NOTE // 0x01</text>
+  <rect x="14" y="10" width="140" height="28" fill="var(--bg-panel)" stroke="#2f81f7" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="#2f81f7"/><text x="90" y="28" fill="#2f81f7" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">NOTE // 0x01</text>
   <rect x="815" y="14" width="20" height="20" fill="var(--bg-panel)"/><text x="825" y="28" fill="#2f81f7" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>
   <!-- Text Content (Properly offset past badge edge) -->
   <text x="168" y="22" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">NOTE // РЕКОМЕНДАЦИЯ АРХИТЕКТУРЫ</text>

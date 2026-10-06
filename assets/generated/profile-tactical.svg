@@ -72,16 +72,16 @@
   </g>
 
   <!-- TOP BREADCRUMB -->
-  <rect x="180" y="24" width="280" height="24" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+  <rect x="180" y="24" width="245" height="24" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
   <text x="192" y="40" fill="var(--primary)" font-size="11" font-weight="bold" class="font-mono">■ DOSSIER // DEFENSE GRID // UTC</text>
 
   <!-- BADGE AND STATUS PILLS (TOP RIGHT) -->
-  <g transform="translate(560, 24)">
-    <rect x="0" y="0" width="110" height="24" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
-    <text x="55" y="16" fill="var(--accent)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">OPERATOR</text>
-    <rect x="118" y="0" width="150" height="24" fill="var(--bg-panel)" stroke="var(--status)" stroke-width="1"/>
-    <circle cx="130" cy="12" r="3" fill="var(--status)"/>
-    <text x="195" y="16" fill="var(--status)" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">MISSION READY</text>
+  <g transform="translate(640, 24)">
+    <rect x="0" y="0" width="71" height="24" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="35" y="16" fill="var(--accent)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">OPERATOR</text>
+    <rect x="79" y="0" width="111" height="24" fill="var(--bg-panel)" stroke="var(--status)" stroke-width="1"/>
+    <circle cx="91" y="12" r="3" fill="var(--status)"/>
+    <text x="140" y="16" fill="var(--status)" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">MISSION READY</text>
   </g>
 
   <!-- 3D NAME TYPOGRAPHY -->
@@ -96,7 +96,7 @@
 
   <!-- ROLE PILL -->
   <g transform="translate(180, 116)">
-    <rect x="0" y="0" width="286" height="26" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+    <rect x="0" y="0" width="277" height="26" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
     <rect x="0" y="0" width="4" height="26" fill="var(--primary)"/>
     <text x="14" y="17" fill="var(--accent)" font-size="12" font-weight="bold" class="font-mono">▶ SECURITY &amp; SYSTEMS OPERATOR</text>
   </g>

@@ -142,13 +142,13 @@
 
   <!-- SUB-BADGE: ROLE & SPECIALIZATION -->
   <g transform="translate(42, 119)">
-    <rect x="0" y="0" width="291" height="26" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="2"/>
+    <rect x="0" y="0" width="268" height="26" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="2"/>
     <rect x="-2" y="-2" width="6" height="6" fill="var(--accent)"/>
-    <rect x="287" y="-2" width="6" height="6" fill="var(--accent)"/>
+    <rect x="264" y="-2" width="6" height="6" fill="var(--accent)"/>
     <rect x="-2" y="22" width="6" height="6" fill="var(--accent)"/>
-    <rect x="287" y="22" width="6" height="6" fill="var(--accent)"/>
+    <rect x="264" y="22" width="6" height="6" fill="var(--accent)"/>
     <text x="12" y="18" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="1" class="font-mono">
-      ⚡ AWESOME LIB // SYSTEM ARCHITECTURE
+      ⚡ AWESOME LIB // SYSTEM ARCHITEC...
     </text>
   </g>
 
@@ -158,15 +158,15 @@
     
     <text x="42" y="182" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="182" fill="var(--text-main)" font-size="11" class="font-mono">ENGINE:</text>
-    <text x="210" y="182" fill="var(--primary)" font-size="11" font-weight="bold" class="font-mono">HIGH-PERFORMANCE RUNTIME</text>
+    <text x="200" y="182" fill="var(--primary)" font-size="11" font-weight="bold" class="font-mono">HIGH-PERFORMANCE RUNTIME</text>
 
     <text x="42" y="202" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="202" fill="var(--text-main)" font-size="11" class="font-mono">ARCHITECTURE:</text>
-    <text x="210" y="202" fill="var(--accent)" font-size="11" font-weight="bold" class="font-mono">ZERO-DEPENDENCY PIPELINE</text>
+    <text x="200" y="202" fill="var(--accent)" font-size="11" font-weight="bold" class="font-mono">ZERO-DEPENDENCY PIPELINE</text>
 
     <text x="42" y="222" fill="var(--status)" font-size="12" font-weight="bold" class="font-mono">&gt;</text>
     <text x="60" y="222" fill="var(--text-main)" font-size="11" class="font-mono">COMPLIANCE:</text>
-    <text x="210" y="222" fill="var(--status)" font-size="11" font-weight="bold" class="font-mono">GITHUB DUAL-THEME READY</text>
+    <text x="200" y="222" fill="var(--status)" font-size="11" font-weight="bold" class="font-mono">GITHUB DUAL-THEME READY</text>
 
     <rect x="500" y="212" width="8" height="12" fill="var(--primary)" class="cursor-blink"/>
   </g>

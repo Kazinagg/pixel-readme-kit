@@ -52,10 +52,10 @@
   <!-- Top Rail -->
   <line x1="0" y1="2" x2="838" y2="2" stroke="#d29922" stroke-width="2"/><line x1="838" y1="2" x2="849" y2="13" stroke="#d29922" stroke-width="2"/><line x1="849" y1="13" x2="849" y2="38" stroke="#d29922" stroke-width="2"/>
   <!-- Badge -->
-  <polygon points="6 6, 12 6, 4 18, 0 18" fill="#d29922" opacity="0.6"/><polygon points="16 6, 22 6, 14 18, 8 18" fill="#d29922" opacity="0.6"/><polygon points="28 8, 165 8, 172 15, 172 27, 165 34, 28 34" fill="var(--bg-panel)" stroke="#d29922" stroke-width="1.5"/><text x="96" y="24" fill="#d29922" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">▲ WARNING // HAZARD</text>
+  <polygon points="6 6, 12 6, 4 18, 0 18" fill="#d29922" opacity="0.6"/><polygon points="16 6, 22 6, 14 18, 8 18" fill="#d29922" opacity="0.6"/><polygon points="28 8, 167 8, 174 15, 174 27, 167 34, 28 34" fill="var(--bg-panel)" stroke="#d29922" stroke-width="1.5"/><text x="101" y="24" fill="#d29922" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">▲ WARNING // HAZARD</text>
   <!-- Title & Subtitle (Properly offset past badge edge) -->
-  <text x="186" y="20" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">TACTICAL QUOTE HEADER</text>
-  <text x="186" y="33" fill="var(--accent)" font-size="11" class="font-mono">Шевроны и скос 45° на открытом контуре</text>
+  <text x="188" y="20" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">TACTICAL QUOTE HEADER</text>
+  <text x="188" y="33" fill="var(--accent)" font-size="11" class="font-mono">Шевроны и скос 45° на открытом контуре</text>
   <!-- DASHED BOTTOM LINE: Bridges into live markdown text -->
   <line x1="0" y1="41" x2="845" y2="41" stroke="#d29922" stroke-width="1.5" stroke-dasharray="8,4" opacity="0.75"/>
   <polygon points="840 37, 848 37, 844 41" fill="#d29922"/>

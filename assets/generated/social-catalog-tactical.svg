@@ -59,10 +59,10 @@
 
 
   <!-- TOP REPOSITORY HEADER -->
-  <rect x="80" y="56" width="380" height="34" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+  <rect x="80" y="56" width="365" height="34" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
   <text x="96" y="78" fill="var(--primary)" font-size="13" font-weight="bold" letter-spacing="1px" class="font-mono">■ REPOSITORY // KAZINAGG/PIXEL-README-KIT</text>
-  <rect x="470" y="56" width="140" height="34" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
-  <text x="540" y="78" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PUBLIC // v4.0</text>
+  <rect x="459" y="56" width="140" height="34" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="529" y="78" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PUBLIC // v5.0</text>
 
   <!-- 3D PIXEL TITLE -->
   <g class="pixel-text-3d">
@@ -75,33 +75,33 @@
 </g>
 
   <!-- SUBTITLE CALLOUT -->
-  <rect x="80" y="324" width="356" height="42" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.5"/>
+  <rect x="80" y="324" width="324" height="42" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.5"/>
   <text x="100" y="351" fill="var(--text-main)" font-size="15" font-weight="bold" class="font-mono">▶ TACTICAL MILITARY HUD SYSTEM</text>
 
   <!-- TECH / FEATURE TAGS ROW -->
   
     <g transform="translate(80, 530)">
-      <rect x="0" y="0" width="66" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+      <rect x="0" y="0" width="57" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="35" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">RUST</text>
+      <text x="30" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">RUST</text>
     </g>
 
-    <g transform="translate(162, 530)">
-      <rect x="0" y="0" width="75" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+    <g transform="translate(153, 530)">
+      <rect x="0" y="0" width="64" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="39" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">LINUX</text>
+      <text x="34" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">LINUX</text>
     </g>
 
-    <g transform="translate(253, 530)">
-      <rect x="0" y="0" width="104" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+    <g transform="translate(233, 530)">
+      <rect x="0" y="0" width="86" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="54" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">TACTICAL</text>
+      <text x="45" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">TACTICAL</text>
     </g>
 
-    <g transform="translate(373, 530)">
-      <rect x="0" y="0" width="56" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+    <g transform="translate(335, 530)">
+      <rect x="0" y="0" width="49" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="30" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">OPS</text>
+      <text x="26" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">OPS</text>
     </g>
 
 

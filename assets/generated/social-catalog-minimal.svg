@@ -58,10 +58,10 @@
 
 
   <!-- TOP REPOSITORY HEADER -->
-  <rect x="80" y="56" width="380" height="34" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+  <rect x="80" y="56" width="365" height="34" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
   <text x="96" y="78" fill="var(--primary)" font-size="13" font-weight="bold" letter-spacing="1px" class="font-mono">■ REPOSITORY // KAZINAGG/PIXEL-README-KIT</text>
-  <rect x="470" y="56" width="140" height="34" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
-  <text x="540" y="78" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PUBLIC // v4.0</text>
+  <rect x="459" y="56" width="140" height="34" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="529" y="78" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PUBLIC // v5.0</text>
 
   <!-- 3D PIXEL TITLE -->
   <g class="pixel-text-3d">
@@ -80,27 +80,27 @@
   <!-- TECH / FEATURE TAGS ROW -->
   
     <g transform="translate(80, 530)">
-      <rect x="0" y="0" width="123" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+      <rect x="0" y="0" width="101" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="63" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">TYPESCRIPT</text>
+      <text x="52" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">TYPESCRIPT</text>
     </g>
 
-    <g transform="translate(219, 530)">
-      <rect x="0" y="0" width="75" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+    <g transform="translate(197, 530)">
+      <rect x="0" y="0" width="64" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="39" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">REACT</text>
+      <text x="34" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">REACT</text>
     </g>
 
-    <g transform="translate(310, 530)">
-      <rect x="0" y="0" width="85" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+    <g transform="translate(277, 530)">
+      <rect x="0" y="0" width="71" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="44" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">DESIGN</text>
+      <text x="37" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">DESIGN</text>
     </g>
 
-    <g transform="translate(411, 530)">
-      <rect x="0" y="0" width="47" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+    <g transform="translate(364, 530)">
+      <rect x="0" y="0" width="42" height="34" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
       <rect x="0" y="0" width="4" height="34" fill="var(--primary)"/>
-      <text x="25" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">UI</text>
+      <text x="23" y="22" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">UI</text>
     </g>
 
 
