@@ -1,98 +1,101 @@
-
-
-# PIXEL README KIT — RETRO-CYBERPUNK & TACTICAL HUD DESIGN SYSTEM
+# README KIT — UNIVERSAL DESIGN SYSTEM FOR GITHUB REPOSITORIES & DEVELOPER PROFILES
 
 <div id="top"></div>
 
 <div align="center">
 
-<img src="assets/generated/header-readme.svg?v=a39675cb" width="100%" alt="PIXEL README KIT" />
+<img src="assets/generated/header-readme.svg" width="100%" alt="README KIT" />
 
 <br/><br/>
 
-<a href="CATALOG.md"><img src="assets/generated/chip-readme-catalog.svg?v=51525174" alt="[DOCS] КАТАЛОГ БЛОКОВ" /></a>
+<a href="CATALOG.md"><img src="assets/generated/chip-readme-catalog.svg" alt="[DOCS] КАТАЛОГ БЛОКОВ" /></a>
 &nbsp;&nbsp;
-<a href="EXAMPLES.md"><img src="assets/generated/chip-readme-examples.svg?v=1d176890" alt="[SPEC] ПРИМЕРЫ И РАЗБОР" /></a>
+<a href="EXAMPLES.md"><img src="assets/generated/chip-readme-examples.svg" alt="[SPEC] ПРИМЕРЫ И РАЗБОР" /></a>
 &nbsp;&nbsp;
-<a href="#top"><img src="assets/generated/chip-readme-version.svg?v=d9592d81" alt="● v4.0.0 STABLE" /></a>
+<a href="#top"><img src="assets/generated/chip-readme-version.svg" alt="● v5.0.0 STABLE" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg?v=01e70734" alt="★ 2" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg" alt="★ 2" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg?v=9d4fd929" alt="FORKS: 0" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg" alt="FORKS: 0" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit"><img src="assets/generated/chip-readme-license.svg?v=1a87883e" alt="LICENSE: MIT" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit"><img src="assets/generated/chip-readme-license.svg" alt="LICENSE: MIT" /></a>
 
 <br/><br/>
 
-<img src="assets/generated/divider-readme.svg?v=524561bf" width="100%" alt="Divider cyberpunk" />
+<img src="assets/generated/divider-readme.svg" width="100%" alt="Divider cyberpunk" />
 
 </div>
 
 <br/>
 
-## 01 // Ключевые показатели (System Telemetry)
+## 01 // Телеметрия системы (System Telemetry)
 
-<img src="assets/generated/metrics-readme.svg?v=61035695" width="100%" alt="Metrics" />
-
-<br/>
-
-<img src="assets/generated/progress-readme.svg?v=b2512621" width="100%" alt="V4.0 EVOLUTION PROGRESS (5/5 SPRINTS)" />
+<img src="assets/generated/metrics-readme.svg" width="100%" alt="Metrics" />
 
 <br/>
 
-## 02 // О проекте (Project Overview)
-
-**Pixel Readme Kit** — модульная дизайн-система и автономный генератор для оформления репозиториев и профилей GitHub в бескомпромиссной эстетике **ретро-киберпанка**, **тактических военных HUD** и **неонового стекла**.
-
-Комплект создан для решения фундаментальных проблем стандартного оформления GitHub:
-1. **Адаптивная мульти-режимность (Multi-Mode Theming)**:
-   - `mode="auto"` (**по умолчанию**): единый автономный SVG с нативными CSS-переменными и медиа-запросом `@media (prefers-color-scheme: dark)`. Переключается мгновенно вместе с системной темой ОС или браузера, без дублирования файлов.
-   - Также поддерживаются: `mode="dark"`, `mode="light"`, `mode="transparent"` (прозрачный фон), `mode="gh"` (`#gh-*-mode-only`) и `mode="picture"` (`<picture>`).
-2. **Инкрементальный SHA-256 кэш и сборщик мусора (GC)**:
-   - Хэширует свойства директив, компилируя только изменившиеся ассеты за доли секунды.
-   - Флаг `--clean-assets` автоматически удаляет файлы-сироты из `assets/generated/`.
-   - Флаг `--bust-cache` автоматически снабжает ссылки версионными хэшами `?v=<hash>` для обхода кэша Camo Proxy.
-3. **Live Preview и HUD Studio Web UI**:
-   - Локальный HTTP-сервер на стандартной библиотеке Python с SSE Live Reload (`python -m generator.cli studio`).
-   - Интерактивный генератор блоков с предпросмотром за <50мс, копированием директив и сеткой HUD Debug.
-4. **Нативный MCP-сервер (Model Context Protocol)**:
-   - Встроенный сервер для AI-агентов (Claude, Cursor, Antigravity, Copilot) с 5 структурированными инструментами.
-5. **Безопасная мобильная типографика и Compact Header**:
-   - Гарантированный порог читаемости текста $\ge 11$px на экранах смартфонов.
-   - Компактный флагманский баннер (`compact="true"`, 84px) для мобильных и минималистичных репозиториев.
-   - Генератор OpenGraph карточек 1280×640 (`pixel-kit:social`).
+<img src="assets/generated/progress-readme.svg" width="100%" alt="V5.0 REPO &amp; PROFILE EVOLUTION COMPLETE" />
 
 <br/>
 
-<img src="assets/generated/callout-readme-arch.svg?v=248bee11" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
+## 02 // Концепция проекта (Project Overview)
+
+**Readme Kit** — универсальная дизайн-система, генератор ассетов и интерактивная визуальная студия для оформления **Репозиториев (Repositories)** и **Профилей разработчиков (Developer Profiles `username/username`)** на GitHub.
+
+Комплект предоставляет гибкие инструменты для двух ключевых сценариев:
+1. **Оформление репозиториев (Repositories Showcase)**:
+   - Библиотеки, CLI-утилиты, веб-сервисы, монорепозитории и исследовательские отчеты.
+   - Модульные окна контента, интерактивные терминалы, матрицы стека, плашки алертов и футеры.
+2. **Оформление профилей разработчиков (Developer Profiles)**:
+   - Флагманские карточки профиля (`<img src="assets/generated/profile-cyberpunk-1.svg" width="100%" alt="ALEX DEVELOPER" />`) со стилизованным аватаром, LED-индикатором статуса, 3D-типографикой и био.
+   - График динамики звёзд и активности (`<img src="assets/generated/starchart-cyberpunk-1.svg" width="100%" alt="STAR GROWTH TRAJECTORY" />`) с координатной сеткой и градиентной заливкой.
+   - Витрины ключевых проектов и социальные чипы.
+
+<br/>
+
+## 03 // Флагманские компоненты v5.0 (Showcase)
+
+### Карточка профиля разработчика (Developer Dossier Card)
+
+<img src="assets/generated/profile-readme-demo.svg" width="100%" alt="ALEX DEVELOPER" />
+
+<br/>
+
+### График динамики звёзд (Star Growth Trajectory)
+
+<img src="assets/generated/starchart-readme-demo.svg" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
+
+<br/>
+
+<img src="assets/generated/callout-readme-arch.svg" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
 
 ---
 
-## 03 // Стек технологий и поддерживаемое окружение
+## 04 // Мульти-стилевая архитектура (3 Дизайн-парадигмы)
 
-<img src="assets/generated/techstack-readme.svg?v=3e0e29a1" width="100%" alt="Tech Stack" />
+Дизайн-система предлагает 3 глобальные визуальные парадигмы:
 
-<br/>
-
-## 04 // 3 Глобальных стиля геометрии
-
-Дизайн-система строго разделяет **геометрию (форму блоков)** и **цветовую палитру**:
-
-| Стиль | Канонические цвета | Геометрия и силуэт | Механика распада (Decay) | Накрытие таблиц | Живая анимация |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **[01] Cyberpunk** | Cyan `#00C8D7`<br/>Purple `#A855F7` | Прямые углы, открытые кронштейны, пиксели `3×3` | Матричный пиксельный дизеринг (`3×3 -> 2×2 -> 1×1`) | Накрытие таблицы зубцами `x=1..849` | Радар 360°, CRT Scanline, PCB-пакет |
-| **[02] Tactical Military** | Amber `#F59E0B`<br/>Orange `#EA580C` | 45° срезанные фаски (Chamfers), шевроны `▲` | Диагональные штрихи фасок `///` с затуханием | Накрытие фасками `45°` без зазоров | Пульсирующий прицел, маркеры захвата |
-| **[03] Minimal Glass** | Tokyo Blue `#4F8BFF`<br/>Magenta `#A855F7` | Ультратонкая волосяная рамка 1px, зацепы `┌ ┐` | Микроточечное рассеивание (Micro-stipple) | Монолитная 3-строчная таблица | Спектральный 5-полосный эквалайзер |
-
----
-
-## 05 // Дорожная карта развития (Roadmap)
-
-<img src="assets/generated/timeline-readme.svg?v=bdf5b93f" width="100%" alt="Timeline" />
+| Парадигма | Стиль | Палитры по умолчанию | Особенности геометрии | Назначение |
+| :--- | :--- | :--- | :--- | :--- |
+| **Pixel / Retro-Tech** | `cyberpunk`, `tactical`, `matrix`, `tokyo` | Cyan / Purple, Amber / Orange, Phosphor Green | Пиксельный дизеринг, радары 360°, CRT-сканлайн, скобы | Игровые, хакерские и CLI проекты, яркие профили |
+| **Clean / Modern Vector** | `clean-mono`, `modern-slate` | Monochrome, Matte Graphite, Accent Slate | Четкие векторные контуры 1px, сглаженные радиусы, чистый фон | Системный софт, DevOps, облачные утилиты |
+| **Minimalist / Corporate** | `corporate-blue`, `academic-paper` | Deep Navy / Azure, Paper Monochrome | Сдержанная корпоративная типографика, 1px геометрия | Enterprise-библиотеки, научные статьи, исследования |
 
 <br/>
 
-## 06 // Быстрый старт (Quick Start)
+## 05 // Стек технологий и поддерживаемое окружение
+
+<img src="assets/generated/techstack-readme.svg" width="100%" alt="Tech Stack" />
+
+<br/>
+
+## 06 // Дорожная карта развития (Roadmap)
+
+<img src="assets/generated/timeline-readme.svg" width="100%" alt="Timeline" />
+
+<br/>
+
+## 07 // Руководство по началу работы (Quick Start Guide)
 
 ### 1. Интерактивная Web-студия (Live Preview & Studio)
 ```bash
@@ -102,8 +105,11 @@ python -m generator.cli studio --open
 
 ### 2. Инициализация шаблона с помощью Scaffolder
 ```bash
-# Быстрое создание README.template.md из готовых пресетов:
-python -m generator.cli init --type library --title "MY-AWESOME-LIB"
+# Оформление репозитория:
+python -m generator.cli init --category repo --type library --title "MY-AWESOME-LIB"
+
+# Оформление профиля разработчика:
+python -m generator.cli init --category profile --type developer --title "ALEX DEVELOPER"
 ```
 
 ### 3. Компиляция шаблона в Markdown
@@ -128,22 +134,22 @@ python -m generator.cli compile --clean-assets --bust-cache
 
 ---
 
-## 07 // Интерактивный пример окна контента
+## 08 // Интерактивный пример окна контента
 
-<img src="assets/generated/frame-readme-top.svg?v=2905e243" width="100%" />
+<img src="assets/generated/frame-readme-top.svg" width="100%" />
 
 <table width="100%">
 <tr>
 <td width="2000">
 
-### [SPEC] Спецификация подсистем ядра v4.0
+### [SPEC] Спецификация подсистем ядра v5.0
 
 Контент внутри окон остаётся полноценным Markdown:
 
 | Подсистема | Протокол | Статус | Задержка |
 | :--- | :--- | :--- | :--- |
+| **Multi-Style Engine** | `PIXEL + VECTOR + CORPORATE` | `● TRI-PARADIGM` | `0.00 ms` |
 | **Theme Engine** | `CSS_VARS_MEDIA_QUERY` | `● AUTO_ADAPTIVE` | `0.00 ms` |
-| **Anti-Collision** | `WORD_WRAP_DOWNSCALE` | `● ZERO_OVERLAP` | `0.05 ms` |
 | **Incremental Cache** | `SHA-256 DIGEST` | `● 98% HIT_RATE` | `0.02 s` |
 | **Live Studio** | `SSE REALTIME SYNC` | `● 300ms INTERVAL` | `< 50 ms` |
 
@@ -158,11 +164,11 @@ python -m generator.cli studio
 </tr>
 </table>
 
-<img src="assets/generated/frame-readme-bottom.svg?v=105db39c" width="100%" />
+<img src="assets/generated/frame-readme-bottom.svg" width="100%" />
 
 <br/>
 
-> <img src="assets/generated/callout-quote-readme.svg?v=09d64cda" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
+> <img src="assets/generated/callout-quote-readme.svg" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
 >
 > > **Навигация по документации**:
 > > - Полный каталог всех компонентов во всех стилях доступен в **[CATALOG.md](CATALOG.md)**.
@@ -176,7 +182,7 @@ python -m generator.cli studio
 
 <br/>
 
-<img src="assets/generated/term-top-readme.svg?v=97038138" width="100%" />
+<img src="assets/generated/term-top-readme.svg" width="100%" />
 
 <table width="100%">
 <tr>
@@ -187,8 +193,10 @@ python -m generator.cli studio
 python -m generator.cli studio --help    # Запуск HUD Studio с Live Reload
 python -m generator.cli serve --help     # Запуск HTTP сервера предпросмотра
 python -m generator.cli compile --help   # Компилятор шаблонов Markdown
-python -m generator.cli init --help      # Скаффолдер шаблонов (study, library, cli)
+python -m generator.cli init --help      # Скаффолдер шаблонов (repo/* и profile/*)
 python -m generator.cli header --help    # Заглавные шапки (включая --compact)
+python -m generator.cli starchart --help # График динамики звезд и роста
+python -m generator.cli profile --help   # Карточка профиля разработчика
 python -m generator.cli social --help    # OpenGraph социальные карточки 1280x640
 python -m generator.cli metrics --help   # KPI метрики
 python -m generator.cli progress --help  # Индикаторы прогресса
@@ -206,10 +214,10 @@ python -m generator.cli splitter --help  # Сплиттеры подмодуле
 </tr>
 </table>
 
-<img src="assets/generated/term-bottom-readme.svg?v=f94f1e66" width="100%" />
+<img src="assets/generated/term-bottom-readme.svg" width="100%" />
 
 </details>
 
 <br/><br/>
 
-<a href="#top"><img src="assets/generated/footer-readme.svg?v=19ead71e" width="100%" alt="▲ НАВЕРХ" /></a>
+<a href="#top"><img src="assets/generated/footer-readme.svg" width="100%" alt="▲ НАВЕРХ" /></a>

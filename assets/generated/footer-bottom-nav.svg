@@ -69,7 +69,7 @@
   <circle cx="26" cy="35" r="1.5" fill="var(--tertiary)"/>
   <rect x="38" y="26" width="76" height="18" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
   <text x="76" y="38" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">SYS_STATUS</text>
-  <text x="124" y="40" fill="var(--primary)" font-size="12" font-weight="bold" class="font-mono">CATALOG_END // v4.0_ONLINE</text>
+  <text x="124" y="40" fill="var(--primary)" font-size="12" font-weight="bold" class="font-mono">CATALOG_END // v5.0_ONLINE</text>
 
   <!-- Secondary Diagnostics Sub-line -->
   <text x="24" y="61" fill="var(--text-dim)" font-size="11" class="font-mono"><tspan fill="var(--accent)">RUNTIME:</tspan> BUFFER_CLEARED <tspan fill="rgba(148, 163, 184, 0.4)">|</tspan> <tspan fill="var(--accent)">PACKET_LOSS:</tspan> 0.00% <tspan fill="rgba(148, 163, 184, 0.4)">|</tspan> <tspan fill="var(--accent)">LINK_QUALITY:</tspan> 100%_LOCKED</text>

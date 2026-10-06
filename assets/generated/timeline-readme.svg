@@ -8,6 +8,7 @@
         --border-chassis: #D0D7DE;
         --primary: #0969DA;
         --accent: #8250DF;
+        --tertiary: #CF222E;
         --title-front: #0969DA;
         --title-mid: #0550AE;
         --title-dark: #033D8B;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(30, 41, 59, 0.85);
           --primary: #00C8D7;
           --accent: #A855F7;
+          --tertiary: #FF0055;
           --title-front: #00C8D7;
           --title-mid: #006B74;
           --title-dark: #002B2F;
@@ -113,18 +115,17 @@
     <text x="84" y="248" fill="var(--text-dim)" class="font-time-desc"></text>
   </g>
   <g id="milestone-4">
-    <path d="M 48 292 L 70 292" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 2"/>
-    <circle cx="42" cy="292" r="6" fill="var(--accent)"/>
-    <circle cx="42" cy="292" r="10" fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="2 2"/>
+    <path d="M 48 292 L 70 292" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,286 48,292 42,298 36,292" fill="var(--status)"/>
     <rect x="70" y="274" width="778" height="52" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
-    <line x1="70" y1="274" x2="78" y2="274" stroke="var(--accent)" stroke-width="2"/>
-    <line x1="70" y1="274" x2="70" y2="282" stroke="var(--accent)" stroke-width="2"/>
-    <rect x="843" y="276" width="3" height="3" fill="var(--accent)"/>
+    <line x1="70" y1="274" x2="78" y2="274" stroke="var(--status)" stroke-width="2"/>
+    <line x1="70" y1="274" x2="70" y2="282" stroke="var(--status)" stroke-width="2"/>
+    <rect x="843" y="276" width="3" height="3" fill="var(--status)"/>
     <!-- Milestone Header -->
     <rect x="82" y="283" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
     <text x="112" y="294" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026</text>
-    <text x="152" y="294" fill="var(--title-front)" class="font-time-title">V4.1 - GITHUB ACTION &amp; COMMUNITY PACKS</text>
-    <text x="834" y="294" fill="var(--accent)" text-anchor="end" class="font-time-stat">◉ IN_PROGRESS</text>
+    <text x="152" y="294" fill="var(--title-front)" class="font-time-title">V5.0 - REPOSITORIES &amp; DEVELOPER PROFILES</text>
+    <text x="834" y="294" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
     <!-- Milestone Description -->
     <text x="84" y="314" fill="var(--text-dim)" class="font-time-desc"></text>
   </g>

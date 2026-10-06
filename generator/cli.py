@@ -34,6 +34,8 @@ from generator.engine import (
     generate_techstack,
     generate_timeline,
     generate_social,
+    generate_starchart,
+    generate_profile_card,
     validate_svg
 )
 from generator.compiler import MarkdownCompiler
@@ -236,6 +238,35 @@ def cmd_timeline(args):
         "preset": args.preset
     }, f"timeline-{args.style}")
 
+def cmd_starchart(args):
+    pts = [float(x.strip()) for x in args.points.split(",") if x.strip()] if getattr(args, "points", None) else None
+    handle_cli_output(args, generate_starchart, {
+        "style": args.style,
+        "repo": args.repo,
+        "points": pts,
+        "current": args.current,
+        "delta": args.delta,
+        "title": args.title,
+        "period": args.period,
+        "primary": args.primary,
+        "accent": args.accent,
+        "preset": args.preset
+    }, f"starchart-{args.style}")
+
+def cmd_profile(args):
+    handle_cli_output(args, generate_profile_card, {
+        "style": args.style,
+        "name": args.name,
+        "role": args.role,
+        "bio": args.bio,
+        "status": args.status,
+        "location": args.location,
+        "badge": args.badge,
+        "primary": args.primary,
+        "accent": args.accent,
+        "preset": args.preset
+    }, f"profile-{args.style}")
+
 def cmd_compile(args):
     inp = args.input if args.input else "README.template.md"
     if args.output:
@@ -276,16 +307,31 @@ def cmd_serve(args):
 
 def cmd_init(args):
     ptype = args.type
+    category = getattr(args, "category", None)
     title = args.title
     if not ptype:
-        print("\n=== PIXEL README KIT SCAFFOLDER ===")
-        print("Select project template type:")
-        print("1. study   (Laboratory report / student dossier / coursework)")
-        print("2. library (Open Source package / SDK / modular component)")
-        print("3. cli     (Command-line utility / terminal tool)")
-        choice = input("Enter choice [1-3] (default: 2): ").strip()
-        mapping = {"1": "study", "2": "library", "3": "cli"}
-        ptype = mapping.get(choice, "library")
+        print("\n=== README KIT SCAFFOLDER v5.0 ===")
+        print("Select template type:")
+        print("--- REPOSITORIES (repo/) ---")
+        print("1. repo/library   (Open Source package / SDK / modular component)")
+        print("2. repo/cli       (Command-line utility / terminal tool)")
+        print("3. repo/study     (Laboratory report / student dossier / coursework)")
+        print("4. repo/minimal   (Clean corporate / minimal repository)")
+        print("--- PROFILES (profile/) ---")
+        print("5. profile/dev    (Comprehensive developer profile / username/username)")
+        print("6. profile/min    (Clean minimalist developer profile)")
+        print("7. profile/cyber  (Futuristic HUD / cyber developer profile)")
+        choice = input("Enter choice [1-7] (default: 1): ").strip()
+        mapping = {
+            "1": "repo/library",
+            "2": "repo/cli",
+            "3": "repo/study",
+            "4": "repo/minimal",
+            "5": "profile/developer",
+            "6": "profile/minimal",
+            "7": "profile/cyberpunk",
+        }
+        ptype = mapping.get(choice, "repo/library")
 
     if not title:
         try:
@@ -305,6 +351,7 @@ def cmd_init(args):
 
     scaffold_readme(
         project_type=ptype,
+        category=category,
         title=title,
         subtitle=args.subtitle,
         author=args.author if args.author else "DEVELOPER",
@@ -438,11 +485,12 @@ def build_parser():
     p_cmp.set_defaults(func=cmd_compile)
 
     # 9. INIT (Scaffolder)
-    p_init = subparsers.add_parser("init", help="Scaffold a new README.template.md from predefined templates")
-    p_init.add_argument("--type", choices=["study", "library", "cli"], help="Project template type (study, library, cli)")
-    p_init.add_argument("--title", help="Main project title")
-    p_init.add_argument("--subtitle", help="Project subtitle or description")
-    p_init.add_argument("--author", help="Author name (for study template)")
+    p_init = subparsers.add_parser("init", help="Scaffold a new README.template.md for a repository or developer profile")
+    p_init.add_argument("--category", choices=["repo", "profile"], help="Template category: repo or profile")
+    p_init.add_argument("--type", help="Template type (e.g. repo/library, repo/cli, repo/study, repo/minimal, profile/developer, profile/minimal, profile/cyberpunk)")
+    p_init.add_argument("--title", help="Main project or profile title")
+    p_init.add_argument("--subtitle", help="Project subtitle or profile bio")
+    p_init.add_argument("--author", help="Author name (for study or profile template)")
     p_init.add_argument("--group", help="Student group (for study template)")
     p_init.add_argument("--discipline", help="Discipline / course name (for study template)")
     p_init.add_argument("--repo", help="GitHub repo in 'owner/repo' format")
@@ -531,6 +579,38 @@ def build_parser():
     p_std.add_argument("--port", "-p", type=int, default=3000, help="HTTP server port (default: 3000)")
     p_std.add_argument("--open", action="store_true", default=True, help="Automatically open browser upon launch")
     p_std.set_defaults(func=cmd_serve)
+
+    # 16. STARCHART
+    p_sta = subparsers.add_parser("starchart", help="Generate vector star growth trend / activity chart")
+    p_sta.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_sta.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_sta.add_argument("--preset", help="Named palette preset or path to JSON")
+    p_sta.add_argument("--primary", help="Primary brand hex color")
+    p_sta.add_argument("--accent", help="Secondary accent hex color")
+    p_sta.add_argument("--repo", default="Kazinagg/pixel-readme-kit", help="GitHub repo in 'owner/repo' format")
+    p_sta.add_argument("--points", default="15,65,190,480,950,1650", help="Comma-separated historical star points")
+    p_sta.add_argument("--current", help="Current star count label (e.g. '1,650')")
+    p_sta.add_argument("--delta", default="+78% past 6m", help="Growth delta or period indicator")
+    p_sta.add_argument("--title", default="STAR GROWTH TRAJECTORY", help="Chart title text")
+    p_sta.add_argument("--period", default="6M", help="Timeline period tag")
+    p_sta.add_argument("--output", "-o", help="Target SVG destination path")
+    p_sta.set_defaults(func=cmd_starchart)
+
+    # 17. PROFILE CARD
+    p_prf = subparsers.add_parser("profile", help="Generate flagship developer profile / dossier identity header card")
+    p_prf.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_prf.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
+    p_prf.add_argument("--preset", help="Named palette preset or path to JSON")
+    p_prf.add_argument("--primary", help="Primary brand hex color")
+    p_prf.add_argument("--accent", help="Secondary accent hex color")
+    p_prf.add_argument("--name", default="ALEX DEVELOPER", help="Developer display name")
+    p_prf.add_argument("--role", default="FULLSTACK & SYSTEMS ARCHITECT", help="Engineering role / specialty headline")
+    p_prf.add_argument("--bio", default="Building high-performance runtimes and resilient developer tooling.", help="Bio or manifesto summary")
+    p_prf.add_argument("--status", default="AVAILABLE FOR HIRE", help="Availability status")
+    p_prf.add_argument("--location", default="REMOTE // UTC+3", help="Location indicator")
+    p_prf.add_argument("--badge", default="LEVEL_99", help="Rank / experience badge")
+    p_prf.add_argument("--output", "-o", help="Target SVG destination path")
+    p_prf.set_defaults(func=cmd_profile)
 
     return parser
 

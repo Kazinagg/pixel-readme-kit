@@ -33,6 +33,8 @@ from generator.engine import (
     generate_techstack,
     generate_timeline,
     generate_social,
+    generate_starchart,
+    generate_profile_card,
     THEME_PALETTES,
     validate_svg
 )
@@ -49,7 +51,7 @@ def extract_template_blocks(template_content: str):
         re.IGNORECASE
     )
     single_pattern = re.compile(
-        r'(<!--\s*pixel-kit:(header|footer|callout|frame|chip|divider|splitter|progress|techstack|social)\b(.*?)-->)',
+        r'(<!--\s*pixel-kit:(header|footer|callout|frame|chip|divider|splitter|progress|techstack|social|starchart|profile)\b(.*?)-->)',
         re.IGNORECASE
     )
 
@@ -95,7 +97,7 @@ STUDIO_HTML = r"""<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PIXEL README KIT // HUD STUDIO v4.2</title>
+  <title>README KIT // REPO & PROFILE STUDIO v5.0</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
@@ -1193,14 +1195,14 @@ STUDIO_HTML = r"""<!DOCTYPE html>
   <!-- TOP HUD BAR -->
   <header class="hud-nav">
     <div class="brand">
-      <span>PIXEL-KIT</span>
-      <span class="brand-badge">STUDIO v4.2</span>
+      <span>README-KIT</span>
+      <span class="brand-badge">STUDIO v5.0</span>
     </div>
 
     <div class="nav-status">
       <div class="status-indicator">
         <span class="pulse-dot"></span>
-        <span id="sse-status">HUD STUDIO SYNC: ONLINE</span>
+        <span id="sse-status">STUDIO SYNC: ONLINE</span>
       </div>
 
       <div class="mode-switch-group">
@@ -1358,6 +1360,8 @@ STUDIO_HTML = r"""<!DOCTYPE html>
             <option value="splitter">Sub-Module Splitter</option>
             <option value="footer">Closing Footer Plate</option>
             <option value="social">OpenGraph Social Card</option>
+            <option value="starchart">Star Growth Trend Chart</option>
+            <option value="profile">Profile Dossier Card</option>
           </select>
         </div>
 
@@ -2666,6 +2670,10 @@ STUDIO_HTML = r"""<!DOCTYPE html>
         sections[type].style.display = "flex";
       }
 
+      if (type === "header" || type === "starchart" || type === "profile") {
+        if (sections.header) sections.header.style.display = "flex";
+      }
+
       // Container markdown body section
       if (type === "window" || type === "terminal" || type === "quote") {
         sections.body.style.display = "flex";
@@ -2846,6 +2854,13 @@ STUDIO_HTML = r"""<!DOCTYPE html>
         const repo = document.getElementById("inp-social-repo").value.trim();
         const tags = document.getElementById("inp-social-tags").value.trim();
         opening += ` title="${title}" subtitle="${sub}" repo="${repo}" tags="${tags}"`;
+      } else if (btype === "starchart") {
+        const repo = document.getElementById("inp-title").value.trim() || "Kazinagg/pixel-readme-kit";
+        opening += ` repo="${repo}" points="15,65,190,480,950,1650" current="1,650" delta="+78% past 6m" title="STAR GROWTH TRAJECTORY"`;
+      } else if (btype === "profile") {
+        const name = document.getElementById("inp-title").value.trim() || "ALEX DEVELOPER";
+        const role = document.getElementById("inp-subtitle").value.trim() || "FULLSTACK & SYSTEMS ARCHITECT";
+        opening += ` name="${name}" role="${role}" bio="Building high-performance runtimes and resilient developer tooling." status="AVAILABLE FOR HIRE" location="REMOTE" badge="LEVEL_99"`;
       }
 
       if (origAttrs.out) opening += ` out="${origAttrs.out}"`;
@@ -3091,6 +3106,18 @@ STUDIO_HTML = r"""<!DOCTYPE html>
         params.set("subtitle", document.getElementById("inp-social-sub").value);
         params.set("repo", document.getElementById("inp-social-repo").value);
         params.set("tags", document.getElementById("inp-social-tags").value);
+      } else if (btype === "starchart") {
+        params.set("repo", document.getElementById("inp-title").value || "Kazinagg/pixel-readme-kit");
+        params.set("title", "STAR GROWTH TRAJECTORY");
+        params.set("points", "15,65,190,480,950,1650");
+        params.set("current", "1,650");
+        params.set("delta", "+78% past 6m");
+      } else if (btype === "profile") {
+        params.set("name", document.getElementById("inp-title").value || "ALEX DEVELOPER");
+        params.set("role", document.getElementById("inp-subtitle").value || "FULLSTACK & SYSTEMS ARCHITECT");
+        params.set("status", "AVAILABLE FOR HIRE");
+        params.set("location", "REMOTE // UTC+3");
+        params.set("badge", "LEVEL_99");
       }
 
       try {
@@ -3576,6 +3603,28 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
                 elif btype == "social":
                     tag_list = [x.strip() for x in tags_str.split(",") if x.strip()]
                     svg = generate_social(title=title or "PIXEL README KIT", subtitle=subtitle or "HUD SYSTEM", repo=repo or "Kazinagg/pixel-readme-kit", tags=tag_list, style=style, mode=mode, preset=preset, primary=primary, accent=accent)
+                elif btype == "starchart":
+                    pts = query.get("points", [None])[0]
+                    cur = query.get("current", [None])[0]
+                    dlt = query.get("delta", ["+78% past 6m"])[0]
+                    ttl = title or query.get("title", ["STAR GROWTH TRAJECTORY"])[0]
+                    per = query.get("period", ["6M"])[0]
+                    rep = repo or query.get("repo", ["Kazinagg/pixel-readme-kit"])[0]
+                    svg = generate_starchart(
+                        style=style, mode=mode, preset=preset, primary=primary, accent=accent,
+                        repo=rep, points=pts, current=cur, delta=dlt, title=ttl, period=per
+                    )
+                elif btype == "profile":
+                    p_name = query.get("name", [title or "ALEX DEVELOPER"])[0]
+                    p_role = query.get("role", [subtitle or "FULLSTACK & SYSTEMS ARCHITECT"])[0]
+                    p_bio = query.get("bio", ["Building high-performance runtimes and resilient developer tooling."])[0]
+                    p_stat = query.get("status", ["AVAILABLE FOR HIRE"])[0]
+                    p_loc = query.get("location", ["REMOTE // UTC+3"])[0]
+                    p_bdg = tag or query.get("badge", ["LEVEL_99"])[0]
+                    svg = generate_profile_card(
+                        style=style, mode=mode, preset=preset, primary=primary, accent=accent,
+                        name=p_name, role=p_role, bio=p_bio, status=p_stat, location=p_loc, badge=p_bdg
+                    )
                 else:
                     self.send_error(400, f"Unsupported block type: {btype}")
                     return

@@ -54,5 +54,5 @@
   <rect x="815" y="14" width="20" height="20" fill="var(--bg-panel)"/><text x="825" y="28" fill="#2f81f7" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>
   <!-- Text Content (Properly offset past badge edge) -->
   <text x="168" y="22" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">АРХИТЕКТУРНЫЙ ПРИНЦИП</text>
-  <text x="168" y="36" fill="var(--accent)" font-size="11" class="font-mono">Разделение формы (3 глобальных стиля) и цветовой палитры (primary + accent)</text>
+  <text x="168" y="36" fill="var(--accent)" font-size="11" class="font-mono">Разделение геометрии (3 парадигмы) и цветовой палитры (primary + accent + preset)</text>
 </svg>

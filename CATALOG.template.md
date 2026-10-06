@@ -1,10 +1,10 @@
-# 📦 PIXEL README KIT — КАТАЛОГ КОМПОНЕНТОВ (3 ГЛОБАЛЬНЫХ СТИЛЯ)
+# 📦 README KIT — КАТАЛОГ КОМПОНЕНТОВ (РЕПОЗИТОРИИ И ПРОФИЛИ GITHUB)
 
 <div id="top"></div>
 
 <div align="center">
 
-<!-- pixel-kit:header style="minimal" primary="#4F8BFF" accent="#A855F7" title="COMPONENT CATALOG" subtitle="EXHAUSTIVE HUD COMPONENT LIBRARY // 3 GLOBAL STYLES" tag="CATALOG_v2.2" out="assets/generated/header-catalog-banner.svg" -->
+<!-- pixel-kit:header style="minimal" primary="#4F8BFF" accent="#A855F7" title="COMPONENT CATALOG" subtitle="EXHAUSTIVE REPO & PROFILE COMPONENT LIBRARY // MULTI-STYLE" tag="CATALOG_v5.0" out="assets/generated/header-catalog-banner.svg" -->
 
 <br/><br/>
 
@@ -22,11 +22,9 @@
 
 > [!IMPORTANT]
 > 📐 **ФУНДАМЕНТАЛЬНЫЙ ПРИНЦИП ДИЗАЙН-СИСТЕМЫ**:
-> 1. **Стиль (Форма и Геометрия)**: существует ровно **3 канонических стиля** — **Cyberpunk**, **Tactical Military** и **Minimal Glass**.
-> 2. **Цветовая палитра (`primary` + `accent`)**: полностью независима от формы. В каталоге стили демонстрируются в канонических цветах:
->    - 🟢 **Cyberpunk** ➔ Neon Cyan (`#00C8D7`) / Purple (`#A855F7`)
->    - 🟡 **Tactical Military** ➔ Amber Phosphor (`#F59E0B`) / Alert Orange (`#EA580C`)
->    - 🟣 **Minimal Glass** ➔ Tokyo Neon Blue (`#4F8BFF`) / Magenta (`#A855F7`)
+> 1. **Два вектора применения**: оформление **Репозиториев (Repositories Showcase)** и **Профилей разработчиков (Developer Profiles `username/username`)**.
+> 2. **Три дизайн-парадигмы**: **Pixel / Retro-Tech** (дизеринг, HUD, радары), **Clean / Modern Vector** (чистые 1px контуры, скругления) и **Minimalist / Corporate** (строгий enterprise и академический стиль).
+> 3. **Цветовая палитра (`primary` + `accent` + `preset`)**: полностью независима от формы блоков и поддерживает нативную автоматическую адаптацию под тему пользователя (`mode="auto"`).
 
 ---
 
@@ -40,6 +38,15 @@
 6. [Интерактивные терминалы (Collapsible Terminals)](#6-интерактивные-терминалы-collapsible-terminals)
 7. [Чипы и пилюли (Chips & Pills — Адаптивная ширина)](#7-чипы-и-пилюли-chips--pills--адаптивная-ширина)
 8. [Разделители и сплиттеры подмодулей](#8-разделители-и-сплиттеры-подмодулей)
+9. [Мульти-режимность (Auto Dark/Light Modes)](#9-мульти-режимность-auto-darklight-modes)
+10. [Метрики ключевых показателей (Metrics KPI Cards v4.0)](#10-метрики-ключевых-показателей-metrics-kpi-cards-v40)
+11. [Сегментированные шкалы прогресса (Progress HUD Bars v4.0)](#11-сегментированные-шкалы-прогресса-progress-hud-bars-v40)
+12. [Матрица технологий и пиксельные иконки (Tech Stack Matrix v4.0)](#12-матрица-технологий-и-пиксельные-иконки-tech-stack-matrix-v40)
+13. [Интерактивные PCB-таймлайны (Timelines v4.0)](#13-интерактивные-pcb-таймлайны-timelines-v40)
+14. [Социальные карточки OpenGraph 1280x640 (Social Cards v4.0)](#14-социальные-карточки-opengraph-1280x640-social-cards-v40)
+15. [Компактный режим шапки (Compact Header ~84px v4.0)](#15-компактный-режим-шапки-compact-header-84px-v40)
+16. [График динамики звёзд и роста (Star Growth Trend Chart v5.0)](#16-график-динамики-звёзд-и-роста-star-growth-trend-chart-v50)
+17. [Карточка разработчика для шапки профиля (Developer Dossier Profile Card v5.0)](#17-карточка-разработчика-для-шапки-профиля-developer-dossier-profile-card-v50)
 
 ---
 
@@ -313,6 +320,23 @@ python -m generator.cli compile --input README.template.md --output README.md
 
 <!-- pixel-kit:header style="tactical" title="MICRO-SERVICE" subtitle="LEAN HIGH-PERFORMANCE RUNTIME" tag="V4.0" compact="true" out="assets/generated/header-compact-catalog.svg" -->
 
+---
+
+## 16. График динамики звёзд и роста (Star Growth Trend Chart v5.0)
+
+Полноширинный векторный SVG-график (850×230) с координатной сеткой, градиентной заливкой области (Area Fill), пиковыми метками и индикацией темпа прироста для репозиториев и профилей:
+
+<!-- pixel-kit:starchart style="cyberpunk" repo="Kazinagg/pixel-readme-kit" points="20,80,240,650,1200,2100" current="2,100" delta="+92% past 6m" title="OPEN SOURCE TRAJECTORY // TELEMETRY" out="assets/generated/starchart-catalog.svg" -->
+
+---
+
+## 17. Карточка разработчика для шапки профиля (Developer Dossier Profile Card v5.0)
+
+Флагманская карточка (850×190) для оформления шапки профиля разработчика `username/username` со стилизованным аватаром, LED-индикатором статуса, 3D-типографикой и био:
+
+<!-- pixel-kit:profile style="cyberpunk" name="ALEX DEVELOPER" role="FULLSTACK & SYSTEMS ARCHITECT" bio="Building high-performance runtimes and resilient developer tooling." status="AVAILABLE FOR HIRE" location="REMOTE // UTC+3" badge="LEVEL_99" out="assets/generated/profile-catalog.svg" -->
+
 <br/><br/>
 
-<!-- pixel-kit:footer style="cyberpunk" status="CATALOG_END // v4.0_ONLINE" nav="▲ НАВЕРХ" out="assets/generated/footer-bottom-nav.svg" -->
+<!-- pixel-kit:footer style="cyberpunk" status="CATALOG_END // v5.0_ONLINE" nav="▲ НАВЕРХ" out="assets/generated/footer-bottom-nav.svg" -->
+

@@ -8,6 +8,7 @@
         --border-chassis: #E2E8F0;
         --primary: #1D4ED8;
         --accent: #6D28D9;
+        --tertiary: #0891B2;
         --title-front: #1D4ED8;
         --title-mid: #1E40AF;
         --title-dark: #0F172A;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(41, 46, 66, 0.85);
           --primary: #4F8BFF;
           --accent: #A855F7;
+          --tertiary: #06B6D4;
           --title-front: #4F8BFF;
           --title-mid: #2563EB;
           --title-dark: #1E3A8A;
@@ -54,5 +56,5 @@
   <path d="M 4 18 L 4 22 L 8 22" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
   <path d="M 149 18 L 149 22 L 145 22" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
   <circle cx="15" cy="13" r="3" fill="var(--primary)" class="breathe"/>
-  <text x="81" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">● v4.0.0 STABLE</text>
+  <text x="81" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">● v5.0.0 STABLE</text>
 </svg>

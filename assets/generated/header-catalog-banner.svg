@@ -86,8 +86,8 @@
 
   <!-- SUBTITLE CHIP -->
   <g transform="translate(42, 129)">
-    <rect x="0" y="0" width="418" height="22" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
-    <text x="12" y="15" fill="var(--text-main)" font-size="11" font-weight="bold" class="font-mono">⚡ EXHAUSTIVE HUD COMPONENT LIBRARY // 3 GLOBAL STYLES</text>
+    <rect x="0" y="0" width="471" height="22" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="12" y="15" fill="var(--text-main)" font-size="11" font-weight="bold" class="font-mono">⚡ EXHAUSTIVE REPO &amp; PROFILE COMPONENT LIBRARY // MULTI-STYLE</text>
   </g>
 
   <!-- SPECS TELEMETRY -->

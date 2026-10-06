@@ -41,6 +41,8 @@ from generator.engine import (
     generate_techstack,
     generate_timeline,
     generate_social,
+    generate_starchart,
+    generate_profile_card,
     validate_svg,
     escape_xml
 )
@@ -934,6 +936,74 @@ class MarkdownCompiler:
             )
 
         text = social_regex.sub(repl_social, text)
+
+        # ---------------------------------------------------------------
+        # 13. STANDALONE: STARCHART (Star Growth Trend)
+        # <!-- pixel-kit:starchart style="..." repo="..." points="..." [current="..."] [delta="..."] [title="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
+        # ---------------------------------------------------------------
+        starchart_regex = re.compile(r'<!--\s*pixel-kit:starchart\s+(.*?)\s*-->', re.IGNORECASE)
+
+        def repl_starchart(m):
+            attrs = parse_directive_attrs(m.group(1))
+            style = attrs.get("style", "cyberpunk")
+            repo = attrs.get("repo", "Kazinagg/pixel-readme-kit")
+            points = attrs.get("points", None)
+            current = attrs.get("current", None)
+            delta = attrs.get("delta", "+78% past 6m")
+            title = attrs.get("title", "STAR GROWTH TRAJECTORY")
+            period = attrs.get("period", "6M")
+            prim = attrs.get("primary", None)
+            acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
+
+            return self._render_asset_markup(
+                generate_starchart,
+                {
+                    "style": style, "repo": repo, "points": points, "current": current,
+                    "delta": delta, "title": title, "period": period,
+                    "primary": prim, "accent": acc, "preset": preset
+                },
+                attrs,
+                f"starchart-{style}",
+                alt=title,
+                is_full_width=True
+            )
+
+        text = starchart_regex.sub(repl_starchart, text)
+
+        # ---------------------------------------------------------------
+        # 14. STANDALONE: PROFILE (Developer Dossier Card)
+        # <!-- pixel-kit:profile style="..." name="..." role="..." bio="..." [status="..."] [location="..."] [badge="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
+        # ---------------------------------------------------------------
+        profile_regex = re.compile(r'<!--\s*pixel-kit:profile\s+(.*?)\s*-->', re.IGNORECASE)
+
+        def repl_profile(m):
+            attrs = parse_directive_attrs(m.group(1))
+            style = attrs.get("style", "cyberpunk")
+            name = attrs.get("name", "ALEX DEVELOPER")
+            role = attrs.get("role", "FULLSTACK & SYSTEMS ARCHITECT")
+            bio = attrs.get("bio", "Building high-performance runtimes and resilient developer tooling.")
+            status = attrs.get("status", "AVAILABLE FOR HIRE")
+            location = attrs.get("location", "REMOTE // UTC+3")
+            badge = attrs.get("badge", "LEVEL_99")
+            prim = attrs.get("primary", None)
+            acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
+
+            return self._render_asset_markup(
+                generate_profile_card,
+                {
+                    "style": style, "name": name, "role": role, "bio": bio,
+                    "status": status, "location": location, "badge": badge,
+                    "primary": prim, "accent": acc, "preset": preset
+                },
+                attrs,
+                f"profile-{style}",
+                alt=name,
+                is_full_width=True
+            )
+
+        text = profile_regex.sub(repl_profile, text)
 
         self.cache.save()
         return text

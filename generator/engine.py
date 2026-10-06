@@ -16,7 +16,7 @@ import html
 import json
 import os
 import xml.etree.ElementTree as ET
-from generator.font_engine import render_3d_text, calculate_px_size
+from generator.font_engine import render_3d_text, calculate_px_size, calculate_smart_layout
 
 def load_preset(preset_name_or_path):
     """
@@ -147,8 +147,149 @@ THEME_PALETTES = {
             "warning": "#D97706",
             "grid_op": "0.10"
         }
+    },
+    "clean-mono": {
+        "dark": {
+            "bg": "rgba(15, 23, 42, 0.85)",
+            "panel": "rgba(30, 41, 59, 0.80)",
+            "border": "rgba(51, 65, 85, 0.85)",
+            "primary": "#E2E8F0",
+            "accent": "#94A3B8",
+            "tertiary": "#CBD5E1",
+            "title_front": "#F8FAFC",
+            "title_mid": "#CBD5E1",
+            "title_dark": "#64748B",
+            "text_main": "#F8FAFC",
+            "text_dim": "#94A3B8",
+            "success": "#10B981",
+            "warning": "#F59E0B",
+            "grid_op": "0.06"
+        },
+        "light": {
+            "bg": "#FFFFFF",
+            "panel": "#F1F5F9",
+            "border": "#CBD5E1",
+            "primary": "#0F172A",
+            "accent": "#475569",
+            "tertiary": "#64748B",
+            "title_front": "#0F172A",
+            "title_mid": "#334155",
+            "title_dark": "#64748B",
+            "text_main": "#0F172A",
+            "text_dim": "#64748B",
+            "success": "#059669",
+            "warning": "#D97706",
+            "grid_op": "0.08"
+        }
+    },
+    "corporate-blue": {
+        "dark": {
+            "bg": "rgba(15, 23, 42, 0.88)",
+            "panel": "rgba(30, 41, 59, 0.82)",
+            "border": "rgba(30, 58, 138, 0.85)",
+            "primary": "#38BDF8",
+            "accent": "#818CF8",
+            "tertiary": "#0284C7",
+            "title_front": "#38BDF8",
+            "title_mid": "#0284C7",
+            "title_dark": "#0369A1",
+            "text_main": "#F8F8F2",
+            "text_dim": "#94A3B8",
+            "success": "#22C55E",
+            "warning": "#EAB308",
+            "grid_op": "0.07"
+        },
+        "light": {
+            "bg": "#F0F9FF",
+            "panel": "#E0F2FE",
+            "border": "#BAE6FD",
+            "primary": "#0284C7",
+            "accent": "#4F46E5",
+            "tertiary": "#0369A1",
+            "title_front": "#0369A1",
+            "title_mid": "#075985",
+            "title_dark": "#0C4A6E",
+            "text_main": "#0C4A6E",
+            "text_dim": "#0369A1",
+            "success": "#16A34A",
+            "warning": "#CA8A04",
+            "grid_op": "0.08"
+        }
+    },
+    "academic-paper": {
+        "dark": {
+            "bg": "rgba(24, 24, 27, 0.88)",
+            "panel": "rgba(39, 39, 42, 0.82)",
+            "border": "rgba(63, 63, 70, 0.85)",
+            "primary": "#60A5FA",
+            "accent": "#F59E0B",
+            "tertiary": "#38BDF8",
+            "title_front": "#93C5FD",
+            "title_mid": "#3B82F6",
+            "title_dark": "#1D4ED8",
+            "text_main": "#F4F4F5",
+            "text_dim": "#A1A1AA",
+            "success": "#10B981",
+            "warning": "#D97706",
+            "grid_op": "0.06"
+        },
+        "light": {
+            "bg": "#FAFAF9",
+            "panel": "#F5F5F4",
+            "border": "#E7E5E4",
+            "primary": "#1C1917",
+            "accent": "#B45309",
+            "tertiary": "#2563EB",
+            "title_front": "#1C1917",
+            "title_mid": "#44403C",
+            "title_dark": "#78716C",
+            "text_main": "#1C1917",
+            "text_dim": "#78716C",
+            "success": "#15803D",
+            "warning": "#B45309",
+            "grid_op": "0.06"
+        }
+    },
+    "modern-slate": {
+        "dark": {
+            "bg": "rgba(15, 23, 30, 0.88)",
+            "panel": "rgba(22, 33, 46, 0.82)",
+            "border": "rgba(30, 41, 59, 0.85)",
+            "primary": "#2DD4BF",
+            "accent": "#A78BFA",
+            "tertiary": "#F43F5E",
+            "title_front": "#2DD4BF",
+            "title_mid": "#0D9488",
+            "title_dark": "#115E59",
+            "text_main": "#F1F5F9",
+            "text_dim": "#94A3B8",
+            "success": "#10B981",
+            "warning": "#F59E0B",
+            "grid_op": "0.07"
+        },
+        "light": {
+            "bg": "#F8FAFC",
+            "panel": "#F1F5F9",
+            "border": "#E2E8F0",
+            "primary": "#0F766E",
+            "accent": "#6D28D9",
+            "tertiary": "#BE123C",
+            "title_front": "#0F766E",
+            "title_mid": "#115E59",
+            "title_dark": "#134E4A",
+            "text_main": "#0F172A",
+            "text_dim": "#475569",
+            "success": "#059669",
+            "warning": "#D97706",
+            "grid_op": "0.08"
+        }
     }
 }
+
+THEME_PALETTES["clean_mono"] = THEME_PALETTES["clean-mono"]
+THEME_PALETTES["corporate_blue"] = THEME_PALETTES["corporate-blue"]
+THEME_PALETTES["academic_paper"] = THEME_PALETTES["academic-paper"]
+THEME_PALETTES["modern_slate"] = THEME_PALETTES["modern-slate"]
 
 STYLE_PALETTES = {
     k: v["dark"] for k, v in THEME_PALETTES.items()
@@ -2738,4 +2879,323 @@ def generate_social(style="cyberpunk", primary=None, accent=None,
 
     validate_svg(svg)
     return svg
+
+# ==============================================================================
+# STAR HISTORY / GROWTH TREND CHART (v5.0 - 850x230)
+# ==============================================================================
+
+def generate_starchart(style="cyberpunk", primary=None, accent=None,
+                       repo="Kazinagg/pixel-readme-kit", points=None,
+                       current=None, delta="+78% past 6m", title="STAR GROWTH TRAJECTORY",
+                       period="6M", width=850, height=230, mode="auto", preset=None):
+    """
+    Renders an authentic, vector SVG star trend chart / activity chart (850x230).
+    Features:
+    - Glowing polyline curve and area gradient fill
+    - Dynamic coordinate grid with Y-value levels and X-period labels
+    - Peak milestone marker with star count callout tag
+    - Authentic HUD header plate with live/custom repository stats
+    """
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    prim = c["primary"]
+    acc = c["accent"]
+    bg = c["bg"]
+    panel = c["panel"]
+    border = c["border"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    success = c["success"]
+    st = style.lower() if style else "cyberpunk"
+
+    title_clean = escape_xml(title.upper())
+    repo_clean = escape_xml(repo.strip())
+    delta_clean = escape_xml(delta)
+
+    # Parse points
+    if points is None:
+        pts = [15.0, 65.0, 190.0, 480.0, 950.0, 1650.0]
+    elif isinstance(points, str):
+        pts = []
+        for x in points.split(","):
+            x = x.strip()
+            if x:
+                try:
+                    pts.append(float(x))
+                except ValueError:
+                    pass
+        if not pts:
+            pts = [15.0, 65.0, 190.0, 480.0, 950.0, 1650.0]
+    elif isinstance(points, (list, tuple)):
+        pts = [float(x) for x in points if x is not None]
+        if not pts:
+            pts = [15.0, 65.0, 190.0, 480.0, 950.0, 1650.0]
+    else:
+        pts = [15.0, 65.0, 190.0, 480.0, 950.0, 1650.0]
+
+    cur_val = current if current else (f"{int(pts[-1]):,}" if pts else "1,650")
+
+    # Geometry bounds
+    pad_left = 75
+    pad_right = 800
+    chart_w = pad_right - pad_left
+    pad_top = 70
+    pad_bot = 185
+    chart_h = pad_bot - pad_top
+
+    min_v = 0.0
+    max_v = max(pts) if pts else 1000.0
+    if max_v <= 0:
+        max_v = 100.0
+
+    # Calculate coordinates
+    n = len(pts)
+    step_x = chart_w / (n - 1) if n > 1 else chart_w
+    coords = []
+    for i, val in enumerate(pts):
+        cx = pad_left + i * step_x
+        ratio = (val - min_v) / (max_v - min_v) if max_v > min_v else 0.5
+        cy = pad_bot - ratio * chart_h
+        coords.append((cx, cy, val))
+
+    # Polyline and area paths
+    line_points_str = " ".join(f"{cx:.1f},{cy:.1f}" for cx, cy, _ in coords)
+    first_x, first_y = coords[0][0], coords[0][1]
+    last_x, last_y = coords[-1][0], coords[-1][1]
+    area_path = f"M {first_x:.1f} {pad_bot} L " + " L ".join(f"{cx:.1f} {cy:.1f}" for cx, cy, _ in coords) + f" L {last_x:.1f} {pad_bot} Z"
+
+    # Grid lines (4 horizontal)
+    grid_lines = []
+    y_labels = []
+    for step in range(4):
+        gy = pad_bot - step * (chart_h / 3.0)
+        g_val = int(min_v + step * (max_v - min_v) / 3.0)
+        v_str = f"{g_val/1000.0:.1f}k" if g_val >= 1000 else str(g_val)
+        grid_lines.append(f'<line x1="{pad_left}" y1="{gy:.1f}" x2="{pad_right}" y2="{gy:.1f}" stroke="{border}" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>')
+        y_labels.append(f'<text x="{pad_left - 10}" y="{gy + 4:.1f}" fill="{text_dim}" font-size="10" text-anchor="end" class="font-mono">{v_str}</text>')
+
+    # Vertical ticks & X labels
+    x_ticks = []
+    x_labels = []
+    month_names = ["M-5", "M-4", "M-3", "M-2", "M-1", "NOW"]
+    for i, (cx, cy, val) in enumerate(coords):
+        lbl = month_names[i] if i < len(month_names) else f"T{i+1}"
+        x_ticks.append(f'<line x1="{cx:.1f}" y1="{pad_top}" x2="{cx:.1f}" y2="{pad_bot}" stroke="{border}" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/>')
+        x_labels.append(f'<text x="{cx:.1f}" y="{pad_bot + 18}" fill="{text_dim}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{lbl}</text>')
+
+    # Data points circles
+    dots = []
+    for i, (cx, cy, val) in enumerate(coords):
+        if i == len(coords) - 1:
+            dots.append(f"""
+    <!-- Peak Milestone Marker -->
+    <circle cx="{cx:.1f}" cy="{cy:.1f}" r="8" fill="{acc}" opacity="0.25"/>
+    <circle cx="{cx:.1f}" cy="{cy:.1f}" r="5.5" fill="{bg}" stroke="{acc}" stroke-width="2"/>
+    <circle cx="{cx:.1f}" cy="{cy:.1f}" r="2.5" fill="{prim}"/>
+    <!-- Peak Callout Tag -->
+    <g transform="translate({cx - 40:.1f}, {cy - 30:.1f})">
+      <rect x="0" y="0" width="80" height="22" rx="3" fill="{panel}" stroke="{acc}" stroke-width="1.2"/>
+      <text x="40" y="15" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">★ {cur_val}</text>
+    </g>""")
+        else:
+            dots.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="3.5" fill="{panel}" stroke="{prim}" stroke-width="1.8"/>')
+
+    if st == "tactical":
+        chassis = f"""
+  <polygon points="12 1, {width-12} 1, {width-1} 12, {width-1} {height-12}, {width-12} {height-1}, 12 {height-1}, 1 {height-12}, 1 12"
+           fill="{bg}" stroke="{border}" stroke-width="1.5"/>
+  <rect x="1" y="1" width="12" height="12" fill="{prim}"/>
+  <rect x="{width-13}" y="{height-13}" width="12" height="12" fill="{acc}"/>
+  <line x1="20" y1="1" x2="60" y2="1" stroke="{prim}" stroke-width="2"/>
+"""
+    elif st in ("minimal", "clean-mono", "corporate-blue", "academic-paper", "modern-slate"):
+        chassis = f"""
+  <rect x="1" y="1" width="{width-2}" height="{height-2}" rx="4" fill="{bg}" stroke="{border}" stroke-width="1.2"/>
+  <line x1="1" y1="1" x2="{width-1}" y2="1" stroke="{prim}" stroke-width="2"/>
+"""
+    else:  # cyberpunk
+        chassis = f"""
+  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
+  <rect x="1" y="1" width="8" height="8" fill="{prim}"/>
+  <rect x="{width-9}" y="1" width="8" height="8" fill="{acc}"/>
+  <rect x="1" y="{height-9}" width="8" height="8" fill="{acc}"/>
+  <rect x="{width-9}" y="{height-9}" width="8" height="8" fill="{prim}"/>
+"""
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
+    </style>
+    <linearGradient id="grad-star-area" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="{prim}" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="{prim}" stop-opacity="0.01"/>
+    </linearGradient>
+  </defs>
+
+  {chassis}
+
+  <!-- HEADER BAR -->
+  <rect x="20" y="16" width="340" height="28" fill="{panel}" stroke="{border}" stroke-width="1"/>
+  <rect x="20" y="16" width="4" height="28" fill="{prim}"/>
+  <text x="32" y="35" fill="{prim}" font-size="11.5" font-weight="bold" letter-spacing="0.5px" class="font-mono">★ {title_clean}</text>
+  <text x="230" y="35" fill="{text_dim}" font-size="11" class="font-mono">// {repo_clean}</text>
+
+  <!-- STATS BADGES -->
+  <g transform="translate({width - 240}, 16)">
+    <rect x="0" y="0" width="110" height="28" fill="{panel}" stroke="{prim}" stroke-width="1"/>
+    <text x="55" y="19" fill="{prim}" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">★ {cur_val}</text>
+    <rect x="118" y="0" width="102" height="28" fill="{panel}" stroke="{acc}" stroke-width="1"/>
+    <text x="169" y="19" fill="{acc}" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">{delta_clean}</text>
+  </g>
+
+  <!-- GRID & AXES -->
+  {"".join(grid_lines)}
+  {"".join(y_labels)}
+  {"".join(x_ticks)}
+  {"".join(x_labels)}
+
+  <!-- CHART AREA & LINE -->
+  <path d="{area_path}" fill="url(#grad-star-area)" shape-rendering="geometricPrecision"/>
+  <path d="M {line_points_str.replace(' ', ' L ')}" fill="none" stroke="{prim}" stroke-width="2.5" shape-rendering="geometricPrecision"/>
+
+  <!-- DATA VERTICES -->
+  {"".join(dots)}
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+# ==============================================================================
+# DEVELOPER PROFILE CARD (v5.0 - 850x190)
+# ==============================================================================
+
+def generate_profile_card(style="cyberpunk", primary=None, accent=None,
+                          name="ALEX DEVELOPER", role="FULLSTACK & SYSTEMS ARCHITECT",
+                          bio="Building high-performance runtimes and resilient developer tooling.",
+                          status="AVAILABLE FOR HIRE", location="REMOTE // UTC+3",
+                          badge="LEVEL_99", width=850, height=190, mode="auto", preset=None):
+    """
+    Renders a flagship developer dossier / identity header card (850x190) for GitHub Profiles.
+    Features:
+    - Stylized cyber avatar frame with status LED ring
+    - 3D Typography name header and role descriptor
+    - Clean manifesto / bio summary section
+    - Multi-mode theming and responsive vector geometry
+    """
+    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    prim = c["primary"]
+    acc = c["accent"]
+    bg = c["bg"]
+    panel = c["panel"]
+    border = c["border"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    success = c["success"]
+    st = style.lower() if style else "cyberpunk"
+
+    name_clean = escape_xml(name.upper())
+    role_clean = escape_xml(role.upper())
+    bio_clean = escape_xml(bio)
+    status_clean = escape_xml(status.upper())
+    loc_clean = escape_xml(location.upper())
+    badge_clean = escape_xml(badge.upper())
+
+    # 3D Name Typography - single-line with adaptive downscaling to prevent collision
+    max_name_w = width - 180 - 40
+    lines, calc_px = calculate_smart_layout(name, max_width=max_name_w, default_px_size=5, min_px_size=3, spacing=2, allow_wrap=False)
+    single_name = lines[0] if lines else name
+    pixel_name, n_w, n_h = render_3d_text(
+        single_name, x=180, y=58, px_size=calc_px,
+        front_color=c["title_front"], mid_shadow=c["title_mid"], dark_shadow=c["title_dark"],
+        spacing=2, max_width=max_name_w, allow_wrap=False
+    )
+
+    # Avatar geometry
+    av_x, av_y, av_size = 28, 28, 134
+
+    if st == "tactical":
+        chassis = f"""
+  <polygon points="14 1, {width-14} 1, {width-1} 14, {width-1} {height-14}, {width-14} {height-1}, 14 {height-1}, 1 {height-14}, 1 14"
+           fill="{bg}" stroke="{border}" stroke-width="1.8"/>
+  <rect x="1" y="1" width="14" height="14" fill="{prim}"/>
+  <rect x="{width-15}" y="1" width="14" height="14" fill="{acc}"/>
+  <rect x="1" y="{height-15}" width="14" height="14" fill="{acc}"/>
+  <rect x="{width-15}" y="{height-15}" width="14" height="14" fill="{prim}"/>
+"""
+    elif st in ("minimal", "clean-mono", "corporate-blue", "academic-paper", "modern-slate"):
+        chassis = f"""
+  <rect x="1" y="1" width="{width-2}" height="{height-2}" rx="4" fill="{bg}" stroke="{border}" stroke-width="1.2"/>
+  <line x1="1" y1="1" x2="{width-1}" y2="1" stroke="{prim}" stroke-width="3"/>
+"""
+    else:  # cyberpunk
+        chassis = f"""
+  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
+  <rect x="1" y="1" width="10" height="10" fill="{prim}"/>
+  <rect x="{width-11}" y="1" width="10" height="10" fill="{acc}"/>
+  <rect x="1" y="{height-11}" width="10" height="10" fill="{acc}"/>
+  <rect x="{width-11}" y="{height-11}" width="10" height="10" fill="{prim}"/>
+  <line x1="1" y1="36" x2="16" y2="36" stroke="{prim}" stroke-width="2"/>
+  <line x1="{width-16}" y1="{height-36}" x2="{width-1}" y2="{height-36}" stroke="{acc}" stroke-width="2"/>
+"""
+
+    # Safe bio truncation to prevent horizontal overflow beyond chassis
+    bio_max_chars = int((width - 180 - 40) / 7.2)
+    if len(bio_clean) > bio_max_chars:
+        bio_clean = bio_clean[:bio_max_chars - 3] + "..."
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      {css_vars}
+      .font-mono {{ font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }}
+    </style>
+  </defs>
+
+  {chassis}
+
+  <!-- AVATAR CHASSIS -->
+  <g transform="translate({av_x}, {av_y})">
+    <rect x="0" y="0" width="{av_size}" height="{av_size}" fill="{panel}" stroke="{border}" stroke-width="1.5"/>
+    <rect x="4" y="4" width="{av_size-8}" height="{av_size-8}" fill="none" stroke="{prim}" stroke-width="1" stroke-dasharray="8 4"/>
+    <!-- Stylized User Silhouette Vector -->
+    <circle cx="{av_size//2}" cy="50" r="24" fill="{bg}" stroke="{prim}" stroke-width="2"/>
+    <path d="M 28 106 C 28 80, {av_size-28} 80, {av_size-28} 106 Z" fill="{bg}" stroke="{prim}" stroke-width="2"/>
+    <circle cx="{av_size//2}" cy="50" r="12" fill="{acc}"/>
+    <!-- Status LED pill -->
+    <rect x="12" y="112" width="{av_size-24}" height="16" fill="{bg}" stroke="{success}" stroke-width="1"/>
+    <circle cx="22" cy="120" r="3" fill="{success}"/>
+    <text x="30" y="123" fill="{success}" font-size="8.5" font-weight="bold" class="font-mono">ONLINE</text>
+  </g>
+
+  <!-- TOP BREADCRUMB -->
+  <rect x="180" y="24" width="280" height="24" fill="{panel}" stroke="{border}" stroke-width="1"/>
+  <text x="192" y="40" fill="{prim}" font-size="11" font-weight="bold" class="font-mono">■ DOSSIER // {loc_clean}</text>
+
+  <!-- BADGE AND STATUS PILLS (TOP RIGHT) -->
+  <g transform="translate({width - 290}, 24)">
+    <rect x="0" y="0" width="110" height="24" fill="{panel}" stroke="{acc}" stroke-width="1"/>
+    <text x="55" y="16" fill="{acc}" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">{badge_clean}</text>
+    <rect x="118" y="0" width="150" height="24" fill="{panel}" stroke="{success}" stroke-width="1"/>
+    <circle cx="130" cy="12" r="3" fill="{success}"/>
+    <text x="195" y="16" fill="{success}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">{status_clean}</text>
+  </g>
+
+  <!-- 3D NAME TYPOGRAPHY -->
+  {pixel_name}
+
+  <!-- ROLE PILL -->
+  <g transform="translate(180, 116)">
+    <rect x="0" y="0" width="{min(630, max(180, int(len(role)*9.5) + 30))}" height="26" fill="{panel}" stroke="{prim}" stroke-width="1.2"/>
+    <rect x="0" y="0" width="4" height="26" fill="{prim}"/>
+    <text x="14" y="17" fill="{acc}" font-size="12" font-weight="bold" class="font-mono">▶ {role_clean}</text>
+  </g>
+
+  <!-- BIO SUMMARY -->
+  <text x="182" y="166" fill="{text_main}" font-size="12" font-weight="normal" class="font-mono">{bio_clean}</text>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
 

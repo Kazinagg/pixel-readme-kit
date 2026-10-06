@@ -8,6 +8,7 @@
         --border-chassis: #D0D7DE;
         --primary: #0969DA;
         --accent: #8250DF;
+        --tertiary: #CF222E;
         --title-front: #0969DA;
         --title-mid: #0550AE;
         --title-dark: #033D8B;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(30, 41, 59, 0.85);
           --primary: #00C8D7;
           --accent: #A855F7;
+          --tertiary: #FF0055;
           --title-front: #00C8D7;
           --title-mid: #006B74;
           --title-dark: #002B2F;
@@ -55,7 +57,7 @@
   <rect x="843" y="61" width="6" height="6" fill="var(--primary)"/>
 
   <!-- Label & Percentage Header -->
-  <text x="14" y="19" fill="var(--title-front)" class="font-prog-lbl">■ V4.0 EVOLUTION PROGRESS (5/5 SPRINTS)</text>
+  <text x="14" y="19" fill="var(--title-front)" class="font-prog-lbl">■ V5.0 REPO &amp; PROFILE EVOLUTION COMPLETE</text>
   <rect x="776" y="7" width="60" height="15" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
   <text x="806" y="19" fill="var(--accent)" text-anchor="middle" class="font-prog-val">100%</text>
 
@@ -97,6 +99,6 @@
   </g>
 
   <!-- Subtext & Milestone Ticks -->
-  <text x="14" y="56" fill="var(--text-dim)" class="font-prog-sub">ALL ARCHITECTURAL PHASES VALIDATED AND OPERATIONAL</text>
+  <text x="14" y="56" fill="var(--text-dim)" class="font-prog-sub">MULTI-STYLE ARCHITECTURE // STAR CHART // PROFILE DOSSIER</text>
   <text x="836" y="56" fill="var(--text-dim)" text-anchor="end" class="font-prog-sub">0% ── 50% ── 100%</text>
 </svg>

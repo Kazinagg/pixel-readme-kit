@@ -8,6 +8,7 @@
         --border-chassis: #D0D7DE;
         --primary: #0969DA;
         --accent: #8250DF;
+        --tertiary: #CF222E;
         --title-front: #0969DA;
         --title-mid: #0550AE;
         --title-dark: #033D8B;
@@ -24,6 +25,7 @@
           --border-chassis: rgba(30, 41, 59, 0.85);
           --primary: #00C8D7;
           --accent: #A855F7;
+          --tertiary: #FF0055;
           --title-front: #00C8D7;
           --title-mid: #006B74;
           --title-dark: #002B2F;
@@ -86,7 +88,7 @@
     <text x="230" y="25" fill="var(--text-dim)" class="font-mono-lbl">TEST COVERAGE</text>
     <rect x="351" y="13" width="56" height="13" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
     <text x="379" y="23" fill="var(--accent)" text-anchor="middle" class="font-mono-tag">100% PASS</text>
-    <text x="230" y="57" fill="var(--title-front)" class="font-mono-val">52 / 52</text>
+    <text x="230" y="57" fill="var(--title-front)" class="font-mono-val">99 / 99</text>
     
     
     <path d="M 365 81 L 375 75 L 385 83 L 395 71 L 405 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>
@@ -108,8 +110,8 @@
 
     <text x="445" y="25" fill="var(--text-dim)" class="font-mono-lbl">COMPONENTS SUITE</text>
     
-    <text x="445" y="57" fill="var(--title-front)" class="font-mono-val">12 BLOCKS</text>
-    <text x="445" y="79" fill="var(--status)" class="font-mono-sub">▲ +5 new in v4.0</text>
+    <text x="445" y="57" fill="var(--title-front)" class="font-mono-val">14 BLOCKS</text>
+    <text x="445" y="79" fill="var(--status)" class="font-mono-sub">▲ +2 new in v5.0</text>
     
     <path d="M 580 81 L 590 75 L 600 83 L 610 71 L 620 77" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-opacity="0.4"/>
     <circle cx="620" cy="77" r="2" fill="var(--accent)"/>
