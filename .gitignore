@@ -9,3 +9,5 @@ scratch/
 !.agents/skills/
 .agents/skills/*
 !.agents/skills/pixel-readme/
+dist/
+build/

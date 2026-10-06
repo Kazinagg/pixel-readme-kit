@@ -202,3 +202,34 @@ def handle_render_request(handler, query: Dict[str, list]) -> None:
         handler.wfile.write(svg.encode("utf-8"))
     except Exception as e:
         handler.send_error(500, f"Render error: {e}")
+
+
+def handle_github_fetch(handler, query):
+    """Handles GET /api/github/fetch?repo=owner/repo or ?user=username for live data preview."""
+    import json
+    from generator.github_api import fetch_repo_data, fetch_user_data, fetch_star_trajectory
+
+    repo = query.get("repo", [None])[0]
+    user = query.get("user", [None])[0]
+
+    resp = {"status": "success"}
+    if repo:
+        rdata, rerr = fetch_repo_data(repo)
+        traj, _ = fetch_star_trajectory(repo)
+        resp["repo"] = rdata
+        resp["trajectory"] = traj
+        if rerr:
+            resp["repo_error"] = rerr
+
+    if user:
+        udata, uerr = fetch_user_data(user)
+        resp["user"] = udata
+        if uerr:
+            resp["user_error"] = uerr
+
+    handler.send_response(200)
+    handler.send_header("Content-Type", "application/json; charset=utf-8")
+    handler.send_header("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0")
+    handler.end_headers()
+    handler.wfile.write(json.dumps(resp).encode("utf-8"))
+

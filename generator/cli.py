@@ -185,20 +185,34 @@ def cmd_splitter(args):
 
 def cmd_metrics(args):
     items = []
-    if getattr(args, "items", None):
-        from generator.compiler import parse_directive_attrs
-        for chunk in args.items.split("|"):
-            attrs = parse_directive_attrs(chunk.strip())
-            if attrs:
-                items.append(attrs)
-    else:
-        items = [{
-            "label": args.label or "FPS BENCHMARK",
-            "value": args.value or "1,200+",
-            "delta": args.delta or "+24% vs baseline",
-            "trend": getattr(args, "trend", "up"),
-            "status": getattr(args, "status", None)
-        }]
+    if getattr(args, "fetch_github", False) and getattr(args, "repo", None):
+        from generator.github_api import fetch_repo_data
+        rdata, err = fetch_repo_data(args.repo)
+        if rdata:
+            items = [
+                {"label": "STARS", "value": f"{rdata['stars']:,}", "delta": "+growth", "trend": "up"},
+                {"label": "FORKS", "value": f"{rdata['forks']:,}", "delta": "active", "trend": "up"},
+                {"label": "WATCHERS", "value": f"{rdata['watchers']:,}", "trend": "neutral"},
+                {"label": "LICENSE", "value": rdata["license"], "trend": "neutral"}
+            ]
+        elif err:
+            print(f"[!] Warning: GitHub API error: {err}")
+
+    if not items:
+        if getattr(args, "items", None):
+            from generator.compiler import parse_directive_attrs
+            for chunk in args.items.split("|"):
+                attrs = parse_directive_attrs(chunk.strip())
+                if attrs:
+                    items.append(attrs)
+        else:
+            items = [{
+                "label": args.label or "FPS BENCHMARK",
+                "value": args.value or "1,200+",
+                "delta": args.delta or "+24% vs baseline",
+                "trend": getattr(args, "trend", "up"),
+                "status": getattr(args, "status", None)
+            }]
 
     handle_cli_output(args, generate_metrics, {
         "metrics": items,
@@ -240,12 +254,27 @@ def cmd_timeline(args):
 
 def cmd_starchart(args):
     pts = [float(x.strip()) for x in args.points.split(",") if x.strip()] if getattr(args, "points", None) else None
+    cur = args.current
+    delta = args.delta
+    if getattr(args, "fetch_github", False) and getattr(args, "repo", None):
+        from generator.github_api import fetch_star_trajectory
+        traj, err = fetch_star_trajectory(args.repo)
+        if traj:
+            if not getattr(args, "points", None) or args.points == "15,65,190,480,950,1650":
+                pts = traj.get("points")
+            if not cur:
+                cur = traj.get("current")
+            if not getattr(args, "delta", None) or delta == "+78% past 6m":
+                delta = traj.get("delta")
+        elif err:
+            print(f"[!] Warning: GitHub API error: {err}")
+
     handle_cli_output(args, generate_starchart, {
         "style": args.style,
         "repo": args.repo,
         "points": pts,
-        "current": args.current,
-        "delta": args.delta,
+        "current": cur,
+        "delta": delta,
         "title": args.title,
         "period": args.period,
         "primary": args.primary,
@@ -254,14 +283,37 @@ def cmd_starchart(args):
     }, f"starchart-{args.style}")
 
 def cmd_profile(args):
+    name = args.name
+    role = args.role
+    bio = args.bio
+    status = args.status
+    loc = args.location
+    badge = args.badge
+    username = getattr(args, "username", None)
+    if getattr(args, "fetch_github", False) and (username or name):
+        from generator.github_api import fetch_user_data
+        uname = username or name
+        udata, err = fetch_user_data(uname)
+        if udata:
+            if name == "ALEX DEVELOPER" and udata.get("name"):
+                name = udata["name"]
+            if "Building high-performance" in bio and udata.get("bio"):
+                bio = udata["bio"]
+            if loc == "REMOTE // UTC+3" and udata.get("location"):
+                loc = udata["location"]
+            if badge == "LEVEL_99" and udata.get("public_repos") is not None:
+                badge = f"REPOS: {udata['public_repos']}"
+        elif err:
+            print(f"[!] Warning: GitHub API error: {err}")
+
     handle_cli_output(args, generate_profile_card, {
         "style": args.style,
-        "name": args.name,
-        "role": args.role,
-        "bio": args.bio,
-        "status": args.status,
-        "location": args.location,
-        "badge": args.badge,
+        "name": name,
+        "role": role,
+        "bio": bio,
+        "status": status,
+        "location": loc,
+        "badge": badge,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset
@@ -280,8 +332,9 @@ def cmd_compile(args):
     clean_assets = getattr(args, "clean_assets", False)
     dry_run = getattr(args, "dry_run", False)
     bust_cache = getattr(args, "bust_cache", False)
+    fetch_github = getattr(args, "fetch_github", False)
 
-    compiler = MarkdownCompiler(assets_dir=args.assets_dir, use_cache=use_cache, bust_cache=bust_cache)
+    compiler = MarkdownCompiler(assets_dir=args.assets_dir, use_cache=use_cache, bust_cache=bust_cache, fetch_github=fetch_github)
     compiler.compile_file(inp, out, clean_assets=clean_assets, dry_run_clean=dry_run)
     print(f"[+] Successfully compiled to: {out}")
     print(f"[i] Build stats: {compiler.stats['generated']} generated, {compiler.stats['cached']} cached")
@@ -293,6 +346,16 @@ def cmd_compile(args):
                 print(f"    - {f}")
         else:
             print("[i] Clean assets: no orphan files detected.")
+
+def cmd_sync(args):
+    """Auto-updates all stats from GitHub, cleans orphan assets and busts Camo cache."""
+    print("[*] Syncing README with live GitHub data...")
+    setattr(args, "fetch_github", True)
+    setattr(args, "clean_assets", True)
+    setattr(args, "bust_cache", True)
+    setattr(args, "no_cache", False)
+    setattr(args, "dry_run", False)
+    cmd_compile(args)
 
 def cmd_serve(args):
     from generator.server import run_studio_server
@@ -482,7 +545,15 @@ def build_parser():
     p_cmp.add_argument("--dry-run", action="store_true", help="Preview orphan SVG files that would be cleaned without deleting")
     p_cmp.add_argument("--no-cache", action="store_true", help="Disable build cache and force regeneration of all assets")
     p_cmp.add_argument("--bust-cache", action="store_true", help="Append content hash query params (?v=<hash>) to asset URLs to bypass GitHub Camo proxy caching")
+    p_cmp.add_argument("--fetch-github", action="store_true", help="Fetch live stats, profile info and star history from GitHub API")
     p_cmp.set_defaults(func=cmd_compile)
+
+    # 8.5 SYNC (Auto-Update Cron Command)
+    p_syn = subparsers.add_parser("sync", help="Auto-update README stats from GitHub, bust Camo cache, and clean orphan assets")
+    p_syn.add_argument("--input", "-i", "--template", default="README.template.md", help="Input Markdown template filepath (default: README.template.md)")
+    p_syn.add_argument("--output", "-o", default=None, help="Output compiled Markdown filepath (default: README.md or matching *.md)")
+    p_syn.add_argument("--assets-dir", default="assets/generated", help="Folder where generated SVGs will be stored")
+    p_syn.set_defaults(func=cmd_sync)
 
     # 9. INIT (Scaffolder)
     p_init = subparsers.add_parser("init", help="Scaffold a new README.template.md for a repository or developer profile")
@@ -511,6 +582,8 @@ def build_parser():
     p_met.add_argument("--trend", choices=["up", "down", "neutral"], default="up", help="Trend direction")
     p_met.add_argument("--status", help="Status pill text e.g. OPTIMAL")
     p_met.add_argument("--items", help="Multiple items separated by '|' e.g. 'label=CPU value=42%% | label=RAM value=12GB'")
+    p_met.add_argument("--repo", help="GitHub repo in 'owner/repo' format for live stats")
+    p_met.add_argument("--fetch-github", action="store_true", help="Fetch live repo stats (stars, forks, watchers, license) from GitHub")
     p_met.add_argument("--output", "-o", help="Target SVG destination path")
     p_met.set_defaults(func=cmd_metrics)
 
@@ -593,6 +666,7 @@ def build_parser():
     p_sta.add_argument("--delta", default="+78% past 6m", help="Growth delta or period indicator")
     p_sta.add_argument("--title", default="STAR GROWTH TRAJECTORY", help="Chart title text")
     p_sta.add_argument("--period", default="6M", help="Timeline period tag")
+    p_sta.add_argument("--fetch-github", action="store_true", help="Fetch real star count and trajectory curve from GitHub")
     p_sta.add_argument("--output", "-o", help="Target SVG destination path")
     p_sta.set_defaults(func=cmd_starchart)
 
@@ -603,12 +677,14 @@ def build_parser():
     p_prf.add_argument("--preset", help="Named palette preset or path to JSON")
     p_prf.add_argument("--primary", help="Primary brand hex color")
     p_prf.add_argument("--accent", help="Secondary accent hex color")
+    p_prf.add_argument("--username", help="GitHub username to fetch profile details automatically")
     p_prf.add_argument("--name", default="ALEX DEVELOPER", help="Developer display name")
     p_prf.add_argument("--role", default="FULLSTACK & SYSTEMS ARCHITECT", help="Engineering role / specialty headline")
     p_prf.add_argument("--bio", default="Building high-performance runtimes and resilient developer tooling.", help="Bio or manifesto summary")
     p_prf.add_argument("--status", default="AVAILABLE FOR HIRE", help="Availability status")
     p_prf.add_argument("--location", default="REMOTE // UTC+3", help="Location indicator")
     p_prf.add_argument("--badge", default="LEVEL_99", help="Rank / experience badge")
+    p_prf.add_argument("--fetch-github", action="store_true", help="Fetch bio, name, location and repos count from GitHub API")
     p_prf.add_argument("--output", "-o", help="Target SVG destination path")
     p_prf.set_defaults(func=cmd_profile)
 

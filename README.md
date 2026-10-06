@@ -4,25 +4,25 @@
 
 <div align="center">
 
-<img src="assets/generated/header-readme.svg" width="100%" alt="README KIT" />
+<img src="assets/generated/header-readme.svg?v=f6e72ad3" width="100%" alt="README KIT" />
 
 <br/><br/>
 
-<a href="CATALOG.md"><img src="assets/generated/chip-readme-catalog.svg" alt="[DOCS] КАТАЛОГ БЛОКОВ" /></a>
+<a href="CATALOG.md"><img src="assets/generated/chip-readme-catalog.svg?v=51525174" alt="[DOCS] КАТАЛОГ БЛОКОВ" /></a>
 &nbsp;&nbsp;
-<a href="EXAMPLES.md"><img src="assets/generated/chip-readme-examples.svg" alt="[SPEC] ПРИМЕРЫ И РАЗБОР" /></a>
+<a href="EXAMPLES.md"><img src="assets/generated/chip-readme-examples.svg?v=1d176890" alt="[SPEC] ПРИМЕРЫ И РАЗБОР" /></a>
 &nbsp;&nbsp;
-<a href="#top"><img src="assets/generated/chip-readme-version.svg" alt="● v5.0.0 STABLE" /></a>
+<a href="#top"><img src="assets/generated/chip-readme-version.svg?v=fbdb949e" alt="● v5.0.0 STABLE" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg" alt="★ 2" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg?v=01e70734" alt="★ 2" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg" alt="FORKS: 0" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg?v=9d4fd929" alt="FORKS: 0" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit"><img src="assets/generated/chip-readme-license.svg" alt="LICENSE: MIT" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit"><img src="assets/generated/chip-readme-license.svg?v=1a87883e" alt="LICENSE: MIT" /></a>
 
 <br/><br/>
 
-<img src="assets/generated/divider-readme.svg" width="100%" alt="Divider cyberpunk" />
+<img src="assets/generated/divider-readme.svg?v=524561bf" width="100%" alt="Divider cyberpunk" />
 
 </div>
 
@@ -30,11 +30,11 @@
 
 ## 01 // Телеметрия системы (System Telemetry)
 
-<img src="assets/generated/metrics-readme.svg" width="100%" alt="Metrics" />
+<img src="assets/generated/metrics-readme.svg?v=760e457f" width="100%" alt="Metrics" />
 
 <br/>
 
-<img src="assets/generated/progress-readme.svg" width="100%" alt="V5.0 REPO &amp; PROFILE EVOLUTION COMPLETE" />
+<img src="assets/generated/progress-readme.svg?v=ba7cb70b" width="100%" alt="V5.0 REPO &amp; PROFILE EVOLUTION COMPLETE" />
 
 <br/>
 
@@ -47,8 +47,8 @@
    - Библиотеки, CLI-утилиты, веб-сервисы, монорепозитории и исследовательские отчеты.
    - Модульные окна контента, интерактивные терминалы, матрицы стека, плашки алертов и футеры.
 2. **Оформление профилей разработчиков (Developer Profiles)**:
-   - Флагманские карточки профиля (`<img src="assets/generated/profile-cyberpunk-1.svg" width="100%" alt="ALEX DEVELOPER" />`) со стилизованным аватаром, LED-индикатором статуса, 3D-типографикой и био.
-   - График динамики звёзд и активности (`<img src="assets/generated/starchart-cyberpunk-1.svg" width="100%" alt="STAR GROWTH TRAJECTORY" />`) с координатной сеткой и градиентной заливкой.
+   - Флагманские карточки профиля (`<img src="assets/generated/profile-cyberpunk-1.svg?v=6bdd3389" width="100%" alt="ALEX DEVELOPER" />`) со стилизованным аватаром, LED-индикатором статуса, 3D-типографикой и био.
+   - График динамики звёзд и активности (`<img src="assets/generated/starchart-cyberpunk-1.svg?v=def57661" width="100%" alt="STAR GROWTH TRAJECTORY" />`) с координатной сеткой и градиентной заливкой.
    - Витрины ключевых проектов и социальные чипы.
 
 <br/>
@@ -57,17 +57,17 @@
 
 ### Карточка профиля разработчика (Developer Dossier Card)
 
-<img src="assets/generated/profile-readme-demo.svg" width="100%" alt="ALEX DEVELOPER" />
+<img src="assets/generated/profile-readme-demo.svg?v=6bdd3389" width="100%" alt="ALEX DEVELOPER" />
 
 <br/>
 
 ### График динамики звёзд (Star Growth Trajectory)
 
-<img src="assets/generated/starchart-readme-demo.svg" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
+<img src="assets/generated/starchart-readme-demo.svg?v=c7a55bf8" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
 
 <br/>
 
-<img src="assets/generated/callout-readme-arch.svg" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
+<img src="assets/generated/callout-readme-arch.svg?v=6d93990e" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
 
 ---
 
@@ -85,40 +85,74 @@
 
 ## 05 // Стек технологий и поддерживаемое окружение
 
-<img src="assets/generated/techstack-readme.svg" width="100%" alt="Tech Stack" />
+<img src="assets/generated/techstack-readme.svg?v=3e0e29a1" width="100%" alt="Tech Stack" />
 
 <br/>
 
 ## 06 // Дорожная карта развития (Roadmap)
 
-<img src="assets/generated/timeline-readme.svg" width="100%" alt="Timeline" />
+<img src="assets/generated/timeline-readme.svg?v=d6a7e29a" width="100%" alt="Timeline" />
 
 <br/>
 
 ## 07 // Руководство по началу работы (Quick Start Guide)
 
-### 1. Интерактивная Web-студия (Live Preview & Studio)
+### 1. Мгновенный запуск Студии в браузере (Zero-Install)
 ```bash
-# Запуск веб-редактора с мгновенным Live Reload (SSE):
-python -m generator.cli studio --open
+# Запуск через pipx без предварительного клонирования (рекомендуется):
+pipx run pixel-readme-kit studio --open
+
+# Или классическая установка пакета через pip:
+pip install pixel-readme-kit
+pixel-kit studio --open
 ```
 
 ### 2. Инициализация шаблона с помощью Scaffolder
 ```bash
-# Оформление репозитория:
-python -m generator.cli init --category repo --type library --title "MY-AWESOME-LIB"
+# Оформление репозитория (библиотека, CLI, исследование):
+pixel-kit init --category repo --type library --title "MY-AWESOME-LIB"
 
-# Оформление профиля разработчика:
-python -m generator.cli init --category profile --type developer --title "ALEX DEVELOPER"
+# Оформление профиля разработчика (dossier, минимализм, киберпанк):
+pixel-kit init --category profile --type developer --title "ALEX DEVELOPER"
 ```
 
-### 3. Компиляция шаблона в Markdown
+### 3. Компиляция и синхронизация (с автоподхватом данных GitHub)
 ```bash
-# Полная сборка с инкрементальным кэшем, очисткой сирот и Camo-хэшированием:
-python -m generator.cli compile --clean-assets --bust-cache
+# Полная сборка с актуализацией звезд, очисткой сирот и сбросом кэша Camo:
+pixel-kit sync
+
+# Или ручная компиляция шаблона:
+pixel-kit compile --fetch-github --clean-assets --bust-cache
 ```
 
-### 4. Подключение через MCP (Claude Desktop, Cursor, Antigravity)
+### 4. Автоматическое обновление по расписанию в GitHub Actions
+Чтобы график звезд, бейджи и метрики всегда оставались актуальными, добавьте workflow `.github/workflows/update-readme.yml`:
+```yaml
+name: Sync Readme
+on:
+  schedule:
+    - cron: '0 0 * * *' # Ежедневное обновление в полночь
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Kazinagg/pixel-readme-kit@v5
+        with:
+          fetch-github: 'true'
+          bust-cache: 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-update readme stats and starchart [skip ci]"
+```
+
+### 5. Подключение через MCP (Claude Desktop, Cursor, Antigravity)
 Добавьте сервер в ваш `mcp_config.json`:
 ```json
 {
@@ -136,7 +170,7 @@ python -m generator.cli compile --clean-assets --bust-cache
 
 ## 08 // Интерактивный пример окна контента
 
-<img src="assets/generated/frame-readme-top.svg" width="100%" />
+<img src="assets/generated/frame-readme-top.svg?v=2905e243" width="100%" />
 
 <table width="100%">
 <tr>
@@ -164,11 +198,11 @@ python -m generator.cli studio
 </tr>
 </table>
 
-<img src="assets/generated/frame-readme-bottom.svg" width="100%" />
+<img src="assets/generated/frame-readme-bottom.svg?v=105db39c" width="100%" />
 
 <br/>
 
-> <img src="assets/generated/callout-quote-readme.svg" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
+> <img src="assets/generated/callout-quote-readme.svg?v=09d64cda" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
 >
 > > **Навигация по документации**:
 > > - Полный каталог всех компонентов во всех стилях доступен в **[CATALOG.md](CATALOG.md)**.
@@ -182,7 +216,7 @@ python -m generator.cli studio
 
 <br/>
 
-<img src="assets/generated/term-top-readme.svg" width="100%" />
+<img src="assets/generated/term-top-readme.svg?v=97038138" width="100%" />
 
 <table width="100%">
 <tr>
@@ -214,10 +248,10 @@ python -m generator.cli splitter --help  # Сплиттеры подмодуле
 </tr>
 </table>
 
-<img src="assets/generated/term-bottom-readme.svg" width="100%" />
+<img src="assets/generated/term-bottom-readme.svg?v=f94f1e66" width="100%" />
 
 </details>
 
 <br/><br/>
 
-<a href="#top"><img src="assets/generated/footer-readme.svg" width="100%" alt="▲ НАВЕРХ" /></a>
+<a href="#top"><img src="assets/generated/footer-readme.svg?v=19ead71e" width="100%" alt="▲ НАВЕРХ" /></a>

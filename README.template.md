@@ -108,28 +108,62 @@
 
 ## 07 // Руководство по началу работы (Quick Start Guide)
 
-### 1. Интерактивная Web-студия (Live Preview & Studio)
+### 1. Мгновенный запуск Студии в браузере (Zero-Install)
 ```bash
-# Запуск веб-редактора с мгновенным Live Reload (SSE):
-python -m generator.cli studio --open
+# Запуск через pipx без предварительного клонирования (рекомендуется):
+pipx run pixel-readme-kit studio --open
+
+# Или классическая установка пакета через pip:
+pip install pixel-readme-kit
+pixel-kit studio --open
 ```
 
 ### 2. Инициализация шаблона с помощью Scaffolder
 ```bash
-# Оформление репозитория:
-python -m generator.cli init --category repo --type library --title "MY-AWESOME-LIB"
+# Оформление репозитория (библиотека, CLI, исследование):
+pixel-kit init --category repo --type library --title "MY-AWESOME-LIB"
 
-# Оформление профиля разработчика:
-python -m generator.cli init --category profile --type developer --title "ALEX DEVELOPER"
+# Оформление профиля разработчика (dossier, минимализм, киберпанк):
+pixel-kit init --category profile --type developer --title "ALEX DEVELOPER"
 ```
 
-### 3. Компиляция шаблона в Markdown
+### 3. Компиляция и синхронизация (с автоподхватом данных GitHub)
 ```bash
-# Полная сборка с инкрементальным кэшем, очисткой сирот и Camo-хэшированием:
-python -m generator.cli compile --clean-assets --bust-cache
+# Полная сборка с актуализацией звезд, очисткой сирот и сбросом кэша Camo:
+pixel-kit sync
+
+# Или ручная компиляция шаблона:
+pixel-kit compile --fetch-github --clean-assets --bust-cache
 ```
 
-### 4. Подключение через MCP (Claude Desktop, Cursor, Antigravity)
+### 4. Автоматическое обновление по расписанию в GitHub Actions
+Чтобы график звезд, бейджи и метрики всегда оставались актуальными, добавьте workflow `.github/workflows/update-readme.yml`:
+```yaml
+name: Sync Readme
+on:
+  schedule:
+    - cron: '0 0 * * *' # Ежедневное обновление в полночь
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Kazinagg/pixel-readme-kit@v5
+        with:
+          fetch-github: 'true'
+          bust-cache: 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-update readme stats and starchart [skip ci]"
+```
+
+### 5. Подключение через MCP (Claude Desktop, Cursor, Antigravity)
 Добавьте сервер в ваш `mcp_config.json`:
 ```json
 {

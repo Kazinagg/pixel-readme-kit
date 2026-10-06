@@ -65,15 +65,17 @@ jobs:
           python-version: '3.12'
 
       - name: Compile README and Catalogs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -f README.template.md ]; then
-            python -m generator.cli compile --input README.template.md --output README.md --assets-dir assets/generated --bust-cache
+            python -m generator.cli compile --input README.template.md --output README.md --assets-dir assets/generated --bust-cache --fetch-github --clean-assets
           fi
           if [ -f CATALOG.template.md ]; then
-            python -m generator.cli compile --input CATALOG.template.md --output CATALOG.md --assets-dir assets/generated --bust-cache
+            python -m generator.cli compile --input CATALOG.template.md --output CATALOG.md --assets-dir assets/generated --bust-cache --clean-assets
           fi
           if [ -f EXAMPLE_TEMPLATE.md ]; then
-            python -m generator.cli compile --input EXAMPLE_TEMPLATE.md --output EXAMPLE.md --assets-dir assets/example --bust-cache
+            python -m generator.cli compile --input EXAMPLE_TEMPLATE.md --output EXAMPLE.md --assets-dir assets/example --bust-cache --clean-assets
           fi
 
       - name: Validate All SVG Assets

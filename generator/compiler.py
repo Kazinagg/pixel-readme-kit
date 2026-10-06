@@ -47,6 +47,11 @@ from generator.engine import (
     escape_xml
 )
 from generator.cache import BuildCache
+from generator.github_api import (
+    fetch_repo_data,
+    fetch_user_data,
+    fetch_star_trajectory
+)
 
 _GITHUB_CACHE = {}
 
@@ -147,7 +152,7 @@ def parse_directive_attrs(attr_string):
     return attrs
 
 class MarkdownCompiler:
-    def __init__(self, assets_dir="assets/generated", base_url="", use_cache=True, cache_file=None, bust_cache=False):
+    def __init__(self, assets_dir="assets/generated", base_url="", use_cache=True, cache_file=None, bust_cache=False, fetch_github=False):
         self.assets_dir = assets_dir
         self.base_url = base_url
         self.counters = {}
@@ -158,6 +163,7 @@ class MarkdownCompiler:
         self.orphans = []
         self.stats = {"generated": 0, "cached": 0, "cleaned": 0}
         self.bust_cache = bust_cache
+        self.fetch_github = fetch_github
 
     def _apply_cache_bust(self, url: str) -> str:
         """Appends ?v=<hash> cache-busting query parameter for GitHub Camo proxy."""
@@ -857,6 +863,61 @@ class MarkdownCompiler:
         text = chip_regex.sub(repl_chip, text)
 
         # ---------------------------------------------------------------
+        # 9.5 STANDALONE: METRICS
+        # <!-- pixel-kit:metrics style="..." [items="..."] [repo="..."] [auto_fetch="true"] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
+        # ---------------------------------------------------------------
+        metrics_regex = re.compile(r'<!--\s*pixel-kit:metrics\s+(.*?)\s*-->', re.IGNORECASE)
+
+        def repl_metrics(m):
+            attrs = parse_directive_attrs(m.group(1))
+            style = attrs.get("style", "cyberpunk")
+            repo = attrs.get("repo")
+            prim = attrs.get("primary", None)
+            acc = attrs.get("accent", None)
+            preset = attrs.get("preset", None)
+            auto_fetch = attrs.get("auto_fetch", "").lower() in ("true", "1", "yes") or (self.fetch_github and bool(repo))
+
+            card_items = []
+            if auto_fetch and repo:
+                rdata, _ = fetch_repo_data(repo)
+                if rdata:
+                    card_items = [
+                        {"label": "STARS", "value": f"{rdata['stars']:,}", "delta": "+growth", "trend": "up"},
+                        {"label": "FORKS", "value": f"{rdata['forks']:,}", "delta": "active", "trend": "up"},
+                        {"label": "WATCHERS", "value": f"{rdata['watchers']:,}", "trend": "neutral"},
+                        {"label": "LICENSE", "value": rdata["license"], "trend": "neutral"}
+                    ]
+
+            if not card_items:
+                raw_items = attrs.get("items")
+                if raw_items:
+                    for chunk in raw_items.split("|"):
+                        parsed_chunk = parse_directive_attrs(chunk.strip())
+                        if parsed_chunk:
+                            card_items.append(parsed_chunk)
+                        elif ":" in chunk:
+                            k, v = chunk.split(":", 1)
+                            card_items.append({"label": k.strip(), "value": v.strip()})
+
+            if not card_items:
+                card_items = [
+                    {"label": "ACTIVE REPOS", "value": "12", "delta": "+2", "trend": "up"},
+                    {"label": "CONTRIBUTIONS", "value": "1,420", "delta": "+18%", "trend": "up"},
+                    {"label": "STARS", "value": "350", "delta": "+45", "trend": "up"}
+                ]
+
+            return self._render_asset_markup(
+                generate_metrics,
+                {"metrics": card_items, "style": style, "primary": prim, "accent": acc, "preset": preset},
+                attrs,
+                f"metrics-{style}",
+                alt="Metrics",
+                is_full_width=True
+            )
+
+        text = metrics_regex.sub(repl_metrics, text)
+
+        # ---------------------------------------------------------------
         # 10. STANDALONE: PROGRESS
         # <!-- pixel-kit:progress style="..." value="80" label="..." [sub="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
@@ -956,6 +1017,17 @@ class MarkdownCompiler:
             acc = attrs.get("accent", None)
             preset = attrs.get("preset", None)
 
+            auto_fetch = attrs.get("auto_fetch", "").lower() in ("true", "1", "yes") or attrs.get("auto", "").lower() in ("true", "1", "yes") or self.fetch_github
+            if auto_fetch and repo:
+                traj, _ = fetch_star_trajectory(repo)
+                if traj:
+                    if points is None:
+                        points = traj.get("points")
+                    if current is None:
+                        current = traj.get("current")
+                    if delta == "+78% past 6m" or "delta" not in attrs:
+                        delta = traj.get("delta", delta)
+
             return self._render_asset_markup(
                 generate_starchart,
                 {
@@ -989,6 +1061,20 @@ class MarkdownCompiler:
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
             preset = attrs.get("preset", None)
+
+            username = attrs.get("username") or attrs.get("user")
+            auto_fetch = attrs.get("auto_fetch", "").lower() in ("true", "1", "yes") or (self.fetch_github and bool(username))
+            if auto_fetch and username:
+                udata, _ = fetch_user_data(username)
+                if udata:
+                    if "name" not in attrs and udata.get("name"):
+                        name = udata["name"]
+                    if "bio" not in attrs and udata.get("bio"):
+                        bio = udata["bio"]
+                    if "location" not in attrs and udata.get("location"):
+                        location = udata["location"]
+                    if "badge" not in attrs and udata.get("public_repos") is not None:
+                        badge = f"REPOS: {udata['public_repos']}"
 
             return self._render_asset_markup(
                 generate_profile_card,

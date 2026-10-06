@@ -1,20 +1,23 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "pixel-readme-kit"
-version = "4.2.0"
-description = "Retro-futuristic HUD & Sci-Fi infographics generator for GitHub READMEs"
+version = "5.0.0"
+description = "Universal Design System, SVG Infographics Generator & HUD Studio for GitHub Repositories and Profiles"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [
     { name = "Kazinagg" }
 ]
-keywords = ["github", "readme", "pixel-art", "hud", "cyberpunk", "svg", "infographics"]
+keywords = [
+    "github", "readme", "profile", "design-system", "svg",
+    "infographics", "cyberpunk", "hud", "minimalist", "cli", "wysiwyg"
+]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
@@ -22,15 +25,31 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Documentation",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Text Processing :: Markup :: Markdown",
 ]
 dependencies = []
 
+[project.urls]
+Homepage = "https://github.com/Kazinagg/pixel-readme-kit"
+Repository = "https://github.com/Kazinagg/pixel-readme-kit"
+Issues = "https://github.com/Kazinagg/pixel-readme-kit/issues"
+Changelog = "https://github.com/Kazinagg/pixel-readme-kit/blob/main/TODO.md"
+
 [project.scripts]
 pixel-kit = "generator.cli:main"
+pixel-readme = "generator.cli:main"
+pixel-readme-kit = "generator.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["generator*"]
 
 [tool.setuptools.package-data]
-generator = ["templates/*.md"]
+generator = [
+    "templates/*.md",
+    "templates/**/*.md",
+    "studio/static/*",
+    "studio/static/**/*",
+    "presets/*.json",
+]

@@ -16,6 +16,7 @@ from socketserver import ThreadingMixIn
 from generator.compiler import MarkdownCompiler
 from generator.studio.handlers import (
     handle_render_request,
+    handle_github_fetch,
     extract_template_blocks,
     apply_global_theme_to_content,
     render_preview_html,
@@ -139,6 +140,11 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
         # 4. Dynamic SVG Render API (/api/render)
         if path == "/api/render":
             handle_render_request(self, query)
+            return
+
+        # 4.5 GitHub Live Data Fetch API (/api/github/fetch)
+        if path == "/api/github/fetch":
+            handle_github_fetch(self, query)
             return
 
         # 5. Preview Compiled Content (/api/preview)

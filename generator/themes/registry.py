@@ -277,23 +277,23 @@ def load_preset(preset_name_or_path: Optional[str]) -> Optional[Dict[str, Any]]:
     if os.path.isfile(path):
         target_path = path
     else:
-        # Search relative to repo root / presets
+        # Search relative to package presets, repo root, and local cwd
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        cand1 = os.path.join(base_dir, "..", "..", "presets", f"{path}.json")
-        cand2 = os.path.join(base_dir, "..", "..", "presets", path)
-        cand3 = os.path.join("presets", f"{path}.json")
-        cand4 = os.path.join("presets", path)
-        if os.path.isfile(cand1):
-            target_path = cand1
-        elif os.path.isfile(cand2):
-            target_path = cand2
-        elif os.path.isfile(cand3):
-            target_path = cand3
-        elif os.path.isfile(cand4):
-            target_path = cand4
-        elif os.path.isfile(f"{path}.json"):
-            target_path = f"{path}.json"
-        else:
+        cands = [
+            os.path.join(base_dir, "..", "presets", f"{path}.json"),
+            os.path.join(base_dir, "..", "presets", path),
+            os.path.join(base_dir, "..", "..", "presets", f"{path}.json"),
+            os.path.join(base_dir, "..", "..", "presets", path),
+            os.path.join("presets", f"{path}.json"),
+            os.path.join("presets", path),
+            f"{path}.json"
+        ]
+        target_path = None
+        for c in cands:
+            if os.path.isfile(c):
+                target_path = c
+                break
+        if not target_path:
             return None
     try:
         with open(target_path, "r", encoding="utf-8") as f:
@@ -310,7 +310,14 @@ class ThemeRegistry:
             self.presets_dir = presets_dir
         else:
             base_dir = os.path.dirname(os.path.abspath(__file__))
-            self.presets_dir = os.path.abspath(os.path.join(base_dir, "..", "..", "presets"))
+            cand_root = os.path.abspath(os.path.join(base_dir, "..", "..", "presets"))
+            cand_pkg = os.path.abspath(os.path.join(base_dir, "..", "presets"))
+            if os.path.isdir(cand_root):
+                self.presets_dir = cand_root
+            elif os.path.isdir(cand_pkg):
+                self.presets_dir = cand_pkg
+            else:
+                self.presets_dir = cand_root
 
         self._palettes: Dict[str, Dict[str, Dict[str, str]]] = {
             k: {m: dict(v[m]) for m in v} for k, v in BASE_THEME_PALETTES.items()
@@ -325,14 +332,23 @@ class ThemeRegistry:
         return self._palettes
 
     def list_presets(self) -> List[str]:
-        """Returns sorted list of available JSON preset names."""
-        if not os.path.isdir(self.presets_dir):
+        """Returns sorted list of available JSON preset names (scanning both workspace and package presets)."""
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        cand_pkg = os.path.abspath(os.path.join(base_dir, "..", "presets"))
+        dirs_to_scan = [self.presets_dir]
+        if cand_pkg != self.presets_dir and os.path.isdir(cand_pkg):
+            dirs_to_scan.append(cand_pkg)
+
+        names = set()
+        for pdir in dirs_to_scan:
+            if os.path.isdir(pdir):
+                for f in os.listdir(pdir):
+                    if f.endswith(".json"):
+                        names.add(f[:-5])
+
+        if not names:
             return sorted(list(BASE_THEME_PALETTES.keys()))
-        names = []
-        for f in os.listdir(self.presets_dir):
-            if f.endswith(".json"):
-                names.append(f[:-5])
-        return sorted(names) if names else sorted(list(BASE_THEME_PALETTES.keys()))
+        return sorted(list(names))
 
     def resolve_theme(
         self,
