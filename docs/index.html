@@ -399,10 +399,10 @@
             <span class="card-tag">850x190 SVG</span>
           </div>
           <div class="card-preview">
-            <img src="../assets/generated/profile-readme-demo.svg" alt="Profile Dossier Card" onerror="this.src='https://dummyimage.com/600x134/11151c/00ffcc.png&text=Profile+Dossier+Card'">
+            <img id="preview-profile" src="assets/profile-readme-demo.svg" alt="Profile Dossier Card" onerror="this.src='https://dummyimage.com/600x134/11151c/00ffcc.png&text=Profile+Dossier+Card'">
           </div>
           <div class="card-code">
-            &lt;!-- pixel-kit:profile username="Kazinagg" auto_fetch="true" --&gt;
+            <code id="code-profile">&lt;!-- pixel-kit:profile username="Kazinagg" auto_fetch="true" --&gt;</code>
           </div>
         </div>
 
@@ -413,10 +413,10 @@
             <span class="card-tag">Auto-Updating</span>
           </div>
           <div class="card-preview">
-            <img src="../assets/generated/starchart-readme-demo.svg" alt="Star Growth Trajectory" onerror="this.src='https://dummyimage.com/600x160/11151c/00ffcc.png&text=Star+Growth+Trajectory'">
+            <img id="preview-starchart" src="assets/starchart-readme-demo.svg" alt="Star Growth Trajectory" onerror="this.src='https://dummyimage.com/600x160/11151c/00ffcc.png&text=Star+Growth+Trajectory'">
           </div>
           <div class="card-code">
-            &lt;!-- pixel-kit:starchart repo="owner/repo" auto_fetch="true" --&gt;
+            <code id="code-starchart">&lt;!-- pixel-kit:starchart repo="owner/repo" auto_fetch="true" --&gt;</code>
           </div>
         </div>
 
@@ -427,10 +427,10 @@
             <span class="card-tag">850x92 SVG</span>
           </div>
           <div class="card-preview">
-            <img src="../assets/generated/metrics-readme.svg" alt="KPI Metrics" onerror="this.src='https://dummyimage.com/600x65/11151c/00ffcc.png&text=KPI+Metrics+Row'">
+            <img id="preview-metrics" src="assets/metrics-readme.svg" alt="KPI Metrics" onerror="this.src='https://dummyimage.com/600x65/11151c/00ffcc.png&text=KPI+Metrics+Row'">
           </div>
           <div class="card-code">
-            &lt;!-- pixel-kit:metrics repo="owner/repo" auto_fetch="true" --&gt;
+            <code id="code-metrics">&lt;!-- pixel-kit:metrics repo="owner/repo" auto_fetch="true" --&gt;</code>
           </div>
         </div>
 
@@ -441,10 +441,10 @@
             <span class="card-tag">Radar &amp; 3D Type</span>
           </div>
           <div class="card-preview">
-            <img src="../assets/generated/header-readme.svg" alt="Master Header Banner" onerror="this.src='https://dummyimage.com/600x140/11151c/00ffcc.png&text=Master+Header+Banner'">
+            <img id="preview-header" src="assets/header-readme.svg" alt="Master Header Banner" onerror="this.src='https://dummyimage.com/600x140/11151c/00ffcc.png&text=Master+Header+Banner'">
           </div>
           <div class="card-code">
-            &lt;!-- pixel-kit:header style="cyberpunk" title="MY-PROJECT" --&gt;
+            <code id="code-header">&lt;!-- pixel-kit:header style="cyberpunk" title="MY-PROJECT" --&gt;</code>
           </div>
         </div>
       </div>
@@ -512,10 +512,55 @@ jobs:
       });
     }
 
+    const PARADIGM_DATA = {
+      cyberpunk: {
+        profile: 'assets/profile-readme-demo.svg',
+        starchart: 'assets/starchart-readme-demo.svg',
+        metrics: 'assets/metrics-readme.svg',
+        header: 'assets/header-readme.svg',
+        codeProfile: '<!-- pixel-kit:profile username="Kazinagg" style="cyberpunk" auto_fetch="true" -->',
+        codeStarchart: '<!-- pixel-kit:starchart repo="owner/repo" style="cyberpunk" auto_fetch="true" -->',
+        codeMetrics: '<!-- pixel-kit:metrics repo="owner/repo" style="cyberpunk" auto_fetch="true" -->',
+        codeHeader: '<!-- pixel-kit:header style="cyberpunk" title="MY-PROJECT" -->'
+      },
+      slate: {
+        profile: 'assets/profile-minimal.svg',
+        starchart: 'assets/starchart-minimal.svg',
+        metrics: 'assets/metrics-catalog.svg',
+        header: 'assets/header-minimal-clean.svg',
+        codeProfile: '<!-- pixel-kit:profile username="Kazinagg" style="minimal" auto_fetch="true" -->',
+        codeStarchart: '<!-- pixel-kit:starchart repo="owner/repo" style="minimal" auto_fetch="true" -->',
+        codeMetrics: '<!-- pixel-kit:metrics repo="owner/repo" style="minimal" auto_fetch="true" -->',
+        codeHeader: '<!-- pixel-kit:header style="minimal" title="MY-PROJECT" -->'
+      },
+      corporate: {
+        profile: 'assets/profile-tactical.svg',
+        starchart: 'assets/starchart-tactical.svg',
+        metrics: 'assets/metrics-readme.svg',
+        header: 'assets/header-tactical-amber.svg',
+        codeProfile: '<!-- pixel-kit:profile username="Kazinagg" style="tactical" auto_fetch="true" -->',
+        codeStarchart: '<!-- pixel-kit:starchart repo="owner/repo" style="tactical" auto_fetch="true" -->',
+        codeMetrics: '<!-- pixel-kit:metrics repo="owner/repo" style="tactical" auto_fetch="true" -->',
+        codeHeader: '<!-- pixel-kit:header style="tactical" title="MY-PROJECT" -->'
+      }
+    };
+
     function setParadigm(style) {
       document.querySelectorAll('.paradigm-btn').forEach(b => b.classList.remove('active'));
       event.target.classList.add('active');
-      // Visual notification
+
+      const data = PARADIGM_DATA[style];
+      if (!data) return;
+
+      document.getElementById('preview-profile').src = data.profile;
+      document.getElementById('preview-starchart').src = data.starchart;
+      document.getElementById('preview-metrics').src = data.metrics;
+      document.getElementById('preview-header').src = data.header;
+
+      document.getElementById('code-profile').innerText = data.codeProfile;
+      document.getElementById('code-starchart').innerText = data.codeStarchart;
+      document.getElementById('code-metrics').innerText = data.codeMetrics;
+      document.getElementById('code-header').innerText = data.codeHeader;
     }
   </script>
 </body>

@@ -69,13 +69,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ -f README.template.md ]; then
-            python -m generator.cli compile --input README.template.md --output README.md --assets-dir assets/generated --bust-cache --fetch-github --clean-assets
+            python -m generator.cli compile --input README.template.md --output README.md --assets-dir assets/generated --bust-cache --fetch-github
           fi
           if [ -f CATALOG.template.md ]; then
-            python -m generator.cli compile --input CATALOG.template.md --output CATALOG.md --assets-dir assets/generated --bust-cache --clean-assets
+            python -m generator.cli compile --input CATALOG.template.md --output CATALOG.md --assets-dir assets/generated --bust-cache
           fi
           if [ -f EXAMPLE_TEMPLATE.md ]; then
-            python -m generator.cli compile --input EXAMPLE_TEMPLATE.md --output EXAMPLE.md --assets-dir assets/example --bust-cache --clean-assets
+            python -m generator.cli compile --input EXAMPLE_TEMPLATE.md --output EXAMPLE.md --assets-dir assets/example --bust-cache
           fi
 
       - name: Validate All SVG Assets

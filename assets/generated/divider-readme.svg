@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 28" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: #F6F8FA;
+        --bg-panel: #EAEFF5;
+        --border-chassis: #D0D7DE;
+        --primary: #00C8D7;
+        --accent: #8250DF;
+        --tertiary: #CF222E;
+        --title-front: #00C8D7;
+        --title-mid: #007881;
+        --title-dark: #003c40;
+        --text-main: #1F2328;
+        --text-dim: #57606A;
+        --status: #1A7F37;
+        --warning: #9A6700;
+        --grid-op: 0.10;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(10, 14, 23, 0.85);
+          --bg-panel: rgba(15, 23, 38, 0.82);
+          --border-chassis: rgba(30, 41, 59, 0.85);
+          --primary: #00C8D7;
+          --accent: #A855F7;
+          --tertiary: #FF0055;
+          --title-front: #00C8D7;
+          --title-mid: #005a60;
+          --title-dark: #001e20;
+          --text-main: #F8F8F2;
+          --text-dim: #94A3B8;
+          --status: #00D26A;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #00C8D7));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; letter-spacing: 1px; }
+      @keyframes pcbTrace { 0% { stroke-dashoffset: 400; } 100% { stroke-dashoffset: 0; } }
+      .packet { stroke-dasharray: 40, 200; animation: pcbTrace 2.8s infinite linear; }
+    </style>
+  </defs>
+  <line x1="10" y1="14" x2="840" y2="14" stroke="var(--border-chassis)" stroke-width="2"/>
+  <line x1="10" y1="14" x2="840" y2="14" stroke="var(--primary)" stroke-width="2" class="packet"/>
+  <circle cx="20" cy="14" r="4" fill="var(--primary)"/><circle cx="830" cy="14" r="4" fill="var(--primary)"/>
+  <rect x="335" y="4" width="180" height="20" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1.5"/>
+  <text x="425" y="17" fill="var(--primary)" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[PCB: DATA_PACKET_FLOW]</text>
+</svg>

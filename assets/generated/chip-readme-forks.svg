@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 26" width="160" height="26" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: #FFFBEB;
+        --bg-panel: #FEF3C7;
+        --border-chassis: #FDE68A;
+        --primary: #B45309;
+        --accent: #C2410C;
+        --tertiary: #B91C1C;
+        --title-front: #B45309;
+        --title-mid: #78350F;
+        --title-dark: #451A03;
+        --text-main: #1F2937;
+        --text-dim: #6B7280;
+        --status: #15803D;
+        --warning: #B45309;
+        --grid-op: 0.10;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(20, 14, 6, 0.88);
+          --bg-panel: rgba(30, 22, 10, 0.82);
+          --border-chassis: rgba(50, 36, 16, 0.85);
+          --primary: #F59E0B;
+          --accent: #EA580C;
+          --tertiary: #EF4444;
+          --title-front: #F59E0B;
+          --title-mid: #92400E;
+          --title-dark: #451A03;
+          --text-main: #FFFBEB;
+          --text-dim: #D97706;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #F59E0B));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
+    </style>
+  </defs>
+  <polygon points="7 1, 152 1, 158 7, 158 19, 152 25, 7 25, 1 19, 1 7" fill="var(--bg-glass)"/>
+  <polygon points="7 1, 152 1, 158 7, 158 19, 152 25, 7 25, 1 19, 1 7" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/>
+  <polygon points="78 1, 82 1, 80 4" fill="var(--primary)"/>
+  <polygon points="78 25, 82 25, 80 22" fill="var(--primary)"/>
+  <polygon points="10 13, 15 9, 15 17" fill="var(--primary)"/>
+  <text x="84" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">FORKS: 0</text>
+</svg>
