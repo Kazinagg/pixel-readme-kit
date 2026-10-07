@@ -3,20 +3,20 @@
     <style>
       
       :root {
-        --bg-glass: #FFFBEB;
-        --bg-panel: #FEF3C7;
-        --border-chassis: #FDE68A;
-        --primary: #B45309;
-        --accent: #C2410C;
-        --tertiary: #B91C1C;
-        --title-front: #B45309;
-        --title-mid: #78350F;
+        --bg-glass: rgba(20, 14, 6, 0.88);
+        --bg-panel: rgba(30, 22, 10, 0.82);
+        --border-chassis: rgba(50, 36, 16, 0.85);
+        --primary: #F59E0B;
+        --accent: #EA580C;
+        --tertiary: #EF4444;
+        --title-front: #F59E0B;
+        --title-mid: #92400E;
         --title-dark: #451A03;
-        --text-main: #1F2937;
-        --text-dim: #6B7280;
-        --status: #15803D;
-        --warning: #B45309;
-        --grid-op: 0.10;
+        --text-main: #FFFBEB;
+        --text-dim: #D97706;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.08;
       }
       @media (prefers-color-scheme: dark) {
         :root {
@@ -36,6 +36,24 @@
           --grid-op: 0.08;
         }
       }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #FFFBEB;
+          --bg-panel: #FEF3C7;
+          --border-chassis: #FDE68A;
+          --primary: #B45309;
+          --accent: #C2410C;
+          --tertiary: #B91C1C;
+          --title-front: #B45309;
+          --title-mid: #78350F;
+          --title-dark: #451A03;
+          --text-main: #1F2937;
+          --text-dim: #6B7280;
+          --status: #15803D;
+          --warning: #B45309;
+          --grid-op: 0.10;
+        }
+      }
       @media (hover: hover) {
         .btn-hover:hover, a:hover polygon, a:hover rect {
           filter: drop-shadow(0 0 6px var(--primary, #F59E0B));
@@ -49,31 +67,50 @@
   </defs>
 
   
-  <polygon points="14 1, 836 1, 849 14, 849 176, 836 189, 14 189, 1 176, 1 14"
+  <!-- TACTICAL ARMORED CHASSIS -->
+  <polygon points="16 1, 834 1, 849 16, 849 174, 834 189, 16 189, 1 174, 1 16"
            fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.8"/>
-  <rect x="1" y="1" width="14" height="14" fill="var(--primary)"/>
-  <rect x="835" y="1" width="14" height="14" fill="var(--accent)"/>
-  <rect x="1" y="175" width="14" height="14" fill="var(--accent)"/>
-  <rect x="835" y="175" width="14" height="14" fill="var(--primary)"/>
+  <rect x="1" y="16" width="4" height="24" fill="var(--primary)"/>
+  <rect x="845" y="150" width="4" height="24" fill="var(--accent)"/>
+  <!-- Reticle Crosshair Marks -->
+  <line x1="20" y1="10" x2="28" y2="10" stroke="var(--primary)" stroke-width="1.5"/>
+  <line x1="24" y1="6" x2="24" y2="14" stroke="var(--primary)" stroke-width="1.5"/>
+  <line x1="822" y1="10" x2="830" y2="10" stroke="var(--accent)" stroke-width="1.5"/>
+  <line x1="826" y1="6" x2="826" y2="14" stroke="var(--accent)" stroke-width="1.5"/>
+  <!-- Telemetry Grate (Bottom Right) -->
+  <rect x="770" y="178" width="3" height="6" fill="var(--accent)"/>
+  <rect x="777" y="178" width="3" height="6" fill="var(--accent)"/>
+  <rect x="784" y="178" width="3" height="6" fill="var(--accent)"/>
+  <rect x="791" y="178" width="3" height="6" fill="var(--accent)"/>
+  <text x="24" y="182" fill="var(--text-dim)" font-size="8.5" class="font-mono">MIL-STD-810 // HUD_TELEMETRY // SYS_ID:0x884F</text>
 
 
-  <!-- AVATAR CHASSIS -->
+  
+  <!-- TACTICAL AVATAR & RANGEFINDER RETICLE -->
   <g transform="translate(28, 28)">
-    <rect x="0" y="0" width="134" height="134" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.5"/>
-    <rect x="4" y="4" width="126" height="126" fill="none" stroke="var(--primary)" stroke-width="1" stroke-dasharray="8 4"/>
-    <!-- Stylized User Silhouette Vector -->
-    <circle cx="67" cy="50" r="24" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="2"/>
-    <path d="M 28 106 C 28 80, 106 80, 106 106 Z" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="2"/>
-    <circle cx="67" cy="50" r="12" fill="var(--accent)"/>
-    <!-- Status LED pill -->
-    <rect x="12" y="112" width="110" height="16" fill="var(--bg-glass)" stroke="var(--status)" stroke-width="1"/>
-    <circle cx="22" cy="120" r="3" fill="var(--status)"/>
-    <text x="30" y="123" fill="var(--status)" font-size="8.5" font-weight="bold" class="font-mono">ONLINE</text>
+    <polygon points="10 0, 124 0, 134 10, 134 124, 124 134, 10 134, 0 124, 0 10"
+             fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.8"/>
+    <!-- Azimuth Rangefinder Ring -->
+    <circle cx="67" cy="54" r="38" fill="none" stroke="var(--primary)" stroke-width="1.2" stroke-dasharray="3 4"/>
+    <circle cx="67" cy="54" r="46" fill="none" stroke="var(--border-chassis)" stroke-width="0.8"/>
+    <!-- Reticle Crosshair Ticks -->
+    <line x1="67" y1="10" x2="67" y2="22" stroke="var(--accent)" stroke-width="1.5"/>
+    <line x1="67" y1="86" x2="67" y2="98" stroke="var(--accent)" stroke-width="1.5"/>
+    <line x1="14" y1="54" x2="26" y2="54" stroke="var(--accent)" stroke-width="1.5"/>
+    <line x1="108" y1="54" x2="120" y2="54" stroke="var(--accent)" stroke-width="1.5"/>
+    <!-- Operator Silhouette -->
+    <circle cx="67" cy="50" r="16" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="2"/>
+    <path d="M 32 94 L 46 78 L 88 78 L 102 94 Z" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="2"/>
+    <circle cx="67" cy="50" r="6" fill="var(--accent)"/>
+    <!-- Tactical Readiness Status Bar -->
+    <rect x="8" y="110" width="118" height="16" fill="var(--bg-glass)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="67" y="122" fill="var(--accent)" font-size="8.5" font-weight="bold" text-anchor="middle" class="font-mono">HUD // ACTIVE</text>
   </g>
 
+
   <!-- TOP BREADCRUMB -->
-  <rect x="180" y="24" width="245" height="24" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-  <text x="192" y="40" fill="var(--primary)" font-size="11" font-weight="bold" class="font-mono">■ DOSSIER // DEFENSE GRID // UTC</text>
+  <rect x="180" y="24" width="239" height="24" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+  <text x="192" y="40" fill="var(--primary)" font-size="11" font-weight="bold" class="font-mono">■ TAC_ID // DEFENSE GRID // UTC</text>
 
   <!-- BADGE AND STATUS PILLS (TOP RIGHT) -->
   <g transform="translate(640, 24)">
@@ -84,7 +121,7 @@
     <text x="140" y="16" fill="var(--status)" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">MISSION READY</text>
   </g>
 
-  <!-- 3D NAME TYPOGRAPHY -->
+  <!-- NAME TYPOGRAPHY -->
   <g class="pixel-text-3d">
   <!-- Shadow Dark -->
   <rect x="186" y="64" width="10" height="5" fill="var(--title-dark)"/><rect x="211" y="64" width="10" height="5" fill="var(--title-dark)"/><rect x="186" y="69" width="15" height="5" fill="var(--title-dark)"/><rect x="206" y="69" width="15" height="5" fill="var(--title-dark)"/><rect x="186" y="74" width="35" height="5" fill="var(--title-dark)"/><rect x="186" y="79" width="10" height="5" fill="var(--title-dark)"/><rect x="201" y="79" width="5" height="5" fill="var(--title-dark)"/><rect x="211" y="79" width="10" height="5" fill="var(--title-dark)"/><rect x="186" y="84" width="10" height="5" fill="var(--title-dark)"/><rect x="211" y="84" width="10" height="5" fill="var(--title-dark)"/><rect x="186" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="211" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="186" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="211" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="186" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="211" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="186" y="104" width="10" height="5" fill="var(--title-dark)"/><rect x="211" y="104" width="10" height="5" fill="var(--title-dark)"/><rect x="236" y="64" width="20" height="5" fill="var(--title-dark)"/><rect x="231" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="251" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="231" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="251" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="231" y="79" width="30" height="5" fill="var(--title-dark)"/><rect x="231" y="84" width="30" height="5" fill="var(--title-dark)"/><rect x="231" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="251" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="231" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="251" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="231" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="251" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="231" y="104" width="10" height="5" fill="var(--title-dark)"/><rect x="251" y="104" width="10" height="5" fill="var(--title-dark)"/><rect x="271" y="64" width="25" height="5" fill="var(--title-dark)"/><rect x="271" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="291" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="271" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="291" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="271" y="79" width="25" height="5" fill="var(--title-dark)"/><rect x="271" y="84" width="25" height="5" fill="var(--title-dark)"/><rect x="271" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="286" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="271" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="291" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="271" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="291" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="271" y="104" width="10" height="5" fill="var(--title-dark)"/><rect x="296" y="104" width="5" height="5" fill="var(--title-dark)"/><rect x="316" y="64" width="25" height="5" fill="var(--title-dark)"/><rect x="311" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="336" y="69" width="5" height="5" fill="var(--title-dark)"/><rect x="311" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="311" y="79" width="10" height="5" fill="var(--title-dark)"/><rect x="311" y="84" width="10" height="5" fill="var(--title-dark)"/><rect x="311" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="311" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="311" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="336" y="99" width="5" height="5" fill="var(--title-dark)"/><rect x="316" y="104" width="25" height="5" fill="var(--title-dark)"/><rect x="351" y="64" width="10" height="5" fill="var(--title-dark)"/><rect x="371" y="64" width="10" height="5" fill="var(--title-dark)"/><rect x="351" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="371" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="351" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="371" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="351" y="79" width="10" height="5" fill="var(--title-dark)"/><rect x="371" y="79" width="10" height="5" fill="var(--title-dark)"/><rect x="351" y="84" width="10" height="5" fill="var(--title-dark)"/><rect x="371" y="84" width="10" height="5" fill="var(--title-dark)"/><rect x="351" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="371" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="351" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="371" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="351" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="371" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="356" y="104" width="20" height="5" fill="var(--title-dark)"/><rect x="396" y="64" width="25" height="5" fill="var(--title-dark)"/><rect x="391" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="416" y="69" width="5" height="5" fill="var(--title-dark)"/><rect x="391" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="396" y="79" width="20" height="5" fill="var(--title-dark)"/><rect x="396" y="84" width="20" height="5" fill="var(--title-dark)"/><rect x="411" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="391" y="94" width="5" height="5" fill="var(--title-dark)"/><rect x="411" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="391" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="411" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="396" y="104" width="20" height="5" fill="var(--title-dark)"/><rect x="471" y="64" width="10" height="5" fill="var(--title-dark)"/><rect x="491" y="64" width="10" height="5" fill="var(--title-dark)"/><rect x="471" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="491" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="471" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="491" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="471" y="79" width="10" height="5" fill="var(--title-dark)"/><rect x="491" y="79" width="10" height="5" fill="var(--title-dark)"/><rect x="471" y="84" width="10" height="5" fill="var(--title-dark)"/><rect x="491" y="84" width="10" height="5" fill="var(--title-dark)"/><rect x="476" y="89" width="20" height="5" fill="var(--title-dark)"/><rect x="476" y="94" width="20" height="5" fill="var(--title-dark)"/><rect x="481" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="481" y="104" width="10" height="5" fill="var(--title-dark)"/><rect x="516" y="64" width="20" height="5" fill="var(--title-dark)"/><rect x="511" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="531" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="511" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="531" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="511" y="79" width="30" height="5" fill="var(--title-dark)"/><rect x="511" y="84" width="30" height="5" fill="var(--title-dark)"/><rect x="511" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="531" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="511" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="531" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="511" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="531" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="511" y="104" width="10" height="5" fill="var(--title-dark)"/><rect x="531" y="104" width="10" height="5" fill="var(--title-dark)"/><rect x="551" y="64" width="10" height="5" fill="var(--title-dark)"/><rect x="571" y="64" width="10" height="5" fill="var(--title-dark)"/><rect x="551" y="69" width="15" height="5" fill="var(--title-dark)"/><rect x="571" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="551" y="74" width="30" height="5" fill="var(--title-dark)"/><rect x="551" y="79" width="10" height="5" fill="var(--title-dark)"/><rect x="566" y="79" width="15" height="5" fill="var(--title-dark)"/><rect x="551" y="84" width="10" height="5" fill="var(--title-dark)"/><rect x="571" y="84" width="10" height="5" fill="var(--title-dark)"/><rect x="551" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="571" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="551" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="571" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="551" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="571" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="551" y="104" width="10" height="5" fill="var(--title-dark)"/><rect x="571" y="104" width="10" height="5" fill="var(--title-dark)"/><rect x="596" y="64" width="25" height="5" fill="var(--title-dark)"/><rect x="591" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="616" y="69" width="5" height="5" fill="var(--title-dark)"/><rect x="591" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="591" y="79" width="10" height="5" fill="var(--title-dark)"/><rect x="591" y="84" width="10" height="5" fill="var(--title-dark)"/><rect x="591" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="591" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="591" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="616" y="99" width="5" height="5" fill="var(--title-dark)"/><rect x="596" y="104" width="25" height="5" fill="var(--title-dark)"/><rect x="631" y="64" width="30" height="5" fill="var(--title-dark)"/><rect x="631" y="69" width="10" height="5" fill="var(--title-dark)"/><rect x="631" y="74" width="10" height="5" fill="var(--title-dark)"/><rect x="631" y="79" width="25" height="5" fill="var(--title-dark)"/><rect x="631" y="84" width="25" height="5" fill="var(--title-dark)"/><rect x="631" y="89" width="10" height="5" fill="var(--title-dark)"/><rect x="631" y="94" width="10" height="5" fill="var(--title-dark)"/><rect x="631" y="99" width="10" height="5" fill="var(--title-dark)"/><rect x="631" y="104" width="30" height="5" fill="var(--title-dark)"/>
@@ -95,11 +132,13 @@
 </g>
 
   <!-- ROLE PILL -->
+  
   <g transform="translate(180, 116)">
-    <rect x="0" y="0" width="277" height="26" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
-    <rect x="0" y="0" width="4" height="26" fill="var(--primary)"/>
-    <text x="14" y="17" fill="var(--accent)" font-size="12" font-weight="bold" class="font-mono">▶ SECURITY &amp; SYSTEMS OPERATOR</text>
+    <polygon points="0 0, 269 0, 277 8, 277 26, 0 26" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.2"/>
+    <rect x="0" y="0" width="5" height="26" fill="var(--primary)"/>
+    <text x="14" y="17" fill="var(--accent)" font-size="11.5" font-weight="bold" class="font-mono">▶ SECURITY &amp; SYSTEMS OPERATOR</text>
   </g>
+
 
   <!-- BIO SUMMARY -->
   <text x="182" y="166" fill="var(--text-main)" font-size="12" font-weight="normal" class="font-mono">Hardening infrastructure and mission-critical cloud telemetry.</text>

@@ -4,25 +4,25 @@
 
 <div align="center">
 
-<img src="assets/generated/header-readme.svg?v=f6e72ad3" width="100%" alt="README KIT" />
+<img src="assets/generated/header-readme.svg?v=94362f22" width="100%" alt="README KIT" />
 
 <br/><br/>
 
-<a href="CATALOG.md"><img src="assets/generated/chip-readme-catalog.svg?v=51525174" alt="[DOCS] КАТАЛОГ БЛОКОВ" /></a>
+<a href="CATALOG.md"><img src="assets/generated/chip-readme-catalog.svg?v=ac70a4b4" alt="[DOCS] КАТАЛОГ БЛОКОВ" /></a>
 &nbsp;&nbsp;
-<a href="EXAMPLES.md"><img src="assets/generated/chip-readme-examples.svg?v=1d176890" alt="[SPEC] ПРИМЕРЫ И РАЗБОР" /></a>
+<a href="EXAMPLES.md"><img src="assets/generated/chip-readme-examples.svg?v=9f2ea60b" alt="[SPEC] ПРИМЕРЫ И РАЗБОР" /></a>
 &nbsp;&nbsp;
-<a href="#top"><img src="assets/generated/chip-readme-version.svg?v=fbdb949e" alt="● v5.0.0 STABLE" /></a>
+<a href="#top"><img src="assets/generated/chip-readme-version.svg?v=4762e507" alt="● v5.0.0 STABLE" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg?v=01e70734" alt="★ 2" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg?v=7f5510c1" alt="★ 2" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg?v=9d4fd929" alt="FORKS: 0" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg?v=fc322181" alt="FORKS: 0" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit"><img src="assets/generated/chip-readme-license.svg?v=1a87883e" alt="LICENSE: MIT" /></a>
+<a href="https://github.com/Kazinagg/pixel-readme-kit"><img src="assets/generated/chip-readme-license.svg?v=d551d52e" alt="LICENSE: MIT" /></a>
 
 <br/><br/>
 
-<img src="assets/generated/divider-readme.svg?v=524561bf" width="100%" alt="Divider cyberpunk" />
+<img src="assets/generated/divider-readme.svg?v=82716312" width="100%" alt="Divider cyberpunk" />
 
 </div>
 
@@ -30,11 +30,11 @@
 
 ## 01 // Телеметрия системы (System Telemetry)
 
-<img src="assets/generated/metrics-readme.svg?v=760e457f" width="100%" alt="Metrics" />
+<img src="assets/generated/metrics-readme.svg?v=fa1ee0fc" width="100%" alt="Metrics" />
 
 <br/>
 
-<img src="assets/generated/progress-readme.svg?v=ba7cb70b" width="100%" alt="V5.0 REPO &amp; PROFILE EVOLUTION COMPLETE" />
+<img src="assets/generated/progress-readme.svg?v=61f74cbc" width="100%" alt="V5.0 REPO &amp; PROFILE EVOLUTION COMPLETE" />
 
 <br/>
 
@@ -47,8 +47,8 @@
    - Библиотеки, CLI-утилиты, веб-сервисы, монорепозитории и исследовательские отчеты.
    - Модульные окна контента, интерактивные терминалы, матрицы стека, плашки алертов и футеры.
 2. **Оформление профилей разработчиков (Developer Profiles)**:
-   - Флагманские карточки профиля (`<img src="assets/generated/profile-cyberpunk-1.svg?v=6bdd3389" width="100%" alt="ALEX DEVELOPER" />`) со стилизованным аватаром, LED-индикатором статуса, 3D-типографикой и био.
-   - График динамики звёзд и активности (`<img src="assets/generated/starchart-cyberpunk-1.svg?v=3c60e4fb" width="100%" alt="STAR GROWTH TRAJECTORY" />`) с координатной сеткой и градиентной заливкой.
+   - Флагманские карточки профиля (`<img src="assets/generated/profile-cyberpunk-1.svg?v=f70c16ef" width="100%" alt="ALEX DEVELOPER" />`) со стилизованным аватаром, LED-индикатором статуса, 3D-типографикой и био.
+   - График динамики звёзд и активности (`<img src="assets/generated/starchart-cyberpunk-1.svg?v=bd2f3a79" width="100%" alt="STAR GROWTH TRAJECTORY" />`) с координатной сеткой и градиентной заливкой.
    - Витрины ключевых проектов и социальные чипы.
 
 <br/>
@@ -57,17 +57,17 @@
 
 ### Карточка профиля разработчика (Developer Dossier Card)
 
-<img src="assets/generated/profile-readme-demo.svg?v=6bdd3389" width="100%" alt="ALEX DEVELOPER" />
+<img src="assets/generated/profile-readme-demo.svg?v=f70c16ef" width="100%" alt="ALEX DEVELOPER" />
 
 <br/>
 
 ### График динамики звёзд (Star Growth Trajectory)
 
-<img src="assets/generated/starchart-readme-demo.svg?v=ae8d7798" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
+<img src="assets/generated/starchart-readme-demo.svg?v=05566a8c" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
 
 <br/>
 
-<img src="assets/generated/callout-readme-arch.svg?v=6d93990e" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
+<img src="assets/generated/callout-readme-arch.svg?v=1b8f8525" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
 
 ---
 
@@ -85,13 +85,13 @@
 
 ## 05 // Стек технологий и поддерживаемое окружение
 
-<img src="assets/generated/techstack-readme.svg?v=3e0e29a1" width="100%" alt="Tech Stack" />
+<img src="assets/generated/techstack-readme.svg?v=507e6c25" width="100%" alt="Tech Stack" />
 
 <br/>
 
 ## 06 // Дорожная карта развития (Roadmap)
 
-<img src="assets/generated/timeline-readme.svg?v=d6a7e29a" width="100%" alt="Timeline" />
+<img src="assets/generated/timeline-readme.svg?v=afff989d" width="100%" alt="Timeline" />
 
 <br/>
 
@@ -170,7 +170,7 @@ jobs:
 
 ## 08 // Интерактивный пример окна контента
 
-<img src="assets/generated/frame-readme-top.svg?v=2905e243" width="100%" />
+<img src="assets/generated/frame-readme-top.svg?v=59cdd27f" width="100%" />
 
 <table width="100%">
 <tr>
@@ -198,11 +198,11 @@ python -m generator.cli studio
 </tr>
 </table>
 
-<img src="assets/generated/frame-readme-bottom.svg?v=105db39c" width="100%" />
+<img src="assets/generated/frame-readme-bottom.svg?v=cd366dc0" width="100%" />
 
 <br/>
 
-> <img src="assets/generated/callout-quote-readme.svg?v=09d64cda" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
+> <img src="assets/generated/callout-quote-readme.svg?v=881fadc8" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
 >
 > > **Навигация по документации**:
 > > - Полный каталог всех компонентов во всех стилях доступен в **[CATALOG.md](CATALOG.md)**.
@@ -216,7 +216,7 @@ python -m generator.cli studio
 
 <br/>
 
-<img src="assets/generated/term-top-readme.svg?v=97038138" width="100%" />
+<img src="assets/generated/term-top-readme.svg?v=8c1b3913" width="100%" />
 
 <table width="100%">
 <tr>
@@ -248,10 +248,10 @@ python -m generator.cli splitter --help  # Сплиттеры подмодуле
 </tr>
 </table>
 
-<img src="assets/generated/term-bottom-readme.svg?v=f94f1e66" width="100%" />
+<img src="assets/generated/term-bottom-readme.svg?v=715dbd2d" width="100%" />
 
 </details>
 
 <br/><br/>
 
-<a href="#top"><img src="assets/generated/footer-readme.svg?v=19ead71e" width="100%" alt="▲ НАВЕРХ" /></a>
+<a href="#top"><img src="assets/generated/footer-readme.svg?v=5390a594" width="100%" alt="▲ НАВЕРХ" /></a>

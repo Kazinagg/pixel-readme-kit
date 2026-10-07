@@ -3,20 +3,20 @@
     <style>
       
       :root {
-        --bg-glass: #FFFBEB;
-        --bg-panel: #FEF3C7;
-        --border-chassis: #FDE68A;
-        --primary: #ab6e07;
-        --accent: #C2410C;
-        --tertiary: #B91C1C;
-        --title-front: #ab6e07;
-        --title-mid: #664204;
-        --title-dark: #332102;
-        --text-main: #1F2937;
-        --text-dim: #6B7280;
-        --status: #15803D;
-        --warning: #B45309;
-        --grid-op: 0.10;
+        --bg-glass: rgba(20, 14, 6, 0.88);
+        --bg-panel: rgba(30, 22, 10, 0.82);
+        --border-chassis: rgba(50, 36, 16, 0.85);
+        --primary: #F59E0B;
+        --accent: #EA580C;
+        --tertiary: #EF4444;
+        --title-front: #F59E0B;
+        --title-mid: #6e4704;
+        --title-dark: #241701;
+        --text-main: #FFFBEB;
+        --text-dim: #D97706;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.08;
       }
       @media (prefers-color-scheme: dark) {
         :root {
@@ -34,6 +34,24 @@
           --status: #10B981;
           --warning: #F59E0B;
           --grid-op: 0.08;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #FFFBEB;
+          --bg-panel: #FEF3C7;
+          --border-chassis: #FDE68A;
+          --primary: #ab6e07;
+          --accent: #C2410C;
+          --tertiary: #B91C1C;
+          --title-front: #ab6e07;
+          --title-mid: #664204;
+          --title-dark: #332102;
+          --text-main: #1F2937;
+          --text-dim: #6B7280;
+          --status: #15803D;
+          --warning: #B45309;
+          --grid-op: 0.10;
         }
       }
       @media (hover: hover) {

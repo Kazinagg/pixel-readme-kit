@@ -3,20 +3,20 @@
     <style>
       
       :root {
-        --bg-glass: #F8FAFC;
-        --bg-panel: #F1F5F9;
-        --border-chassis: #E2E8F0;
-        --primary: #1D4ED8;
-        --accent: #6D28D9;
-        --tertiary: #0891B2;
-        --title-front: #1D4ED8;
-        --title-mid: #1E40AF;
-        --title-dark: #0F172A;
-        --text-main: #0F172A;
-        --text-dim: #64748B;
-        --status: #16A34A;
-        --warning: #D97706;
-        --grid-op: 0.10;
+        --bg-glass: rgba(15, 18, 30, 0.85);
+        --bg-panel: rgba(22, 27, 46, 0.80);
+        --border-chassis: rgba(41, 46, 66, 0.85);
+        --primary: #4F8BFF;
+        --accent: #A855F7;
+        --tertiary: #06B6D4;
+        --title-front: #4F8BFF;
+        --title-mid: #2563EB;
+        --title-dark: #1E3A8A;
+        --text-main: #F1F5F9;
+        --text-dim: #94A3B8;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.08;
       }
       @media (prefers-color-scheme: dark) {
         :root {
@@ -36,6 +36,24 @@
           --grid-op: 0.08;
         }
       }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F8FAFC;
+          --bg-panel: #F1F5F9;
+          --border-chassis: #E2E8F0;
+          --primary: #1D4ED8;
+          --accent: #6D28D9;
+          --tertiary: #0891B2;
+          --title-front: #1D4ED8;
+          --title-mid: #1E40AF;
+          --title-dark: #0F172A;
+          --text-main: #0F172A;
+          --text-dim: #64748B;
+          --status: #16A34A;
+          --warning: #D97706;
+          --grid-op: 0.10;
+        }
+      }
       @media (hover: hover) {
         .btn-hover:hover, a:hover polygon, a:hover rect {
           filter: drop-shadow(0 0 6px var(--primary, #4F8BFF));
@@ -48,11 +66,11 @@
     </style>
   </defs>
   <!-- Body Chassis -->
-  <rect x="1" y="2" width="848" height="44" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.5"/>
+  <rect x="2" y="2" width="846" height="44" fill="var(--bg-glass)" stroke="#8957e5" stroke-width="1.5"/><rect x="2" y="2" width="5" height="5" fill="#8957e5"/><rect x="843" y="2" width="5" height="5" fill="#8957e5"/><rect x="2" y="41" width="5" height="5" fill="#8957e5"/><rect x="843" y="41" width="5" height="5" fill="#8957e5"/>
   <!-- Badges & Accents -->
-  <rect x="16" y="11" width="130" height="26" fill="var(--bg-panel)" stroke="#8957e5" stroke-width="1"/><text x="81" y="28" fill="#8957e5" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">INFO // MINIMAL</text>
-  <path d="M 5 12 L 5 5 L 14 5" fill="none" stroke="#8957e5" stroke-width="1.5"/><path d="M 845 12 L 845 5 L 836 5" fill="none" stroke="#8957e5" stroke-width="1.5"/>
+  <rect x="14" y="10" width="140" height="28" fill="var(--bg-panel)" stroke="#8957e5" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="#8957e5"/><text x="90" y="28" fill="#8957e5" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">INFO // 0x01</text>
+  <rect x="815" y="14" width="20" height="20" fill="var(--bg-panel)"/><text x="825" y="28" fill="#8957e5" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>
   <!-- Text Content (Properly offset past badge edge) -->
-  <text x="160" y="22" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">INFO // СИСТЕМНОЕ СООБЩЕНИЕ</text>
-  <text x="160" y="36" fill="var(--accent)" font-size="11" class="font-mono">Микроточечный распад и волосяная рамка</text>
+  <text x="168" y="22" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">INFO // СИСТЕМНОЕ СООБЩЕНИЕ</text>
+  <text x="168" y="36" fill="var(--accent)" font-size="11" class="font-mono">Микроточечный распад и волосяная рамка</text>
 </svg>
