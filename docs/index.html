@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
+    :root, html[data-theme="dark"] {
       --bg: #080b11;
       --bg-elevated: #0d121c;
       --bg-surface: #111724;
@@ -25,9 +25,97 @@
       --text-muted: #64748b;
       --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
       --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --hero-heading: #ffffff;
+      --card-title: #ffffff;
+      --bg-grid-color: rgba(26, 34, 51, 0.35);
+      --bg-radial-color: rgba(0, 229, 176, 0.04);
+      --code-bg: #06090e;
+      --scrollbar-track: #080b11;
+      --scrollbar-thumb: #1e293b;
+      --scrollbar-thumb-hover: #00e5b0;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html[data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-elevated: #ffffff;
+      --bg-surface: #f1f5f9;
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --signal-teal: #0d9488;
+      --signal-amber: #d97706;
+      --signal-blue: #0284c7;
+      --signal-violet: #7c3aed;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --hero-heading: #0f172a;
+      --card-title: #0f172a;
+      --bg-grid-color: rgba(203, 213, 225, 0.45);
+      --bg-radial-color: rgba(13, 148, 136, 0.05);
+      --code-bg: #0f172a;
+      --scrollbar-track: #f1f5f9;
+      --scrollbar-thumb: #cbd5e1;
+      --scrollbar-thumb-hover: #0d9488;
+    }
+
+    /* CUSTOM HUD SCROLLBARS */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--scrollbar-track);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--scrollbar-thumb-hover);
+    }
+
+    /* In-element specialized scrollbars */
+    .component-nav::-webkit-scrollbar,
+    .props-table-wrap::-webkit-scrollbar,
+    .viewer-display-card::-webkit-scrollbar,
+    .cli-command::-webkit-scrollbar,
+    pre.yaml-block::-webkit-scrollbar,
+    .directive-code::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .component-nav::-webkit-scrollbar-track,
+    .props-table-wrap::-webkit-scrollbar-track,
+    .viewer-display-card::-webkit-scrollbar-track,
+    .cli-command::-webkit-scrollbar-track,
+    pre.yaml-block::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.18);
+    }
+    .component-nav::-webkit-scrollbar-thumb,
+    .props-table-wrap::-webkit-scrollbar-thumb,
+    .viewer-display-card::-webkit-scrollbar-thumb {
+      background: rgba(0, 229, 176, 0.28);
+      border-radius: 3px;
+    }
+    html[data-theme="light"] .component-nav::-webkit-scrollbar-thumb,
+    html[data-theme="light"] .props-table-wrap::-webkit-scrollbar-thumb,
+    html[data-theme="light"] .viewer-display-card::-webkit-scrollbar-thumb {
+      background: rgba(13, 148, 136, 0.38);
+    }
+    .component-nav::-webkit-scrollbar-thumb:hover,
+    .props-table-wrap::-webkit-scrollbar-thumb:hover,
+    .viewer-display-card::-webkit-scrollbar-thumb:hover {
+      background: var(--signal-teal);
+    }
 
     html {
       scroll-behavior: smooth;
@@ -39,10 +127,11 @@
       font-family: var(--font-sans);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s, color 0.25s;
       background-image: 
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 229, 176, 0.04), transparent),
-        linear-gradient(rgba(26, 34, 51, 0.35) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(26, 34, 51, 0.35) 1px, transparent 1px);
+        radial-gradient(ellipse 80% 50% at 50% -20%, var(--bg-radial-color), transparent),
+        linear-gradient(var(--bg-grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid-color) 1px, transparent 1px);
       background-size: 100% 100%, 48px 48px, 48px 48px;
     }
 
@@ -70,12 +159,63 @@
       position: sticky;
       top: 0;
       z-index: 100;
+      transition: background-color 0.25s, border-color 0.25s;
+    }
+    html[data-theme="light"] .top-telemetry {
+      background: rgba(255, 255, 255, 0.94);
     }
     .top-telemetry-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 56px;
+      min-height: 56px;
+      padding: 8px 0;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .site-nav-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .site-control-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .control-label {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+    .segmented-control {
+      display: inline-flex;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-surface);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .seg-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+      line-height: 1.2;
+    }
+    .seg-btn:hover {
+      color: var(--text-primary);
+    }
+    .seg-btn.active {
+      background: var(--signal-teal);
+      color: #000000;
+      font-weight: 700;
     }
     .brand-mark {
       display: flex;
@@ -154,7 +294,7 @@
       letter-spacing: -0.03em;
       margin-bottom: 18px;
       max-width: 980px;
-      color: #ffffff;
+      color: var(--hero-heading);
     }
     .hero p.lead {
       font-size: 17px;
@@ -618,7 +758,7 @@
     .spec-card h3 {
       font-size: 17px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--card-title);
     }
     .spec-card p {
       font-size: 14px;
@@ -636,6 +776,7 @@
     .action-panel h3 {
       font-size: 22px;
       margin-bottom: 12px;
+      color: var(--hero-heading);
     }
     .action-panel p {
       color: var(--text-secondary);
@@ -643,7 +784,7 @@
       max-width: 800px;
     }
     pre.yaml-block {
-      background: #05080e;
+      background: var(--code-bg);
       border: 1px solid var(--border-subtle);
       padding: 20px;
       font-family: var(--font-mono);
@@ -657,7 +798,7 @@
     footer.colophon {
       border-top: 1px solid var(--border-subtle);
       padding: 48px 0;
-      background: #06090e;
+      background: var(--bg-surface);
       font-family: var(--font-mono);
       font-size: 12px;
       color: var(--text-muted);
@@ -668,6 +809,34 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
+    }
+
+    /* LIGHT THEME SPECIFIC ADAPTATIONS */
+    html[data-theme="light"] .simulator-toolbar {
+      background: var(--bg-surface);
+    }
+    html[data-theme="light"] .component-nav {
+      background: var(--bg-surface);
+    }
+    html[data-theme="light"] .comp-item-btn:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+    html[data-theme="light"] .props-table th {
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+    }
+    html[data-theme="light"] .props-table td {
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+    }
+    html[data-theme="light"] .directive-card {
+      background: #0f172a;
+    }
+    html[data-theme="light"] .directive-code {
+      color: #f8fafc;
+    }
+    html[data-theme="light"] .cli-strip {
+      background: #0f172a;
     }
   </style>
 </head>
@@ -681,16 +850,33 @@
         <span>PIXEL README KIT</span>
         <span class="version-pill">v5.0-CORE</span>
       </div>
-      <div class="nav-actions">
-        <a href="#simulator">Simulator</a>
-        <a href="#catalog">Catalog (16)</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#actions">Actions</a>
+      <div class="site-nav-group">
+        <nav class="nav-actions">
+          <a href="#simulator" data-i18n="nav_simulator">Simulator</a>
+          <a href="#catalog" data-i18n="nav_catalog">Catalog (16)</a>
+          <a href="#architecture" data-i18n="nav_architecture">Architecture</a>
+          <a href="#actions" data-i18n="nav_actions">Actions</a>
+        </nav>
+        <div class="site-control-pill" title="Site Color Theme / Тема оформления">
+          <span class="control-label" data-i18n="lbl_theme">THEME:</span>
+          <div class="segmented-control" id="site-theme-control">
+            <button class="seg-btn active" id="btn-site-theme-auto" onclick="setSiteTheme('auto')">Auto</button>
+            <button class="seg-btn" id="btn-site-theme-dark" onclick="setSiteTheme('dark')">Dark</button>
+            <button class="seg-btn" id="btn-site-theme-light" onclick="setSiteTheme('light')">Light</button>
+          </div>
+        </div>
+        <div class="site-control-pill" title="Language / Язык интерфейса">
+          <span class="control-label" data-i18n="lbl_lang">LANG:</span>
+          <div class="segmented-control" id="site-lang-control">
+            <button class="seg-btn active" id="btn-lang-en" onclick="setLanguage('en')">EN</button>
+            <button class="seg-btn" id="btn-lang-ru" onclick="setLanguage('ru')">RU</button>
+          </div>
+        </div>
         <a href="https://github.com/Kazinagg/pixel-readme-kit" target="_blank" class="gh-btn">
           <svg height="14" width="14" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
           </svg>
-          Repository
+          <span data-i18n="nav_repo">Repository</span>
         </a>
       </div>
     </div>
@@ -700,31 +886,31 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-meta-strip">
-        <span>[ HARDWARE-INSPIRED VECTOR INSTRUMENTATION ]</span>
+        <span data-i18n="hero_strip_1">[ HARDWARE-INSPIRED VECTOR INSTRUMENTATION ]</span>
         <span>//</span>
-        <span>[ ZERO RUNTIME DEPENDENCIES ]</span>
+        <span data-i18n="hero_strip_2">[ ZERO RUNTIME DEPENDENCIES ]</span>
       </div>
-      <h1>Deterministic SVG instrumentation for GitHub READMEs and profiles.</h1>
-      <p class="lead">
+      <h1 data-i18n="hero_title">Deterministic SVG instrumentation for GitHub READMEs and profiles.</h1>
+      <p class="lead" data-i18n="hero_lead">
         Pure Python standard library engine. Generates standalone vector graphics that survive GitHub Camo proxy caching, adapt to Dark and Light modes via embedded media queries, and compile via markdown directives or local CLI.
       </p>
 
       <div class="hero-metrics-bar">
         <div class="metric-cell">
-          <span class="label">ENGINE LATENCY</span>
+          <span class="label" data-i18n="metric_latency">ENGINE LATENCY</span>
           <span class="value highlight">&lt;40ms / asset</span>
         </div>
         <div class="metric-cell">
-          <span class="label">EXTERNAL DEPS</span>
-          <span class="value">0 (Pure Stdlib)</span>
+          <span class="label" data-i18n="metric_deps">EXTERNAL DEPS</span>
+          <span class="value" data-i18n="metric_deps_val">0 (Pure Stdlib)</span>
         </div>
         <div class="metric-cell">
-          <span class="label">TEST SUITE</span>
-          <span class="value">148 tests (100% pass)</span>
+          <span class="label" data-i18n="metric_tests">TEST SUITE</span>
+          <span class="value" data-i18n="metric_tests_val">148 tests (100% pass)</span>
         </div>
         <div class="metric-cell">
-          <span class="label">CAMO PROXY CACHE</span>
-          <span class="value highlight">Immune (?v=&lt;hash&gt;)</span>
+          <span class="label" data-i18n="metric_camo">CAMO PROXY CACHE</span>
+          <span class="value highlight" data-i18n="metric_camo_val">Immune (?v=&lt;hash&gt;)</span>
         </div>
       </div>
 
@@ -733,22 +919,22 @@
           <span class="prompt">$</span>
           <span id="main-cmd">pipx run pixel-readme-kit studio --open</span>
         </div>
-        <button class="cli-copy-btn" onclick="copySnippet('main-cmd', this)">Copy</button>
+        <button class="cli-copy-btn" onclick="copySnippet('main-cmd', this)" data-i18n="cli_copy">Copy</button>
       </div>
     </section>
 
     <!-- LIVE GITHUB README SIMULATOR -->
     <section id="simulator">
       <div class="workbench-header">
-        <span class="tagline">[01] VERIFICATION RIG</span>
-        <h2>GitHub README Simulator</h2>
-        <p>Switch architectural color palettes and GitHub display modes to inspect real vector asset rendering across themes.</p>
+        <span class="tagline" data-i18n="sim_tagline">[01] VERIFICATION RIG</span>
+        <h2 data-i18n="sim_title">GitHub README Simulator</h2>
+        <p data-i18n="sim_desc">Switch architectural color palettes and GitHub display modes to inspect real vector asset rendering across themes.</p>
       </div>
 
       <div class="simulator-panel">
         <div class="simulator-toolbar">
           <div class="sim-controls-group">
-            <span class="sim-label">COLOR PALETTE:</span>
+            <span class="sim-label" data-i18n="sim_palette_lbl">COLOR PALETTE:</span>
             <button class="theme-chip-btn active" onclick="setSimTheme('cyberpunk')">Cyberpunk</button>
             <button class="theme-chip-btn" onclick="setSimTheme('tactical')">Tactical Amber</button>
             <button class="theme-chip-btn" onclick="setSimTheme('tokyo')">Tokyo Night</button>
@@ -756,7 +942,7 @@
             <button class="theme-chip-btn" onclick="setSimTheme('academic')">Academic Paper</button>
           </div>
           <div class="sim-controls-group">
-            <span class="sim-label">GITHUB MODE:</span>
+            <span class="sim-label" data-i18n="sim_mode_lbl">GITHUB MODE:</span>
             <div class="mode-toggle-group">
               <button class="mode-btn active" id="btn-mode-dark" onclick="setSimMode('dark')">Dark</button>
               <button class="mode-btn" id="btn-mode-light" onclick="setSimMode('light')">Light</button>
@@ -768,7 +954,7 @@
           <div class="gh-readme-frame">
             <div class="gh-readme-header">
               <span>README.md</span>
-              <span>850px Standard Column</span>
+              <span data-i18n="sim_col_note">850px Standard Column</span>
             </div>
             <div class="gh-readme-body">
               <div class="sim-img-wrap">
@@ -792,96 +978,96 @@
     <!-- COMPONENT WORKBENCH & EXPANDED CATALOG -->
     <section id="catalog">
       <div class="workbench-header">
-        <span class="tagline">[02] COMPREHENSIVE COMPONENT CATALOG</span>
-        <h2>Directive Inspector & Builder (16 Elements)</h2>
-        <p>Explore all 16 atomic components in the design system. Review dimensions, inspect themes, and copy production directives.</p>
+        <span class="tagline" data-i18n="catalog_tagline">[02] COMPREHENSIVE COMPONENT CATALOG</span>
+        <h2 data-i18n="catalog_title">Directive Inspector & Builder (16 Elements)</h2>
+        <p data-i18n="catalog_desc">Explore all 16 atomic components in the design system. Review dimensions, inspect themes, and copy production directives.</p>
       </div>
 
       <div class="workbench-layout">
         <div class="component-nav">
-          <div class="nav-category-title">BANNERS &amp; IDENTITY</div>
+          <div class="nav-category-title" data-i18n="cat_banners">BANNERS &amp; IDENTITY</div>
           <button class="comp-item-btn active" onclick="selectComponent('header')">
-            <span>Master Header</span>
+            <span data-i18n="comp_header">Master Header</span>
             <span class="spec-tag">850x155</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('header_compact')">
-            <span>Compact Header</span>
+            <span data-i18n="comp_header_compact">Compact Header</span>
             <span class="spec-tag">850x84</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('profile')">
-            <span>Developer Dossier</span>
+            <span data-i18n="comp_profile">Developer Dossier</span>
             <span class="spec-tag">850x190</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('social')">
-            <span>OpenGraph Social</span>
+            <span data-i18n="comp_social">OpenGraph Social</span>
             <span class="spec-tag">1280x640</span>
           </button>
 
-          <div class="nav-category-title">STRUCTURE &amp; VIEWPORTS</div>
+          <div class="nav-category-title" data-i18n="cat_structure">STRUCTURE &amp; VIEWPORTS</div>
           <button class="comp-item-btn" onclick="selectComponent('window')">
-            <span>Window Viewport</span>
+            <span data-i18n="comp_window">Window Viewport</span>
             <span class="spec-tag">850x240</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('terminal')">
-            <span>Collapsible Terminal</span>
+            <span data-i18n="comp_terminal">Collapsible Terminal</span>
             <span class="spec-tag">850x84</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('footer')">
-            <span>Master Footer Plate</span>
+            <span data-i18n="comp_footer">Master Footer Plate</span>
             <span class="spec-tag">850x76</span>
           </button>
 
-          <div class="nav-category-title">DATA &amp; INFOGRAPHICS</div>
+          <div class="nav-category-title" data-i18n="cat_data">DATA &amp; INFOGRAPHICS</div>
           <button class="comp-item-btn" onclick="selectComponent('metrics')">
-            <span>KPI Metrics Row</span>
+            <span data-i18n="comp_metrics">KPI Metrics Row</span>
             <span class="spec-tag">850x92</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('starchart')">
-            <span>Star Trajectory</span>
+            <span data-i18n="comp_starchart">Star Trajectory</span>
             <span class="spec-tag">850x220</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('progress')">
-            <span>HUD Progress Bar</span>
+            <span data-i18n="comp_progress">HUD Progress Bar</span>
             <span class="spec-tag">850x70</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('techstack')">
-            <span>Tech Stack Matrix</span>
+            <span data-i18n="comp_techstack">Tech Stack Matrix</span>
             <span class="spec-tag">850x110</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('timeline')">
-            <span>Roadmap Timeline</span>
+            <span data-i18n="comp_timeline">Roadmap Timeline</span>
             <span class="spec-tag">850x180</span>
           </button>
 
-          <div class="nav-category-title">NOTICES &amp; ALERTS</div>
+          <div class="nav-category-title" data-i18n="cat_notices">NOTICES &amp; ALERTS</div>
           <button class="comp-item-btn" onclick="selectComponent('callout_note')">
-            <span>Notice: Note</span>
+            <span data-i18n="comp_callout_note">Notice: Note</span>
             <span class="spec-tag">850x62</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('callout_warning')">
-            <span>Notice: Warning</span>
+            <span data-i18n="comp_callout_warning">Notice: Warning</span>
             <span class="spec-tag">850x62</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('callout_critical')">
-            <span>Notice: Critical</span>
+            <span data-i18n="comp_callout_critical">Notice: Critical</span>
             <span class="spec-tag">850x62</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('callout_success')">
-            <span>Notice: Success</span>
+            <span data-i18n="comp_callout_success">Notice: Success</span>
             <span class="spec-tag">850x62</span>
           </button>
 
-          <div class="nav-category-title">DIVIDERS &amp; BADGES</div>
+          <div class="nav-category-title" data-i18n="cat_dividers">DIVIDERS &amp; BADGES</div>
           <button class="comp-item-btn" onclick="selectComponent('divider')">
-            <span>Chapter Divider</span>
+            <span data-i18n="comp_divider">Chapter Divider</span>
             <span class="spec-tag">850x24</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('splitter')">
-            <span>Sub-Block Splitter</span>
+            <span data-i18n="comp_splitter">Sub-Block Splitter</span>
             <span class="spec-tag">850x28</span>
           </button>
           <button class="comp-item-btn" onclick="selectComponent('chip')">
-            <span>Holographic Chip</span>
+            <span data-i18n="comp_chip">Holographic Chip</span>
             <span class="spec-tag">Inline</span>
           </button>
         </div>
@@ -889,7 +1075,7 @@
         <div class="component-viewer">
           <div class="viewer-toolbar">
             <div class="viewer-theme-selector" id="viewer-theme-container">
-              <span class="sim-label">PREVIEW THEME:</span>
+              <span class="sim-label" data-i18n="viewer_theme_lbl">PREVIEW THEME:</span>
               <button class="viewer-theme-btn active" onclick="setViewerTheme('cyberpunk')">Cyberpunk</button>
               <button class="viewer-theme-btn" onclick="setViewerTheme('tactical')">Tactical</button>
               <button class="viewer-theme-btn" onclick="setViewerTheme('tokyo')">Tokyo</button>
@@ -916,21 +1102,21 @@
             </div>
 
             <div class="directive-card">
-              <div class="directive-label">MARKDOWN DIRECTIVE (TEMPLATES):</div>
+              <div class="directive-label" data-i18n="directive_lbl">MARKDOWN DIRECTIVE (TEMPLATES):</div>
               <div class="directive-code" id="viewer-directive">&lt;!-- pixel-kit:header style="pixel" theme="cyberpunk" title="MY-PROJECT" subtitle="SYSTEM SPECIFICATION" spec1="ENGINE: PYTHON STDLIB" spec2="PIPELINE: CAMO IMMUNE" spec3="COMPLIANCE: DUAL THEME" --&gt;</div>
-              <button class="copy-directive-btn" onclick="copySnippet('viewer-directive', this)">Copy Directive</button>
+              <button class="copy-directive-btn" onclick="copySnippet('viewer-directive', this)" data-i18n="directive_copy">Copy Directive</button>
             </div>
 
             <div>
-              <div class="directive-label" style="margin-bottom: 8px;">DIRECTIVE PARAMETER REFERENCE:</div>
+              <div class="directive-label" style="margin-bottom: 8px;" data-i18n="props_lbl">DIRECTIVE PARAMETER REFERENCE:</div>
               <div class="props-table-wrap">
                 <table class="props-table" id="viewer-props-table">
                   <thead>
                     <tr>
-                      <th>Parameter</th>
-                      <th>Type</th>
-                      <th>Default</th>
-                      <th>Description</th>
+                      <th data-i18n="th_param">Parameter</th>
+                      <th data-i18n="th_type">Type</th>
+                      <th data-i18n="th_default">Default</th>
+                      <th data-i18n="th_desc">Description</th>
                     </tr>
                   </thead>
                   <tbody id="viewer-props-body">
@@ -947,40 +1133,40 @@
     <!-- ARCHITECTURAL GUARANTEES -->
     <section id="architecture">
       <div class="workbench-header">
-        <span class="tagline">[03] ENGINEERING PRINCIPLES</span>
-        <h2>Why Standalone SVGs Outperform Web Badges</h2>
-        <p>Built from first principles to survive GitHub CDN caching mechanics and eliminate third-party API dependencies.</p>
+        <span class="tagline" data-i18n="arch_tagline">[03] ENGINEERING PRINCIPLES</span>
+        <h2 data-i18n="arch_title">Why Standalone SVGs Outperform Web Badges</h2>
+        <p data-i18n="arch_desc">Built from first principles to survive GitHub CDN caching mechanics and eliminate third-party API dependencies.</p>
       </div>
 
       <div class="specs-grid">
         <div class="spec-card">
-          <span class="indicator">[01] CACHE RESILIENCE</span>
-          <h3>GitHub Camo Proxy Immunity</h3>
-          <p>
+          <span class="indicator" data-i18n="spec1_indicator">[01] CACHE RESILIENCE</span>
+          <h3 data-i18n="spec1_title">GitHub Camo Proxy Immunity</h3>
+          <p data-i18n="spec1_desc">
             GitHub proxies external images through <code>camo.githubusercontent.com</code> with aggressive cache headers. Dynamic API badges fail when upstream APIs rate-limit or timeout. Pixel Readme Kit compiles assets into your repository and appends deterministic SHA-256 hashes (<code>?v=&lt;hash&gt;</code>) during build.
           </p>
         </div>
 
         <div class="spec-card">
-          <span class="indicator">[02] ADAPTIVE THEMING</span>
-          <h3>Single-File CSS Media Queries</h3>
-          <p>
+          <span class="indicator" data-i18n="spec2_indicator">[02] ADAPTIVE THEMING</span>
+          <h3 data-i18n="spec2_title">Single-File CSS Media Queries</h3>
+          <p data-i18n="spec2_desc">
             Each SVG includes embedded CSS <code>@media (prefers-color-scheme: dark)</code> rules. A single vector file shifts foreground contrast, grid visibility, and panel transparency when the user toggles between GitHub Dark and Light themes.
           </p>
         </div>
 
         <div class="spec-card">
-          <span class="indicator">[03] DETERMINISTIC COMPILATION</span>
-          <h3>Pure Python Stdlib (&lt;40ms)</h3>
-          <p>
+          <span class="indicator" data-i18n="spec3_indicator">[03] DETERMINISTIC COMPILATION</span>
+          <h3 data-i18n="spec3_title">Pure Python Stdlib (&lt;40ms)</h3>
+          <p data-i18n="spec3_desc">
             No Node.js, no Chromium binaries, no Cairo graphics bindings. The compiler runs on any standard Python 3.8+ installation with zero pip dependencies, making it instantaneous inside GitHub Actions CI runners.
           </p>
         </div>
 
         <div class="spec-card">
-          <span class="indicator">[04] AI AGENT WORKFLOWS</span>
-          <h3>Model Context Protocol (MCP)</h3>
-          <p>
+          <span class="indicator" data-i18n="spec4_indicator">[04] AI AGENT WORKFLOWS</span>
+          <h3 data-i18n="spec4_title">Model Context Protocol (MCP)</h3>
+          <p data-i18n="spec4_desc">
             Pixel Readme Kit ships with an integrated MCP server for Claude Code, Cursor, and Antigravity. AI coding assistants discover, scaffold, and recompile repository documentation autonomously without manual CLI steps.
           </p>
         </div>
@@ -989,8 +1175,8 @@
 
     <!-- GITHUB ACTIONS AUTOMATION -->
     <section id="actions" class="action-panel">
-      <h3>Automated Scheduled Sync (GitHub Actions)</h3>
-      <p>Keep star growth trajectories, issue counters, and contributor telemetry fresh on a daily cron without external webhooks:</p>
+      <h3 data-i18n="actions_title">Automated Scheduled Sync (GitHub Actions)</h3>
+      <p data-i18n="actions_desc">Keep star growth trajectories, issue counters, and contributor telemetry fresh on a daily cron without external webhooks:</p>
       <pre class="yaml-block">name: Sync README Telemetry
 on:
   schedule:
@@ -1020,10 +1206,10 @@ jobs:
   <footer class="colophon">
     <div class="shell colophon-inner">
       <div>
-        <span>PIXEL README KIT</span> // <span>DETERMINISTIC GITHUB INSTRUMENTATION</span>
+        <span data-i18n="colophon_left">PIXEL README KIT // DETERMINISTIC GITHUB INSTRUMENTATION</span>
       </div>
       <div>
-        <span>Authored by Kazinagg</span> // <span>MIT Licensed</span> // <span>Python 3.8+</span>
+        <span data-i18n="colophon_right">Authored by Kazinagg // MIT Licensed // Python 3.8+</span>
       </div>
     </div>
   </footer>
@@ -1036,6 +1222,251 @@ jobs:
         btn.innerText = 'Copied';
         setTimeout(() => btn.innerText = orig, 1800);
       });
+    }
+
+    // SITE-WIDE THEME CONTROLLER
+    let currentSiteThemeMode = 'auto';
+
+    function applySiteTheme(isLight) {
+      if (isLight) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    }
+
+    const systemThemeMedia = window.matchMedia('(prefers-color-scheme: light)');
+    function handleSystemThemeChange(e) {
+      if (currentSiteThemeMode === 'auto') {
+        applySiteTheme(e.matches);
+      }
+    }
+    if (systemThemeMedia.addEventListener) {
+      systemThemeMedia.addEventListener('change', handleSystemThemeChange);
+    } else if (systemThemeMedia.addListener) {
+      systemThemeMedia.addListener(handleSystemThemeChange);
+    }
+
+    function setSiteTheme(mode) {
+      currentSiteThemeMode = mode;
+      localStorage.setItem('prk_site_theme', mode);
+
+      const btnAuto = document.getElementById('btn-site-theme-auto');
+      const btnDark = document.getElementById('btn-site-theme-dark');
+      const btnLight = document.getElementById('btn-site-theme-light');
+      if (btnAuto) btnAuto.classList.toggle('active', mode === 'auto');
+      if (btnDark) btnDark.classList.toggle('active', mode === 'dark');
+      if (btnLight) btnLight.classList.toggle('active', mode === 'light');
+
+      if (mode === 'auto') {
+        applySiteTheme(systemThemeMedia.matches);
+      } else {
+        applySiteTheme(mode === 'light');
+      }
+    }
+
+    // SITE-WIDE I18N CONTROLLER
+    let currentLang = 'en';
+
+    const I18N = {
+      en: {
+        nav_simulator: "Simulator",
+        nav_catalog: "Catalog (16)",
+        nav_architecture: "Architecture",
+        nav_actions: "Actions",
+        lbl_theme: "THEME:",
+        lbl_lang: "LANG:",
+        nav_repo: "Repository",
+
+        hero_strip_1: "[ HARDWARE-INSPIRED VECTOR INSTRUMENTATION ]",
+        hero_strip_2: "[ ZERO RUNTIME DEPENDENCIES ]",
+        hero_title: "Deterministic SVG instrumentation for GitHub READMEs and profiles.",
+        hero_lead: "Pure Python standard library engine. Generates standalone vector graphics that survive GitHub Camo proxy caching, adapt to Dark and Light modes via embedded media queries, and compile via markdown directives or local CLI.",
+        metric_latency: "ENGINE LATENCY",
+        metric_deps: "EXTERNAL DEPS",
+        metric_deps_val: "0 (Pure Stdlib)",
+        metric_tests: "TEST SUITE",
+        metric_tests_val: "148 tests (100% pass)",
+        metric_camo: "CAMO PROXY CACHE",
+        metric_camo_val: "Immune (?v=<hash>)",
+        cli_copy: "Copy",
+
+        sim_tagline: "[01] VERIFICATION RIG",
+        sim_title: "GitHub README Simulator",
+        sim_desc: "Switch architectural color palettes and GitHub display modes to inspect real vector asset rendering across themes.",
+        sim_palette_lbl: "COLOR PALETTE:",
+        sim_mode_lbl: "GITHUB MODE:",
+        sim_col_note: "850px Standard Column",
+
+        catalog_tagline: "[02] COMPREHENSIVE COMPONENT CATALOG",
+        catalog_title: "Directive Inspector & Builder (16 Elements)",
+        catalog_desc: "Explore all 16 atomic components in the design system. Review dimensions, inspect themes, and copy production directives.",
+        cat_banners: "BANNERS & IDENTITY",
+        cat_structure: "STRUCTURE & VIEWPORTS",
+        cat_data: "DATA & INFOGRAPHICS",
+        cat_notices: "NOTICES & ALERTS",
+        cat_dividers: "DIVIDERS & BADGES",
+
+        comp_header: "Master Header",
+        comp_header_compact: "Compact Header",
+        comp_profile: "Developer Dossier",
+        comp_social: "OpenGraph Social",
+        comp_window: "Window Viewport",
+        comp_terminal: "Collapsible Terminal",
+        comp_footer: "Master Footer Plate",
+        comp_metrics: "KPI Metrics Row",
+        comp_starchart: "Star Trajectory",
+        comp_progress: "HUD Progress Bar",
+        comp_techstack: "Tech Stack Matrix",
+        comp_timeline: "Roadmap Timeline",
+        comp_callout_note: "Notice: Note",
+        comp_callout_warning: "Notice: Warning",
+        comp_callout_critical: "Notice: Critical",
+        comp_callout_success: "Notice: Success",
+        comp_divider: "Chapter Divider",
+        comp_splitter: "Sub-Block Splitter",
+        comp_chip: "Holographic Chip",
+
+        viewer_theme_lbl: "PREVIEW THEME:",
+        directive_lbl: "MARKDOWN DIRECTIVE (TEMPLATES):",
+        directive_copy: "Copy Directive",
+        props_lbl: "DIRECTIVE PARAMETER REFERENCE:",
+        th_param: "Parameter",
+        th_type: "Type",
+        th_default: "Default",
+        th_desc: "Description",
+
+        arch_tagline: "[03] ENGINEERING PRINCIPLES",
+        arch_title: "Why Standalone SVGs Outperform Web Badges",
+        arch_desc: "Built from first principles to survive GitHub CDN caching mechanics and eliminate third-party API dependencies.",
+        spec1_indicator: "[01] CACHE RESILIENCE",
+        spec1_title: "GitHub Camo Proxy Immunity",
+        spec1_desc: "GitHub proxies external images through camo.githubusercontent.com with aggressive cache headers. Dynamic API badges fail when upstream APIs rate-limit or timeout. Pixel Readme Kit compiles assets into your repository and appends deterministic SHA-256 hashes (?v=<hash>) during build.",
+        spec2_indicator: "[02] ADAPTIVE THEMING",
+        spec2_title: "Single-File CSS Media Queries",
+        spec2_desc: "Each SVG includes embedded CSS @media (prefers-color-scheme: dark) rules. A single vector file shifts foreground contrast, grid visibility, and panel transparency when the user toggles between GitHub Dark and Light themes.",
+        spec3_indicator: "[03] DETERMINISTIC COMPILATION",
+        spec3_title: "Pure Python Stdlib (<40ms)",
+        spec3_desc: "No Node.js, no Chromium binaries, no Cairo graphics bindings. The compiler runs on any standard Python 3.8+ installation with zero pip dependencies, making it instantaneous inside GitHub Actions CI runners.",
+        spec4_indicator: "[04] AI AGENT WORKFLOWS",
+        spec4_title: "Model Context Protocol (MCP)",
+        spec4_desc: "Pixel Readme Kit ships with an integrated MCP server for Claude Code, Cursor, and Antigravity. AI coding assistants discover, scaffold, and recompile repository documentation autonomously without manual CLI steps.",
+
+        actions_title: "Automated Scheduled Sync (GitHub Actions)",
+        actions_desc: "Keep star growth trajectories, issue counters, and contributor telemetry fresh on a daily cron without external webhooks:",
+
+        colophon_left: "PIXEL README KIT // DETERMINISTIC GITHUB INSTRUMENTATION",
+        colophon_right: "Authored by Kazinagg // MIT Licensed // Python 3.8+"
+      },
+      ru: {
+        nav_simulator: "Симулятор",
+        nav_catalog: "Каталог (16)",
+        nav_architecture: "Архитектура",
+        nav_actions: "CI/CD Actions",
+        lbl_theme: "ТЕМА:",
+        lbl_lang: "ЯЗЫК:",
+        nav_repo: "Репозиторий",
+
+        hero_strip_1: "[ ВЕКТОРНАЯ АППАРАТНАЯ ЭСТЕТИКА ]",
+        hero_strip_2: "[ НОЛЬ СТОРОННИХ ЗАВИСИМОСТЕЙ ]",
+        hero_title: "Детерминированная SVG-инструментация для GitHub README и профилей.",
+        hero_lead: "Движок на чистой стандартной библиотеке Python. Генерирует автономные векторные SVG, устойчивые к кэшированию GitHub Camo proxy, адаптирующиеся к темной и светлой темам через встроенные media queries и компилируемые через директивы Markdown или CLI.",
+        metric_latency: "ЗАДЕРЖКА КОМПИЛЯЦИИ",
+        metric_deps: "ВНЕШНИЕ ЗАВИСИМОСТИ",
+        metric_deps_val: "0 (Чистый Stdlib)",
+        metric_tests: "НАБОР ТЕСТОВ",
+        metric_tests_val: "148 тестов (100% успех)",
+        metric_camo: "КЭШ CAMO PROXY",
+        metric_camo_val: "Иммунитет (?v=<хеш>)",
+        cli_copy: "Копировать",
+
+        sim_tagline: "[01] ИСПЫТАТЕЛЬНЫЙ СТЕНД",
+        sim_title: "Симулятор GitHub README",
+        sim_desc: "Переключайте архитектурные цветовые палитры и режимы отображения GitHub для проверки рендеринга векторных ассетов в разных темах.",
+        sim_palette_lbl: "ЦВЕТОВАЯ ПАЛИТРА:",
+        sim_mode_lbl: "РЕЖИМ GITHUB:",
+        sim_col_note: "Стандартная колонка 850px",
+
+        catalog_tagline: "[02] ПОЛНЫЙ КАТАЛОГ КОМПОНЕНТОВ",
+        catalog_title: "Инспектор и конструктор директив (16 элементов)",
+        catalog_desc: "Изучите все 16 атомарных компонентов дизайн-системы. Проверяйте габариты, темы оформления и копируйте готовые markdown-директивы.",
+        cat_banners: "БАННЕРЫ И ИДЕНТИКА",
+        cat_structure: "СТРУКТУРА И ОКНА",
+        cat_data: "ДАННЫЕ И ИНФОГРАФИКА",
+        cat_notices: "УВЕДОМЛЕНИЯ И АЛЕРТЫ",
+        cat_dividers: "РАЗДЕЛИТЕЛИ И БЕЙДЖИ",
+
+        comp_header: "Главный баннер",
+        comp_header_compact: "Компактный баннер",
+        comp_profile: "Карточка досье",
+        comp_social: "OpenGraph баннер",
+        comp_window: "Оконный контейнер",
+        comp_terminal: "Сворачиваемый терминал",
+        comp_footer: "Базовый футер",
+        comp_metrics: "Полоса KPI метрик",
+        comp_starchart: "Траектория звезд",
+        comp_progress: "HUD прогресс-бар",
+        comp_techstack: "Матрица технологий",
+        comp_timeline: "Таймлайн роадмапа",
+        comp_callout_note: "Заметка (Note)",
+        comp_callout_warning: "Предупреждение (Warning)",
+        comp_callout_critical: "Критично (Critical)",
+        comp_callout_success: "Успех (Success)",
+        comp_divider: "Разделитель глав",
+        comp_splitter: "Микро-разделитель",
+        comp_chip: "Голографический чип",
+
+        viewer_theme_lbl: "ТЕМА ПРЕДПРОСМОТРА:",
+        directive_lbl: "ДИРЕКТИВА ДЛЯ MARKDOWN (ШАБЛОН):",
+        directive_copy: "Скопировать директиву",
+        props_lbl: "СПРАВОЧНИК ПАРАМЕТРОВ ДИРЕКТИВЫ:",
+        th_param: "Параметр",
+        th_type: "Тип",
+        th_default: "По умолчанию",
+        th_desc: "Описание",
+
+        arch_tagline: "[03] ИНЖЕНЕРНЫЕ ПРИНЦИПЫ",
+        arch_title: "Почему автономные SVG превосходят внешние веб-бейджи",
+        arch_desc: "Спроектировано с учетом архитектуры кэширования GitHub CDN и исключения сторонних точек отказа.",
+        spec1_indicator: "[01] УСТОЙЧИВОСТЬ К КЭШУ",
+        spec1_title: "Иммунитет к кэшированию Camo Proxy",
+        spec1_desc: "GitHub проксирует внешние изображения через camo.githubusercontent.com с жесткими заголовками кэша. Динамические API-бейджи ломаются при лимитах или таймаутах. Pixel Readme Kit компилирует ассеты прямо в репозиторий и добавляет SHA-256 хеши (?v=<хеш>) при сборке.",
+        spec2_indicator: "[02] АДАПТИВНАЯ ТЕМАТИЗАЦИЯ",
+        spec2_title: "CSS Media Queries в одном файле",
+        spec2_desc: "Каждый SVG содержит встроенные стили @media (prefers-color-scheme: dark). Единый векторный файл самостоятельно меняет контраст, сетки и прозрачность при переключении пользователем темной и светлой темы GitHub.",
+        spec3_indicator: "[03] ДЕТЕРМИНИРОВАННАЯ КОМПИЛЯЦИЯ",
+        spec3_title: "Чистый Python Stdlib (<40 мс)",
+        spec3_desc: "Без Node.js, без тяжелых браузеров Chromium и без Cairo bindings. Компилятор работает в любой стандартной среде Python 3.8+ с нулем pip-зависимостей, моментально отрабатывая в GitHub Actions CI.",
+        spec4_indicator: "[04] ПОДДЕРЖКА AI-АГЕНТОВ",
+        spec4_title: "Протокол Model Context Protocol (MCP)",
+        spec4_desc: "В состав входит встроенный MCP-сервер для Claude Code, Cursor и Antigravity. AI-ассистенты могут автономно инспектировать структуру, генерировать директивы и обновлять документацию репозитория.",
+
+        actions_title: "Автоматическая синхронизация (GitHub Actions)",
+        actions_desc: "Поддерживайте свежесть звезд, счетчиков задач и телеметрии участников по ежедневному расписанию без внешних вебхуков:",
+
+        colophon_left: "PIXEL README KIT // ДЕТЕРМИНИРОВАННАЯ SVG-ИНСТРУМЕНТАЦИЯ GITHUB",
+        colophon_right: "Создатель: Kazinagg // Лицензия MIT // Python 3.8+"
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('prk_site_lang', lang);
+
+      const btnEn = document.getElementById('btn-lang-en');
+      const btnRu = document.getElementById('btn-lang-ru');
+      if (btnEn) btnEn.classList.toggle('active', lang === 'en');
+      if (btnRu) btnRu.classList.toggle('active', lang === 'ru');
+
+      const dict = I18N[lang] || I18N.en;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerText = dict[key];
+        }
+      });
+
+      renderComponentDetails(currentComponentKey || 'header');
     }
 
     const SIM_THEMES = {
@@ -1427,6 +1858,333 @@ jobs:
       }
     };
 
+    const CATALOG_I18N = {
+      en: {
+        header: {
+          title: 'Master Header Banner',
+          desc: 'Flagship full-width repository header with radar sweep telemetry, 3-level technical specifications, status badge, and control buttons.',
+          propsDesc: {
+            style: 'Geometry paradigm: pixel, modern, or corporate',
+            theme: 'Color palette: cyberpunk, tactical, tokyo, nordic-frost, academic-paper',
+            title: 'Primary 3D or vector header text',
+            subtitle: 'Secondary monospace specification title',
+            'spec1, spec2, spec3': 'Monospace telemetry readouts in the status panel',
+            tag: 'Top-left system status indicator tag'
+          }
+        },
+        header_compact: {
+          title: 'Compact Module Header',
+          desc: 'Sub-system banner for internal documentation modules and nested repository sub-packages. Optimized 84px height.',
+          propsDesc: {
+            compact: 'Renders low-profile 84px height banner',
+            title: 'Module or package name',
+            subtitle: 'Brief subsystem diagnostic label'
+          }
+        },
+        profile: {
+          title: 'Developer Dossier Card',
+          desc: 'Identity card for GitHub developer profiles. Features distinct geometry per theme: Cyberpunk deck with 3D text, Tactical HUD with azimuth rangefinder, or Academic card with clean vector typography.',
+          propsDesc: {
+            name: 'Developer name (3D in Cyber/Tactical, pure vector in Academic)',
+            role: 'Primary specialization pill',
+            bio: 'Summary bio line with collision protection',
+            status: 'Availability status badge',
+            badge: 'Top-right ranking or ID badge'
+          }
+        },
+        social: {
+          title: 'OpenGraph Social Card',
+          desc: 'High-resolution preview card for GitHub social sharing and repository banner metadata (1280x640).',
+          propsDesc: {
+            title: 'Repository banner title',
+            subtitle: 'Project tagline descriptor',
+            repo: 'GitHub repository identifier',
+            tags: 'Comma-separated technology tags'
+          }
+        },
+        window: {
+          title: 'Window Module Viewport',
+          desc: 'Structural container enclosing live Markdown text, tables, and code blocks between responsive chamfered top brackets and a bottom closing skid.',
+          propsDesc: {
+            title: 'Title displayed on the top window bracket',
+            theme: 'Color palette for brackets and borders'
+          }
+        },
+        terminal: {
+          title: 'Interactive Collapsible Terminal',
+          desc: 'Zero-JS interactive disclosure widget powered by GitHub native <details><summary>. Keeps extensive logs, benchmarks, or trace dumps collapsed by default.',
+          propsDesc: {
+            title: 'Terminal summary button header',
+            subtitle: 'Secondary prompt instructions'
+          }
+        },
+        footer: {
+          title: 'Master Footer Plate',
+          desc: 'Monumental closing base plate for the entire repository or developer profile with an active return-to-top navigation link.',
+          propsDesc: {
+            status: 'System status readout',
+            nav_text: 'Clickable jump anchor text'
+          }
+        },
+        metrics: {
+          title: 'KPI Metrics Dashboard Row',
+          desc: 'High-contrast metrics strip displaying key project benchmarks, star counts, test suites, or uptime metrics with trend arrows.',
+          propsDesc: {
+            items: 'Pipe-separated metric definitions with labels and values',
+            theme: 'Color palette for card frames'
+          }
+        },
+        starchart: {
+          title: 'Star Growth Trajectory',
+          desc: 'Area-fill vector chart plotting historical repository stargazers with peak markers, percentage delta, and GitHub API extraction.',
+          propsDesc: {
+            repo: 'GitHub repository path for API extraction',
+            auto_fetch: 'Enables automatic API extraction during compile',
+            delta: 'Growth delta badge annotation'
+          }
+        },
+        progress: {
+          title: 'Segmented HUD Progress Bar',
+          desc: 'Calibrated percentage bar with discrete step segments, title diagnosis, and subtext labels.',
+          propsDesc: {
+            value: 'Completion percentage (0 to 100)',
+            label: 'Primary progress bar header',
+            sub: 'Detailed milestone telemetry readout'
+          }
+        },
+        techstack: {
+          title: 'Tech Stack Matrix',
+          desc: 'High-density grid of pure vector pixel icons representing languages, runtimes, containers, and tools with zero external fonts.',
+          propsDesc: {
+            items: 'Comma-separated icon slugs (python, docker, git, etc.)',
+            columns: 'Number of columns in the grid layout'
+          }
+        },
+        timeline: {
+          title: 'Roadmap Timeline PCB Bus',
+          desc: 'Vertical circuit bus connecting milestone deliverables, delivery quarters, and status tags.',
+          propsDesc: {
+            theme: 'Color palette for bus traces and nodes'
+          }
+        },
+        callout_note: {
+          title: 'Notice Callout: Note',
+          desc: 'Informational banner with glass panel backing and high-contrast monospace typography.',
+          propsDesc: {
+            type: 'Callout variant: note, warning, critical, success',
+            title: 'Primary specification title',
+            subtitle: 'Two-line adaptive explanation'
+          }
+        },
+        callout_warning: {
+          title: 'Notice Callout: Warning',
+          desc: 'Warning notification banner with amber hazard accent and high-contrast typography.',
+          propsDesc: {
+            type: 'Amber warning indicator'
+          }
+        },
+        callout_critical: {
+          title: 'Notice Callout: Critical',
+          desc: 'High-severity alert banner for deprecation notices or security hazards.',
+          propsDesc: {
+            type: 'Red emergency indicator'
+          }
+        },
+        callout_success: {
+          title: 'Notice Callout: Success',
+          desc: 'Verified status banner for test suite passes and compliance certification.',
+          propsDesc: {
+            type: 'Emerald verified indicator'
+          }
+        },
+        divider: {
+          title: 'Global Chapter Divider',
+          desc: 'Structural line separating major documentation sections (PCB circuit bus or laser beam).',
+          propsDesc: {
+            type: 'Pattern type: pcb, laser, or wave'
+          }
+        },
+        splitter: {
+          title: 'Sub-Block Splitter',
+          desc: 'Horizontal rule with centered title tag for structuring content within windows and sections.',
+          propsDesc: {
+            label: 'Center divider label text'
+          }
+        },
+        chip: {
+          title: 'Holographic Badge / Chip',
+          desc: 'Compact inline chip with decay borders, pulse glows, and live GitHub stat sync.',
+          propsDesc: {
+            text: 'Display text on the badge',
+            github: 'Live GitHub metric: stars, forks, issues, license',
+            repo: 'Target repository path'
+          }
+        }
+      },
+      ru: {
+        header: {
+          title: 'Главный баннер репозитория',
+          desc: 'Флагманский полноразмерный заголовок с телеметрией радарной развертки, 3-уровневыми техническими спецификациями, системным бейджем и кнопками управления.',
+          propsDesc: {
+            style: 'Геометрический стиль: pixel, modern или corporate',
+            theme: 'Цветовая палитра: cyberpunk, tactical, tokyo, nordic-frost, academic-paper',
+            title: 'Основной 3D или векторный заголовок',
+            subtitle: 'Вторичная моноширинная строка спецификации',
+            'spec1, spec2, spec3': 'Моноширинные показания телеметрии на панели статуса',
+            tag: 'Системный тег статуса в верхнем левом углу'
+          }
+        },
+        header_compact: {
+          title: 'Компактный модульный баннер',
+          desc: 'Баннер подсистем для внутренней документации и вложенных пакетов репозитория. Оптимизированная высота 84px.',
+          propsDesc: {
+            compact: 'Рендерит низкопрофильный баннер высотой 84px',
+            title: 'Имя модуля или пакета',
+            subtitle: 'Краткая диагностическая метка подсистемы'
+          }
+        },
+        profile: {
+          title: 'Карточка досье разработчика',
+          desc: 'Идентификационная карточка для профилей GitHub. Отличается уникальной геометрией для каждой темы: киберпанк-палуба с 3D-шрифтом, тактический видоискатель с азимутом или академическая карточка с чистой типографикой.',
+          propsDesc: {
+            name: 'Имя разработчика (3D в Cyber/Tactical, чистый вектор в Academic)',
+            role: 'Основная специализация разработчика',
+            bio: 'Краткое описание с защитой от наложения текста',
+            status: 'Бейдж текущей доступности разработчика',
+            badge: 'Рейтинг или ID-бейдж в верхнем правом углу'
+          }
+        },
+        social: {
+          title: 'Превью-карточка OpenGraph',
+          desc: 'Карточка высокого разрешения для шеринга в социальных сетях и метаданных баннера GitHub (1280x640).',
+          propsDesc: {
+            title: 'Заголовок баннера репозитория',
+            subtitle: 'Дескриптор подзаголовка проекта',
+            repo: 'Идентификатор репозитория GitHub',
+            tags: 'Теги технологий через запятую'
+          }
+        },
+        window: {
+          title: 'Оконный контейнер документации',
+          desc: 'Структурный контейнер для разметки Markdown, формул KaTeX и таблиц между скошенными угловыми кронштейнами и нижним защитным шасси.',
+          propsDesc: {
+            title: 'Заголовок, отображаемый на верхнем кронштейне окна',
+            theme: 'Цветовая палитра кронштейнов и рамок'
+          }
+        },
+        terminal: {
+          title: 'Интерактивный сворачиваемый терминал',
+          desc: 'Интерактивный виджет без JavaScript на нативном теге GitHub <details><summary>. Сохраняет логи сборки, бенчмарки и дампы трассировок свернутыми по умолчанию.',
+          propsDesc: {
+            title: 'Заголовок кнопки раскрытия терминала',
+            subtitle: 'Вторичная строка подсказки команды'
+          }
+        },
+        footer: {
+          title: 'Базовая опорная плита (Футер)',
+          desc: 'Монументальная завершающая плита в нижней части документации или профиля с активной ссылкой возврата к началу страницы.',
+          propsDesc: {
+            status: 'Показание системного статуса завершения',
+            nav_text: 'Текст кликабельной якорной ссылки наверх'
+          }
+        },
+        metrics: {
+          title: 'Полоса ключевых KPI-метрик',
+          desc: 'Высококонтрастная полоса с ключевыми показателями проекта, числом звезд, покрытием тестами и временем непрерывной работы с индикаторами тренда.',
+          propsDesc: {
+            items: 'Определения метрик через вертикальную черту (|) с метками и значениями',
+            theme: 'Цветовая палитра рамок карточек'
+          }
+        },
+        starchart: {
+          title: 'Траектория роста звезд репозитория',
+          desc: 'Векторный график с заливкой области, отображающий динамику звезд репозитория с пиковыми маркерами, процентом роста и автоматической загрузкой через GitHub API.',
+          propsDesc: {
+            repo: 'Путь к репозиторию GitHub для извлечения через API',
+            auto_fetch: 'Включает автоматическое извлечение данных API при компиляции',
+            delta: 'Аннотация дельты прироста звезд'
+          }
+        },
+        progress: {
+          title: 'Сегментированный HUD прогресс-бар',
+          desc: 'Калиброванная шкала прогресса с дискретными сегментами, диагностикой этапа и строкой детализации.',
+          propsDesc: {
+            value: 'Процент выполнения (от 0 до 100)',
+            label: 'Основной заголовок прогресс-бара',
+            sub: 'Подробная телеметрия текущего этапа'
+          }
+        },
+        techstack: {
+          title: 'Матрица технологического стека',
+          desc: 'Высокоплотная сетка векторных пиксельных иконок языков, контейнеров и инструментов с нулевой зависимостью от внешних шрифтов.',
+          propsDesc: {
+            items: 'Список иконок через запятую (python, docker, git и т.д.)',
+            columns: 'Количество колонок в сетке'
+          }
+        },
+        timeline: {
+          title: 'Шина таймлайна дорожной карты (PCB)',
+          desc: 'Вертикальная монтажная шина, соединяющая ключевые этапы релизов, кварталы сдачи и статусные теги.',
+          propsDesc: {
+            theme: 'Цветовая палитра проводников шины и узлов'
+          }
+        },
+        callout_note: {
+          title: 'Информационная плашка: Note',
+          desc: 'Информационный баннер с полупрозрачной подложкой и высококонтрастной моноширинной типографикой.',
+          propsDesc: {
+            type: 'Вариант плашки: note, warning, critical, success',
+            title: 'Основной заголовок спецификации',
+            subtitle: 'Двухстрочное адаптивное пояснение'
+          }
+        },
+        callout_warning: {
+          title: 'Предупреждающая плашка: Warning',
+          desc: 'Оповещение о потенциальной опасности с янтарным цветовым акцентом и четкой типографикой.',
+          propsDesc: {
+            type: 'Янтарный индикатор предупреждения'
+          }
+        },
+        callout_critical: {
+          title: 'Критическая плашка: Critical',
+          desc: 'Тревожный баннер высокой важности для уведомлений об устаревании или рисках безопасности.',
+          propsDesc: {
+            type: 'Красный аварийный индикатор'
+          }
+        },
+        callout_success: {
+          title: 'Плашка подтверждения: Success',
+          desc: 'Статусный баннер для успешного прохождения тестов и подтверждения соответствия стандартам.',
+          propsDesc: {
+            type: 'Изумрудный индикатор подтверждения'
+          }
+        },
+        divider: {
+          title: 'Глобальный разделитель глав',
+          desc: 'Структурная линия для разделения крупных секций документации (шина печатной платы PCB или лазерный луч).',
+          propsDesc: {
+            type: 'Тип паттерна: pcb, laser или wave'
+          }
+        },
+        splitter: {
+          title: 'Внутренний микро-разделитель',
+          desc: 'Тонкая горизонтальная линия с центральным тегом заголовка для структурирования содержимого внутри блоков.',
+          propsDesc: {
+            label: 'Текст центральной метки разделителя'
+          }
+        },
+        chip: {
+          title: 'Голографический бейдж (Чип)',
+          desc: 'Компактный строчный чип с контурными рамками, пульсирующим свечением и автосинхронизацией статистики GitHub.',
+          propsDesc: {
+            text: 'Текст, отображаемый на бейдже',
+            github: 'Метрика GitHub: stars, forks, issues, license',
+            repo: 'Целевой репозиторий GitHub'
+          }
+        }
+      }
+    };
+
     function getCatalogAsset(data, themeKey, mode) {
       if (!data || !data.themes) return '';
       let entry = data.themes[themeKey] || Object.values(data.themes)[0];
@@ -1452,16 +2210,16 @@ jobs:
       }
     }
 
-    function selectComponent(compKey) {
-      document.querySelectorAll('.comp-item-btn').forEach(b => b.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-
-      currentComponentKey = compKey;
+    function renderComponentDetails(compKey) {
       const data = CATALOG[compKey];
       if (!data) return;
 
-      document.getElementById('viewer-title').innerText = data.title;
-      document.getElementById('viewer-desc').innerText = data.desc;
+      const langPack = (CATALOG_I18N[currentLang] && CATALOG_I18N[currentLang][compKey]) || {};
+      const title = langPack.title || data.title;
+      const desc = langPack.desc || data.desc;
+
+      document.getElementById('viewer-title').innerText = title;
+      document.getElementById('viewer-desc').innerText = desc;
       document.getElementById('viewer-directive').innerText = data.directive;
       document.getElementById('viewer-dim-tag').innerText = data.dim;
 
@@ -1477,16 +2235,30 @@ jobs:
       tbody.innerHTML = '';
       if (data.props && data.props.length > 0) {
         data.props.forEach(p => {
+          const propDesc = (langPack.propsDesc && langPack.propsDesc[p.name]) || p.desc;
           const tr = document.createElement('tr');
           tr.innerHTML = `
             <td><code>${p.name}</code></td>
             <td>${p.type}</td>
             <td><code>${p.def}</code></td>
-            <td>${p.desc}</td>
+            <td>${propDesc}</td>
           `;
           tbody.appendChild(tr);
         });
       }
+    }
+
+    function selectComponent(compKey) {
+      document.querySelectorAll('.comp-item-btn').forEach(b => b.classList.remove('active'));
+      if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add('active');
+      } else {
+        const btn = document.querySelector(`.comp-item-btn[onclick*="'${compKey}'"]`);
+        if (btn) btn.classList.add('active');
+      }
+
+      currentComponentKey = compKey;
+      renderComponentDetails(compKey);
     }
 
     function setViewerTheme(themeKey) {
@@ -1510,20 +2282,15 @@ jobs:
       updateViewerDisplay();
     }
 
-    // Initialize with first component props
+    // Initialize with preferences and default component props
     document.addEventListener('DOMContentLoaded', () => {
-      const firstData = CATALOG['header'];
-      const tbody = document.getElementById('viewer-props-body');
-      firstData.props.forEach(p => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><code>${p.name}</code></td>
-          <td>${p.type}</td>
-          <td><code>${p.def}</code></td>
-          <td>${p.desc}</td>
-        `;
-        tbody.appendChild(tr);
-      });
+      const savedTheme = localStorage.getItem('prk_site_theme') || 'auto';
+      setSiteTheme(savedTheme);
+
+      const savedLang = localStorage.getItem('prk_site_lang') || 'en';
+      setLanguage(savedLang);
+
+      renderComponentDetails('header');
     });
   </script>
 </body>
