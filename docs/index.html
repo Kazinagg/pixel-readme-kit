@@ -525,10 +525,11 @@
     .workbench-layout {
       display: grid;
       grid-template-columns: 320px 1fr;
-      gap: 24px;
+      gap: 0;
       border: 1px solid var(--border-strong);
       background: var(--bg-elevated);
       margin-bottom: 72px;
+      align-items: stretch;
     }
     @media (max-width: 960px) {
       .workbench-layout { grid-template-columns: 1fr; }
@@ -536,11 +537,98 @@
     .component-nav {
       border-right: 1px solid var(--border-subtle);
       background: #090d14;
-      padding: 16px 0;
+      padding: 16px 0 0;
       display: flex;
       flex-direction: column;
-      max-height: 820px;
-      overflow-y: auto;
+      height: 100%;
+    }
+    .nav-status-plate {
+      margin-top: auto;
+      padding: 16px 20px;
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(0, 0, 0, 0.25);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    html[data-theme="light"] .nav-status-plate {
+      background: rgba(0, 0, 0, 0.03);
+    }
+    .nav-status-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.8px;
+    }
+    .nav-status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .nav-status-name {
+      color: var(--text-primary);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-status-bullet.ready {
+      color: var(--signal-teal);
+    }
+    .nav-status-bullet.in-dev {
+      color: var(--signal-amber);
+    }
+    .nav-status-badge {
+      font-size: 9.5px;
+      padding: 1px 6px;
+      border-radius: 2px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .nav-status-badge.ready {
+      background: rgba(0, 229, 176, 0.12);
+      color: var(--signal-teal);
+      border: 1px solid rgba(0, 229, 176, 0.3);
+    }
+    .nav-status-badge.in-dev {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--signal-amber);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    /* STATUS PILLS & DISABLED STYLES */
+    .status-pill {
+      font-size: 9.5px;
+      font-family: var(--font-mono);
+      padding: 1px 5px;
+      border-radius: 2px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-left: 4px;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    .status-pill.ready {
+      background: rgba(0, 229, 176, 0.18);
+      color: var(--signal-teal);
+      border: 1px solid rgba(0, 229, 176, 0.4);
+    }
+    .status-pill.in-dev {
+      background: rgba(245, 158, 11, 0.14);
+      color: var(--signal-amber);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .theme-chip-btn.disabled, .viewer-theme-btn.disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      border-style: dashed;
+    }
+    .theme-chip-btn.disabled:hover, .viewer-theme-btn.disabled:hover {
+      border-color: var(--border-subtle);
+      color: var(--text-secondary);
     }
     .nav-category-title {
       font-family: var(--font-mono);
@@ -830,13 +918,41 @@
       color: var(--text-primary);
     }
     html[data-theme="light"] .directive-card {
-      background: #0f172a;
+      background: var(--bg-surface);
+      border-color: var(--border-strong);
     }
     html[data-theme="light"] .directive-code {
-      color: #f8fafc;
+      color: var(--text-primary);
+    }
+    html[data-theme="light"] .copy-directive-btn {
+      background: #ffffff;
+      border-color: var(--border-strong);
+      color: var(--text-secondary);
+    }
+    html[data-theme="light"] .copy-directive-btn:hover {
+      border-color: var(--signal-teal);
+      color: var(--signal-teal);
     }
     html[data-theme="light"] .cli-strip {
-      background: #0f172a;
+      background: var(--bg-surface);
+      border-color: var(--border-strong);
+    }
+    html[data-theme="light"] .cli-command {
+      color: var(--text-primary);
+    }
+    html[data-theme="light"] .cli-copy-btn {
+      background: #ffffff;
+      border-color: var(--border-strong);
+      color: var(--text-secondary);
+    }
+    html[data-theme="light"] .cli-copy-btn:hover {
+      border-color: var(--signal-teal);
+      color: var(--signal-teal);
+    }
+    html[data-theme="light"] pre.yaml-block {
+      background: var(--bg-surface);
+      border-color: var(--border-strong);
+      color: #1e293b;
     }
   </style>
 </head>
@@ -934,7 +1050,22 @@
       <div class="simulator-panel">
         <div class="simulator-toolbar">
           <div class="sim-controls-group">
-            <span class="sim-label" data-i18n="sim_palette_lbl">COLOR PALETTE:</span>
+            <span class="sim-label" data-i18n="sim_style_lbl">STYLE:</span>
+            <button class="theme-chip-btn active" title="Pixel-art & Isometric Voxels (v5.0-CORE)">
+              <span>Pixel</span>
+              <span class="status-pill ready" data-i18n="pill_ready">READY</span>
+            </button>
+            <button class="theme-chip-btn disabled" title="Vector Smooth Cyberpunk (Roadmap v5.1+)" disabled>
+              <span>Modern</span>
+              <span class="status-pill in-dev" data-i18n="pill_indev">IN DEV</span>
+            </button>
+            <button class="theme-chip-btn disabled" title="Minimalist Enterprise SaaS (Roadmap v5.2+)" disabled>
+              <span>Corporate</span>
+              <span class="status-pill in-dev" data-i18n="pill_indev">IN DEV</span>
+            </button>
+          </div>
+          <div class="sim-controls-group">
+            <span class="sim-label" data-i18n="sim_palette_lbl">THEME:</span>
             <button class="theme-chip-btn active" onclick="setSimTheme('cyberpunk')">Cyberpunk</button>
             <button class="theme-chip-btn" onclick="setSimTheme('tactical')">Tactical Amber</button>
             <button class="theme-chip-btn" onclick="setSimTheme('tokyo')">Tokyo Night</button>
@@ -1070,12 +1201,43 @@
             <span data-i18n="comp_chip">Holographic Chip</span>
             <span class="spec-tag">Inline</span>
           </button>
+
+          <div class="nav-status-plate">
+            <div class="nav-status-title" data-i18n="nav_status_paradigms">GEOMETRIC PARADIGMS</div>
+            <div class="nav-status-row">
+              <span class="nav-status-name"><span class="nav-status-bullet ready">●</span> Pixel</span>
+              <span class="nav-status-badge ready" data-i18n="nav_status_active">v5.0 ACTIVE (16/16)</span>
+            </div>
+            <div class="nav-status-row">
+              <span class="nav-status-name"><span class="nav-status-bullet in-dev">○</span> Modern</span>
+              <span class="nav-status-badge in-dev" data-i18n="nav_status_planned">ROADMAP v5.1</span>
+            </div>
+            <div class="nav-status-row">
+              <span class="nav-status-name"><span class="nav-status-bullet in-dev">○</span> Corporate</span>
+              <span class="nav-status-badge in-dev" data-i18n="nav_status_planned">ROADMAP v5.2</span>
+            </div>
+          </div>
         </div>
 
         <div class="component-viewer">
           <div class="viewer-toolbar">
+            <div class="sim-controls-group">
+              <span class="sim-label" data-i18n="viewer_style_lbl">STYLE:</span>
+              <button class="viewer-theme-btn active" title="8-bit Pixel Geometry (v5.0-CORE)">
+                <span>Pixel</span>
+                <span class="status-pill ready" data-i18n="pill_ready">READY</span>
+              </button>
+              <button class="viewer-theme-btn disabled" title="Smooth Vector Curves (Roadmap v5.1+)" disabled>
+                <span>Modern</span>
+                <span class="status-pill in-dev" data-i18n="pill_indev">IN DEV</span>
+              </button>
+              <button class="viewer-theme-btn disabled" title="Enterprise SaaS Geometry (Roadmap v5.2+)" disabled>
+                <span>Corporate</span>
+                <span class="status-pill in-dev" data-i18n="pill_indev">IN DEV</span>
+              </button>
+            </div>
             <div class="viewer-theme-selector" id="viewer-theme-container">
-              <span class="sim-label" data-i18n="viewer_theme_lbl">PREVIEW THEME:</span>
+              <span class="sim-label" data-i18n="viewer_theme_lbl">THEME:</span>
               <button class="viewer-theme-btn active" onclick="setViewerTheme('cyberpunk')">Cyberpunk</button>
               <button class="viewer-theme-btn" onclick="setViewerTheme('tactical')">Tactical</button>
               <button class="viewer-theme-btn" onclick="setViewerTheme('tokyo')">Tokyo</button>
@@ -1294,7 +1456,15 @@ jobs:
         sim_tagline: "[01] VERIFICATION RIG",
         sim_title: "GitHub README Simulator",
         sim_desc: "Switch architectural color palettes and GitHub display modes to inspect real vector asset rendering across themes.",
-        sim_palette_lbl: "COLOR PALETTE:",
+        sim_style_lbl: "STYLE:",
+        viewer_style_lbl: "STYLE:",
+        sim_palette_lbl: "THEME:",
+        viewer_theme_lbl: "THEME:",
+        pill_ready: "READY",
+        pill_indev: "IN DEV",
+        nav_status_paradigms: "GEOMETRIC PARADIGMS",
+        nav_status_active: "v5.0 ACTIVE (16/16)",
+        nav_status_planned: "ROADMAP v5.1+",
         sim_mode_lbl: "GITHUB MODE:",
         sim_col_note: "850px Standard Column",
 
@@ -1383,7 +1553,15 @@ jobs:
         sim_tagline: "[01] ИСПЫТАТЕЛЬНЫЙ СТЕНД",
         sim_title: "Симулятор GitHub README",
         sim_desc: "Переключайте архитектурные цветовые палитры и режимы отображения GitHub для проверки рендеринга векторных ассетов в разных темах.",
-        sim_palette_lbl: "ЦВЕТОВАЯ ПАЛИТРА:",
+        sim_style_lbl: "СТИЛЬ:",
+        viewer_style_lbl: "СТИЛЬ:",
+        sim_palette_lbl: "ТЕМА:",
+        viewer_theme_lbl: "ТЕМА:",
+        pill_ready: "ГОТОВ",
+        pill_indev: "В РАЗРАБОТКЕ",
+        nav_status_paradigms: "ГЕОМЕТРИЧЕСКИЕ СТИЛИ",
+        nav_status_active: "v5.0 АКТИВЕН (16/16)",
+        nav_status_planned: "В ПЛАНАХ v5.1+",
         sim_mode_lbl: "РЕЖИМ GITHUB:",
         sim_col_note: "Стандартная колонка 850px",
 
