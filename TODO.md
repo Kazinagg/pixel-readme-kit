@@ -425,6 +425,10 @@
   - Флаги `--style [pixel|modern|corporate]` и `--theme [cyberpunk|tactical|tokyo|...]`.
 - [X] **Обновление `ThemeRegistry`**:
   - Привязка тем к стилям через `ThemeRegistry.get_themes_for_style(style)`, единая нормализация стилей и палитр `normalize_style_and_theme()`.
+- [X] **Стандартизация и аудит тем Пиксельного стиля (ЗАКРЫТО НА 100%)**:
+  - Закреплена каноническая триада Pixel-стиля: `cyberpunk`, `tactical`, `tokyo`.
+  - Палитры `nordic-frost` и `academic-paper` сохранены в ядре генератора как эталонные исходники для создания стилей Modern и Corporate.
+  - Синхронизированы генератор, README, пресеты и сайт `docs/index.html` (симулятор, каталог, переключатели стилей и тем, i18n EN/RU). 148 тестов проходят успешно.
 
 ---
 
