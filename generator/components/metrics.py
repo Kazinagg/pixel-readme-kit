@@ -1,17 +1,18 @@
 """Metrics, progress and techstack components for Pixel Readme Kit."""
 from typing import Optional, Any, List, Dict
-from generator.themes import resolve_theme
+from generator.themes import resolve_theme, normalize_style_and_theme
 from generator.layout import measure_mono_text_width, clamp_text_to_width
 from generator.components.base import escape_xml, validate_svg
 
-def generate_metrics(metrics=None, cards=None, style="cyberpunk", primary=None, accent=None, mode="auto", preset=None, width=850):
+def generate_metrics(metrics=None, cards=None, style=None, primary=None, accent=None, mode="auto", preset=None, width=850, tertiary=None, theme=None):
     """
     Renders 1 to 4 metric KPI cards in a full-width SVG row.
     metrics / cards: list of dicts with: label, value, delta (optional), trend (optional), status (optional)
     """
     if metrics is None and cards is not None:
         metrics = cards
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     panel = c["panel"]
@@ -21,7 +22,12 @@ def generate_metrics(metrics=None, cards=None, style="cyberpunk", primary=None, 
     title_front = c["title_front"]
     success = c["success"]
     warning = c["warning"]
-    st = style.lower()
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
 
     if not metrics:
         metrics = [{"label": "SYSTEM METRIC", "value": "100%", "delta": "+0%", "trend": "neutral"}]
@@ -143,18 +149,24 @@ def generate_metrics(metrics=None, cards=None, style="cyberpunk", primary=None, 
     validate_svg(svg)
     return svg
 
-def generate_progress(value=50, label="SYSTEM PROGRESS", sub=None, style="cyberpunk", primary=None, accent=None, mode="auto", preset=None, width=850):
+def generate_progress(value=50, label="SYSTEM PROGRESS", sub=None, style=None, primary=None, accent=None, mode="auto", preset=None, width=850, tertiary=None, theme=None):
     """
     Renders a segmented sci-fi HUD progress bar with dithering and status readout.
     """
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     panel = c["panel"]
     border = c["border"]
     text_dim = c["text_dim"]
     title_front = c["title_front"]
-    st = style.lower()
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
 
     try:
         val_clean = max(0, min(100, int(round(float(value)))))
@@ -247,21 +259,27 @@ def generate_progress(value=50, label="SYSTEM PROGRESS", sub=None, style="cyberp
     validate_svg(svg)
     return svg
 
-def generate_techstack(items=None, columns=5, style="cyberpunk", primary=None, accent=None, mode="auto", preset=None, width=850):
+def generate_techstack(items=None, columns=5, style=None, primary=None, accent=None, mode="auto", preset=None, width=850, tertiary=None, theme=None):
     """
     Renders a sci-fi HUD matrix of technology cards with embedded 20x20 pixel vector icons.
     items: list of string names e.g. ["python", "cpp", "docker", "git", "linux"]
     """
     from generator.icons import get_tech_icon_svg
 
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     panel = c["panel"]
     border = c["border"]
     text_main = c["text_main"]
     text_dim = c["text_dim"]
-    st = style.lower()
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
 
     if items is None:
         tech_list = ["python", "cpp", "rust", "docker", "git"]

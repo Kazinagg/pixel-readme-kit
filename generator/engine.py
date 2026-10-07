@@ -14,12 +14,16 @@ Modular packages:
 from generator.themes import (
     THEME_PALETTES,
     STYLE_PALETTES,
+    VALID_STYLES,
+    STYLE_THEMES,
     load_preset,
     is_light_color,
     darken_hex,
     get_shadow_colors,
     resolve_theme,
     resolve_colors,
+    normalize_style_and_theme,
+    get_themes_for_style,
 )
 
 # 2. Text Layout and Typography
@@ -76,12 +80,16 @@ __all__ = [
     # Themes
     "THEME_PALETTES",
     "STYLE_PALETTES",
+    "VALID_STYLES",
+    "STYLE_THEMES",
     "load_preset",
     "is_light_color",
     "darken_hex",
     "get_shadow_colors",
     "resolve_theme",
     "resolve_colors",
+    "normalize_style_and_theme",
+    "get_themes_for_style",
     # Text Layout & Fonts
     "render_3d_text",
     "calculate_px_size",

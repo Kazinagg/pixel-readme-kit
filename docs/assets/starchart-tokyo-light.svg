@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 230" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+    <linearGradient id="grad-star-area" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2E56B6" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#2E56B6" stop-opacity="0.01"/>
+    </linearGradient>
+  </defs>
+
+  
+  <rect x="1" y="1" width="848" height="228" rx="4" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+  <line x1="1" y1="1" x2="849" y2="1" stroke="#2E56B6" stroke-width="2"/>
+
+
+  <!-- HEADER BAR -->
+  <rect x="20" y="16" width="443" height="28" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="20" y="16" width="4" height="28" fill="#2E56B6"/>
+  <text x="32" y="35" fill="#2E56B6" font-size="11.5" font-weight="bold" letter-spacing="0.5px" class="font-mono">★ COMMUNITY EXPANSION CURVE</text>
+  <text x="242" y="35" fill="#64748B" font-size="11" class="font-mono">// Kazinagg/pixel-readme-kit</text>
+
+  <!-- STATS BADGES -->
+  <g transform="translate(621, 16)">
+    <rect x="0" y="0" width="90" height="28" fill="#F1F5F9" stroke="#2E56B6" stroke-width="1"/>
+    <text x="45" y="19" fill="#2E56B6" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">★ 1,980</text>
+    <rect x="98" y="0" width="111" height="28" fill="#F1F5F9" stroke="#0284C7" stroke-width="1"/>
+    <text x="153" y="19" fill="#0284C7" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">+142% past 6m</text>
+  </g>
+
+  <!-- GRID & AXES -->
+  <line x1="75" y1="185.0" x2="800" y2="185.0" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/><line x1="75" y1="146.7" x2="800" y2="146.7" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/><line x1="75" y1="108.3" x2="800" y2="108.3" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/><line x1="75" y1="70.0" x2="800" y2="70.0" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+  <text x="65" y="189.0" fill="#64748B" font-size="10" text-anchor="end" class="font-mono">0</text><text x="65" y="150.7" fill="#64748B" font-size="10" text-anchor="end" class="font-mono">660</text><text x="65" y="112.3" fill="#64748B" font-size="10" text-anchor="end" class="font-mono">1.3k</text><text x="65" y="74.0" fill="#64748B" font-size="10" text-anchor="end" class="font-mono">2.0k</text>
+  <line x1="75.0" y1="70" x2="75.0" y2="185" stroke="#E2E8F0" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/><line x1="220.0" y1="70" x2="220.0" y2="185" stroke="#E2E8F0" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/><line x1="365.0" y1="70" x2="365.0" y2="185" stroke="#E2E8F0" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/><line x1="510.0" y1="70" x2="510.0" y2="185" stroke="#E2E8F0" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/><line x1="655.0" y1="70" x2="655.0" y2="185" stroke="#E2E8F0" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/><line x1="800.0" y1="70" x2="800.0" y2="185" stroke="#E2E8F0" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/>
+  <text x="75.0" y="203" fill="#64748B" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">M-5</text><text x="220.0" y="203" fill="#64748B" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">M-4</text><text x="365.0" y="203" fill="#64748B" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">M-3</text><text x="510.0" y="203" fill="#64748B" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">M-2</text><text x="655.0" y="203" fill="#64748B" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">M-1</text><text x="800.0" y="203" fill="#64748B" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">NOW</text>
+
+  <!-- CHART AREA & LINE -->
+  <path d="M 75.0 185 L 75.0 182.4 L 220.0 178.0 L 365.0 167.0 L 510.0 145.5 L 655.0 112.4 L 800.0 70.0 L 800.0 185 Z" fill="url(#grad-star-area)" shape-rendering="geometricPrecision"/>
+  <path d="M 75.0,182.4 L 220.0,178.0 L 365.0,167.0 L 510.0,145.5 L 655.0,112.4 L 800.0,70.0" fill="none" stroke="#2E56B6" stroke-width="2.5" shape-rendering="geometricPrecision"/>
+
+  <!-- DATA VERTICES -->
+  <circle cx="75.0" cy="182.4" r="3.5" fill="#F1F5F9" stroke="#2E56B6" stroke-width="1.8"/><circle cx="220.0" cy="178.0" r="3.5" fill="#F1F5F9" stroke="#2E56B6" stroke-width="1.8"/><circle cx="365.0" cy="167.0" r="3.5" fill="#F1F5F9" stroke="#2E56B6" stroke-width="1.8"/><circle cx="510.0" cy="145.5" r="3.5" fill="#F1F5F9" stroke="#2E56B6" stroke-width="1.8"/><circle cx="655.0" cy="112.4" r="3.5" fill="#F1F5F9" stroke="#2E56B6" stroke-width="1.8"/>
+    <!-- Peak Milestone Marker -->
+    <circle cx="800.0" cy="70.0" r="8" fill="#0284C7" opacity="0.25"/>
+    <circle cx="800.0" cy="70.0" r="5.5" fill="#F8FAFC" stroke="#0284C7" stroke-width="2"/>
+    <circle cx="800.0" cy="70.0" r="2.5" fill="#2E56B6"/>
+    <!-- Peak Callout Tag -->
+    <g transform="translate(760.0, 40.0)">
+      <rect x="0" y="0" width="76" height="22" rx="3" fill="#F1F5F9" stroke="#0284C7" stroke-width="1.2"/>
+      <text x="38" y="15" fill="#0284C7" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">★ 1,980</text>
+    </g>
+</svg>

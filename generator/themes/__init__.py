@@ -23,9 +23,13 @@ from generator.themes.registry import (
     THEME_PALETTES,
     STYLE_PALETTES,
     THEME_ALIASES,
+    VALID_STYLES,
+    STYLE_THEMES,
     load_preset,
     resolve_theme,
     resolve_colors,
+    normalize_style_and_theme,
+    get_themes_for_style,
 )
 from generator.themes.creator import ThemeCreator, theme_creator, slugify
 
@@ -48,9 +52,13 @@ __all__ = [
     "THEME_PALETTES",
     "STYLE_PALETTES",
     "THEME_ALIASES",
+    "VALID_STYLES",
+    "STYLE_THEMES",
     "load_preset",
     "resolve_theme",
     "resolve_colors",
+    "normalize_style_and_theme",
+    "get_themes_for_style",
     "ThemeCreator",
     "theme_creator",
     "slugify",

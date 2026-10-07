@@ -46,6 +46,7 @@ from generator.engine import (
     validate_svg,
     escape_xml
 )
+from generator.themes import normalize_style_and_theme
 from generator.cache import BuildCache
 from generator.github_api import (
     fetch_repo_data,
@@ -382,7 +383,7 @@ class MarkdownCompiler:
         def repl_window(m):
             attrs = parse_directive_attrs(m.group(1))
             inner_content = m.group(2).strip()
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             title = attrs.get("title", "╔═ SYSTEM.CORE // WINDOW.SYS")
             tag = attrs.get("tag", "[OPEN_HUD]")
             prim = attrs.get("primary", None)
@@ -407,20 +408,20 @@ class MarkdownCompiler:
 
             rendered_top = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "top", "title": title, "tag": tag, "preset": preset, "tag_url": tag_url, "close_url": close_url},
+                {"style": style, "theme": theme, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "top", "title": title, "tag": tag, "preset": preset, "tag_url": tag_url, "close_url": close_url},
                 attrs_top,
-                f"frame-top-{style}",
+                f"frame-top-{theme}",
                 is_full_width=True
             )
             rendered_bot = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "bottom", "title": title, "tag": tag, "preset": preset},
+                {"style": style, "theme": theme, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "bottom", "title": title, "tag": tag, "preset": preset},
                 attrs_bot,
-                f"frame-bottom-{style}",
+                f"frame-bottom-{theme}",
                 is_full_width=True
             )
 
-            if style.lower() == "minimal":
+            if style.lower() == "minimal" or theme.lower() in ("minimal", "clean-mono", "academic-paper", "corporate-blue", "swiss-mono", "executive-slate"):
                 # Integrated 3-row single table monolith
                 return f"""<table width="100%">
 <tr>
@@ -473,7 +474,7 @@ class MarkdownCompiler:
         def repl_terminal(m):
             attrs = parse_directive_attrs(m.group(1))
             inner_content = m.group(2).strip()
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             title = attrs.get("title", "HUD.TERMINAL")
             state = attrs.get("state", "open").lower()
             prim = attrs.get("primary", None)
@@ -495,16 +496,16 @@ class MarkdownCompiler:
 
             rendered_top = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "top", "title": f"╔═ {title} // RUNTIME.SYS", "preset": preset},
+                {"style": style, "theme": theme, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "top", "title": f"╔═ {title} // RUNTIME.SYS", "preset": preset},
                 attrs_top,
-                f"terminal-top-{style}",
+                f"terminal-top-{theme}",
                 is_full_width=True
             )
             rendered_bot = self._render_asset_markup(
                 generate_frame,
-                {"style": style, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "bottom", "preset": preset},
+                {"style": style, "theme": theme, "primary": prim, "accent": acc, "tertiary": tert, "frame_type": "bottom", "preset": preset},
                 attrs_bot,
-                f"terminal-bottom-{style}",
+                f"terminal-bottom-{theme}",
                 is_full_width=True
             )
 
@@ -548,7 +549,7 @@ class MarkdownCompiler:
         def repl_quote(m):
             attrs = parse_directive_attrs(m.group(1))
             inner_content = m.group(2).strip()
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             title = attrs.get("title", "SPECIFICATION NOTICE")
             sub = attrs.get("subtitle", "Content flows into live blockquote text")
             badge = attrs.get("badge", "NOTE")
@@ -559,9 +560,9 @@ class MarkdownCompiler:
 
             rendered_q = self._render_asset_markup(
                 generate_callout,
-                {"style": style, "primary": prim, "accent": acc, "callout_type": badge, "title": title, "subtitle": sub, "is_quote": True, "preset": preset, "badge_color": badge_color},
+                {"style": style, "theme": theme, "primary": prim, "accent": acc, "callout_type": badge, "title": title, "subtitle": sub, "is_quote": True, "preset": preset, "badge_color": badge_color},
                 attrs,
-                f"callout-quote-{style}",
+                f"callout-quote-{theme}",
                 alt=title,
                 is_full_width=True
             )
@@ -590,7 +591,7 @@ class MarkdownCompiler:
         def repl_metrics(m):
             attrs = parse_directive_attrs(m.group(1))
             inner_content = m.group(2).strip()
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
             preset = attrs.get("preset", None)
@@ -614,9 +615,9 @@ class MarkdownCompiler:
 
             return self._render_asset_markup(
                 generate_metrics,
-                {"metrics": metric_items, "style": style, "primary": prim, "accent": acc, "preset": preset},
+                {"metrics": metric_items, "style": style, "theme": theme, "primary": prim, "accent": acc, "preset": preset},
                 attrs,
-                f"metrics-{style}",
+                f"metrics-{theme}",
                 alt="Metrics",
                 is_full_width=True
             )
@@ -638,7 +639,7 @@ class MarkdownCompiler:
         def repl_timeline(m):
             attrs = parse_directive_attrs(m.group(1))
             inner_content = m.group(2).strip()
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
             preset = attrs.get("preset", None)
@@ -662,9 +663,9 @@ class MarkdownCompiler:
 
             return self._render_asset_markup(
                 generate_timeline,
-                {"items": timeline_items, "style": style, "primary": prim, "accent": acc, "preset": preset},
+                {"items": timeline_items, "style": style, "theme": theme, "primary": prim, "accent": acc, "preset": preset},
                 attrs,
-                f"timeline-{style}",
+                f"timeline-{theme}",
                 alt="Timeline",
                 is_full_width=True
             )
@@ -679,7 +680,7 @@ class MarkdownCompiler:
 
         def repl_header(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             title = attrs.get("title", "PIXEL-KIT")
             sub = attrs.get("subtitle", "TRANSLUCENT HUD DESIGN SYSTEM")
             tag = attrs.get("tag", "SYSTEM_ACTIVE")
@@ -700,13 +701,13 @@ class MarkdownCompiler:
             return self._render_asset_markup(
                 generate_header,
                 {
-                    "style": style, "primary": prim, "accent": acc, "tertiary": tert, "title": title,
+                    "style": style, "theme": theme, "primary": prim, "accent": acc, "tertiary": tert, "title": title,
                     "subtitle": sub, "tag": tag, "spec1": spec1, "spec2": spec2,
                     "spec3": spec3, "specs": specs, "preset": preset,
                     "tag_url": tag_url, "close_url": close_url, "compact": compact
                 },
                 attrs,
-                f"header-{style}",
+                f"header-{theme}",
                 alt=title,
                 is_full_width=True
             )
@@ -721,7 +722,7 @@ class MarkdownCompiler:
 
         def repl_footer(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             status = attrs.get("status", "SYSTEM_ACTIVE // STANDBY")
             nav = attrs.get("nav", "RETURN TO TOP")
             sub = attrs.get("sub") or attrs.get("sub_text") or None
@@ -732,9 +733,9 @@ class MarkdownCompiler:
 
             return self._render_asset_markup(
                 generate_footer,
-                {"style": style, "primary": prim, "accent": acc, "tertiary": tert, "status": status, "nav_text": nav, "sub_text": sub, "preset": preset},
+                {"style": style, "theme": theme, "primary": prim, "accent": acc, "tertiary": tert, "status": status, "nav_text": nav, "sub_text": sub, "preset": preset},
                 attrs,
-                f"footer-{style}",
+                f"footer-{theme}",
                 alt=nav,
                 is_full_width=True,
                 link="#top"
@@ -750,7 +751,7 @@ class MarkdownCompiler:
 
         def repl_callout(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             ctype = attrs.get("type", "note")
             badge_color = attrs.get("badge_color", None)
             title = attrs.get("title", "SYSTEM SPECIFICATION")
@@ -761,9 +762,9 @@ class MarkdownCompiler:
 
             return self._render_asset_markup(
                 generate_callout,
-                {"style": style, "primary": prim, "accent": acc, "callout_type": ctype, "title": title, "subtitle": sub, "is_quote": False, "preset": preset, "badge_color": badge_color},
+                {"style": style, "theme": theme, "primary": prim, "accent": acc, "callout_type": ctype, "title": title, "subtitle": sub, "is_quote": False, "preset": preset, "badge_color": badge_color},
                 attrs,
-                f"callout-{style}-{ctype}",
+                f"callout-{theme}-{ctype}",
                 alt=title,
                 is_full_width=True
             )
@@ -778,17 +779,17 @@ class MarkdownCompiler:
 
         def repl_divider(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
             preset = attrs.get("preset", None)
 
             return self._render_asset_markup(
                 generate_divider,
-                {"style": style, "primary": prim, "accent": acc, "preset": preset},
+                {"style": style, "theme": theme, "primary": prim, "accent": acc, "preset": preset},
                 attrs,
-                f"divider-{style}",
-                alt=f"Divider {style}",
+                f"divider-{theme}",
+                alt=f"Divider {theme}",
                 is_full_width=True
             )
 
@@ -802,7 +803,7 @@ class MarkdownCompiler:
 
         def repl_splitter(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             label = attrs.get("label", "[MODULE: SUB_SYSTEM]")
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
@@ -810,9 +811,9 @@ class MarkdownCompiler:
 
             return self._render_asset_markup(
                 generate_splitter,
-                {"style": style, "primary": prim, "accent": acc, "label": label, "preset": preset},
+                {"style": style, "theme": theme, "primary": prim, "accent": acc, "label": label, "preset": preset},
                 attrs,
-                f"splitter-{style}",
+                f"splitter-{theme}",
                 alt=label,
                 is_full_width=True
             )
@@ -827,7 +828,7 @@ class MarkdownCompiler:
 
         def repl_chip(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             ctype = attrs.get("type", "closed")
             text_val = attrs.get("text", "CHIP")
             prim = attrs.get("primary", None)
@@ -852,9 +853,9 @@ class MarkdownCompiler:
 
             return self._render_asset_markup(
                 generate_chip,
-                {"style": style, "primary": prim, "accent": acc, "chip_type": ctype, "text": text_val, "width": w_val, "preset": preset, "decay_dir": decay_dir},
+                {"style": style, "theme": theme, "primary": prim, "accent": acc, "chip_type": ctype, "text": text_val, "width": w_val, "preset": preset, "decay_dir": decay_dir},
                 attrs,
-                f"chip-{style}-{ctype}",
+                f"chip-{theme}-{ctype}",
                 alt=text_val,
                 is_full_width=False,
                 link=link_url
@@ -870,7 +871,7 @@ class MarkdownCompiler:
 
         def repl_metrics(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             repo = attrs.get("repo")
             prim = attrs.get("primary", None)
             acc = attrs.get("accent", None)
@@ -908,9 +909,9 @@ class MarkdownCompiler:
 
             return self._render_asset_markup(
                 generate_metrics,
-                {"metrics": card_items, "style": style, "primary": prim, "accent": acc, "preset": preset},
+                {"metrics": card_items, "style": style, "theme": theme, "primary": prim, "accent": acc, "preset": preset},
                 attrs,
-                f"metrics-{style}",
+                f"metrics-{theme}",
                 alt="Metrics",
                 is_full_width=True
             )
@@ -925,7 +926,7 @@ class MarkdownCompiler:
 
         def repl_progress(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             val = attrs.get("value", 50)
             label = attrs.get("label", "PROGRESS")
             sub = attrs.get("sub") or attrs.get("subtitle")
@@ -935,9 +936,9 @@ class MarkdownCompiler:
 
             return self._render_asset_markup(
                 generate_progress,
-                {"value": val, "label": label, "sub": sub, "style": style, "primary": prim, "accent": acc, "preset": preset},
+                {"value": val, "label": label, "sub": sub, "style": style, "theme": theme, "primary": prim, "accent": acc, "preset": preset},
                 attrs,
-                f"progress-{style}",
+                f"progress-{theme}",
                 alt=label,
                 is_full_width=True
             )
@@ -952,7 +953,7 @@ class MarkdownCompiler:
 
         def repl_techstack(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             items = attrs.get("items", "python,cpp,rust,docker,git")
             cols = int(attrs.get("columns", 5)) if "columns" in attrs and attrs["columns"].isdigit() else 5
             prim = attrs.get("primary", None)
@@ -961,9 +962,9 @@ class MarkdownCompiler:
 
             return self._render_asset_markup(
                 generate_techstack,
-                {"items": items, "columns": cols, "style": style, "primary": prim, "accent": acc, "preset": preset},
+                {"items": items, "columns": cols, "style": style, "theme": theme, "primary": prim, "accent": acc, "preset": preset},
                 attrs,
-                f"techstack-{style}",
+                f"techstack-{theme}",
                 alt="Tech Stack",
                 is_full_width=True
             )
@@ -978,7 +979,7 @@ class MarkdownCompiler:
 
         def repl_social(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             title = attrs.get("title", "PIXEL-KIT")
             sub = attrs.get("subtitle", "TRANSLUCENT RETRO HUD READMES")
             repo = attrs.get("repo", "Kazinagg/pixel-readme-kit")
@@ -989,9 +990,9 @@ class MarkdownCompiler:
 
             return self._render_asset_markup(
                 generate_social,
-                {"style": style, "title": title, "subtitle": sub, "repo": repo, "tags": tags, "primary": prim, "accent": acc, "preset": preset},
+                {"style": style, "theme": theme, "title": title, "subtitle": sub, "repo": repo, "tags": tags, "primary": prim, "accent": acc, "preset": preset},
                 attrs,
-                f"social-{style}",
+                f"social-{theme}",
                 alt=title,
                 is_full_width=True
             )
@@ -1006,7 +1007,7 @@ class MarkdownCompiler:
 
         def repl_starchart(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             repo = attrs.get("repo", "Kazinagg/pixel-readme-kit")
             points = attrs.get("points", None)
             current = attrs.get("current", None)
@@ -1031,12 +1032,12 @@ class MarkdownCompiler:
             return self._render_asset_markup(
                 generate_starchart,
                 {
-                    "style": style, "repo": repo, "points": points, "current": current,
+                    "style": style, "theme": theme, "repo": repo, "points": points, "current": current,
                     "delta": delta, "title": title, "period": period,
                     "primary": prim, "accent": acc, "preset": preset
                 },
                 attrs,
-                f"starchart-{style}",
+                f"starchart-{theme}",
                 alt=title,
                 is_full_width=True
             )
@@ -1051,7 +1052,7 @@ class MarkdownCompiler:
 
         def repl_profile(m):
             attrs = parse_directive_attrs(m.group(1))
-            style = attrs.get("style", "cyberpunk")
+            style, theme = normalize_style_and_theme(attrs.get("style"), attrs.get("theme"))
             name = attrs.get("name", "ALEX DEVELOPER")
             role = attrs.get("role", "FULLSTACK & SYSTEMS ARCHITECT")
             bio = attrs.get("bio", "Building high-performance runtimes and resilient developer tooling.")
@@ -1079,12 +1080,12 @@ class MarkdownCompiler:
             return self._render_asset_markup(
                 generate_profile_card,
                 {
-                    "style": style, "name": name, "role": role, "bio": bio,
+                    "style": style, "theme": theme, "name": name, "role": role, "bio": bio,
                     "status": status, "location": location, "badge": badge,
                     "primary": prim, "accent": acc, "preset": preset
                 },
                 attrs,
-                f"profile-{style}",
+                f"profile-{theme}",
                 alt=name,
                 is_full_width=True
             )

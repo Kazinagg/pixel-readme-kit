@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 158 26" width="158" height="26" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
+    </style>
+  </defs>
+  <rect x="1" y="1" width="156" height="24" fill="#F6F8FA"/>
+  <rect x="1" y="1" width="156" height="24" fill="#EAEFF5" stroke="#0969DA" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="#0969DA"/>
+  <rect x="154" y="1" width="3" height="3" fill="#0969DA"/>
+  <rect x="1" y="22" width="3" height="3" fill="#0969DA"/>
+  <rect x="154" y="22" width="3" height="3" fill="#0969DA"/>
+  <rect x="8" y="8" width="4" height="10" fill="#0969DA"/>
+  <text x="82" y="17" fill="#0969DA" text-anchor="middle" class="chip-text">1,980 STARS</text>
+</svg>

@@ -1,16 +1,22 @@
 """Divider and splitter components for Pixel Readme Kit."""
 from typing import Optional, Any
-from generator.themes import resolve_theme
+from generator.themes import resolve_theme, normalize_style_and_theme
 from generator.layout import measure_mono_text_width, clamp_text_to_width
 from generator.components.base import escape_xml, validate_svg
 
-def generate_divider(style="cyberpunk", primary=None, accent=None, width=850, height=28, mode="auto", preset=None):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+def generate_divider(style=None, primary=None, accent=None, width=850, height=28, mode="auto", preset=None, tertiary=None, theme=None):
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
     border = c["border"]
-    st = style.lower()
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
 
     if st == "tactical":
         # Pulsing Aiming Laser Divider
@@ -84,15 +90,22 @@ def generate_divider(style="cyberpunk", primary=None, accent=None, width=850, he
     validate_svg(svg)
     return svg
 
-def generate_splitter(style="cyberpunk", primary=None, accent=None,
-                      label="[MODULE: SUB_SYSTEM]", width=850, height=22, mode="auto", preset=None):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+def generate_splitter(style=None, primary=None, accent=None,
+                      label="[MODULE: SUB_SYSTEM]", width=850, height=22, mode="auto", preset=None,
+                      tertiary=None, theme=None):
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
     border = c["border"]
     lbl_clean = escape_xml(label)
-    st = style.lower()
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
 
     mid_x = width // 2
     max_lbl_w = width - 80

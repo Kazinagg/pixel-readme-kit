@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 22" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 9px; font-weight: bold; }
+    </style>
+  </defs>
+  <line x1="1" y1="11" x2="308" y2="11" stroke="#0969DA" stroke-width="1.5"/>
+  <line x1="542" y1="11" x2="849" y2="11" stroke="#0969DA" stroke-width="1.5"/>
+  <rect x="1" y="8" width="6" height="6" fill="#8250DF"/>
+  <rect x="843" y="8" width="6" height="6" fill="#8250DF"/>
+  <rect x="318" y="2" width="215" height="18" fill="#F6F8FA" stroke="#0969DA" stroke-width="1.5"/>
+  <rect x="318" y="2" width="4" height="4" fill="#8250DF"/>
+  <rect x="528" y="2" width="4" height="4" fill="#8250DF"/>
+  <text x="425" y="14" fill="#0969DA" text-anchor="middle" class="font-mono"><tspan fill="#8250DF">//</tspan> CORE ENGINE // BENCHMARK READOUT <tspan fill="#8250DF">//</tspan></text>
+</svg>

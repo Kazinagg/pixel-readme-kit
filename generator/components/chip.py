@@ -1,13 +1,14 @@
 """Chip badge components for Pixel Readme Kit."""
 from typing import Optional, Any
-from generator.themes import resolve_theme
+from generator.themes import resolve_theme, normalize_style_and_theme
 from generator.layout import measure_mono_text_width, clamp_text_to_width, estimate_chip_width
 from generator.components.base import escape_xml, validate_svg
 
-def generate_chip(style="cyberpunk", primary=None, accent=None,
+def generate_chip(style=None, primary=None, accent=None,
                   chip_type="closed", text="CHIP_LABEL", width=None, height=26, mode="auto", preset=None,
-                  decay_dir="right"):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+                  decay_dir="right", tertiary=None, theme=None):
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
@@ -17,7 +18,12 @@ def generate_chip(style="cyberpunk", primary=None, accent=None,
     text_dim = c["text_dim"]
 
     text_clean = escape_xml(text)
-    st = style.lower()
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
     ct = chip_type.lower()
     dd = (decay_dir or "right").lower()
     if width is not None:

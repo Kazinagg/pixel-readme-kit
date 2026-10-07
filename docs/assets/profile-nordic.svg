@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 190" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(10, 20, 32, 0.92);
+        --bg-panel: rgba(16, 30, 48, 0.85);
+        --border-chassis: rgba(38, 64, 98, 0.85);
+        --primary: #E0F2FE;
+        --accent: #38BDF8;
+        --tertiary: #7DD3FC;
+        --title-front: #F0F9FF;
+        --title-mid: #BAE6FD;
+        --title-dark: #38BDF8;
+        --text-main: #F0F9FF;
+        --text-dim: #94A3B8;
+        --status: #34D399;
+        --warning: #FBBF24;
+        --grid-op: 0.08;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(10, 20, 32, 0.92);
+          --bg-panel: rgba(16, 30, 48, 0.85);
+          --border-chassis: rgba(38, 64, 98, 0.85);
+          --primary: #E0F2FE;
+          --accent: #38BDF8;
+          --tertiary: #7DD3FC;
+          --title-front: #F0F9FF;
+          --title-mid: #BAE6FD;
+          --title-dark: #38BDF8;
+          --text-main: #F0F9FF;
+          --text-dim: #94A3B8;
+          --status: #34D399;
+          --warning: #FBBF24;
+          --grid-op: 0.08;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F0F9FF;
+          --bg-panel: #E0F2FE;
+          --border-chassis: #BAE6FD;
+          --primary: #0369A1;
+          --accent: #0284C7;
+          --tertiary: #075985;
+          --title-front: #0C4A6E;
+          --title-mid: #075985;
+          --title-dark: #0369A1;
+          --text-main: #0C4A6E;
+          --text-dim: #0369A1;
+          --status: #059669;
+          --warning: #D97706;
+          --grid-op: 0.08;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #E0F2FE));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+
+  
+  <!-- MODERN CLEAN VECTOR CARD -->
+  <rect x="1" y="1" width="848" height="188" rx="10" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+  <path d="M 12 1 L 838 1" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round"/>
+
+
+  
+  <!-- CLEAN MINIMALIST AVATAR -->
+  <g transform="translate(28, 28)">
+    <rect x="0" y="0" width="134" height="134" rx="12" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <!-- Smooth User Silhouette (Pure Vector) -->
+    <circle cx="67" cy="48" r="22" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1.8"/>
+    <path d="M 28 98 C 28 76, 106 76, 106 98 Z" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1.8"/>
+    <circle cx="67" cy="48" r="8" fill="var(--accent)"/>
+    <!-- Minimalist Status Indicator -->
+    <rect x="16" y="108" width="102" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--status)" stroke-width="1"/>
+    <circle cx="28" cy="117" r="3" fill="var(--status)"/>
+    <text x="36" y="120" fill="var(--status)" font-size="8.5" font-weight="600" class="font-mono">ACTIVE</text>
+  </g>
+
+
+  <!-- TOP BREADCRUMB -->
+  <rect x="180" y="24" width="211" height="24" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+  <text x="192" y="40" fill="var(--primary)" font-size="11" font-weight="bold" class="font-mono">DOSSIER // HELSINKI // UTC+2</text>
+
+  <!-- BADGE AND STATUS PILLS (TOP RIGHT) -->
+  <g transform="translate(635, 24)">
+    <rect x="0" y="0" width="70" height="24" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="35" y="16" fill="var(--accent)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">FOUNDER</text>
+    <rect x="78" y="0" width="117" height="24" fill="var(--bg-panel)" stroke="var(--status)" stroke-width="1"/>
+    <circle cx="90" y="12" r="3" fill="var(--status)"/>
+    <text x="142" y="16" fill="var(--status)" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">OPEN TO COLLAB</text>
+  </g>
+
+  <!-- NAME TYPOGRAPHY -->
+    <text x="180" y="78" fill="var(--title-front)" font-size="26" font-weight="700" letter-spacing="0.04em" class="font-mono">ARTEM DEVELOPER</text>
+
+  <!-- ROLE PILL -->
+  
+  <g transform="translate(180, 116)">
+    <rect x="0" y="0" width="182" height="26" rx="4" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <rect x="0" y="0" width="3" height="26" rx="1.5" fill="var(--primary)"/>
+    <text x="12" y="17" fill="var(--accent)" font-size="11.5" font-weight="600" class="font-mono">▶ SOFTWARE ARCHITECT</text>
+  </g>
+
+
+  <!-- BIO SUMMARY -->
+  <text x="182" y="166" fill="var(--text-main)" font-size="12" font-weight="normal" class="font-mono">Building deterministic, lightweight software infrastructure with robust automated te...</text>
+</svg>

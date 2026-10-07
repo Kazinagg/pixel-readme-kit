@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 48" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+  <!-- Body Chassis -->
+  <rect x="2" y="2" width="846" height="44" fill="#F0F9FF" stroke="#238636" stroke-width="1.5"/><rect x="2" y="2" width="5" height="5" fill="#238636"/><rect x="843" y="2" width="5" height="5" fill="#238636"/><rect x="2" y="41" width="5" height="5" fill="#238636"/><rect x="843" y="41" width="5" height="5" fill="#238636"/>
+  <!-- Badges & Accents -->
+  <rect x="14" y="10" width="140" height="28" fill="#E0F2FE" stroke="#238636" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="#238636"/><text x="90" y="28" fill="#238636" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">SUCCESS // 0x01</text>
+  <rect x="815" y="14" width="20" height="20" fill="#E0F2FE"/><text x="825" y="28" fill="#238636" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>
+  <!-- Text Content (Properly offset past badge edge) -->
+  <text x="168" y="22" fill="#0C4A6E" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">DUAL THEME COMPLIANCE CERTIFIED</text>
+  <text x="168" y="36" fill="#0284C7" font-size="11" class="font-mono">Single SVG adapts automatically to prefers-color-scheme: dark and light.</text>
+</svg>

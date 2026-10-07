@@ -1,6 +1,6 @@
 """Callout and GitHub alert components for Pixel Readme Kit."""
 from typing import Optional, Any
-from generator.themes import resolve_theme
+from generator.themes import resolve_theme, normalize_style_and_theme
 from generator.layout import measure_mono_text_width, clamp_text_to_width, wrap_text_to_lines
 from generator.components.base import escape_xml, validate_svg
 
@@ -15,12 +15,13 @@ GITHUB_ALERT_COLORS = {
     "INFO": "#8957e5",
 }
 
-def generate_callout(style="cyberpunk", primary=None, accent=None,
+def generate_callout(style=None, primary=None, accent=None,
                      callout_type="note", title="SYSTEM SPECIFICATION",
                      subtitle="Dual-theme contrast > 7:1 // Monospace typography",
                      is_quote=False, width=850, height=None, mode="auto", preset=None,
-                     badge_color=None):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+                     badge_color=None, tertiary=None, theme=None):
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]

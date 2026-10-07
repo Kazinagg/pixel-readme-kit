@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 190" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+
+  
+  <!-- MODERN CLEAN VECTOR CARD -->
+  <rect x="1" y="1" width="848" height="188" rx="10" fill="#F0F9FF" stroke="#BAE6FD" stroke-width="1.2"/>
+  <path d="M 12 1 L 838 1" stroke="#0369A1" stroke-width="2.5" stroke-linecap="round"/>
+
+
+  
+  <!-- CLEAN MINIMALIST AVATAR -->
+  <g transform="translate(28, 28)">
+    <rect x="0" y="0" width="134" height="134" rx="12" fill="#E0F2FE" stroke="#BAE6FD" stroke-width="1.2"/>
+    <!-- Smooth User Silhouette (Pure Vector) -->
+    <circle cx="67" cy="48" r="22" fill="#F0F9FF" stroke="#0369A1" stroke-width="1.8"/>
+    <path d="M 28 98 C 28 76, 106 76, 106 98 Z" fill="#F0F9FF" stroke="#0369A1" stroke-width="1.8"/>
+    <circle cx="67" cy="48" r="8" fill="#0284C7"/>
+    <!-- Minimalist Status Indicator -->
+    <rect x="16" y="108" width="102" height="18" rx="9" fill="#F0F9FF" stroke="#059669" stroke-width="1"/>
+    <circle cx="28" cy="117" r="3" fill="#059669"/>
+    <text x="36" y="120" fill="#059669" font-size="8.5" font-weight="600" class="font-mono">ACTIVE</text>
+  </g>
+
+
+  <!-- TOP BREADCRUMB -->
+  <rect x="180" y="24" width="211" height="24" fill="#E0F2FE" stroke="#BAE6FD" stroke-width="1"/>
+  <text x="192" y="40" fill="#0369A1" font-size="11" font-weight="bold" class="font-mono">DOSSIER // HELSINKI // UTC+2</text>
+
+  <!-- BADGE AND STATUS PILLS (TOP RIGHT) -->
+  <g transform="translate(635, 24)">
+    <rect x="0" y="0" width="70" height="24" fill="#E0F2FE" stroke="#0284C7" stroke-width="1"/>
+    <text x="35" y="16" fill="#0284C7" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">FOUNDER</text>
+    <rect x="78" y="0" width="117" height="24" fill="#E0F2FE" stroke="#059669" stroke-width="1"/>
+    <circle cx="90" y="12" r="3" fill="#059669"/>
+    <text x="142" y="16" fill="#059669" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">OPEN TO COLLAB</text>
+  </g>
+
+  <!-- NAME TYPOGRAPHY -->
+    <text x="180" y="78" fill="#0C4A6E" font-size="26" font-weight="700" letter-spacing="0.04em" class="font-mono">ARTEM DEVELOPER</text>
+
+  <!-- ROLE PILL -->
+  
+  <g transform="translate(180, 116)">
+    <rect x="0" y="0" width="182" height="26" rx="4" fill="#E0F2FE" stroke="#BAE6FD" stroke-width="1"/>
+    <rect x="0" y="0" width="3" height="26" rx="1.5" fill="#0369A1"/>
+    <text x="12" y="17" fill="#0284C7" font-size="11.5" font-weight="600" class="font-mono">▶ SOFTWARE ARCHITECT</text>
+  </g>
+
+
+  <!-- BIO SUMMARY -->
+  <text x="182" y="166" fill="#0C4A6E" font-size="12" font-weight="normal" class="font-mono">Building deterministic, lightweight software infrastructure with robust automated te...</text>
+</svg>

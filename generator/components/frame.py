@@ -1,14 +1,15 @@
 """Frame window cap components for Pixel Readme Kit."""
 from typing import Optional, Any
-from generator.themes import resolve_theme
+from generator.themes import resolve_theme, normalize_style_and_theme
 from generator.layout import format_tag, format_bottom_tag, clamp_text_to_width, measure_mono_text_width
 from generator.components.base import escape_xml, validate_svg
 
-def generate_frame(style="cyberpunk", primary=None, accent=None,
+def generate_frame(style=None, primary=None, accent=None,
                    frame_type="top", title="╔═ SYSTEM.CORE // RUNTIME.SYS",
                    tag="[OPEN_HUD]", width=850, height=None, mode="auto", preset=None,
-                   tag_url=None, close_url=None, tertiary=None):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+                   tag_url=None, close_url=None, tertiary=None, theme=None):
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     tertiary_col = c["tertiary"]
@@ -21,7 +22,12 @@ def generate_frame(style="cyberpunk", primary=None, accent=None,
     title_clean = escape_xml(title)
     tag_clean = format_tag(tag)
     bot_tag_clean = format_bottom_tag(tag)
-    st = style.lower()
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
     is_top = (frame_type.lower() == "top")
 
     title_disp = clamp_text_to_width(title_clean, width - 230, 12)

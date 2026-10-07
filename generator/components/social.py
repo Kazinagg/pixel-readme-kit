@@ -1,18 +1,19 @@
 """Social, starchart and profile card components for Pixel Readme Kit."""
 from typing import Optional, Any, List
-from generator.themes import resolve_theme
+from generator.themes import resolve_theme, normalize_style_and_theme
 from generator.layout import measure_mono_text_width, clamp_text_to_width
 from generator.components.base import escape_xml, validate_svg
 from generator.font_engine import render_3d_text, calculate_smart_layout, calculate_px_size
 
-def generate_social(style="cyberpunk", primary=None, accent=None,
+def generate_social(style=None, primary=None, accent=None,
                     title="PIXEL-KIT", subtitle="TRANSLUCENT RETRO HUD READMES",
                     repo="Kazinagg/pixel-readme-kit", tags="PYTHON,SVG,HUD,RETRO",
-                    width=1280, height=640, mode="auto", preset=None):
+                    width=1280, height=640, mode="auto", preset=None, tertiary=None, theme=None):
     """
     Renders an OpenGraph Social Preview Card (1280x640) for GitHub repositories.
     """
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
@@ -20,7 +21,12 @@ def generate_social(style="cyberpunk", primary=None, accent=None,
     border = c["border"]
     text_main = c["text_main"]
     text_dim = c["text_dim"]
-    st = style.lower()
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
 
     title_clean = escape_xml(title)
     sub_clean = escape_xml(subtitle)
@@ -170,10 +176,10 @@ def generate_social(style="cyberpunk", primary=None, accent=None,
 # STAR HISTORY / GROWTH TREND CHART (v5.0 - 850x230)
 # ==============================================================================
 
-def generate_starchart(style="cyberpunk", primary=None, accent=None,
+def generate_starchart(style=None, primary=None, accent=None,
                        repo="Kazinagg/pixel-readme-kit", points=None,
                        current=None, delta="+78% past 6m", title="STAR GROWTH TRAJECTORY",
-                       period="6M", width=850, height=230, mode="auto", preset=None):
+                       period="6M", width=850, height=230, mode="auto", preset=None, tertiary=None, theme=None):
     """
     Renders an authentic, vector SVG star trend chart / activity chart (850x230).
     Features:
@@ -182,7 +188,8 @@ def generate_starchart(style="cyberpunk", primary=None, accent=None,
     - Peak milestone marker with star count callout tag
     - Authentic HUD header plate with live/custom repository stats
     """
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
@@ -191,7 +198,12 @@ def generate_starchart(style="cyberpunk", primary=None, accent=None,
     text_main = c["text_main"]
     text_dim = c["text_dim"]
     success = c["success"]
-    st = style.lower() if style else "cyberpunk"
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
 
     title_clean = escape_xml(title.upper())
     repo_clean = escape_xml(repo.strip())
@@ -393,11 +405,12 @@ def generate_starchart(style="cyberpunk", primary=None, accent=None,
 # DEVELOPER PROFILE CARD (v5.0 - 850x190)
 # ==============================================================================
 
-def generate_profile_card(style="cyberpunk", primary=None, accent=None,
+def generate_profile_card(style=None, primary=None, accent=None,
                           name="ALEX DEVELOPER", role="FULLSTACK & SYSTEMS ARCHITECT",
                           bio="Building high-performance runtimes and resilient developer tooling.",
                           status="AVAILABLE FOR HIRE", location="REMOTE // UTC+3",
-                          badge="LEVEL_99", width=850, height=190, mode="auto", preset=None):
+                          badge="LEVEL_99", width=850, height=190, mode="auto", preset=None,
+                          tertiary=None, theme=None):
     """
     Renders a flagship developer dossier / identity header card (850x190) for GitHub Profiles.
     Features:
@@ -406,7 +419,8 @@ def generate_profile_card(style="cyberpunk", primary=None, accent=None,
     - Clean manifesto / bio summary section
     - Multi-mode theming and responsive vector geometry
     """
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
@@ -415,7 +429,16 @@ def generate_profile_card(style="cyberpunk", primary=None, accent=None,
     text_main = c["text_main"]
     text_dim = c["text_dim"]
     success = c["success"]
-    st = style.lower() if style else "cyberpunk"
+    if theme_name in ("tactical", "amber", "amber_crt") or style_name == "tactical":
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper",
+                       "corporate-blue", "corporate_blue", "swiss-mono", "swiss_mono",
+                       "executive-slate", "executive_slate", "slate-dark", "slate_dark",
+                       "nordic-frost", "nordic_frost", "linear-violet", "linear_violet",
+                       "emerald-clean", "emerald_clean", "enterprise-navy", "enterprise_navy") or style_name in ("modern", "corporate"):
+        st = "modern_corporate"
+    else:
+        st = "cyberpunk"
 
     name_clean = escape_xml(name.upper())
     role_clean = escape_xml(role.upper())
@@ -424,43 +447,9 @@ def generate_profile_card(style="cyberpunk", primary=None, accent=None,
     loc_clean = escape_xml(location.upper())
     badge_clean = escape_xml(badge.upper())
 
-    # 3D Name Typography - single-line with adaptive downscaling to prevent collision
-    max_name_w = width - 180 - 40
-    lines, calc_px = calculate_smart_layout(name, max_width=max_name_w, default_px_size=5, min_px_size=3, spacing=2, allow_wrap=False)
-    single_name = lines[0] if lines else name
-    pixel_name, n_w, n_h = render_3d_text(
-        single_name, x=180, y=58, px_size=calc_px,
-        front_color=c["title_front"], mid_shadow=c["title_mid"], dark_shadow=c["title_dark"],
-        spacing=2, max_width=max_name_w, allow_wrap=False
-    )
-
-    # Avatar geometry
+    # Available width for name and header items
     av_x, av_y, av_size = 28, 28, 134
-
-    if st == "tactical":
-        chassis = f"""
-  <polygon points="14 1, {width-14} 1, {width-1} 14, {width-1} {height-14}, {width-14} {height-1}, 14 {height-1}, 1 {height-14}, 1 14"
-           fill="{bg}" stroke="{border}" stroke-width="1.8"/>
-  <rect x="1" y="1" width="14" height="14" fill="{prim}"/>
-  <rect x="{width-15}" y="1" width="14" height="14" fill="{acc}"/>
-  <rect x="1" y="{height-15}" width="14" height="14" fill="{acc}"/>
-  <rect x="{width-15}" y="{height-15}" width="14" height="14" fill="{prim}"/>
-"""
-    elif st in ("minimal", "clean-mono", "corporate-blue", "academic-paper", "modern-slate"):
-        chassis = f"""
-  <rect x="1" y="1" width="{width-2}" height="{height-2}" rx="4" fill="{bg}" stroke="{border}" stroke-width="1.2"/>
-  <line x1="1" y1="1" x2="{width-1}" y2="1" stroke="{prim}" stroke-width="3"/>
-"""
-    else:  # cyberpunk
-        chassis = f"""
-  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
-  <rect x="1" y="1" width="10" height="10" fill="{prim}"/>
-  <rect x="{width-11}" y="1" width="10" height="10" fill="{acc}"/>
-  <rect x="1" y="{height-11}" width="10" height="10" fill="{acc}"/>
-  <rect x="{width-11}" y="{height-11}" width="10" height="10" fill="{prim}"/>
-  <line x1="1" y1="36" x2="16" y2="36" stroke="{prim}" stroke-width="2"/>
-  <line x1="{width-16}" y1="{height-36}" x2="{width-1}" y2="{height-36}" stroke="{acc}" stroke-width="2"/>
-"""
+    max_name_w = width - 180 - 40
 
     # Dynamic badges and status pills (top right)
     badge_disp = clamp_text_to_width(badge_clean, 120, 10.5)
@@ -471,19 +460,179 @@ def generate_profile_card(style="cyberpunk", primary=None, accent=None,
     pills_total_w = badge_w + pills_gap + status_w
     pills_x = width - pills_total_w - 20
 
-    # Top breadcrumb dossier (between avatar right margin x=180 and pills_x)
+    # Top breadcrumb dossier
     avail_dossier_w = max(60, pills_x - 180 - 15)
-    dossier_full = f"■ DOSSIER // {loc_clean}"
+    if st == "tactical":
+        dossier_prefix = "■ TAC_ID // "
+    elif st == "modern_corporate":
+        dossier_prefix = "DOSSIER // "
+    else:
+        dossier_prefix = "■ CYBER_ID // "
+    dossier_full = f"{dossier_prefix}{loc_clean}"
     dossier_disp = clamp_text_to_width(dossier_full, avail_dossier_w - 24, 11)
     dossier_w = max(120, min(avail_dossier_w, int(measure_mono_text_width(dossier_disp, 11) + 24)))
 
-    # Role pill
+    # Role and Bio sizing
     max_role_w = width - 180 - 30
     role_disp = clamp_text_to_width(f"▶ {role_clean}", max_role_w - 28, 12)
     role_w = max(160, min(max_role_w, int(measure_mono_text_width(role_disp, 12) + 28)))
-
-    # Bio summary
     bio_disp = clamp_text_to_width(bio_clean, width - 180 - 30, 12)
+
+    # -------------------------------------------------------------
+    # 1. TACTICAL HUD PARADIGM (MIL-SPEC armored casing & crosshairs)
+    # -------------------------------------------------------------
+    if st == "tactical":
+        chassis = f"""
+  <!-- TACTICAL ARMORED CHASSIS -->
+  <polygon points="16 1, {width-16} 1, {width-1} 16, {width-1} {height-16}, {width-16} {height-1}, 16 {height-1}, 1 {height-16}, 1 16"
+           fill="{bg}" stroke="{border}" stroke-width="1.8"/>
+  <rect x="1" y="16" width="4" height="24" fill="{prim}"/>
+  <rect x="{width-5}" y="{height-40}" width="4" height="24" fill="{acc}"/>
+  <!-- Reticle Crosshair Marks -->
+  <line x1="20" y1="10" x2="28" y2="10" stroke="{prim}" stroke-width="1.5"/>
+  <line x1="24" y1="6" x2="24" y2="14" stroke="{prim}" stroke-width="1.5"/>
+  <line x1="{width-28}" y1="10" x2="{width-20}" y2="10" stroke="{acc}" stroke-width="1.5"/>
+  <line x1="{width-24}" y1="6" x2="{width-24}" y2="14" stroke="{acc}" stroke-width="1.5"/>
+  <!-- Telemetry Grate (Bottom Right) -->
+  <rect x="{width-80}" y="{height-12}" width="3" height="6" fill="{acc}"/>
+  <rect x="{width-73}" y="{height-12}" width="3" height="6" fill="{acc}"/>
+  <rect x="{width-66}" y="{height-12}" width="3" height="6" fill="{acc}"/>
+  <rect x="{width-59}" y="{height-12}" width="3" height="6" fill="{acc}"/>
+  <text x="24" y="{height-8}" fill="{text_dim}" font-size="8.5" class="font-mono">MIL-STD-810 // HUD_TELEMETRY // SYS_ID:0x884F</text>
+"""
+        avatar_markup = f"""
+  <!-- TACTICAL AVATAR & RANGEFINDER RETICLE -->
+  <g transform="translate({av_x}, {av_y})">
+    <polygon points="10 0, {av_size-10} 0, {av_size} 10, {av_size} {av_size-10}, {av_size-10} {av_size}, 10 {av_size}, 0 {av_size-10}, 0 10"
+             fill="{panel}" stroke="{border}" stroke-width="1.8"/>
+    <!-- Azimuth Rangefinder Ring -->
+    <circle cx="{av_size//2}" cy="54" r="38" fill="none" stroke="{prim}" stroke-width="1.2" stroke-dasharray="3 4"/>
+    <circle cx="{av_size//2}" cy="54" r="46" fill="none" stroke="{border}" stroke-width="0.8"/>
+    <!-- Reticle Crosshair Ticks -->
+    <line x1="{av_size//2}" y1="10" x2="{av_size//2}" y2="22" stroke="{acc}" stroke-width="1.5"/>
+    <line x1="{av_size//2}" y1="86" x2="{av_size//2}" y2="98" stroke="{acc}" stroke-width="1.5"/>
+    <line x1="14" y1="54" x2="26" y2="54" stroke="{acc}" stroke-width="1.5"/>
+    <line x1="{av_size-26}" y1="54" x2="{av_size-14}" y2="54" stroke="{acc}" stroke-width="1.5"/>
+    <!-- Operator Silhouette -->
+    <circle cx="{av_size//2}" cy="50" r="16" fill="{bg}" stroke="{prim}" stroke-width="2"/>
+    <path d="M 32 94 L 46 78 L {av_size-46} 78 L {av_size-32} 94 Z" fill="{bg}" stroke="{prim}" stroke-width="2"/>
+    <circle cx="{av_size//2}" cy="50" r="6" fill="{acc}"/>
+    <!-- Tactical Readiness Status Bar -->
+    <rect x="8" y="110" width="{av_size-16}" height="16" fill="{bg}" stroke="{acc}" stroke-width="1"/>
+    <text x="{av_size//2}" y="122" fill="{acc}" font-size="8.5" font-weight="bold" text-anchor="middle" class="font-mono">HUD // ACTIVE</text>
+  </g>
+"""
+        lines, calc_px = calculate_smart_layout(name, max_width=max_name_w, default_px_size=5, min_px_size=3, spacing=2, allow_wrap=False)
+        single_name = lines[0] if lines else name
+        name_markup, _, _ = render_3d_text(
+            single_name, x=180, y=58, px_size=calc_px,
+            front_color=c["title_front"], mid_shadow=c["title_mid"], dark_shadow=c["title_dark"],
+            spacing=2, max_width=max_name_w, allow_wrap=False
+        )
+        role_markup = f"""
+  <g transform="translate(180, 116)">
+    <polygon points="0 0, {role_w-8} 0, {role_w} 8, {role_w} 26, 0 26" fill="{panel}" stroke="{prim}" stroke-width="1.2"/>
+    <rect x="0" y="0" width="5" height="26" fill="{prim}"/>
+    <text x="14" y="17" fill="{acc}" font-size="11.5" font-weight="bold" class="font-mono">{role_disp}</text>
+  </g>
+"""
+
+    # -------------------------------------------------------------
+    # 2. MODERN & CORPORATE & ACADEMIC PARADIGM (Pure Vector Cleanliness)
+    # -------------------------------------------------------------
+    elif st == "modern_corporate":
+        is_academic_corp = theme_name in ("academic-paper", "academic_paper", "corporate-blue", "corporate_blue",
+                                          "enterprise-navy", "enterprise_navy", "swiss-mono", "swiss_mono", "clean-mono", "clean_mono") or style_name == "corporate"
+        if is_academic_corp:
+            chassis = f"""
+  <!-- CORPORATE / ACADEMIC FORMAL SPECIFICATION DOSSIER -->
+  <rect x="1" y="1" width="{width-2}" height="{height-2}" fill="{bg}" stroke="{border}" stroke-width="1.5"/>
+  <rect x="5" y="5" width="{width-10}" height="{height-10}" fill="none" stroke="{border}" stroke-width="0.8" opacity="0.6"/>
+  <line x1="5" y1="5" x2="{width-5}" y2="5" stroke="{prim}" stroke-width="2.5"/>
+  <line x1="5" y1="{height-5}" x2="{width-5}" y2="{height-5}" stroke="{border}" stroke-width="1"/>
+  <text x="{width-18}" y="{height-10}" fill="{text_dim}" font-size="8.5" text-anchor="end" class="font-mono">IDENTIFICATION PROTOCOL // VERIFIED</text>
+"""
+        else:
+            chassis = f"""
+  <!-- MODERN CLEAN VECTOR CARD -->
+  <rect x="1" y="1" width="{width-2}" height="{height-2}" rx="10" fill="{bg}" stroke="{border}" stroke-width="1.2"/>
+  <path d="M 12 1 L {width-12} 1" stroke="{prim}" stroke-width="2.5" stroke-linecap="round"/>
+"""
+
+        avatar_markup = f"""
+  <!-- CLEAN MINIMALIST AVATAR -->
+  <g transform="translate({av_x}, {av_y})">
+    <rect x="0" y="0" width="{av_size}" height="{av_size}" rx="12" fill="{panel}" stroke="{border}" stroke-width="1.2"/>
+    <!-- Smooth User Silhouette (Pure Vector) -->
+    <circle cx="{av_size//2}" cy="48" r="22" fill="{bg}" stroke="{prim}" stroke-width="1.8"/>
+    <path d="M 28 98 C 28 76, {av_size-28} 76, {av_size-28} 98 Z" fill="{bg}" stroke="{prim}" stroke-width="1.8"/>
+    <circle cx="{av_size//2}" cy="48" r="8" fill="{acc}"/>
+    <!-- Minimalist Status Indicator -->
+    <rect x="16" y="108" width="{av_size-32}" height="18" rx="9" fill="{bg}" stroke="{success}" stroke-width="1"/>
+    <circle cx="28" cy="117" r="3" fill="{success}"/>
+    <text x="36" y="120" fill="{success}" font-size="8.5" font-weight="600" class="font-mono">ACTIVE</text>
+  </g>
+"""
+        # PURE VECTOR NAME TYPOGRAPHY (No pixelated pseudo-3D block shadows)
+        calc_font_size = 26
+        while calc_font_size > 14 and measure_mono_text_width(name_clean, calc_font_size) > max_name_w:
+            calc_font_size -= 2
+        name_markup = f"""  <text x="180" y="78" fill="{c['title_front']}" font-size="{calc_font_size}" font-weight="700" letter-spacing="0.04em" class="font-mono">{name_clean}</text>"""
+
+        role_markup = f"""
+  <g transform="translate(180, 116)">
+    <rect x="0" y="0" width="{role_w}" height="26" rx="4" fill="{panel}" stroke="{border}" stroke-width="1"/>
+    <rect x="0" y="0" width="3" height="26" rx="1.5" fill="{prim}"/>
+    <text x="12" y="17" fill="{acc}" font-size="11.5" font-weight="600" class="font-mono">{role_disp}</text>
+  </g>
+"""
+
+    # -------------------------------------------------------------
+    # 3. CYBERPUNK / RETRO-TECH PARADIGM (Asymmetrical cuts & neon beacons)
+    # -------------------------------------------------------------
+    else:
+        chassis = f"""
+  <!-- CYBERPUNK ASYMMETRICAL DECK -->
+  <polygon points="20 1, {width-1} 1, {width-1} {height-20}, {width-20} {height-1}, 1 {height-1}, 1 20"
+           fill="{bg}" stroke="{border}" stroke-width="1.8"/>
+  <rect x="1" y="20" width="3" height="40" fill="{prim}"/>
+  <rect x="{width-4}" y="{height-60}" width="3" height="40" fill="{acc}"/>
+  <line x1="24" y1="{height-8}" x2="160" y2="{height-8}" stroke="{acc}" stroke-width="2" stroke-dasharray="8 4 2 4"/>
+  <!-- Corner Beacons -->
+  <rect x="20" y="1" width="12" height="3" fill="{prim}"/>
+  <rect x="{width-32}" y="{height-4}" width="12" height="3" fill="{prim}"/>
+"""
+        avatar_markup = f"""
+  <!-- CYBERPUNK HEXAGONAL AVATAR & SCANNER -->
+  <g transform="translate({av_x}, {av_y})">
+    <polygon points="16 0, {av_size-16} 0, {av_size} 16, {av_size} {av_size-16}, {av_size-16} {av_size}, 16 {av_size}, 0 {av_size-16}, 0 16"
+             fill="{panel}" stroke="{prim}" stroke-width="1.8"/>
+    <!-- Cyber Scanner Lines -->
+    <line x1="10" y1="40" x2="{av_size-10}" y2="40" stroke="{border}" stroke-width="0.8"/>
+    <line x1="10" y1="70" x2="{av_size-10}" y2="70" stroke="{border}" stroke-width="0.8"/>
+    <!-- Netrunner Silhouette -->
+    <circle cx="{av_size//2}" cy="50" r="22" fill="{bg}" stroke="{acc}" stroke-width="2"/>
+    <polygon points="28 102, 42 78, {av_size-42} 78, {av_size-28} 102" fill="{bg}" stroke="{acc}" stroke-width="2"/>
+    <circle cx="{av_size//2}" cy="50" r="8" fill="{prim}"/>
+    <!-- Neon Status LED Pill -->
+    <polygon points="10 110, {av_size-10} 110, {av_size-14} 126, 6 126" fill="{bg}" stroke="{success}" stroke-width="1.2"/>
+    <text x="{av_size//2}" y="122" fill="{success}" font-size="8.5" font-weight="bold" text-anchor="middle" class="font-mono">NET // ONLINE</text>
+  </g>
+"""
+        lines, calc_px = calculate_smart_layout(name, max_width=max_name_w, default_px_size=5, min_px_size=3, spacing=2, allow_wrap=False)
+        single_name = lines[0] if lines else name
+        name_markup, _, _ = render_3d_text(
+            single_name, x=180, y=58, px_size=calc_px,
+            front_color=c["title_front"], mid_shadow=c["title_mid"], dark_shadow=c["title_dark"],
+            spacing=2, max_width=max_name_w, allow_wrap=False
+        )
+        role_markup = f"""
+  <g transform="translate(180, 116)">
+    <rect x="0" y="0" width="{role_w}" height="26" fill="{panel}" stroke="{prim}" stroke-width="1.2"/>
+    <rect x="0" y="0" width="4" height="26" fill="{prim}"/>
+    <text x="14" y="17" fill="{acc}" font-size="12" font-weight="bold" class="font-mono">{role_disp}</text>
+  </g>
+"""
 
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
@@ -495,19 +644,7 @@ def generate_profile_card(style="cyberpunk", primary=None, accent=None,
 
   {chassis}
 
-  <!-- AVATAR CHASSIS -->
-  <g transform="translate({av_x}, {av_y})">
-    <rect x="0" y="0" width="{av_size}" height="{av_size}" fill="{panel}" stroke="{border}" stroke-width="1.5"/>
-    <rect x="4" y="4" width="{av_size-8}" height="{av_size-8}" fill="none" stroke="{prim}" stroke-width="1" stroke-dasharray="8 4"/>
-    <!-- Stylized User Silhouette Vector -->
-    <circle cx="{av_size//2}" cy="50" r="24" fill="{bg}" stroke="{prim}" stroke-width="2"/>
-    <path d="M 28 106 C 28 80, {av_size-28} 80, {av_size-28} 106 Z" fill="{bg}" stroke="{prim}" stroke-width="2"/>
-    <circle cx="{av_size//2}" cy="50" r="12" fill="{acc}"/>
-    <!-- Status LED pill -->
-    <rect x="12" y="112" width="{av_size-24}" height="16" fill="{bg}" stroke="{success}" stroke-width="1"/>
-    <circle cx="22" cy="120" r="3" fill="{success}"/>
-    <text x="30" y="123" fill="{success}" font-size="8.5" font-weight="bold" class="font-mono">ONLINE</text>
-  </g>
+  {avatar_markup}
 
   <!-- TOP BREADCRUMB -->
   <rect x="180" y="24" width="{dossier_w}" height="24" fill="{panel}" stroke="{border}" stroke-width="1"/>
@@ -522,15 +659,11 @@ def generate_profile_card(style="cyberpunk", primary=None, accent=None,
     <text x="{badge_w + pills_gap + 12 + (status_w - 12) // 2}" y="16" fill="{success}" font-size="10" font-weight="bold" text-anchor="middle" class="font-mono">{status_disp}</text>
   </g>
 
-  <!-- 3D NAME TYPOGRAPHY -->
-  {pixel_name}
+  <!-- NAME TYPOGRAPHY -->
+  {name_markup}
 
   <!-- ROLE PILL -->
-  <g transform="translate(180, 116)">
-    <rect x="0" y="0" width="{role_w}" height="26" fill="{panel}" stroke="{prim}" stroke-width="1.2"/>
-    <rect x="0" y="0" width="4" height="26" fill="{prim}"/>
-    <text x="14" y="17" fill="{acc}" font-size="12" font-weight="bold" class="font-mono">{role_disp}</text>
-  </g>
+  {role_markup}
 
   <!-- BIO SUMMARY -->
   <text x="182" y="166" fill="{text_main}" font-size="12" font-weight="normal" class="font-mono">{bio_disp}</text>

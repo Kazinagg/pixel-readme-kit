@@ -91,6 +91,8 @@ def resolve_template_path(template_name: str) -> str:
         f"Available: {sorted(list(TEMPLATE_REGISTRY.keys()) + ['library', 'cli', 'study'])}"
     )
 
+from generator.themes import normalize_style_and_theme
+
 def scaffold_readme(
     project_type="library",
     category=None,
@@ -100,6 +102,8 @@ def scaffold_readme(
     group="SE-01",
     discipline="COMPUTER SCIENCE",
     repo=None,
+    style="pixel",
+    theme=None,
     output_path="README.template.md"
 ) -> str:
     """
@@ -131,6 +135,11 @@ def scaffold_readme(
 
     for key, val in replacements.items():
         content = content.replace(key, str(val))
+
+    if theme or (style and style != "pixel"):
+        norm_style, norm_theme = normalize_style_and_theme(style, theme)
+        if norm_theme:
+            content = re.sub(r'style="[^"]*"', f'style="{norm_style}" theme="{norm_theme}"', content)
 
     os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:

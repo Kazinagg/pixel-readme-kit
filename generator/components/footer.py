@@ -1,13 +1,15 @@
 """Footer closing plate components for Pixel Readme Kit."""
 from typing import Optional, Any
-from generator.themes import resolve_theme
+from generator.themes import resolve_theme, normalize_style_and_theme
 from generator.layout import measure_mono_text_width, clamp_text_to_width
 from generator.components.base import escape_xml, validate_svg
 
-def generate_footer(style="cyberpunk", primary=None, accent=None,
+def generate_footer(style=None, primary=None, accent=None,
                     status="SESSION_ACTIVE // STANDBY", nav_text="RETURN TO TOP",
-                    sub_text=None, width=850, height=76, mode="auto", preset=None, tertiary=None):
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+                    sub_text=None, width=850, height=76, mode="auto", preset=None, tertiary=None,
+                    theme=None):
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     tertiary_col = c["tertiary"]
@@ -19,7 +21,12 @@ def generate_footer(style="cyberpunk", primary=None, accent=None,
 
     status_clean = escape_xml(status)
     nav_clean = escape_xml(nav_text)
-    st = style.lower()
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
 
     clean_nav = nav_clean.strip()
     clean_nav = clamp_text_to_width(clean_nav, 150, 11)

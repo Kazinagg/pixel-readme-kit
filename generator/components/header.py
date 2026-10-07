@@ -1,7 +1,7 @@
 """Header components for Pixel Readme Kit."""
 import html
 from typing import Optional, Any
-from generator.themes import resolve_theme
+from generator.themes import resolve_theme, normalize_style_and_theme
 from generator.layout import (
     measure_mono_text_width,
     clamp_text_to_width,
@@ -11,14 +11,15 @@ from generator.layout import (
 from generator.components.base import escape_xml, validate_svg
 from generator.font_engine import render_3d_text
 
-def _generate_compact_header(style="cyberpunk", primary=None, accent=None,
+def _generate_compact_header(style=None, primary=None, accent=None,
                              title="PIXEL-KIT", subtitle="TRANSLUCENT HUD DESIGN SYSTEM",
                              tag="SYSTEM_ACTIVE", width=850, height=None, mode="auto", preset=None,
-                             tag_url=None, close_url=None, tertiary=None):
+                             tag_url=None, close_url=None, tertiary=None, theme=None):
     """
     Renders a low-profile compact banner (~84px height) optimized for mobile viewports.
     """
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     tertiary_col = c["tertiary"]
@@ -27,7 +28,7 @@ def _generate_compact_header(style="cyberpunk", primary=None, accent=None,
     border = c["border"]
     text_main = c["text_main"]
     text_dim = c["text_dim"]
-    st = style.lower()
+    st = theme_name
     h = height if height else 84
 
     title_clean = escape_xml(title)
@@ -90,19 +91,20 @@ def _generate_compact_header(style="cyberpunk", primary=None, accent=None,
     validate_svg(svg)
     return svg
 
-def generate_header(style="cyberpunk", primary=None, accent=None,
+def generate_header(style=None, primary=None, accent=None,
                     title="PIXEL-KIT", subtitle="TRANSLUCENT HUD DESIGN SYSTEM",
                     specs=None, spec1=None, spec2=None, spec3=None,
                     tag="SYSTEM_ACTIVE", width=850, height=None, mode="auto", preset=None,
-                    tag_url=None, close_url=None, compact=False, tertiary=None):
+                    tag_url=None, close_url=None, compact=False, tertiary=None, theme=None):
     if compact and str(compact).lower() in ("true", "1", "yes", "compact"):
         return _generate_compact_header(
             style=style, primary=primary, accent=accent, title=title, subtitle=subtitle,
             tag=tag, width=width, height=height, mode=mode, preset=preset,
-            tag_url=tag_url, close_url=close_url, tertiary=tertiary
+            tag_url=tag_url, close_url=close_url, tertiary=tertiary, theme=theme
         )
 
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     tertiary_col = c["tertiary"]
@@ -121,7 +123,12 @@ def generate_header(style="cyberpunk", primary=None, accent=None,
     title_clean = escape_xml(title)
     sub_clean = escape_xml(subtitle)
     tag_clean = escape_xml(tag)
-    st = style.lower()
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
 
     # Dynamic subtitle box width and safe clamp
     sub_w = min(480, max(260, int(measure_mono_text_width(subtitle, 11) + 40)))

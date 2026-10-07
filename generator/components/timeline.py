@@ -1,17 +1,18 @@
 """Timeline milestone components for Pixel Readme Kit."""
 from typing import Optional, Any, List, Dict
-from generator.themes import resolve_theme
+from generator.themes import resolve_theme, normalize_style_and_theme
 from generator.layout import measure_mono_text_width, clamp_text_to_width
 from generator.components.base import escape_xml, validate_svg
 
-def generate_timeline(items=None, milestones=None, style="cyberpunk", primary=None, accent=None, mode="auto", preset=None, width=850):
+def generate_timeline(items=None, milestones=None, style=None, primary=None, accent=None, mode="auto", preset=None, width=850, tertiary=None, theme=None):
     """
     Renders a vertical PCB data bus timeline with milestones and status nodes.
     items / milestones: list of dicts with: title, date, status ("COMPLETED"|"IN_PROGRESS"|"PLANNED"), desc
     """
     if items is None and milestones is not None:
         items = milestones
-    c, css_vars = resolve_theme(style, mode=mode, primary=primary, accent=accent, preset=preset)
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
     prim = c["primary"]
     acc = c["accent"]
     panel = c["panel"]
@@ -20,7 +21,12 @@ def generate_timeline(items=None, milestones=None, style="cyberpunk", primary=No
     text_dim = c["text_dim"]
     title_front = c["title_front"]
     success = c["success"]
-    st = style.lower()
+    if theme_name in ("tactical", "amber", "amber_crt"):
+        st = "tactical"
+    elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
+        st = "minimal"
+    else:
+        st = "cyberpunk"
 
     if not items:
         items = [

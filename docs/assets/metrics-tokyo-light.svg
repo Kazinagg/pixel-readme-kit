@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 98" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      .font-mono-lbl { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; }
+      .font-mono-val { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 26px; font-weight: 900; letter-spacing: -0.5px; }
+      .font-mono-sub { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }
+      .font-mono-tag { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; }
+    </style>
+  </defs>
+  <g id="metric-card-0">
+    
+    <rect x="1" y="3" width="203" height="92" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+    <line x1="1" y1="3" x2="204" y2="3" stroke="#2E56B6" stroke-width="2"/>
+    <rect x="198" y="9" width="2" height="2" fill="#2E56B6"/>
+
+    <text x="15" y="25" fill="#64748B" class="font-mono-lbl">GITHUB STARS</text>
+    
+    <text x="15" y="57" fill="#1E3A8A" font-size="26" class="font-mono-val">1,980</text>
+    <text x="15" y="79" fill="#16A34A" class="font-mono-sub">▲ +45 this week</text>
+    
+    <path d="M 150 81 L 160 75 L 170 83 L 180 71 L 190 77" fill="none" stroke="#2E56B6" stroke-width="1.2" stroke-opacity="0.4"/>
+    <circle cx="190" cy="77" r="2" fill="#0284C7"/>
+
+  </g>
+  <g id="metric-card-1">
+    
+    <rect x="216" y="3" width="203" height="92" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+    <line x1="216" y1="3" x2="419" y2="3" stroke="#2E56B6" stroke-width="2"/>
+    <rect x="413" y="9" width="2" height="2" fill="#2E56B6"/>
+
+    <text x="230" y="25" fill="#64748B" class="font-mono-lbl">ENGINE RENDER</text>
+    
+    <text x="230" y="57" fill="#1E3A8A" font-size="26" class="font-mono-val">38ms</text>
+    <text x="230" y="79" fill="#64748B" class="font-mono-sub">● Stdlib zero-dep</text>
+    
+    <path d="M 365 81 L 375 75 L 385 83 L 395 71 L 405 77" fill="none" stroke="#2E56B6" stroke-width="1.2" stroke-opacity="0.4"/>
+    <circle cx="405" cy="77" r="2" fill="#0284C7"/>
+
+  </g>
+  <g id="metric-card-2">
+    
+    <rect x="431" y="3" width="203" height="92" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+    <line x1="431" y1="3" x2="634" y2="3" stroke="#2E56B6" stroke-width="2"/>
+    <rect x="628" y="9" width="2" height="2" fill="#2E56B6"/>
+
+    <text x="445" y="25" fill="#64748B" class="font-mono-lbl">TEST COVERAGE</text>
+    
+    <text x="445" y="57" fill="#1E3A8A" font-size="26" class="font-mono-val">100%</text>
+    <text x="445" y="79" fill="#16A34A" class="font-mono-sub">▲ 148 unit tests</text>
+    
+    <path d="M 580 81 L 590 75 L 600 83 L 610 71 L 620 77" fill="none" stroke="#2E56B6" stroke-width="1.2" stroke-opacity="0.4"/>
+    <circle cx="620" cy="77" r="2" fill="#0284C7"/>
+
+  </g>
+  <g id="metric-card-3">
+    
+    <rect x="646" y="3" width="203" height="92" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+    <line x1="646" y1="3" x2="849" y2="3" stroke="#2E56B6" stroke-width="2"/>
+    <rect x="843" y="9" width="2" height="2" fill="#2E56B6"/>
+
+    <text x="660" y="25" fill="#64748B" class="font-mono-lbl">CAMO STATUS</text>
+    <rect x="779" y="13" width="58" height="13" fill="#F1F5F9" stroke="#0284C7" stroke-width="1"/>
+    <text x="808" y="23" fill="#0284C7" text-anchor="middle" class="font-mono-tag">OPTIMAL</text>
+    <text x="660" y="57" fill="#1E3A8A" font-size="26" class="font-mono-val">IMMUNE</text>
+    <text x="660" y="79" fill="#64748B" class="font-mono-sub">● Hash-versioned</text>
+    
+    <path d="M 795 81 L 805 75 L 815 83 L 825 71 L 835 77" fill="none" stroke="#2E56B6" stroke-width="1.2" stroke-opacity="0.4"/>
+    <circle cx="835" cy="77" r="2" fill="#0284C7"/>
+
+  </g>
+</svg>

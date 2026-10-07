@@ -38,6 +38,7 @@ from generator.engine import (
     generate_profile_card,
     validate_svg
 )
+from generator.themes import normalize_style_and_theme, VALID_STYLES
 from generator.compiler import MarkdownCompiler
 from generator.scaffolder import scaffold_readme, get_available_templates
 
@@ -79,8 +80,10 @@ def handle_cli_output(args, generator_fn, gen_kwargs, default_name):
         save_output(svg, args.output, f"assets/{default_name}.svg")
 
 def cmd_header(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     handle_cli_output(args, generate_header, {
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset,
@@ -94,12 +97,14 @@ def cmd_header(args):
         "spec3": args.spec3,
         "specs": args.specs,
         "compact": getattr(args, "compact", False)
-    }, f"header-{args.style}")
+    }, f"header-{theme}")
 
 def cmd_social(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     tags = [x.strip() for x in args.tags.split(",") if x.strip()] if getattr(args, "tags", None) else None
     handle_cli_output(args, generate_social, {
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset,
@@ -107,23 +112,27 @@ def cmd_social(args):
         "subtitle": args.subtitle,
         "repo": getattr(args, "repo", "pixel-readme-kit"),
         "tags": tags
-    }, f"social-{args.style}")
+    }, f"social-{theme}")
 
 def cmd_footer(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     handle_cli_output(args, generate_footer, {
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset,
         "status": args.status,
         "nav_text": args.nav,
         "sub_text": args.sub
-    }, f"footer-{args.style}")
+    }, f"footer-{theme}")
 
 def cmd_callout(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     prefix = "callout-quote" if args.quote else "callout"
     handle_cli_output(args, generate_callout, {
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset,
@@ -132,11 +141,13 @@ def cmd_callout(args):
         "subtitle": args.subtitle,
         "is_quote": args.quote,
         "badge_color": getattr(args, "badge_color", None)
-    }, f"{prefix}-{args.style}-{args.type}")
+    }, f"{prefix}-{theme}-{args.type}")
 
 def cmd_frame(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     handle_cli_output(args, generate_frame, {
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset,
@@ -145,9 +156,10 @@ def cmd_frame(args):
         "tag": args.tag,
         "tag_url": getattr(args, "tag_url", None),
         "close_url": getattr(args, "close_url", None)
-    }, f"frame-{args.type}-{args.style}")
+    }, f"frame-{args.type}-{theme}")
 
 def cmd_chip(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     chip_text = args.text
     if getattr(args, "github", None):
         repo = getattr(args, "repo", None) or "Kazinagg/pixel-readme-kit"
@@ -156,7 +168,8 @@ def cmd_chip(args):
         chip_text = stat_text
 
     handle_cli_output(args, generate_chip, {
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset,
@@ -164,26 +177,31 @@ def cmd_chip(args):
         "text": chip_text,
         "width": args.width,
         "decay_dir": getattr(args, "decay_dir", "right")
-    }, f"chip-{args.style}-{args.type}")
+    }, f"chip-{theme}-{args.type}")
 
 def cmd_divider(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     handle_cli_output(args, generate_divider, {
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset
-    }, f"divider-{args.style}")
+    }, f"divider-{theme}")
 
 def cmd_splitter(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     handle_cli_output(args, generate_splitter, {
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset,
         "label": args.label
-    }, f"splitter-{args.style}")
+    }, f"splitter-{theme}")
 
 def cmd_metrics(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     items = []
     if getattr(args, "fetch_github", False) and getattr(args, "repo", None):
         from generator.github_api import fetch_repo_data
@@ -216,43 +234,51 @@ def cmd_metrics(args):
 
     handle_cli_output(args, generate_metrics, {
         "metrics": items,
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset
-    }, f"metrics-{args.style}")
+    }, f"metrics-{theme}")
 
 def cmd_progress(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     handle_cli_output(args, generate_progress, {
         "value": args.value,
         "label": args.label,
         "sub": args.sub,
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset
-    }, f"progress-{args.style}")
+    }, f"progress-{theme}")
 
 def cmd_techstack(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     items = [x.strip() for x in args.items.split(",") if x.strip()] if args.items else ["python", "cpp", "rust", "docker", "git"]
     handle_cli_output(args, generate_techstack, {
         "items": items,
         "columns": args.columns,
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset
-    }, f"techstack-{args.style}")
+    }, f"techstack-{theme}")
 
 def cmd_timeline(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     handle_cli_output(args, generate_timeline, {
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset
-    }, f"timeline-{args.style}")
+    }, f"timeline-{theme}")
 
 def cmd_starchart(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     pts = [float(x.strip()) for x in args.points.split(",") if x.strip()] if getattr(args, "points", None) else None
     cur = args.current
     delta = args.delta
@@ -270,7 +296,8 @@ def cmd_starchart(args):
             print(f"[!] Warning: GitHub API error: {err}")
 
     handle_cli_output(args, generate_starchart, {
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "repo": args.repo,
         "points": pts,
         "current": cur,
@@ -280,9 +307,10 @@ def cmd_starchart(args):
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset
-    }, f"starchart-{args.style}")
+    }, f"starchart-{theme}")
 
 def cmd_profile(args):
+    style, theme = normalize_style_and_theme(getattr(args, "style", None), getattr(args, "theme", None))
     name = args.name
     role = args.role
     bio = args.bio
@@ -307,7 +335,8 @@ def cmd_profile(args):
             print(f"[!] Warning: GitHub API error: {err}")
 
     handle_cli_output(args, generate_profile_card, {
-        "style": args.style,
+        "style": style,
+        "theme": theme,
         "name": name,
         "role": role,
         "bio": bio,
@@ -317,7 +346,7 @@ def cmd_profile(args):
         "primary": args.primary,
         "accent": args.accent,
         "preset": args.preset
-    }, f"profile-{args.style}")
+    }, f"profile-{theme}")
 
 def cmd_compile(args):
     inp = args.input if args.input else "README.template.md"
@@ -421,6 +450,8 @@ def cmd_init(args):
         group=args.group if args.group else "SE-01",
         discipline=args.discipline if args.discipline else "COMPUTER SCIENCE",
         repo=args.repo,
+        style=getattr(args, "style", "pixel"),
+        theme=getattr(args, "theme", None),
         output_path=out
     )
     print(f"[+] Initialized template: {out} (type: {ptype})")
@@ -435,10 +466,12 @@ def build_parser():
 
     subparsers = parser.add_subparsers(dest="command", help="Block type or compiler action")
     mode_choices = ["auto", "dark", "light", "transparent", "gh", "picture"]
+    style_choices = ["pixel", "modern", "corporate", "cyberpunk", "tactical", "minimal"]
 
     # 1. HEADER
     p_hdr = subparsers.add_parser("header", help="Generate flagship header banner")
-    p_hdr.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style (cyberpunk, tactical, minimal)")
+    p_hdr.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_hdr.add_argument("--theme", help="Color palette theme (e.g. cyberpunk, tactical, minimal, tokyo, amber, slate-dark, nordic-frost)")
     p_hdr.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_hdr.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_hdr.add_argument("--primary", help="Primary brand hex color (e.g. #00C8D7, #F59E0B, #4F8BFF)")
@@ -458,7 +491,8 @@ def build_parser():
 
     # 2. FOOTER
     p_ftr = subparsers.add_parser("footer", help="Generate full-width closing footer plate")
-    p_ftr.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_ftr.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_ftr.add_argument("--theme", help="Color palette theme")
     p_ftr.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_ftr.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_ftr.add_argument("--primary", help="Primary brand hex color")
@@ -471,7 +505,8 @@ def build_parser():
 
     # 3. CALLOUT
     p_clt = subparsers.add_parser("callout", help="Generate inline alert plate or quote header")
-    p_clt.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_clt.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_clt.add_argument("--theme", help="Color palette theme")
     p_clt.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_clt.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_clt.add_argument("--type", choices=["note", "warning", "critical", "success", "info"], default="note", help="Callout type / badge")
@@ -486,7 +521,8 @@ def build_parser():
 
     # 4. FRAME
     p_frm = subparsers.add_parser("frame", help="Generate window top cap or bottom plate")
-    p_frm.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_frm.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_frm.add_argument("--theme", help="Color palette theme")
     p_frm.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_frm.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_frm.add_argument("--type", choices=["top", "bottom"], default="top", help="Frame position: top or bottom")
@@ -501,7 +537,8 @@ def build_parser():
 
     # 5. CHIP
     p_chp = subparsers.add_parser("chip", help="Generate holographic pill / chip badge")
-    p_chp.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_chp.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_chp.add_argument("--theme", help="Color palette theme")
     p_chp.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_chp.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_chp.add_argument("--type", choices=["closed", "decay", "pulse"], default="closed", help="Form & decay mechanics: closed, decay, pulse")
@@ -517,7 +554,8 @@ def build_parser():
 
     # 6. DIVIDER
     p_div = subparsers.add_parser("divider", help="Generate chapter divider (PCB, Laser, or Spectrum)")
-    p_div.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Style: cyberpunk=PCB, tactical=Laser, minimal=Spectrum")
+    p_div.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_div.add_argument("--theme", help="Color palette theme")
     p_div.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_div.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_div.add_argument("--primary", help="Primary brand hex color")
@@ -527,7 +565,8 @@ def build_parser():
 
     # 7. SPLITTER
     p_spl = subparsers.add_parser("splitter", help="Generate sub-module splitter (flush x=1..849)")
-    p_spl.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_spl.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_spl.add_argument("--theme", help="Color palette theme")
     p_spl.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_spl.add_argument("--preset", help="Named palette preset (e.g. cyberpunk, amber, matrix, tokyo) or path to JSON")
     p_spl.add_argument("--primary", help="Primary brand hex color")
@@ -559,6 +598,8 @@ def build_parser():
     p_init = subparsers.add_parser("init", help="Scaffold a new README.template.md for a repository or developer profile")
     p_init.add_argument("--category", choices=["repo", "profile"], help="Template category: repo or profile")
     p_init.add_argument("--type", help="Template type (e.g. repo/library, repo/cli, repo/study, repo/minimal, profile/developer, profile/minimal, profile/cyberpunk)")
+    p_init.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style")
+    p_init.add_argument("--theme", help="Color palette theme")
     p_init.add_argument("--title", help="Main project or profile title")
     p_init.add_argument("--subtitle", help="Project subtitle or profile bio")
     p_init.add_argument("--author", help="Author name (for study or profile template)")
@@ -571,7 +612,8 @@ def build_parser():
 
     # 10. METRICS
     p_met = subparsers.add_parser("metrics", help="Generate full-width KPI metrics card row")
-    p_met.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_met.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_met.add_argument("--theme", help="Color palette theme")
     p_met.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_met.add_argument("--preset", help="Named palette preset or path to JSON")
     p_met.add_argument("--primary", help="Primary brand hex color")
@@ -589,7 +631,8 @@ def build_parser():
 
     # 11. PROGRESS
     p_prg = subparsers.add_parser("progress", help="Generate segmented sci-fi HUD progress bar")
-    p_prg.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_prg.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_prg.add_argument("--theme", help="Color palette theme")
     p_prg.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_prg.add_argument("--preset", help="Named palette preset or path to JSON")
     p_prg.add_argument("--primary", help="Primary brand hex color")
@@ -602,7 +645,8 @@ def build_parser():
 
     # 12. TECHSTACK
     p_tch = subparsers.add_parser("techstack", help="Generate tech stack matrix with vector pixel icons")
-    p_tch.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_tch.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_tch.add_argument("--theme", help="Color palette theme")
     p_tch.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_tch.add_argument("--preset", help="Named palette preset or path to JSON")
     p_tch.add_argument("--primary", help="Primary brand hex color")
@@ -614,7 +658,8 @@ def build_parser():
 
     # 13. TIMELINE
     p_tml = subparsers.add_parser("timeline", help="Generate vertical PCB data bus timeline")
-    p_tml.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_tml.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_tml.add_argument("--theme", help="Color palette theme")
     p_tml.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_tml.add_argument("--preset", help="Named palette preset or path to JSON")
     p_tml.add_argument("--primary", help="Primary brand hex color")
@@ -624,7 +669,8 @@ def build_parser():
 
     # 14. SOCIAL (OpenGraph 1280x640)
     p_soc = subparsers.add_parser("social", help="Generate 1280x640 OpenGraph social preview card")
-    p_soc.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_soc.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_soc.add_argument("--theme", help="Color palette theme")
     p_soc.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_soc.add_argument("--preset", help="Named palette preset or path to JSON")
     p_soc.add_argument("--primary", help="Primary brand hex color")
@@ -655,7 +701,8 @@ def build_parser():
 
     # 16. STARCHART
     p_sta = subparsers.add_parser("starchart", help="Generate vector star growth trend / activity chart")
-    p_sta.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_sta.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_sta.add_argument("--theme", help="Color palette theme")
     p_sta.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_sta.add_argument("--preset", help="Named palette preset or path to JSON")
     p_sta.add_argument("--primary", help="Primary brand hex color")
@@ -672,7 +719,8 @@ def build_parser():
 
     # 17. PROFILE CARD
     p_prf = subparsers.add_parser("profile", help="Generate flagship developer profile / dossier identity header card")
-    p_prf.add_argument("--style", choices=["cyberpunk", "tactical", "minimal"], default="cyberpunk", help="Geometry style")
+    p_prf.add_argument("--style", choices=style_choices, default="pixel", help="Geometry style (pixel, modern, corporate)")
+    p_prf.add_argument("--theme", help="Color palette theme")
     p_prf.add_argument("--mode", choices=mode_choices, default="auto", help="Theme mode: auto (default), dark, light, transparent, gh, picture")
     p_prf.add_argument("--preset", help="Named palette preset or path to JSON")
     p_prf.add_argument("--primary", help="Primary brand hex color")
