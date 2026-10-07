@@ -598,12 +598,20 @@ THEME_ALIASES: Dict[str, str] = {
     "paper": "academic-paper",
     "academic_paper": "academic-paper",
     "clean_mono": "clean-mono",
+    "corporate": "corporate-blue",
     "corporate_blue": "corporate-blue",
     "modern_slate": "modern-slate",
     "amber_crt": "amber",
+    "amber-crt": "amber",
     "matrix_terminal": "matrix",
+    "matrix-terminal": "matrix",
     "tokyo_night": "tokyo",
+    "tokyo-night": "tokyo",
+    "tactical_amber": "tactical",
+    "tactical-amber": "tactical",
     "slate_dark": "slate-dark",
+    "nordic": "nordic-frost",
+    "frost": "nordic-frost",
     "nordic_frost": "nordic-frost",
     "linear_violet": "linear-violet",
     "emerald_clean": "emerald-clean",
@@ -619,13 +627,7 @@ STYLE_THEMES: Dict[str, List[str]] = {
     "pixel": [
         "cyberpunk",
         "tactical",
-        "minimal",
-        "amber",
         "tokyo",
-        "clean-mono",
-        "corporate-blue",
-        "academic-paper",
-        "modern-slate",
     ],
     "modern": [
         "slate-dark",
@@ -674,6 +676,20 @@ def load_preset(preset_name_or_path: Optional[str]) -> Optional[Dict[str, Any]]:
                 target_path = c
                 break
         if not target_path:
+            canonical = THEME_ALIASES.get(path.lower().strip(), path.lower().strip())
+            if canonical in BASE_THEME_PALETTES:
+                p = BASE_THEME_PALETTES[canonical]["dark"]
+                return {
+                    "theme": canonical,
+                    "primary": p.get("primary"),
+                    "secondary": p.get("accent"),
+                    "accent": p.get("tertiary"),
+                    "success": p.get("success"),
+                    "warning": p.get("warning"),
+                    "bg_glass": p.get("bg"),
+                    "bg_panel": p.get("panel"),
+                    "border_subtle": p.get("border")
+                }
             return None
     try:
         with open(target_path, "r", encoding="utf-8") as f:

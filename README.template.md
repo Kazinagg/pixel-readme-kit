@@ -78,13 +78,21 @@
 
 ## 04 // Мульти-стилевая архитектура (3 Дизайн-парадигмы)
 
-Дизайн-система предлагает 3 глобальные визуальные парадигмы:
+Дизайн-система предлагает 3 глобальные визуальные парадигмы с ортогональным разделением **Геометрии (`style`)** и **Цветовых палитр (`theme`)**:
 
-| Парадигма | Стиль | Палитры по умолчанию | Особенности геометрии | Назначение |
+| Парадигма (Стиль `style`) | Канонические темы (`theme`) | Основная палитра | Особенности геометрии | Статус готовности |
 | :--- | :--- | :--- | :--- | :--- |
-| **Pixel / Retro-Tech** | `cyberpunk`, `tactical`, `matrix`, `tokyo` | Cyan / Purple, Amber / Orange, Phosphor Green | Пиксельный дизеринг, радары 360°, CRT-сканлайн, скобы | Игровые, хакерские и CLI проекты, яркие профили |
-| **Clean / Modern Vector** | `clean-mono`, `modern-slate` | Monochrome, Matte Graphite, Accent Slate | Четкие векторные контуры 1px, сглаженные радиусы, чистый фон | Системный софт, DevOps, облачные утилиты |
-| **Minimalist / Corporate** | `corporate-blue`, `academic-paper` | Deep Navy / Azure, Paper Monochrome | Сдержанная корпоративная типографика, 1px геометрия | Enterprise-библиотеки, научные статьи, исследования |
+| **Pixel / Retro-Tech** (`pixel`) | `cyberpunk`, `tactical`, `tokyo` | Cyan / Magenta, Phosphor Amber, Tokyo Neon | 3D пиксельный шрифт, радары 360°, CRT-сканлайн, скобы 45°, дизеринг | ● **READY (v5.0-CORE)** |
+| **Clean / Modern Vector** (`modern`) | `slate-dark`, `nordic-frost`, `linear-violet` | Matte Graphite, Nordic Frost, Linear Violet | Четкие векторные контуры 1px, сглаженные радиусы, чистый фон | ○ IN DEV (Roadmap v5.1+) |
+| **Minimalist / Corporate** (`corporate`) | `academic-paper`, `enterprise-navy`, `swiss-mono` | Academic Paper, Enterprise Navy, Swiss Monochrome | Сдержанная академическая типографика, 1px строгая геометрия | ○ IN DEV (Roadmap v5.2+) |
+
+> [!NOTE]
+> **Каноническая триада тем Pixel-стиля**:
+> 1. `cyberpunk` — неоновый киберпанк (Electric Cyan `#00C8D7` / Laser Magenta `#FF0055` / Purple `#A855F7`).
+> 2. `tactical` — тактический HUD (Phosphor Amber `#F59E0B` / Signal Orange `#EA580C`).
+> 3. `tokyo` — ночной токийский ретро-вейв (Tokyo Neon Blue `#7AA2F7` / Vaporwave Purple `#BB9AF7`).
+> 
+> *Темы `nordic-frost` и `academic-paper` сохранены в ядре генератора как исходники и фундамент для грядущих стилей Modern и Corporate.*
 
 <br/>
 

@@ -1066,11 +1066,9 @@
           </div>
           <div class="sim-controls-group">
             <span class="sim-label" data-i18n="sim_palette_lbl">THEME:</span>
-            <button class="theme-chip-btn active" onclick="setSimTheme('cyberpunk')">Cyberpunk</button>
-            <button class="theme-chip-btn" onclick="setSimTheme('tactical')">Tactical Amber</button>
-            <button class="theme-chip-btn" onclick="setSimTheme('tokyo')">Tokyo Night</button>
-            <button class="theme-chip-btn" onclick="setSimTheme('nordic')">Nordic Frost</button>
-            <button class="theme-chip-btn" onclick="setSimTheme('academic')">Academic Paper</button>
+            <button class="theme-chip-btn active" onclick="setSimTheme('cyberpunk')" data-i18n="theme_cyberpunk">Cyberpunk</button>
+            <button class="theme-chip-btn" onclick="setSimTheme('tactical')" data-i18n="theme_tactical">Tactical Amber</button>
+            <button class="theme-chip-btn" onclick="setSimTheme('tokyo')" data-i18n="theme_tokyo">Tokyo Night</button>
           </div>
           <div class="sim-controls-group">
             <span class="sim-label" data-i18n="sim_mode_lbl">GITHUB MODE:</span>
@@ -1238,11 +1236,9 @@
             </div>
             <div class="viewer-theme-selector" id="viewer-theme-container">
               <span class="sim-label" data-i18n="viewer_theme_lbl">THEME:</span>
-              <button class="viewer-theme-btn active" onclick="setViewerTheme('cyberpunk')">Cyberpunk</button>
-              <button class="viewer-theme-btn" onclick="setViewerTheme('tactical')">Tactical</button>
-              <button class="viewer-theme-btn" onclick="setViewerTheme('tokyo')">Tokyo</button>
-              <button class="viewer-theme-btn" onclick="setViewerTheme('nordic')">Nordic</button>
-              <button class="viewer-theme-btn" onclick="setViewerTheme('academic')">Academic</button>
+              <button class="viewer-theme-btn active" onclick="setViewerTheme('cyberpunk')" data-i18n="theme_cyberpunk">Cyberpunk</button>
+              <button class="viewer-theme-btn" onclick="setViewerTheme('tactical')" data-i18n="theme_tactical_short">Tactical</button>
+              <button class="viewer-theme-btn" onclick="setViewerTheme('tokyo')" data-i18n="theme_tokyo_short">Tokyo</button>
             </div>
             <div style="display: flex; align-items: center; gap: 14px;">
               <div class="mode-toggle-group">
@@ -1462,6 +1458,11 @@ jobs:
         viewer_theme_lbl: "THEME:",
         pill_ready: "READY",
         pill_indev: "IN DEV",
+        theme_cyberpunk: "Cyberpunk",
+        theme_tactical: "Tactical Amber",
+        theme_tokyo: "Tokyo Night",
+        theme_tactical_short: "Tactical",
+        theme_tokyo_short: "Tokyo",
         nav_status_paradigms: "GEOMETRIC PARADIGMS",
         nav_status_active: "v5.0 ACTIVE (16/16)",
         nav_status_planned: "ROADMAP v5.1+",
@@ -1559,6 +1560,11 @@ jobs:
         viewer_theme_lbl: "ТЕМА:",
         pill_ready: "ГОТОВ",
         pill_indev: "В РАЗРАБОТКЕ",
+        theme_cyberpunk: "Киберпанк",
+        theme_tactical: "Тактический янтарь",
+        theme_tokyo: "Токио найт",
+        theme_tactical_short: "Тактический",
+        theme_tokyo_short: "Токио",
         nav_status_paradigms: "ГЕОМЕТРИЧЕСКИЕ СТИЛИ",
         nav_status_active: "v5.0 АКТИВЕН (16/16)",
         nav_status_planned: "В ПЛАНАХ v5.1+",
@@ -1689,34 +1695,6 @@ jobs:
           starchart: 'assets/starchart-tokyo-light.svg',
           profile: 'assets/profile-tokyo-light.svg'
         }
-      },
-      nordic: {
-        dark: {
-          header: 'assets/header-nordic.svg',
-          metrics: 'assets/metrics-nordic.svg',
-          starchart: 'assets/starchart-nordic.svg',
-          profile: 'assets/profile-nordic.svg'
-        },
-        light: {
-          header: 'assets/header-nordic-light.svg',
-          metrics: 'assets/metrics-nordic-light.svg',
-          starchart: 'assets/starchart-nordic-light.svg',
-          profile: 'assets/profile-nordic-light.svg'
-        }
-      },
-      academic: {
-        dark: {
-          header: 'assets/header-academic.svg',
-          metrics: 'assets/metrics-academic.svg',
-          starchart: 'assets/starchart-academic.svg',
-          profile: 'assets/profile-academic.svg'
-        },
-        light: {
-          header: 'assets/header-academic-light.svg',
-          metrics: 'assets/metrics-academic-light.svg',
-          starchart: 'assets/starchart-academic-light.svg',
-          profile: 'assets/profile-academic-light.svg'
-        }
       }
     };
 
@@ -1770,14 +1748,12 @@ jobs:
         themes: {
           cyberpunk: { dark: 'assets/header-cyberpunk.svg', light: 'assets/header-cyberpunk-light.svg' },
           tactical: { dark: 'assets/header-tactical.svg', light: 'assets/header-tactical-light.svg' },
-          tokyo: { dark: 'assets/header-tokyo.svg', light: 'assets/header-tokyo-light.svg' },
-          nordic: { dark: 'assets/header-nordic.svg', light: 'assets/header-nordic-light.svg' },
-          academic: { dark: 'assets/header-academic.svg', light: 'assets/header-academic-light.svg' }
+          tokyo: { dark: 'assets/header-tokyo.svg', light: 'assets/header-tokyo-light.svg' }
         },
         directive: '<!-- pixel-kit:header style="pixel" theme="cyberpunk" title="MY-PROJECT" subtitle="SYSTEM SPECIFICATION" spec1="ENGINE: PYTHON STDLIB" spec2="PIPELINE: CAMO IMMUNE" spec3="COMPLIANCE: DUAL THEME" -->',
         props: [
           { name: 'style', type: 'string', def: '"pixel"', desc: 'Geometry paradigm: pixel, modern, or corporate' },
-          { name: 'theme', type: 'string', def: '"cyberpunk"', desc: 'Color palette: cyberpunk, tactical, tokyo, nordic-frost, academic-paper' },
+          { name: 'theme', type: 'string', def: '"cyberpunk"', desc: 'Color palette: cyberpunk, tactical, tokyo' },
           { name: 'title', type: 'string', def: '"MY-PROJECT"', desc: 'Primary 3D or vector header text' },
           { name: 'subtitle', type: 'string', def: '""', desc: 'Secondary monospace specification title' },
           { name: 'spec1, spec2, spec3', type: 'string', def: '""', desc: 'Monospace telemetry readouts in the status panel' },
@@ -1800,18 +1776,16 @@ jobs:
       },
       profile: {
         title: 'Developer Dossier Card',
-        desc: 'Identity card for GitHub developer profiles. Features distinct geometry per theme: Cyberpunk deck with 3D text, Tactical HUD with azimuth rangefinder, or Academic card with clean vector typography.',
+        desc: 'Identity card for GitHub developer profiles. Features distinct geometry per theme: Cyberpunk deck with 3D text, Tactical HUD with azimuth rangefinder, or Tokyo Night cyberpunk matrix.',
         dim: '850 x 190',
         themes: {
           cyberpunk: { dark: 'assets/profile-cyberpunk.svg', light: 'assets/profile-cyberpunk-light.svg' },
           tactical: { dark: 'assets/profile-tactical.svg', light: 'assets/profile-tactical-light.svg' },
-          tokyo: { dark: 'assets/profile-tokyo.svg', light: 'assets/profile-tokyo-light.svg' },
-          nordic: { dark: 'assets/profile-nordic.svg', light: 'assets/profile-nordic-light.svg' },
-          academic: { dark: 'assets/profile-academic.svg', light: 'assets/profile-academic-light.svg' }
+          tokyo: { dark: 'assets/profile-tokyo.svg', light: 'assets/profile-tokyo-light.svg' }
         },
         directive: '<!-- pixel-kit:profile style="pixel" theme="cyberpunk" name="ALEX DEVELOPER" role="FULLSTACK ARCHITECT" bio="Building high-performance runtimes." status="AVAILABLE" location="UTC+3" badge="LVL_99" -->',
         props: [
-          { name: 'name', type: 'string', def: '"ALEX DEVELOPER"', desc: 'Developer name (3D in Cyber/Tactical, pure vector in Academic)' },
+          { name: 'name', type: 'string', def: '"ALEX DEVELOPER"', desc: 'Developer name (3D isometric typography)' },
           { name: 'role', type: 'string', def: '"SYSTEMS ARCHITECT"', desc: 'Primary specialization pill' },
           { name: 'bio', type: 'string', def: '""', desc: 'Summary bio line with collision protection' },
           { name: 'status', type: 'string', def: '"AVAILABLE"', desc: 'Availability status badge' },
@@ -1879,9 +1853,7 @@ jobs:
         themes: {
           cyberpunk: { dark: 'assets/metrics-cyberpunk.svg', light: 'assets/metrics-cyberpunk-light.svg' },
           tactical: { dark: 'assets/metrics-tactical.svg', light: 'assets/metrics-tactical-light.svg' },
-          tokyo: { dark: 'assets/metrics-tokyo.svg', light: 'assets/metrics-tokyo-light.svg' },
-          nordic: { dark: 'assets/metrics-nordic.svg', light: 'assets/metrics-nordic-light.svg' },
-          academic: { dark: 'assets/metrics-academic.svg', light: 'assets/metrics-academic-light.svg' }
+          tokyo: { dark: 'assets/metrics-tokyo.svg', light: 'assets/metrics-tokyo-light.svg' }
         },
         directive: '<!-- pixel-kit:metrics style="pixel" theme="cyberpunk" items="STARS: 1,980 (+45/wk) [up] | RENDER: 38ms (Stdlib) [neutral] | TESTS: 100% (148 pass) [up] | CAMO: IMMUNE (Hashed) [optimal]" -->',
         props: [
@@ -1896,9 +1868,7 @@ jobs:
         themes: {
           cyberpunk: { dark: 'assets/starchart-cyberpunk.svg', light: 'assets/starchart-cyberpunk-light.svg' },
           tactical: { dark: 'assets/starchart-tactical.svg', light: 'assets/starchart-tactical-light.svg' },
-          tokyo: { dark: 'assets/starchart-tokyo.svg', light: 'assets/starchart-tokyo-light.svg' },
-          nordic: { dark: 'assets/starchart-nordic.svg', light: 'assets/starchart-nordic-light.svg' },
-          academic: { dark: 'assets/starchart-academic.svg', light: 'assets/starchart-academic-light.svg' }
+          tokyo: { dark: 'assets/starchart-tokyo.svg', light: 'assets/starchart-tokyo-light.svg' }
         },
         directive: '<!-- pixel-kit:starchart repo="Kazinagg/pixel-readme-kit" style="pixel" theme="cyberpunk" auto_fetch="true" delta="+142% past 6m" -->',
         props: [
@@ -1991,7 +1961,7 @@ jobs:
         themes: {
           cyberpunk: { dark: 'assets/callout-success.svg', light: 'assets/callout-success-light.svg' }
         },
-        directive: '<!-- pixel-kit:callout style="modern" theme="nordic-frost" type="success" title="DUAL THEME COMPLIANCE CERTIFIED" subtitle="Single SVG adapts automatically to prefers-color-scheme: dark and light." -->',
+        directive: '<!-- pixel-kit:callout style="pixel" theme="tokyo" type="success" title="DUAL THEME COMPLIANCE CERTIFIED" subtitle="Single SVG adapts automatically to prefers-color-scheme: dark and light." -->',
         props: [
           { name: 'type', type: 'string', def: '"success"', desc: 'Emerald verified indicator' }
         ]
@@ -2043,7 +2013,7 @@ jobs:
           desc: 'Flagship full-width repository header with radar sweep telemetry, 3-level technical specifications, status badge, and control buttons.',
           propsDesc: {
             style: 'Geometry paradigm: pixel, modern, or corporate',
-            theme: 'Color palette: cyberpunk, tactical, tokyo, nordic-frost, academic-paper',
+            theme: 'Color palette: cyberpunk, tactical, tokyo',
             title: 'Primary 3D or vector header text',
             subtitle: 'Secondary monospace specification title',
             'spec1, spec2, spec3': 'Monospace telemetry readouts in the status panel',
@@ -2061,9 +2031,9 @@ jobs:
         },
         profile: {
           title: 'Developer Dossier Card',
-          desc: 'Identity card for GitHub developer profiles. Features distinct geometry per theme: Cyberpunk deck with 3D text, Tactical HUD with azimuth rangefinder, or Academic card with clean vector typography.',
+          desc: 'Identity card for GitHub developer profiles. Features distinct geometry per theme: Cyberpunk deck with 3D text, Tactical HUD with azimuth rangefinder, or Tokyo Night cyberpunk matrix.',
           propsDesc: {
-            name: 'Developer name (3D in Cyber/Tactical, pure vector in Academic)',
+            name: 'Developer name (3D isometric typography)',
             role: 'Primary specialization pill',
             bio: 'Summary bio line with collision protection',
             status: 'Availability status badge',
@@ -2205,7 +2175,7 @@ jobs:
           desc: 'Флагманский полноразмерный заголовок с телеметрией радарной развертки, 3-уровневыми техническими спецификациями, системным бейджем и кнопками управления.',
           propsDesc: {
             style: 'Геометрический стиль: pixel, modern или corporate',
-            theme: 'Цветовая палитра: cyberpunk, tactical, tokyo, nordic-frost, academic-paper',
+            theme: 'Цветовая палитра: cyberpunk, tactical, tokyo',
             title: 'Основной 3D или векторный заголовок',
             subtitle: 'Вторичная моноширинная строка спецификации',
             'spec1, spec2, spec3': 'Моноширинные показания телеметрии на панели статуса',
@@ -2223,9 +2193,9 @@ jobs:
         },
         profile: {
           title: 'Карточка досье разработчика',
-          desc: 'Идентификационная карточка для профилей GitHub. Отличается уникальной геометрией для каждой темы: киберпанк-палуба с 3D-шрифтом, тактический видоискатель с азимутом или академическая карточка с чистой типографикой.',
+          desc: 'Идентификационная карточка для профилей GitHub. Отличается уникальной геометрией для каждой темы: киберпанк-палуба с 3D-шрифтом, тактический видоискатель с азимутом или неоновая Токио-матрица.',
           propsDesc: {
-            name: 'Имя разработчика (3D в Cyber/Tactical, чистый вектор в Academic)',
+            name: 'Имя разработчика (изометрический 3D-шрифт)',
             role: 'Основная специализация разработчика',
             bio: 'Краткое описание с защитой от наложения текста',
             status: 'Бейдж текущей доступности разработчика',

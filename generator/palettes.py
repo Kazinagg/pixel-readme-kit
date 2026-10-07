@@ -170,15 +170,42 @@ THEMES = {
         "text_dim": "#94A3B8",
         "shadow_dark": "#0A0E17",
         "shadow_mid": "#1E293B",
+    },
+    "tactical": {
+        "name": "Tactical Military HUD",
+        "bg_glass": "rgba(20, 14, 6, 0.88)",
+        "bg_panel": "rgba(30, 22, 10, 0.82)",
+        "bg_chip": "rgba(245, 158, 11, 0.12)",
+        "border_slate": "rgba(50, 36, 16, 0.85)",
+        "primary": "#F59E0B",      # Phosphor Amber
+        "primary_glow": "rgba(245, 158, 11, 0.35)",
+        "secondary": "#EA580C",    # Phosphor Orange
+        "secondary_glow": "rgba(234, 88, 12, 0.35)",
+        "success": "#10B981",      # Retro Mint
+        "success_glow": "rgba(16, 185, 129, 0.35)",
+        "warning": "#F59E0B",
+        "warning_glow": "rgba(245, 158, 11, 0.35)",
+        "accent": "#EF4444",       # Signal Red
+        "tertiary": "#EF4444",
+        "text_main": "#FFFBEB",
+        "text_dim": "#D97706",
+        "shadow_dark": "#0A0702",
+        "shadow_mid": "#4A3305",
     }
 }
 
 # Aliases
+THEMES["tactical_amber"] = THEMES["tactical"]
+THEMES["tactical-amber"] = THEMES["tactical"]
 THEMES["amber_crt"] = THEMES["amber"]
+THEMES["amber-crt"] = THEMES["amber"]
 THEMES["tokyo_night"] = THEMES["tokyo"]
+THEMES["tokyo-night"] = THEMES["tokyo"]
 THEMES["clean_mono"] = THEMES["clean-mono"]
 THEMES["corporate_blue"] = THEMES["corporate-blue"]
 THEMES["academic_paper"] = THEMES["academic-paper"]
+THEMES["academic"] = THEMES["academic-paper"]
+THEMES["paper"] = THEMES["academic-paper"]
 THEMES["modern_slate"] = THEMES["modern-slate"]
 
 # Re-export modern Theme domain utilities

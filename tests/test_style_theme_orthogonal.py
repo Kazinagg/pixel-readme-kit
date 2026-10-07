@@ -75,6 +75,18 @@ class TestStyleThemeOrthogonal(unittest.TestCase):
         self.assertEqual(s, "pixel")
         self.assertEqual(t, "academic-paper")
 
+        s, t = normalize_style_and_theme("pixel", "tokyo-night")
+        self.assertEqual(s, "pixel")
+        self.assertEqual(t, "tokyo")
+
+        s, t = normalize_style_and_theme("pixel", "tactical-amber")
+        self.assertEqual(s, "pixel")
+        self.assertEqual(t, "tactical")
+
+        s, t = normalize_style_and_theme("pixel", "nordic")
+        self.assertEqual(s, "pixel")
+        self.assertEqual(t, "nordic-frost")
+
         s, t = normalize_style_and_theme(None, "amber")
         self.assertEqual(s, "pixel")
         self.assertEqual(t, "amber")
@@ -88,8 +100,6 @@ class TestStyleThemeOrthogonal(unittest.TestCase):
         pixel_themes = get_themes_for_style("pixel")
         self.assertIn("cyberpunk", pixel_themes)
         self.assertIn("tactical", pixel_themes)
-        self.assertIn("minimal", pixel_themes)
-        self.assertIn("amber", pixel_themes)
         self.assertIn("tokyo", pixel_themes)
 
         modern_themes = get_themes_for_style("modern")
