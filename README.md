@@ -1,8 +1,8 @@
-<img src="assets/generated/metrics-modern-clean-1.svg" width="100%" alt="Metrics" />
+<img src="assets/generated/metrics-modern-clean-1.svg?v=b065ba33" width="100%" alt="Metrics" />
 
 <br/>
 
-<img src="assets/generated/progress-readme.svg" width="100%" alt="UNIVERSAL CUSTOMIZATION SYSTEM &amp; DESIGN ENGINE COMPLETE" />
+<img src="assets/generated/progress-readme.svg?v=a62d0fcd" width="100%" alt="UNIVERSAL CUSTOMIZATION SYSTEM &amp; DESIGN ENGINE COMPLETE" />
 
 <br/>
 
@@ -28,17 +28,17 @@
 
 ### Карточка профиля разработчика (Developer Dossier Card)
 
-<img src="assets/generated/profile-readme-demo.svg" width="100%" alt="ALEX DEVELOPER" />
+<img src="assets/generated/profile-readme-demo.svg?v=a96de362" width="100%" alt="ALEX DEVELOPER" />
 
 <br/>
 
 ### График динамики звёзд (Star Growth Trajectory)
 
-<img src="assets/generated/starchart-readme-demo.svg" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
+<img src="assets/generated/starchart-readme-demo.svg?v=ade7acad" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
 
 <br/>
 
-<img src="assets/generated/callout-readme-arch.svg" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
+<img src="assets/generated/callout-readme-arch.svg?v=16977a67" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
 
 ---
 
@@ -64,13 +64,13 @@
 
 ## 05 // Стек технологий и поддерживаемое окружение
 
-<img src="assets/generated/techstack-readme.svg" width="100%" alt="Tech Stack" />
+<img src="assets/generated/techstack-readme.svg?v=63e58b7e" width="100%" alt="Tech Stack" />
 
 <br/>
 
 ## 06 // Дорожная карта развития (Roadmap)
 
-<img src="assets/generated/timeline-readme.svg" width="100%" alt="Timeline" />
+<img src="assets/generated/timeline-readme.svg?v=4f7c33c4" width="100%" alt="Timeline" />
 
 <br/>
 
@@ -158,7 +158,7 @@ jobs:
 <table width="100%">
 <tr>
 <td width="100%" align="center">
-<img src="assets/generated/frame-readme-top.svg" width="100%" />
+<img src="assets/generated/frame-readme-top.svg?v=77197807" width="100%" />
 </td>
 </tr>
 <tr>
@@ -186,14 +186,14 @@ python -m generator.cli studio
 </tr>
 <tr>
 <td width="100%" align="center">
-<img src="assets/generated/frame-readme-bottom.svg" width="100%" />
+<img src="assets/generated/frame-readme-bottom.svg?v=06f08ce7" width="100%" />
 </td>
 </tr>
 </table>
 
 <br/>
 
-> <img src="assets/generated/callout-quote-readme.svg" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
+> <img src="assets/generated/callout-quote-readme.svg?v=b45e22ae" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
 >
 > > **Навигация по документации**:
 > > - Полный каталог всех компонентов во всех стилях доступен в **[CATALOG.md](CATALOG.md)**.
@@ -207,7 +207,7 @@ python -m generator.cli studio
 
 <br/>
 
-<img src="assets/generated/term-top-readme.svg" width="100%" />
+<img src="assets/generated/term-top-readme.svg?v=0eb73b9e" width="100%" />
 
 <table width="100%">
 <tr>
@@ -239,10 +239,10 @@ python -m generator.cli splitter --help  # Сплиттеры подмодуле
 </tr>
 </table>
 
-<img src="assets/generated/term-bottom-readme.svg" width="100%" />
+<img src="assets/generated/term-bottom-readme.svg?v=4515d6ef" width="100%" />
 
 </details>
 
 <br/><br/>
 
-<a href="#top"><img src="assets/generated/footer-readme.svg" width="100%" alt="▲ НАВЕРХ" /></a>
+<a href="#top"><img src="assets/generated/footer-readme.svg?v=d4702d82" width="100%" alt="▲ НАВЕРХ" /></a>

@@ -86,7 +86,7 @@
 
   <!-- Title Text -->
   <text x="36" y="22" fill="var(--primary)" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">
-    <tspan fill="var(--accent)">[//]</tspan> ╔═ SEC.DEFENSE // SECTOR_LOCK_ALPHA.EXE
+    <tspan fill="var(--accent)">[//] </tspan>╔═ SEC.DEFENSE // SECTOR_LOCK_ALPHA.EXE
   </text>
 
   <!-- Right Status Tag -->
