@@ -66,11 +66,11 @@
     </style>
   </defs>
   <!-- Body Chassis -->
-  <rect x="2" y="2" width="846" height="44" fill="var(--bg-glass)" stroke="#d29922" stroke-width="1.5"/><rect x="2" y="2" width="5" height="5" fill="#d29922"/><rect x="843" y="2" width="5" height="5" fill="#d29922"/><rect x="2" y="41" width="5" height="5" fill="#d29922"/><rect x="843" y="41" width="5" height="5" fill="#d29922"/>
+  <polygon points="12 2, 838 2, 848 12, 848 36, 838 46, 12 46, 2 36, 2 12" fill="var(--bg-glass)" stroke="var(--primary)" stroke-width="1.5"/>
   <!-- Badges & Accents -->
-  <rect x="14" y="10" width="140" height="28" fill="var(--bg-panel)" stroke="#d29922" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="#d29922"/><text x="90" y="28" fill="#d29922" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">WARNING // 0x01</text>
-  <rect x="815" y="14" width="20" height="20" fill="var(--bg-panel)"/><text x="825" y="28" fill="#d29922" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>
+  <polygon points="34 10, 185 10, 192 17, 192 31, 185 38, 34 38" fill="var(--bg-panel)" stroke="#d29922" stroke-width="1.5"/><text x="113" y="28" fill="#d29922" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">▲ WARNING // HAZARD</text>
+  <polygon points="10 8, 16 8, 8 20, 2 20" fill="var(--primary)" opacity="0.6"/><polygon points="20 8, 26 8, 18 20, 12 20" fill="var(--primary)" opacity="0.6"/><circle cx="825" cy="24" r="8" fill="none" stroke="var(--primary)" stroke-width="1.5"/><polygon points="822 24, 828 20, 828 28" fill="var(--primary)"/>
   <!-- Text Content (Properly offset past badge edge) -->
-  <text x="168" y="22" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">WARNING // ОГРАНИЧЕНИЕ ШИРИНЫ</text>
-  <text x="168" y="36" fill="var(--accent)" font-size="11" class="font-mono">Используйте 100% табличную обертку для окон</text>
+  <text x="206" y="22" fill="var(--text-main)" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">WARNING // ОГРАНИЧЕНИЕ ШИРИНЫ</text>
+  <text x="206" y="36" fill="var(--accent)" font-size="11" class="font-mono">Используйте 100% табличную обертку для окон</text>
 </svg>

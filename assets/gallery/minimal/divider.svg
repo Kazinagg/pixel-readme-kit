@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 28" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(15, 18, 30, 0.85);
+        --bg-panel: rgba(22, 27, 46, 0.80);
+        --border-chassis: rgba(41, 46, 66, 0.85);
+        --primary: #4F8BFF;
+        --accent: #A855F7;
+        --tertiary: #06B6D4;
+        --title-front: #4F8BFF;
+        --title-mid: #2563EB;
+        --title-dark: #1E3A8A;
+        --text-main: #F1F5F9;
+        --text-dim: #94A3B8;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.08;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(15, 18, 30, 0.85);
+          --bg-panel: rgba(22, 27, 46, 0.80);
+          --border-chassis: rgba(41, 46, 66, 0.85);
+          --primary: #4F8BFF;
+          --accent: #A855F7;
+          --tertiary: #06B6D4;
+          --title-front: #4F8BFF;
+          --title-mid: #2563EB;
+          --title-dark: #1E3A8A;
+          --text-main: #F1F5F9;
+          --text-dim: #94A3B8;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F8FAFC;
+          --bg-panel: #F1F5F9;
+          --border-chassis: #E2E8F0;
+          --primary: #1D4ED8;
+          --accent: #6D28D9;
+          --tertiary: #0891B2;
+          --title-front: #1D4ED8;
+          --title-mid: #1E40AF;
+          --title-dark: #0F172A;
+          --text-main: #0F172A;
+          --text-dim: #64748B;
+          --status: #16A34A;
+          --warning: #D97706;
+          --grid-op: 0.10;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #4F8BFF));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 8px; font-weight: bold; letter-spacing: 1px; }
+      @keyframes barPulse { 0%, 100% { transform: scaleY(0.4); opacity: 0.5; } 50% { transform: scaleY(1.2); opacity: 1; } }
+      .s-bar { transform-origin: center; animation: barPulse 1.6s infinite ease-in-out; }
+    </style>
+  </defs>
+  <line x1="20" y1="14" x2="345" y2="14" stroke="var(--border-chassis)" stroke-width="1.5"/>
+  <line x1="505" y1="14" x2="830" y2="14" stroke="var(--border-chassis)" stroke-width="1.5"/>
+  <line x1="60" y1="14" x2="330" y2="14" stroke="var(--primary)" stroke-width="1" opacity="0.6" stroke-dasharray="12,4"/>
+  <line x1="520" y1="14" x2="790" y2="14" stroke="var(--primary)" stroke-width="1" opacity="0.6" stroke-dasharray="12,4"/>
+  <path d="M 20 8 L 20 14 L 32 14" fill="none" stroke="var(--primary)" stroke-width="1.5"/><rect x="20" y="12" width="4" height="4" fill="var(--accent)"/>
+  <path d="M 830 8 L 830 14 L 818 14" fill="none" stroke="var(--primary)" stroke-width="1.5"/><rect x="826" y="12" width="4" height="4" fill="var(--accent)"/>
+  <text x="240" y="11" fill="var(--primary)" text-anchor="middle" opacity="0.7" class="font-mono">// 44.1 kHz //</text>
+  <text x="610" y="11" fill="var(--primary)" text-anchor="middle" opacity="0.7" class="font-mono">// SPECTRUM_HUD //</text>
+  <rect x="355" y="2" width="140" height="24" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1"/>
+  <rect x="365" y="11" width="4" height="6" fill="var(--primary)" class="s-bar"/><rect x="373" y="8" width="4" height="13" fill="var(--accent)" class="s-bar"/><rect x="381" y="4" width="4" height="20" fill="var(--primary)" class="s-bar"/><rect x="389" y="10" width="4" height="9" fill="var(--accent)" class="s-bar"/><rect x="397" y="6" width="4" height="16" fill="var(--primary)" class="s-bar"/><rect x="405" y="3" width="4" height="23" fill="var(--accent)" class="s-bar"/><rect x="413" y="8" width="4" height="12" fill="var(--primary)" class="s-bar"/><rect x="421" y="5" width="4" height="19" fill="var(--accent)" class="s-bar"/><rect x="429" y="10" width="4" height="8" fill="var(--primary)" class="s-bar"/><rect x="437" y="7" width="4" height="15" fill="var(--accent)" class="s-bar"/><rect x="445" y="3" width="4" height="22" fill="var(--primary)" class="s-bar"/><rect x="453" y="9" width="4" height="11" fill="var(--accent)" class="s-bar"/><rect x="461" y="5" width="4" height="18" fill="var(--primary)" class="s-bar"/><rect x="469" y="11" width="4" height="7" fill="var(--accent)" class="s-bar"/><rect x="477" y="7" width="4" height="14" fill="var(--primary)" class="s-bar"/>
+</svg>

@@ -134,6 +134,7 @@ class ThemeCreator:
         clean_dict = {
             "theme": slug,
             "name": preset_dict.get("name", slug),
+            "style": preset_dict.get("style", "pixel"),
             "primary": preset_dict.get("primary", "#00C8D7"),
             "secondary": preset_dict.get("secondary") or preset_dict.get("accent", "#A855F7"),
             "accent": preset_dict.get("accent") or preset_dict.get("tertiary", "#FF0055"),

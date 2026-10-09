@@ -28,6 +28,7 @@ def handle_render_request(handler, query: Dict[str, list]) -> None:
     """Dispatches /api/render query parameters to appropriate SVG generator."""
     btype = query.get("block_type", ["header"])[0].lower()
     style = query.get("style", ["cyberpunk"])[0]
+    theme = query.get("theme", [None])[0] or None
     mode = query.get("mode", ["auto"])[0]
     preset = query.get("preset", [None])[0] or None
     primary = query.get("primary", [None])[0] or None
@@ -76,21 +77,21 @@ def handle_render_request(handler, query: Dict[str, list]) -> None:
     try:
         if btype == "header":
             svg = generate_header(
-                style=style, mode=mode, preset=preset, primary=primary, accent=accent, tertiary=tertiary,
+                style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent, tertiary=tertiary,
                 title=title or "PIXEL-KIT", subtitle=subtitle or "TRANSLUCENT HUD SYSTEM",
                 tag=tag or "SYSTEM_ACTIVE", spec1=spec1, spec2=spec2, spec3=spec3, specs=specs,
                 tag_url=tag_url, close_url=close_url, compact=compact
             )
         elif btype == "footer":
             svg = generate_footer(
-                style=style, mode=mode, preset=preset, primary=primary, accent=accent, tertiary=tertiary,
+                style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent, tertiary=tertiary,
                 status=status or title or "SESSION_ACTIVE // STANDBY",
                 nav_text=nav_text, sub_text=sub_text
             )
         elif btype in ("callout", "quote"):
             q_badge = badge if btype == "quote" else callout_type
             svg = generate_callout(
-                style=style, mode=mode, preset=preset, primary=primary, accent=accent,
+                style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent,
                 callout_type=q_badge, title=title or "SYSTEM NOTICE",
                 subtitle=subtitle or "", is_quote=(btype == "quote" or is_quote),
                 badge_color=badge_color
@@ -100,7 +101,7 @@ def handle_render_request(handler, query: Dict[str, list]) -> None:
             if btype == "terminal":
                 f_title = f"╔═ {f_title} // RUNTIME.SYS"
             svg = generate_frame(
-                style=style, mode=mode, preset=preset, primary=primary, accent=accent, tertiary=tertiary,
+                style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent, tertiary=tertiary,
                 frame_type=frame_type, title=f_title,
                 tag=tag or "[OPEN_HUD]", tag_url=tag_url, close_url=close_url
             )
@@ -111,13 +112,13 @@ def handle_render_request(handler, query: Dict[str, list]) -> None:
                 stat_text, _ = fetch_github_stat(repo_name, gh_stat)
                 text_val = stat_text
             svg = generate_chip(
-                style=style, mode=mode, preset=preset, primary=primary, accent=accent,
+                style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent,
                 chip_type=chip_type, text=text_val, width=width_val, decay_dir=decay_dir
             )
         elif btype == "divider":
-            svg = generate_divider(style=style, mode=mode, preset=preset, primary=primary, accent=accent)
+            svg = generate_divider(style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent)
         elif btype == "splitter":
-            svg = generate_splitter(style=style, mode=mode, preset=preset, primary=primary, accent=accent, label=label)
+            svg = generate_splitter(style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent, label=label)
         elif btype == "metrics":
             cards = []
             raw_items = items or body
@@ -141,13 +142,13 @@ def handle_render_request(handler, query: Dict[str, list]) -> None:
                         cards.append({"label": parts[0].strip(), "value": parts[1].strip()})
                     else:
                         cards.append({"label": "METRIC", "value": item})
-            svg = generate_metrics(cards=cards if cards else None, style=style, mode=mode, preset=preset, primary=primary, accent=accent)
+            svg = generate_metrics(cards=cards if cards else None, style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent)
         elif btype == "progress":
             val_int = int(value_str) if value_str and value_str.isdigit() else 75
-            svg = generate_progress(value=val_int, label=title or label or "PROGRESS", sub=sub_text, style=style, mode=mode, preset=preset, primary=primary, accent=accent)
+            svg = generate_progress(value=val_int, label=title or label or "PROGRESS", sub=sub_text, style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent)
         elif btype == "techstack":
             item_list = [x.strip() for x in (items or subtitle or "python,cpp,docker,git").split(",") if x.strip()]
-            svg = generate_techstack(items=item_list, columns=cols_val, style=style, mode=mode, preset=preset, primary=primary, accent=accent)
+            svg = generate_techstack(items=item_list, columns=cols_val, style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent)
         elif btype == "timeline":
             from generator.compiler import parse_directive_attrs
             timeline_items = []
@@ -164,10 +165,10 @@ def handle_render_request(handler, query: Dict[str, list]) -> None:
                 item_attrs = parse_directive_attrs(line)
                 if item_attrs:
                     timeline_items.append(item_attrs)
-            svg = generate_timeline(items=timeline_items if timeline_items else None, style=style, mode=mode, preset=preset, primary=primary, accent=accent)
+            svg = generate_timeline(items=timeline_items if timeline_items else None, style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent)
         elif btype == "social":
             tag_list = [x.strip() for x in tags_str.split(",") if x.strip()]
-            svg = generate_social(title=title or "PIXEL README KIT", subtitle=subtitle or "HUD SYSTEM", repo=repo or "Kazinagg/pixel-readme-kit", tags=tag_list, style=style, mode=mode, preset=preset, primary=primary, accent=accent)
+            svg = generate_social(title=title or "PIXEL README KIT", subtitle=subtitle or "HUD SYSTEM", repo=repo or "Kazinagg/pixel-readme-kit", tags=tag_list, style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent)
         elif btype == "starchart":
             pts = query.get("points", [None])[0]
             cur = query.get("current", [None])[0]
@@ -176,7 +177,7 @@ def handle_render_request(handler, query: Dict[str, list]) -> None:
             per = query.get("period", ["6M"])[0]
             rep = repo or query.get("repo", ["Kazinagg/pixel-readme-kit"])[0]
             svg = generate_starchart(
-                style=style, mode=mode, preset=preset, primary=primary, accent=accent,
+                style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent,
                 repo=rep, points=pts, current=cur, delta=dlt, title=ttl, period=per
             )
         elif btype == "profile":
@@ -187,7 +188,7 @@ def handle_render_request(handler, query: Dict[str, list]) -> None:
             p_loc = query.get("location", ["REMOTE // UTC+3"])[0]
             p_bdg = tag or query.get("badge", ["LEVEL_99"])[0]
             svg = generate_profile_card(
-                style=style, mode=mode, preset=preset, primary=primary, accent=accent,
+                style=style, theme=theme, mode=mode, preset=preset, primary=primary, accent=accent,
                 name=p_name, role=p_role, bio=p_bio, status=p_stat, location=p_loc, badge=p_bdg
             )
         else:

@@ -1,116 +1,125 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 230" width="100%" height="100%" shape-rendering="crispEdges">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 230" width="100%" height="100%">
   <defs>
+        <linearGradient id="modern-starchart-accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--primary)" />
+      <stop offset="100%" stop-color="var(--accent)" />
+    </linearGradient>
+    <linearGradient id="modern-starchart-border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="var(--border-chassis)" stop-opacity="0.3" />
+    </linearGradient>
     <style>
       
       :root {
-        --bg-glass: rgba(10, 14, 23, 0.85);
-        --bg-panel: rgba(15, 23, 38, 0.82);
-        --border-chassis: rgba(30, 41, 59, 0.85);
-        --primary: #00C8D7;
-        --accent: #A855F7;
-        --tertiary: #FF0055;
-        --title-front: #00C8D7;
-        --title-mid: #006B74;
-        --title-dark: #002B2F;
-        --text-main: #F8F8F2;
+        --bg-glass: rgba(15, 23, 42, 0.90);
+        --bg-panel: rgba(30, 41, 59, 0.85);
+        --border-chassis: rgba(51, 65, 85, 0.85);
+        --primary: #00e5b0;
+        --accent: #e50035;
+        --tertiary: #06B6D4;
+        --title-front: #00e5b0;
+        --title-mid: #00674f;
+        --title-dark: #00221a;
+        --text-main: #F8FAFC;
         --text-dim: #94A3B8;
-        --status: #00D26A;
+        --status: #10B981;
         --warning: #F59E0B;
-        --grid-op: 0.08;
+        --grid-op: 0.07;
       }
       @media (prefers-color-scheme: dark) {
         :root {
-          --bg-glass: rgba(10, 14, 23, 0.85);
-          --bg-panel: rgba(15, 23, 38, 0.82);
-          --border-chassis: rgba(30, 41, 59, 0.85);
-          --primary: #00C8D7;
-          --accent: #A855F7;
-          --tertiary: #FF0055;
-          --title-front: #00C8D7;
-          --title-mid: #006B74;
-          --title-dark: #002B2F;
-          --text-main: #F8F8F2;
+          --bg-glass: rgba(15, 23, 42, 0.90);
+          --bg-panel: rgba(30, 41, 59, 0.85);
+          --border-chassis: rgba(51, 65, 85, 0.85);
+          --primary: #00e5b0;
+          --accent: #e50035;
+          --tertiary: #06B6D4;
+          --title-front: #00e5b0;
+          --title-mid: #00674f;
+          --title-dark: #00221a;
+          --text-main: #F8FAFC;
           --text-dim: #94A3B8;
-          --status: #00D26A;
+          --status: #10B981;
           --warning: #F59E0B;
-          --grid-op: 0.08;
+          --grid-op: 0.07;
         }
       }
       @media (prefers-color-scheme: light) {
         :root {
-          --bg-glass: #F6F8FA;
-          --bg-panel: #EAEFF5;
-          --border-chassis: #D0D7DE;
-          --primary: #0969DA;
-          --accent: #8250DF;
-          --tertiary: #CF222E;
-          --title-front: #0969DA;
-          --title-mid: #0550AE;
-          --title-dark: #033D8B;
-          --text-main: #1F2328;
-          --text-dim: #57606A;
-          --status: #1A7F37;
-          --warning: #9A6700;
-          --grid-op: 0.10;
+          --bg-glass: #F8FAFC;
+          --bg-panel: #F1F5F9;
+          --border-chassis: #E2E8F0;
+          --primary: #00a07b;
+          --accent: #e50035;
+          --tertiary: #0891B2;
+          --title-front: #00a07b;
+          --title-mid: #006049;
+          --title-dark: #003024;
+          --text-main: #0F172A;
+          --text-dim: #64748B;
+          --status: #16A34A;
+          --warning: #D97706;
+          --grid-op: 0.08;
         }
       }
       @media (hover: hover) {
         .btn-hover:hover, a:hover polygon, a:hover rect {
-          filter: drop-shadow(0 0 6px var(--primary, #00C8D7));
+          filter: drop-shadow(0 0 6px var(--primary, #00e5b0));
           cursor: pointer;
           transition: filter 0.2s ease;
         }
       }
 
-      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+      
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .font-mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', Menlo, monospace; }
+    .btn-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .btn-hover:hover { opacity: 0.85; }
+
     </style>
-    <linearGradient id="grad-star-area" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.32"/>
-      <stop offset="100%" stop-color="var(--primary)" stop-opacity="0.01"/>
+    <linearGradient id="modern-star-area" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="var(--primary)" stop-opacity="0.0"/>
     </linearGradient>
   </defs>
 
-  
-  <rect x="1" y="1" width="848" height="228" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.5"/>
-  <rect x="1" y="1" width="8" height="8" fill="var(--primary)"/>
-  <rect x="841" y="1" width="8" height="8" fill="var(--accent)"/>
-  <rect x="1" y="221" width="8" height="8" fill="var(--accent)"/>
-  <rect x="841" y="221" width="8" height="8" fill="var(--primary)"/>
+  <!-- MODERN CHASSIS -->
+  <rect x="2" y="2" width="846" height="226" rx="14" fill="var(--bg-glass)" stroke="url(#modern-starchart-border-grad)" stroke-width="1.2"/>
+  <path d="M 16 2 L 834 2" stroke="url(#modern-starchart-accent-grad)" stroke-width="2" stroke-linecap="round"/>
 
+  <!-- HEADER -->
+  <g transform="translate(20, 18)">
+    <circle cx="8" cy="14" r="3.5" fill="var(--status)"/>
+    <text x="18" y="18" fill="var(--text-main)" font-size="12" font-weight="700" letter-spacing="0.03em" class="font-sans">OPEN SOURCE STARS TRAJECTORY</text>
+    <text x="224" y="18" fill="var(--text-dim)" font-size="11" class="font-mono">/ Kazinagg/pixel-readme-kit</text>
+  </g>
 
-  <!-- HEADER BAR -->
-  <rect x="20" y="16" width="464" height="28" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-  <rect x="20" y="16" width="4" height="28" fill="var(--primary)"/>
-  <text x="32" y="35" fill="var(--primary)" font-size="11.5" font-weight="bold" letter-spacing="0.5px" class="font-mono">★ OPEN SOURCE STARS TRAJECTORY</text>
-  <text x="263" y="35" fill="var(--text-dim)" font-size="11" class="font-mono">// Kazinagg/pixel-readme-kit</text>
-
-  <!-- STATS BADGES -->
-  <g transform="translate(621, 16)">
-    <rect x="0" y="0" width="90" height="28" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1"/>
-    <text x="45" y="19" fill="var(--primary)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">★ 1,650</text>
-    <rect x="98" y="0" width="111" height="28" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
-    <text x="153" y="19" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">+900% past 6m</text>
+  <!-- STATS PILLS -->
+  <g transform="translate(642, 18)">
+    <rect x="0" y="0" width="86" height="24" rx="12" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1"/>
+    <text x="43" y="16" fill="var(--primary)" font-size="11" font-weight="700" text-anchor="middle" class="font-sans">★ 1,650</text>
+    <rect x="94" y="0" width="94" height="24" rx="12" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
+    <text x="141" y="16" fill="var(--accent)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">+78% past 6m</text>
   </g>
 
   <!-- GRID & AXES -->
-  <line x1="75" y1="185.0" x2="800" y2="185.0" stroke="var(--border-chassis)" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/><line x1="75" y1="146.7" x2="800" y2="146.7" stroke="var(--border-chassis)" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/><line x1="75" y1="108.3" x2="800" y2="108.3" stroke="var(--border-chassis)" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/><line x1="75" y1="70.0" x2="800" y2="70.0" stroke="var(--border-chassis)" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
-  <text x="65" y="189.0" fill="var(--text-dim)" font-size="10" text-anchor="end" class="font-mono">0</text><text x="65" y="150.7" fill="var(--text-dim)" font-size="10" text-anchor="end" class="font-mono">550</text><text x="65" y="112.3" fill="var(--text-dim)" font-size="10" text-anchor="end" class="font-mono">1.1k</text><text x="65" y="74.0" fill="var(--text-dim)" font-size="10" text-anchor="end" class="font-mono">1.6k</text>
-  <line x1="75.0" y1="70" x2="75.0" y2="185" stroke="var(--border-chassis)" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/><line x1="220.0" y1="70" x2="220.0" y2="185" stroke="var(--border-chassis)" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/><line x1="365.0" y1="70" x2="365.0" y2="185" stroke="var(--border-chassis)" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/><line x1="510.0" y1="70" x2="510.0" y2="185" stroke="var(--border-chassis)" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/><line x1="655.0" y1="70" x2="655.0" y2="185" stroke="var(--border-chassis)" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/><line x1="800.0" y1="70" x2="800.0" y2="185" stroke="var(--border-chassis)" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.35"/>
-  <text x="75.0" y="203" fill="var(--text-dim)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">M-5</text><text x="220.0" y="203" fill="var(--text-dim)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">M-4</text><text x="365.0" y="203" fill="var(--text-dim)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">M-3</text><text x="510.0" y="203" fill="var(--text-dim)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">M-2</text><text x="655.0" y="203" fill="var(--text-dim)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">M-1</text><text x="800.0" y="203" fill="var(--text-dim)" font-size="10.5" font-weight="bold" text-anchor="middle" class="font-mono">NOW</text>
+  <line x1="65" y1="186.0" x2="810" y2="186.0" stroke="var(--border-chassis)" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/><line x1="65" y1="146.7" x2="810" y2="146.7" stroke="var(--border-chassis)" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/><line x1="65" y1="107.3" x2="810" y2="107.3" stroke="var(--border-chassis)" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/><line x1="65" y1="68.0" x2="810" y2="68.0" stroke="var(--border-chassis)" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/>
+  <text x="55" y="189.5" fill="var(--text-dim)" font-size="10" text-anchor="end" class="font-mono">0</text><text x="55" y="150.2" fill="var(--text-dim)" font-size="10" text-anchor="end" class="font-mono">550</text><text x="55" y="110.8" fill="var(--text-dim)" font-size="10" text-anchor="end" class="font-mono">1.1k</text><text x="55" y="71.5" fill="var(--text-dim)" font-size="10" text-anchor="end" class="font-mono">1.6k</text>
+  <text x="65.0" y="204" fill="var(--text-dim)" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">M-5</text><text x="214.0" y="204" fill="var(--text-dim)" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">M-4</text><text x="363.0" y="204" fill="var(--text-dim)" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">M-3</text><text x="512.0" y="204" fill="var(--text-dim)" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">M-2</text><text x="661.0" y="204" fill="var(--text-dim)" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">M-1</text><text x="810.0" y="204" fill="var(--text-dim)" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">NOW</text>
 
-  <!-- CHART AREA & LINE -->
-  <path d="M 75.0 185 L 75.0 184.0 L 220.0 180.5 L 365.0 171.8 L 510.0 151.5 L 655.0 118.8 L 800.0 70.0 L 800.0 185 Z" fill="url(#grad-star-area)" shape-rendering="geometricPrecision"/>
-  <path d="M 75.0,184.0 L 220.0,180.5 L 365.0,171.8 L 510.0,151.5 L 655.0,118.8 L 800.0,70.0" fill="none" stroke="var(--primary)" stroke-width="2.5" shape-rendering="geometricPrecision"/>
+  <!-- CHART AREA & BEZIER SPLINE -->
+  <path d="M 65.0 186 L 65.0 184.9 C 132.1 184.9, 146.9 181.4, 214.0 181.4 C 281.1 181.4, 295.9 172.4, 363.0 172.4 C 430.1 172.4, 444.9 151.7, 512.0 151.7 C 579.0 151.7, 594.0 118.1, 661.0 118.1 C 728.0 118.1, 743.0 68.0, 810.0 68.0 L 810.0 186 Z" fill="url(#modern-star-area)" shape-rendering="geometricPrecision"/>
+  <path d="M 65.0 184.9 C 132.1 184.9, 146.9 181.4, 214.0 181.4 C 281.1 181.4, 295.9 172.4, 363.0 172.4 C 430.1 172.4, 444.9 151.7, 512.0 151.7 C 579.0 151.7, 594.0 118.1, 661.0 118.1 C 728.0 118.1, 743.0 68.0, 810.0 68.0" fill="none" stroke="url(#modern-starchart-accent-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" shape-rendering="geometricPrecision"/>
 
   <!-- DATA VERTICES -->
-  <circle cx="75.0" cy="184.0" r="3.5" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.8"/><circle cx="220.0" cy="180.5" r="3.5" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.8"/><circle cx="365.0" cy="171.8" r="3.5" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.8"/><circle cx="510.0" cy="151.5" r="3.5" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.8"/><circle cx="655.0" cy="118.8" r="3.5" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.8"/>
+  <circle cx="65.0" cy="184.9" r="3" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/><circle cx="214.0" cy="181.4" r="3" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/><circle cx="363.0" cy="172.4" r="3" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/><circle cx="512.0" cy="151.7" r="3" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/><circle cx="661.0" cy="118.1" r="3" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/>
     <!-- Peak Milestone Marker -->
-    <circle cx="800.0" cy="70.0" r="8" fill="var(--accent)" opacity="0.25"/>
-    <circle cx="800.0" cy="70.0" r="5.5" fill="var(--bg-glass)" stroke="var(--accent)" stroke-width="2"/>
-    <circle cx="800.0" cy="70.0" r="2.5" fill="var(--primary)"/>
-    <!-- Peak Callout Tag -->
-    <g transform="translate(760.0, 40.0)">
-      <rect x="0" y="0" width="76" height="22" rx="3" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
-      <text x="38" y="15" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">★ 1,650</text>
+    <circle cx="810.0" cy="68.0" r="8" fill="var(--accent)" opacity="0.2"/>
+    <circle cx="810.0" cy="68.0" r="5" fill="var(--bg-glass)" stroke="var(--accent)" stroke-width="2"/>
+    <circle cx="810.0" cy="68.0" r="2" fill="var(--primary)"/>
+    <!-- Peak Callout Pill -->
+    <g transform="translate(760.0, 38.0)">
+      <rect x="0" y="0" width="76" height="22" rx="11" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
+      <text x="38" y="15" fill="var(--accent)" font-size="11" font-weight="700" text-anchor="middle" class="font-sans">★ 1,650</text>
     </g>
 </svg>

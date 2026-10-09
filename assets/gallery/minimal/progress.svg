@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 68" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(15, 18, 30, 0.85);
+        --bg-panel: rgba(22, 27, 46, 0.80);
+        --border-chassis: rgba(41, 46, 66, 0.85);
+        --primary: #4F8BFF;
+        --accent: #A855F7;
+        --tertiary: #06B6D4;
+        --title-front: #4F8BFF;
+        --title-mid: #2563EB;
+        --title-dark: #1E3A8A;
+        --text-main: #F1F5F9;
+        --text-dim: #94A3B8;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.08;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(15, 18, 30, 0.85);
+          --bg-panel: rgba(22, 27, 46, 0.80);
+          --border-chassis: rgba(41, 46, 66, 0.85);
+          --primary: #4F8BFF;
+          --accent: #A855F7;
+          --tertiary: #06B6D4;
+          --title-front: #4F8BFF;
+          --title-mid: #2563EB;
+          --title-dark: #1E3A8A;
+          --text-main: #F1F5F9;
+          --text-dim: #94A3B8;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F8FAFC;
+          --bg-panel: #F1F5F9;
+          --border-chassis: #E2E8F0;
+          --primary: #1D4ED8;
+          --accent: #6D28D9;
+          --tertiary: #0891B2;
+          --title-front: #1D4ED8;
+          --title-mid: #1E40AF;
+          --title-dark: #0F172A;
+          --text-main: #0F172A;
+          --text-dim: #64748B;
+          --status: #16A34A;
+          --warning: #D97706;
+          --grid-op: 0.10;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #4F8BFF));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      .font-prog-lbl { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; }
+      .font-prog-val { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 12px; font-weight: 900; }
+      .font-prog-sub { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }
+    </style>
+  </defs>
+  
+  <rect x="1" y="2" width="848" height="65" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+  <line x1="1" y1="2" x2="849" y2="2" stroke="var(--primary)" stroke-width="2"/>
+
+  <!-- Label & Percentage Header -->
+  <text x="14" y="19" fill="var(--title-front)" class="font-prog-lbl">■ SPRINT COMPLETION</text>
+  <rect x="776" y="7" width="60" height="15" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1"/>
+  <text x="806" y="19" fill="var(--accent)" text-anchor="middle" class="font-prog-val">85%</text>
+
+  <!-- Track & Segments -->
+  <rect x="13" y="27" width="824" height="16" fill="none" stroke="var(--border-chassis)" stroke-width="1"/>
+  <g id="segments">
+    <rect x="14.0" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="39.8" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="65.5" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="91.2" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="117.0" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="142.8" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="168.5" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="194.2" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="220.0" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="245.8" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="271.5" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="297.2" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="323.0" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="348.8" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="374.5" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="400.2" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="426.0" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="451.8" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="477.5" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="503.2" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="529.0" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="554.8" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="580.5" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="606.2" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="632.0" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="657.8" y="28" width="23.8" height="14" fill="var(--primary)" fill-opacity="1.0"/>
+    <rect x="683.5" y="28" width="23.8" height="14" fill="var(--accent)" fill-opacity="1.0"/>
+    <rect x="709.2" y="28" width="23.8" height="14" fill="var(--border-chassis)" fill-opacity="0.2"/>
+    <rect x="735.0" y="28" width="23.8" height="14" fill="var(--border-chassis)" fill-opacity="0.2"/>
+    <rect x="760.8" y="28" width="23.8" height="14" fill="var(--border-chassis)" fill-opacity="0.2"/>
+    <rect x="786.5" y="28" width="23.8" height="14" fill="var(--border-chassis)" fill-opacity="0.2"/>
+    <rect x="812.2" y="28" width="23.8" height="14" fill="var(--border-chassis)" fill-opacity="0.2"/>
+  </g>
+
+  <!-- Subtext & Milestone Ticks -->
+  <text x="14" y="56" fill="var(--text-dim)" class="font-prog-sub">34 OF 40 TASKS COMPLETED (85%)</text>
+  <text x="836" y="56" fill="var(--text-dim)" text-anchor="end" class="font-prog-sub">0% ── 50% ── 100%</text>
+</svg>

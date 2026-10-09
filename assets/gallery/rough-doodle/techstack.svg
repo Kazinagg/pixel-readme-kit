@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 64" width="100%" height="100%">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(18, 18, 18, 0.95);
+        --bg-panel: rgba(28, 28, 28, 0.90);
+        --border-chassis: #E0E0E0;
+        --primary: #A78BFA;
+        --accent: #6EE7B7;
+        --tertiary: #FDE047;
+        --title-front: #F3F4F6;
+        --title-mid: #E0E0E0;
+        --title-dark: #A78BFA;
+        --text-main: #F3F4F6;
+        --text-dim: #9CA3AF;
+        --status: #6EE7B7;
+        --warning: #FDE047;
+        --grid-op: 0.06;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(18, 18, 18, 0.95);
+          --bg-panel: rgba(28, 28, 28, 0.90);
+          --border-chassis: #E0E0E0;
+          --primary: #A78BFA;
+          --accent: #6EE7B7;
+          --tertiary: #FDE047;
+          --title-front: #F3F4F6;
+          --title-mid: #E0E0E0;
+          --title-dark: #A78BFA;
+          --text-main: #F3F4F6;
+          --text-dim: #9CA3AF;
+          --status: #6EE7B7;
+          --warning: #FDE047;
+          --grid-op: 0.06;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #FDFDFD;
+          --bg-panel: #F4F4F5;
+          --border-chassis: #1F2937;
+          --primary: #4F46E5;
+          --accent: #059669;
+          --tertiary: #D97706;
+          --title-front: #111827;
+          --title-mid: #374151;
+          --title-dark: #4F46E5;
+          --text-main: #111827;
+          --text-dim: #4B5563;
+          --status: #059669;
+          --warning: #D97706;
+          --grid-op: 0.06;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #A78BFA));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+
+    .font-sketch { font-family: 'Virgil', 'Architects Daughter', 'Comic Shanns', 'Kalam', 'Chalkboard SE', 'Comic Sans MS', 'Casual', cursive, sans-serif; }
+    .font-sketch-mono { font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, monospace; }
+    .sketch-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .sketch-hover:hover { opacity: 0.85; transform: scale(1.01); }
+
+    </style>
+    <pattern id="techSketch-hatch" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--primary)" stroke-width="1.3" opacity="0.45" />
+    </pattern>
+    <pattern id="techSketch-crosshatch" width="12" height="12" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+      <line x1="0" y1="0" x2="12" y2="0" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+    </pattern>
+    <pattern id="techSketch-hatch-accent" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--accent)" stroke-width="1.3" opacity="0.5" />
+    </pattern>
+    <linearGradient id="techSketch-tape" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0.25" />
+    </linearGradient>
+  </defs>
+  <g id="tech-card-0">
+    <rect x="2" y="6" width="161" height="42" rx="4" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M -1.17 6.3 Q 81.59 5.8 167.08 5.16" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M -0.78 6.6 Q 82.69 5.62 166.2 6.58" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 163.2 3.67 Q 164.11 25.22 163.83 49.91" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 163.52 3.9 Q 161.57 27.88 162.11 50.48" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 165.37 47.84 Q 84.04 46.65 -0.99 48.49" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 165.85 48.23 Q 83.61 48.54 -0.63 48.75" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 1.83 51.31 Q 3.04 28.75 1.99 3.46" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 2.23 51.6 Q 0.63 27.94 1.32 2.7" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <g transform="translate(12, 17)" color="var(--primary)"><path d="M10 2C6.5 2 6.5 3.5 6.5 3.5V5H10.5V6H4.5C3 6 3 8 3 8V11C3 12.5 4.5 12.5 4.5 12.5H6V11C6 9.5 7.5 9.5 7.5 9.5H11.5C13 9.5 13 8 13 8V5C13 3.5 11.5 2 10 2ZM8 3.5C8.4 3.5 8.7 3.8 8.7 4.2C8.7 4.6 8.4 4.9 8 4.9C7.6 4.9 7.3 4.6 7.3 4.2C7.3 3.8 7.6 3.5 8 3.5Z" fill="currentColor"/><path d="M10 18C13.5 18 13.5 16.5 13.5 16.5V15H9.5V14H15.5C17 14 17 12 17 12V9C17 7.5 15.5 7.5 15.5 7.5H14V9C14 10.5 12.5 10.5 12.5 10.5H8.5C7 10.5 7 12 7 12V15C7 16.5 8.5 18 10 18ZM12 16.5C11.6 16.5 11.3 16.2 11.3 15.8C11.3 15.4 11.6 15.1 12 15.1C12.4 15.1 12.7 15.4 12.7 15.8C12.7 16.2 12.4 16.5 12 16.5Z" fill="currentColor"/></g>
+    <text x="38" y="32" fill="var(--text-main)" font-size="11" font-weight="600" class="font-sketch">PYTHON</text>
+  </g>
+  <g id="tech-card-1">
+    <rect x="173" y="6" width="161" height="42" rx="4" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 169.18 5.65 Q 251.88 5.09 337.61 7.08" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 169.7 6.08 Q 254.26 6.19 337.85 5.31" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 335.01 2.09 Q 332.73 26.44 333.24 50.72" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 333.25 2.63 Q 334.48 26.91 333.75 51.13" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 337.18 48.66 Q 252.66 47.87 170.65 49.12" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 337.5 48.88 Q 253.63 47.56 170.88 47.34" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 173.65 52.12 Q 171.66 26.37 172.51 2.99" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 173.88 50.34 Q 173.54 26.97 172.97 3.35" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <g transform="translate(183, 17)" color="var(--primary)"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="2" fill="none"/><path d="M7 7H11C12.5 7 13 8 13 9C13 10 12.2 10.5 11 10.5L13 13H11L9.5 11H8.5V13H7V7ZM8.5 8.2V9.8H10.5C11.2 9.8 11.5 9.5 11.5 9C11.5 8.5 11.2 8.2 10.5 8.2H8.5Z" fill="currentColor"/></g>
+    <text x="209" y="32" fill="var(--text-main)" font-size="11" font-weight="600" class="font-sketch">RUST</text>
+  </g>
+  <g id="tech-card-2">
+    <rect x="344" y="6" width="161" height="42" rx="4" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 340.99 6.47 Q 424.1 6.31 507.02 5.5" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 341.35 6.73 Q 424.28 5.21 507.58 5.96" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 504.42 2.9 Q 504.95 27.66 505.06 51.53" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 504.9 3.28 Q 504.5 25.93 505.41 51.79" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 508.99 47.07 Q 424.88 49.09 340.06 47.54" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 507.23 47.61 Q 423.66 46.59 340.61 47.99" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 343.06 50.53 Q 343.87 27.59 344.33 3.8" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 343.61 50.99 Q 343.56 25.99 344.62 2.08" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <g transform="translate(354, 17)" color="var(--primary)"><rect x="4" y="9" width="2" height="2" fill="currentColor"/><rect x="7" y="9" width="2" height="2" fill="currentColor"/><rect x="10" y="9" width="2" height="2" fill="currentColor"/><rect x="7" y="6" width="2" height="2" fill="currentColor"/><rect x="10" y="6" width="2" height="2" fill="currentColor"/><path d="M2 12C3 15 6 16 10 16C15 16 18 14 18 12C16 11.5 14 12 12 12C12 11 10 11 8 12C5 12 3 11.5 2 12Z" fill="currentColor"/></g>
+    <text x="380" y="32" fill="var(--text-main)" font-size="11" font-weight="600" class="font-sketch">DOCKER</text>
+  </g>
+  <g id="tech-card-3">
+    <rect x="515" y="6" width="161" height="42" rx="4" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 512.8 4.88 Q 596.32 7.53 678.83 6.31" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 511.08 5.46 Q 594.31 7.12 679.23 6.61" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 676.24 3.71 Q 677.17 25.28 676.87 49.94" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 676.55 3.93 Q 677.41 27.84 675.14 50.51" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 678.4 47.88 Q 597.1 46.71 511.88 48.35" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 678.88 48.26 Q 596.56 48.49 512.26 48.64" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 514.87 51.35 Q 516.09 25.21 516.14 2.21" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 515.26 51.64 Q 513.59 27.9 514.35 2.73" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <g transform="translate(525, 17)" color="var(--primary)"><path d="M17.5 9.2L10.8 2.5C10.4 2.1 9.6 2.1 9.2 2.5L2.5 9.2C2.1 9.6 2.1 10.4 2.5 10.8L9.2 17.5C9.6 17.9 10.4 17.9 10.8 17.5L17.5 10.8C17.9 10.4 17.9 9.6 17.5 9.2ZM9.5 14.2C8.7 14.2 8.2 13.6 8.2 13C8.2 12.6 8.4 12.2 8.7 12V8.5L7.5 9.7C7.4 10.2 7 10.5 6.5 10.5C5.7 10.5 5.2 10 5.2 9.2C5.2 8.5 5.7 8 6.5 8C6.9 8 7.2 8.2 7.4 8.4L9.2 6.6V5.8C8.9 5.6 8.7 5.2 8.7 4.8C8.7 4 9.3 3.5 10 3.5C10.7 3.5 11.3 4 11.3 4.8C11.3 5.2 11.1 5.6 10.8 5.8V12C11.1 12.2 11.3 12.6 11.3 13C11.3 13.6 10.8 14.2 9.5 14.2Z" fill="currentColor"/></g>
+    <text x="551" y="32" fill="var(--text-main)" font-size="11" font-weight="600" class="font-sketch">GIT</text>
+  </g>
+  <g id="tech-card-4">
+    <rect x="686" y="6" width="161" height="42" rx="4" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 682.22 5.69 Q 764.93 5.15 850.65 7.12" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 682.73 6.11 Q 767.21 6.14 850.88 5.34" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 848.05 2.12 Q 845.79 26.5 846.28 50.76" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 846.28 2.66 Q 847.43 26.86 846.78 51.17" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 850.22 48.69 Q 765.72 47.93 683.69 49.16" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 850.54 48.91 Q 766.59 47.52 683.91 47.37" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 686.68 52.16 Q 684.71 26.43 685.55 3.03" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 686.91 50.37 Q 686.49 26.92 686.0 3.38" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <g transform="translate(696, 17)" color="var(--primary)"><rect x="3" y="3" width="14" height="14" rx="2" fill="currentColor" fill-opacity="0.2" stroke="currentColor" stroke-width="1.5"/><path d="M6 7H11V8.5H9.3V14H7.7V8.5H6V7ZM12 14C13 14.5 14 14.7 15 14C15.8 13.5 15.8 12.5 15 12C14.2 11.5 13 11.2 13 10.5C13 10 13.5 9.5 14.2 9.5C15 9.5 15.5 9.8 16 10.2L16.5 9.2C15.8 8.7 15 8.5 14.2 8.5C12.8 8.5 11.8 9.5 11.8 10.5C11.8 11.8 13 12.2 13.8 12.6C14.5 13 14.5 13.5 14 13.8C13.5 14.1 12.8 13.8 12.3 13.2L12 14Z" fill="currentColor"/></g>
+    <text x="722" y="32" fill="var(--text-main)" font-size="11" font-weight="600" class="font-sketch">TYPESCRIPT</text>
+  </g>
+</svg>

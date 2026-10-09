@@ -1051,24 +1051,26 @@
         <div class="simulator-toolbar">
           <div class="sim-controls-group">
             <span class="sim-label" data-i18n="sim_style_lbl">STYLE:</span>
-            <button class="theme-chip-btn active" title="Pixel-art & Isometric Voxels (v5.0-CORE)">
+            <button class="theme-chip-btn active" id="sim-style-pixel" onclick="setSimStyle('pixel')" title="Pixel-art & Isometric Voxels (v5.0-CORE)">
               <span>Pixel</span>
               <span class="status-pill ready" data-i18n="pill_ready">READY</span>
             </button>
-            <button class="theme-chip-btn disabled" title="Vector Smooth Cyberpunk (Roadmap v5.1+)" disabled>
+            <button class="theme-chip-btn" id="sim-style-modern" onclick="setSimStyle('modern')" title="Clean Vector & Precision HUD (v6.0)">
               <span>Modern</span>
-              <span class="status-pill in-dev" data-i18n="pill_indev">IN DEV</span>
+              <span class="status-pill ready" data-i18n="pill_ready">READY</span>
             </button>
-            <button class="theme-chip-btn disabled" title="Minimalist Enterprise SaaS (Roadmap v5.2+)" disabled>
-              <span>Corporate</span>
-              <span class="status-pill in-dev" data-i18n="pill_indev">IN DEV</span>
+            <button class="theme-chip-btn" id="sim-style-sketch" onclick="setSimStyle('sketch')" title="Hand-Drawn & Excalidraw Style (v6.5)">
+              <span>Sketch</span>
+              <span class="status-pill ready" data-i18n="pill_ready">READY</span>
             </button>
           </div>
-          <div class="sim-controls-group">
+          <div class="sim-controls-group" id="sim-theme-group">
             <span class="sim-label" data-i18n="sim_palette_lbl">THEME:</span>
-            <button class="theme-chip-btn active" onclick="setSimTheme('cyberpunk')" data-i18n="theme_cyberpunk">Cyberpunk</button>
-            <button class="theme-chip-btn" onclick="setSimTheme('tactical')" data-i18n="theme_tactical">Tactical Amber</button>
-            <button class="theme-chip-btn" onclick="setSimTheme('tokyo')" data-i18n="theme_tokyo">Tokyo Night</button>
+            <div id="sim-theme-buttons" style="display:flex;gap:6px;flex-wrap:wrap;">
+              <button class="theme-chip-btn active" onclick="setSimTheme('cyberpunk')" data-i18n="theme_cyberpunk">Cyberpunk</button>
+              <button class="theme-chip-btn" onclick="setSimTheme('tactical')" data-i18n="theme_tactical">Tactical Amber</button>
+              <button class="theme-chip-btn" onclick="setSimTheme('tokyo')" data-i18n="theme_tokyo">Tokyo Night</button>
+            </div>
           </div>
           <div class="sim-controls-group">
             <span class="sim-label" data-i18n="sim_mode_lbl">GITHUB MODE:</span>
@@ -1207,12 +1209,12 @@
               <span class="nav-status-badge ready" data-i18n="nav_status_active">v5.0 ACTIVE (16/16)</span>
             </div>
             <div class="nav-status-row">
-              <span class="nav-status-name"><span class="nav-status-bullet in-dev">○</span> Modern</span>
-              <span class="nav-status-badge in-dev" data-i18n="nav_status_planned">ROADMAP v5.1</span>
+              <span class="nav-status-name"><span class="nav-status-bullet ready">●</span> Modern</span>
+              <span class="nav-status-badge ready" data-i18n="nav_status_modern_active">v6.0 ACTIVE (16/16)</span>
             </div>
             <div class="nav-status-row">
-              <span class="nav-status-name"><span class="nav-status-bullet in-dev">○</span> Corporate</span>
-              <span class="nav-status-badge in-dev" data-i18n="nav_status_planned">ROADMAP v5.2</span>
+              <span class="nav-status-name"><span class="nav-status-bullet ready">●</span> Sketch</span>
+              <span class="nav-status-badge ready" data-i18n="nav_status_sketch_active">v6.5 ACTIVE (16/16)</span>
             </div>
           </div>
         </div>
@@ -1221,24 +1223,26 @@
           <div class="viewer-toolbar">
             <div class="sim-controls-group">
               <span class="sim-label" data-i18n="viewer_style_lbl">STYLE:</span>
-              <button class="viewer-theme-btn active" title="8-bit Pixel Geometry (v5.0-CORE)">
+              <button class="viewer-theme-btn active" id="viewer-style-pixel" onclick="setViewerStyle('pixel')" title="8-bit Pixel Geometry (v5.0-CORE)">
                 <span>Pixel</span>
                 <span class="status-pill ready" data-i18n="pill_ready">READY</span>
               </button>
-              <button class="viewer-theme-btn disabled" title="Smooth Vector Curves (Roadmap v5.1+)" disabled>
+              <button class="viewer-theme-btn" id="viewer-style-modern" onclick="setViewerStyle('modern')" title="Smooth Vector Curves (v6.0)">
                 <span>Modern</span>
-                <span class="status-pill in-dev" data-i18n="pill_indev">IN DEV</span>
+                <span class="status-pill ready" data-i18n="pill_ready">READY</span>
               </button>
-              <button class="viewer-theme-btn disabled" title="Enterprise SaaS Geometry (Roadmap v5.2+)" disabled>
-                <span>Corporate</span>
-                <span class="status-pill in-dev" data-i18n="pill_indev">IN DEV</span>
+              <button class="viewer-theme-btn" id="viewer-style-sketch" onclick="setViewerStyle('sketch')" title="Hand-Drawn & Excalidraw (v6.5)">
+                <span>Sketch</span>
+                <span class="status-pill ready" data-i18n="pill_ready">READY</span>
               </button>
             </div>
             <div class="viewer-theme-selector" id="viewer-theme-container">
               <span class="sim-label" data-i18n="viewer_theme_lbl">THEME:</span>
-              <button class="viewer-theme-btn active" onclick="setViewerTheme('cyberpunk')" data-i18n="theme_cyberpunk">Cyberpunk</button>
-              <button class="viewer-theme-btn" onclick="setViewerTheme('tactical')" data-i18n="theme_tactical_short">Tactical</button>
-              <button class="viewer-theme-btn" onclick="setViewerTheme('tokyo')" data-i18n="theme_tokyo_short">Tokyo</button>
+              <div id="viewer-theme-buttons" style="display:flex;gap:6px;flex-wrap:wrap;">
+                <button class="viewer-theme-btn active" onclick="setViewerTheme('cyberpunk')" data-i18n="theme_cyberpunk">Cyberpunk</button>
+                <button class="viewer-theme-btn" onclick="setViewerTheme('tactical')" data-i18n="theme_tactical_short">Tactical</button>
+                <button class="viewer-theme-btn" onclick="setViewerTheme('tokyo')" data-i18n="theme_tokyo_short">Tokyo</button>
+              </div>
             </div>
             <div style="display: flex; align-items: center; gap: 14px;">
               <div class="mode-toggle-group">
@@ -1444,7 +1448,7 @@ jobs:
         metric_deps: "EXTERNAL DEPS",
         metric_deps_val: "0 (Pure Stdlib)",
         metric_tests: "TEST SUITE",
-        metric_tests_val: "148 tests (100% pass)",
+        metric_tests_val: "176 tests (100% pass)",
         metric_camo: "CAMO PROXY CACHE",
         metric_camo_val: "Immune (?v=<hash>)",
         cli_copy: "Copy",
@@ -1461,10 +1465,14 @@ jobs:
         theme_cyberpunk: "Cyberpunk",
         theme_tactical: "Tactical Amber",
         theme_tokyo: "Tokyo Night",
+        theme_modern: "Modern Clean",
+        theme_sketch: "Rough Doodle",
         theme_tactical_short: "Tactical",
         theme_tokyo_short: "Tokyo",
         nav_status_paradigms: "GEOMETRIC PARADIGMS",
         nav_status_active: "v5.0 ACTIVE (16/16)",
+        nav_status_modern_active: "v6.0 ACTIVE (16/16)",
+        nav_status_sketch_active: "v6.5 ACTIVE (16/16)",
         nav_status_planned: "ROADMAP v5.1+",
         sim_mode_lbl: "GITHUB MODE:",
         sim_col_note: "850px Standard Column",
@@ -1546,7 +1554,7 @@ jobs:
         metric_deps: "ВНЕШНИЕ ЗАВИСИМОСТИ",
         metric_deps_val: "0 (Чистый Stdlib)",
         metric_tests: "НАБОР ТЕСТОВ",
-        metric_tests_val: "148 тестов (100% успех)",
+        metric_tests_val: "176 тестов (100% успех)",
         metric_camo: "КЭШ CAMO PROXY",
         metric_camo_val: "Иммунитет (?v=<хеш>)",
         cli_copy: "Копировать",
@@ -1563,10 +1571,14 @@ jobs:
         theme_cyberpunk: "Киберпанк",
         theme_tactical: "Тактический янтарь",
         theme_tokyo: "Токио найт",
+        theme_modern: "Модерн Клин",
+        theme_sketch: "Скетч Дудл",
         theme_tactical_short: "Тактический",
         theme_tokyo_short: "Токио",
         nav_status_paradigms: "ГЕОМЕТРИЧЕСКИЕ СТИЛИ",
         nav_status_active: "v5.0 АКТИВЕН (16/16)",
+        nav_status_modern_active: "v6.0 АКТИВЕН (16/16)",
+        nav_status_sketch_active: "v6.5 АКТИВЕН (16/16)",
         nav_status_planned: "В ПЛАНАХ v5.1+",
         sim_mode_lbl: "РЕЖИМ GITHUB:",
         sim_col_note: "Стандартная колонка 850px",
@@ -1651,6 +1663,8 @@ jobs:
       });
 
       renderComponentDetails(currentComponentKey || 'header');
+      if (typeof renderSimThemeButtons === 'function') renderSimThemeButtons();
+      if (typeof renderViewerThemeButtons === 'function') renderViewerThemeButtons();
     }
 
     const SIM_THEMES = {
@@ -1695,11 +1709,76 @@ jobs:
           starchart: 'assets/starchart-tokyo-light.svg',
           profile: 'assets/profile-tokyo-light.svg'
         }
+      },
+      modern: {
+        dark: {
+          header: 'assets/header-modern.svg',
+          metrics: 'assets/metrics-modern.svg',
+          starchart: 'assets/starchart-modern.svg',
+          profile: 'assets/profile-modern.svg'
+        },
+        light: {
+          header: 'assets/header-modern-light.svg',
+          metrics: 'assets/metrics-modern-light.svg',
+          starchart: 'assets/starchart-modern-light.svg',
+          profile: 'assets/profile-modern-light.svg'
+        }
+      },
+      sketch: {
+        dark: {
+          header: 'assets/header-sketch.svg',
+          metrics: 'assets/metrics-sketch.svg',
+          starchart: 'assets/starchart-sketch.svg',
+          profile: 'assets/profile-sketch.svg'
+        },
+        light: {
+          header: 'assets/header-sketch-light.svg',
+          metrics: 'assets/metrics-sketch-light.svg',
+          starchart: 'assets/starchart-sketch-light.svg',
+          profile: 'assets/profile-sketch-light.svg'
+        }
       }
     };
 
+    const STYLE_THEMES = {
+      pixel: [
+        { key: 'cyberpunk', name: 'Cyberpunk', nameRu: 'Киберпанк' },
+        { key: 'tactical', name: 'Tactical Amber', nameRu: 'Тактический янтарь' },
+        { key: 'tokyo', name: 'Tokyo Night', nameRu: 'Токио найт' }
+      ],
+      modern: [
+        { key: 'modern', name: 'Modern Clean', nameRu: 'Модерн Клин' }
+      ],
+      sketch: [
+        { key: 'sketch', name: 'Rough Doodle', nameRu: 'Скетч Дудл' }
+      ]
+    };
+
+    let currentSimStyle = 'pixel';
     let currentSimTheme = 'cyberpunk';
     let currentSimMode = 'dark';
+
+    function setSimStyle(styleKey) {
+      currentSimStyle = styleKey;
+      ['pixel', 'modern', 'sketch'].forEach(s => {
+        const btn = document.getElementById(`sim-style-${s}`);
+        if (btn) btn.classList.toggle('active', s === styleKey);
+      });
+      renderSimThemeButtons();
+      const defaultTheme = (STYLE_THEMES[styleKey] && STYLE_THEMES[styleKey][0]) ? STYLE_THEMES[styleKey][0].key : 'cyberpunk';
+      setSimTheme(defaultTheme);
+    }
+
+    function renderSimThemeButtons() {
+      const container = document.getElementById('sim-theme-buttons');
+      if (!container) return;
+      const themes = STYLE_THEMES[currentSimStyle] || STYLE_THEMES.pixel;
+      container.innerHTML = themes.map(t => {
+        const label = currentLang === 'ru' ? t.nameRu : t.name;
+        const isActive = t.key === currentSimTheme;
+        return `<button class="theme-chip-btn ${isActive ? 'active' : ''}" onclick="setSimTheme('${t.key}')">${label}</button>`;
+      }).join('');
+    }
 
     function updateSimulatorAssets() {
       const themeData = SIM_THEMES[currentSimTheme];
@@ -1713,8 +1792,13 @@ jobs:
 
     function setSimTheme(themeKey) {
       currentSimTheme = themeKey;
-      document.querySelectorAll('.theme-chip-btn').forEach(b => b.classList.remove('active'));
-      event.currentTarget.classList.add('active');
+      const container = document.getElementById('sim-theme-buttons');
+      if (container) {
+        container.querySelectorAll('.theme-chip-btn').forEach(b => {
+          const isTarget = b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${themeKey}'`);
+          b.classList.toggle('active', !!isTarget);
+        });
+      }
       updateSimulatorAssets();
     }
 
@@ -1737,8 +1821,31 @@ jobs:
     }
 
     let currentComponentKey = 'header';
+    let currentViewerStyle = 'pixel';
     let currentViewerTheme = 'cyberpunk';
     let currentViewerMode = 'dark';
+
+    function setViewerStyle(styleKey) {
+      currentViewerStyle = styleKey;
+      ['pixel', 'modern', 'sketch'].forEach(s => {
+        const btn = document.getElementById(`viewer-style-${s}`);
+        if (btn) btn.classList.toggle('active', s === styleKey);
+      });
+      renderViewerThemeButtons();
+      const defaultTheme = (STYLE_THEMES[styleKey] && STYLE_THEMES[styleKey][0]) ? STYLE_THEMES[styleKey][0].key : 'cyberpunk';
+      setViewerTheme(defaultTheme);
+    }
+
+    function renderViewerThemeButtons() {
+      const container = document.getElementById('viewer-theme-buttons');
+      if (!container) return;
+      const themes = STYLE_THEMES[currentViewerStyle] || STYLE_THEMES.pixel;
+      container.innerHTML = themes.map(t => {
+        const label = currentLang === 'ru' ? t.nameRu : t.name;
+        const isActive = t.key === currentViewerTheme;
+        return `<button class="viewer-theme-btn ${isActive ? 'active' : ''}" onclick="setViewerTheme('${t.key}')">${label}</button>`;
+      }).join('');
+    }
 
     const CATALOG = {
       header: {
@@ -1748,12 +1855,14 @@ jobs:
         themes: {
           cyberpunk: { dark: 'assets/header-cyberpunk.svg', light: 'assets/header-cyberpunk-light.svg' },
           tactical: { dark: 'assets/header-tactical.svg', light: 'assets/header-tactical-light.svg' },
-          tokyo: { dark: 'assets/header-tokyo.svg', light: 'assets/header-tokyo-light.svg' }
+          tokyo: { dark: 'assets/header-tokyo.svg', light: 'assets/header-tokyo-light.svg' },
+          modern: { dark: 'assets/header-modern.svg', light: 'assets/header-modern-light.svg' },
+          sketch: { dark: 'assets/header-sketch.svg', light: 'assets/header-sketch-light.svg' }
         },
         directive: '<!-- pixel-kit:header style="pixel" theme="cyberpunk" title="MY-PROJECT" subtitle="SYSTEM SPECIFICATION" spec1="ENGINE: PYTHON STDLIB" spec2="PIPELINE: CAMO IMMUNE" spec3="COMPLIANCE: DUAL THEME" -->',
         props: [
-          { name: 'style', type: 'string', def: '"pixel"', desc: 'Geometry paradigm: pixel, modern, or corporate' },
-          { name: 'theme', type: 'string', def: '"cyberpunk"', desc: 'Color palette: cyberpunk, tactical, tokyo' },
+          { name: 'style', type: 'string', def: '"pixel"', desc: 'Geometry paradigm: pixel, modern, or sketch' },
+          { name: 'theme', type: 'string', def: '"cyberpunk"', desc: 'Color palette: cyberpunk, tactical, tokyo, modern-clean, rough-doodle' },
           { name: 'title', type: 'string', def: '"MY-PROJECT"', desc: 'Primary 3D or vector header text' },
           { name: 'subtitle', type: 'string', def: '""', desc: 'Secondary monospace specification title' },
           { name: 'spec1, spec2, spec3', type: 'string', def: '""', desc: 'Monospace telemetry readouts in the status panel' },
@@ -1781,7 +1890,9 @@ jobs:
         themes: {
           cyberpunk: { dark: 'assets/profile-cyberpunk.svg', light: 'assets/profile-cyberpunk-light.svg' },
           tactical: { dark: 'assets/profile-tactical.svg', light: 'assets/profile-tactical-light.svg' },
-          tokyo: { dark: 'assets/profile-tokyo.svg', light: 'assets/profile-tokyo-light.svg' }
+          tokyo: { dark: 'assets/profile-tokyo.svg', light: 'assets/profile-tokyo-light.svg' },
+          modern: { dark: 'assets/profile-modern.svg', light: 'assets/profile-modern-light.svg' },
+          sketch: { dark: 'assets/profile-sketch.svg', light: 'assets/profile-sketch-light.svg' }
         },
         directive: '<!-- pixel-kit:profile style="pixel" theme="cyberpunk" name="ALEX DEVELOPER" role="FULLSTACK ARCHITECT" bio="Building high-performance runtimes." status="AVAILABLE" location="UTC+3" badge="LVL_99" -->',
         props: [
@@ -1838,7 +1949,9 @@ jobs:
         desc: 'Monumental closing base plate for the entire repository or developer profile with an active return-to-top navigation link.',
         dim: '850 x 76',
         themes: {
-          cyberpunk: { dark: 'assets/footer-demo.svg', light: 'assets/footer-light-demo.svg' }
+          cyberpunk: { dark: 'assets/footer-demo.svg', light: 'assets/footer-light-demo.svg' },
+          modern: { dark: 'assets/footer-modern-demo.svg', light: 'assets/footer-modern-demo.svg' },
+          sketch: { dark: 'assets/footer-sketch-demo.svg', light: 'assets/footer-sketch-demo.svg' }
         },
         directive: '<!-- pixel-kit:footer style="pixel" theme="cyberpunk" status="SESSION TERMINATED // ALL SYSTEMS NOMINAL" nav_text="RETURN TO TOP" -->',
         props: [
@@ -1853,7 +1966,9 @@ jobs:
         themes: {
           cyberpunk: { dark: 'assets/metrics-cyberpunk.svg', light: 'assets/metrics-cyberpunk-light.svg' },
           tactical: { dark: 'assets/metrics-tactical.svg', light: 'assets/metrics-tactical-light.svg' },
-          tokyo: { dark: 'assets/metrics-tokyo.svg', light: 'assets/metrics-tokyo-light.svg' }
+          tokyo: { dark: 'assets/metrics-tokyo.svg', light: 'assets/metrics-tokyo-light.svg' },
+          modern: { dark: 'assets/metrics-modern.svg', light: 'assets/metrics-modern-light.svg' },
+          sketch: { dark: 'assets/metrics-sketch.svg', light: 'assets/metrics-sketch-light.svg' }
         },
         directive: '<!-- pixel-kit:metrics style="pixel" theme="cyberpunk" items="STARS: 1,980 (+45/wk) [up] | RENDER: 38ms (Stdlib) [neutral] | TESTS: 100% (148 pass) [up] | CAMO: IMMUNE (Hashed) [optimal]" -->',
         props: [
@@ -1868,7 +1983,9 @@ jobs:
         themes: {
           cyberpunk: { dark: 'assets/starchart-cyberpunk.svg', light: 'assets/starchart-cyberpunk-light.svg' },
           tactical: { dark: 'assets/starchart-tactical.svg', light: 'assets/starchart-tactical-light.svg' },
-          tokyo: { dark: 'assets/starchart-tokyo.svg', light: 'assets/starchart-tokyo-light.svg' }
+          tokyo: { dark: 'assets/starchart-tokyo.svg', light: 'assets/starchart-tokyo-light.svg' },
+          modern: { dark: 'assets/starchart-modern.svg', light: 'assets/starchart-modern-light.svg' },
+          sketch: { dark: 'assets/starchart-sketch.svg', light: 'assets/starchart-sketch-light.svg' }
         },
         directive: '<!-- pixel-kit:starchart repo="Kazinagg/pixel-readme-kit" style="pixel" theme="cyberpunk" auto_fetch="true" delta="+142% past 6m" -->',
         props: [
@@ -1882,7 +1999,9 @@ jobs:
         desc: 'Calibrated percentage bar with discrete step segments, title diagnosis, and subtext labels.',
         dim: '850 x 70',
         themes: {
-          cyberpunk: { dark: 'assets/progress-demo.svg', light: 'assets/progress-light-demo.svg' }
+          cyberpunk: { dark: 'assets/progress-demo.svg', light: 'assets/progress-light-demo.svg' },
+          modern: { dark: 'assets/progress-modern-demo.svg', light: 'assets/progress-modern-demo.svg' },
+          sketch: { dark: 'assets/progress-sketch-demo.svg', light: 'assets/progress-sketch-demo.svg' }
         },
         directive: '<!-- pixel-kit:progress style="pixel" theme="cyberpunk" value="88" label="V5 MIGRATION PIPELINE" sub="Phase 1 & 2 completed // 148 tests passing" -->',
         props: [
@@ -1921,7 +2040,9 @@ jobs:
         desc: 'Informational banner with glass panel backing and high-contrast monospace typography.',
         dim: '850 x 62',
         themes: {
-          cyberpunk: { dark: 'assets/callout-note.svg', light: 'assets/callout-note-light.svg' }
+          cyberpunk: { dark: 'assets/callout-note.svg', light: 'assets/callout-note-light.svg' },
+          modern: { dark: 'assets/callout-modern-tip-demo.svg', light: 'assets/callout-modern-tip-demo.svg' },
+          sketch: { dark: 'assets/callout-sketch-tip-demo.svg', light: 'assets/callout-sketch-tip-demo.svg' }
         },
         directive: '<!-- pixel-kit:callout style="pixel" theme="cyberpunk" type="note" title="CAMO PROXY IMMUNITY SPECIFICATION" subtitle="Version hashes ensure GitHub Camo never serves stale SVG assets." -->',
         props: [
@@ -2411,8 +2532,13 @@ jobs:
 
     function setViewerTheme(themeKey) {
       currentViewerTheme = themeKey;
-      document.querySelectorAll('.viewer-theme-btn').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
+      const container = document.getElementById('viewer-theme-buttons');
+      if (container) {
+        container.querySelectorAll('.viewer-theme-btn').forEach(b => {
+          const isTarget = b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${themeKey}'`);
+          b.classList.toggle('active', !!isTarget);
+        });
+      }
       updateViewerDisplay();
     }
 
@@ -2438,6 +2564,8 @@ jobs:
       const savedLang = localStorage.getItem('prk_site_lang') || 'en';
       setLanguage(savedLang);
 
+      renderSimThemeButtons();
+      renderViewerThemeButtons();
       renderComponentDetails('header');
     });
   </script>

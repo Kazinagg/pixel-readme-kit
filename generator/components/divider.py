@@ -1,16 +1,201 @@
 """Divider and splitter components for Pixel Readme Kit."""
 from typing import Optional, Any
 from generator.themes import resolve_theme, normalize_style_and_theme
-from generator.layout import measure_mono_text_width, clamp_text_to_width
-from generator.components.base import escape_xml, validate_svg
+from generator.layout import (
+    measure_mono_text_width,
+    clamp_text_to_width,
+    measure_sans_text_width,
+    clamp_sans_text_to_width,
+)
+from generator.components.base import (
+    escape_xml,
+    validate_svg,
+    MODERN_BASE_STYLES,
+    SKETCH_BASE_STYLES,
+    render_sketch_defs,
+    render_rough_line,
+    render_rough_rect,
+    render_rough_star,
+)
 
-def generate_divider(style=None, primary=None, accent=None, width=850, height=28, mode="auto", preset=None, tertiary=None, theme=None):
-    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
-    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+
+def _generate_modern_divider(style_name, theme_name, c, css_vars, width=850, height=28):
+    """Renders sleek vector gradient divider with center diamond."""
+    prim = c["primary"]
+    acc = c["accent"]
+    tertiary_col = c["tertiary"]
+    cy = height // 2
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
+  <defs>
+    <style>
+      {css_vars}
+{MODERN_BASE_STYLES}
+    </style>
+    <linearGradient id="modernDivGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="{prim}" stop-opacity="0"/>
+      <stop offset="35%" stop-color="{prim}" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="{acc}" stop-opacity="1"/>
+      <stop offset="65%" stop-color="{prim}" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="{acc}" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Smooth Gradient Vector Line -->
+  <line x1="24" y1="{cy}" x2="{width-24}" y2="{cy}" stroke="url(#modernDivGrad)" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Center Accent Geometry -->
+  <circle cx="{width//2}" cy="{cy}" r="4" fill="{acc}"/>
+  <circle cx="{width//2}" cy="{cy}" r="7" fill="none" stroke="{prim}" stroke-width="1" opacity="0.6"/>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+
+def _generate_modern_splitter(style_name, theme_name, c, css_vars,
+                              label="[MODULE: SUB_SYSTEM]", width=850, height=22):
+    """Renders modern sub-block splitter with centered pill badge."""
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
     border = c["border"]
+    panel = c["panel"]
+    text_main = c["text_main"]
+
+    lbl_clean = escape_xml(str(label).strip().strip("[]"))
+    mid_x = width // 2
+    max_lbl_w = width - 80
+    lbl_disp = clamp_sans_text_to_width(lbl_clean, max_lbl_w - 40, 10)
+    text_w = measure_sans_text_width(lbl_disp, 10) + 36
+    box_w = max(100, min(max_lbl_w, int(text_w)))
+    x1 = mid_x - box_w // 2
+    x2 = mid_x + box_w // 2
+    l_end = max(10, x1 - 12)
+    r_start = min(width - 10, x2 + 12)
+    cy = height // 2
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
+  <defs>
+    <style>
+      {css_vars}
+{MODERN_BASE_STYLES}
+    </style>
+  </defs>
+
+  <!-- Subtle Connecting 1px Line -->
+  <line x1="12" y1="{cy}" x2="{l_end}" y2="{cy}" stroke="{border}" stroke-width="1"/>
+  <line x1="{r_start}" y1="{cy}" x2="{width-12}" y2="{cy}" stroke="{border}" stroke-width="1"/>
+
+  <!-- Center Pill Badge -->
+  <g transform="translate({x1}, {(height-20)//2})">
+    <rect x="0" y="0" width="{box_w}" height="20" rx="10" fill="{panel}" stroke="{border}" stroke-width="1"/>
+    <circle cx="10" cy="10" r="2.5" fill="{prim}"/>
+    <text x="{box_w//2 + 4}" y="14" fill="{text_main}" font-size="10" font-weight="600" text-anchor="middle" class="font-sans">{lbl_disp}</text>
+  </g>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+
+def _generate_sketch_divider(style_name, theme_name, c, css_vars, width=850, height=28):
+    """Renders hand-drawn sketch divider with wobbly double stroke and doodle star."""
+    prim = c["primary"]
+    acc = c["accent"]
+    tertiary_col = c.get("tertiary", "#FDE047")
+    border = c["border"]
+    cy = height // 2
+
+    # Double rough pencil line across
+    line_markup = render_rough_line(x1=24, y1=cy, x2=width-24, y2=cy, stroke=prim, stroke_width=1.5, jitter=1.3, double_stroke=True, seed=160)
+    center_star = render_rough_star(cx=width//2, cy=cy, r=6.5, fill=acc, stroke=tertiary_col, stroke_width=1.3, seed=165)
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
+  <defs>
+    <style>
+      {css_vars}
+{SKETCH_BASE_STYLES}
+    </style>
+{render_sketch_defs(c, "dividerSketch")}
+  </defs>
+
+  <!-- Wobbly Sketch Divider Stroke -->
+  {line_markup}
+
+  <!-- Center Doodle Star -->
+  <circle cx="{width//2}" cy="{cy}" r="11" fill="none" stroke="{border}" stroke-width="1" stroke-dasharray="2,3" opacity="0.6"/>
+  {center_star}
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+
+def _generate_sketch_splitter(style_name, theme_name, c, css_vars,
+                              label="[MODULE: SUB_SYSTEM]", width=850, height=22):
+    """Renders hand-drawn sketch splitter with rough lines and centered doodle tag."""
+    prim = c["primary"]
+    acc = c["accent"]
+    bg = c["bg"]
+    border = c["border"]
+    panel = c["panel"]
+    text_main = c["text_main"]
+
+    lbl_clean = escape_xml(str(label).strip().strip("[]"))
+    mid_x = width // 2
+    max_lbl_w = width - 80
+    lbl_disp = clamp_sans_text_to_width(lbl_clean, max_lbl_w - 40, 10)
+    text_w = measure_sans_text_width(lbl_disp, 10) + 38
+    box_w = max(110, min(max_lbl_w, int(text_w)))
+    x1 = mid_x - box_w // 2
+    x2 = mid_x + box_w // 2
+    l_end = max(10, x1 - 10)
+    r_start = min(width - 10, x2 + 10)
+    cy = height // 2
+
+    left_line = render_rough_line(12, cy, l_end, cy, stroke=border, stroke_width=1.3, jitter=0.9, double_stroke=False, seed=170)
+    right_line = render_rough_line(r_start, cy, width - 12, cy, stroke=border, stroke_width=1.3, jitter=0.9, double_stroke=False, seed=175)
+    box_rect = render_rough_rect(x1, (height - 20) // 2, box_w, 20, stroke=acc, stroke_width=1.2, fill=panel, rx=6, seed=180)
+    doodle_icon = render_rough_star(cx=x1 + 12, cy=cy, r=3.5, fill=prim, stroke=prim, seed=182)
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
+  <defs>
+    <style>
+      {css_vars}
+{SKETCH_BASE_STYLES}
+    </style>
+{render_sketch_defs(c, "splitterSketch")}
+  </defs>
+
+  <!-- Side Rough Lines -->
+  {left_line}
+  {right_line}
+
+  <!-- Center Hand-drawn Tag Box -->
+  <g>
+    {box_rect}
+    {doodle_icon}
+    <text x="{x1 + box_w//2 + 5}" y="{cy + 4}" fill="{text_main}" font-size="10" font-weight="600" text-anchor="middle" class="font-sketch">{lbl_disp}</text>
+  </g>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+
+def generate_divider(style=None, primary=None, accent=None, width=850, height=28, mode="auto", preset=None, tertiary=None, theme=None):
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+    if style_name == "modern":
+        return _generate_modern_divider(style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars, width=width, height=height)
+    elif style_name == "sketch":
+        return _generate_sketch_divider(style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars, width=width, height=height)
+    prim = c["primary"]
+    acc = c["accent"]
+    bg = c["bg"]
+    border = c["border"]
+
     if theme_name in ("tactical", "amber", "amber_crt"):
         st = "tactical"
     elif theme_name in ("minimal", "clean-mono", "clean_mono", "academic-paper", "academic_paper", "corporate-blue", "corporate_blue", "tokyo", "tokyo_night", "swiss-mono", "swiss_mono", "executive-slate", "executive_slate"):
@@ -95,6 +280,10 @@ def generate_splitter(style=None, primary=None, accent=None,
                       tertiary=None, theme=None):
     style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
     c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+    if style_name == "modern":
+        return _generate_modern_splitter(style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars, label=label, width=width, height=height)
+    elif style_name == "sketch":
+        return _generate_sketch_splitter(style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars, label=label, width=width, height=height)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]

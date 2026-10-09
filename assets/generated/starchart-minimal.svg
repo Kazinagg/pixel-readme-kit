@@ -71,8 +71,10 @@
   </defs>
 
   
-  <rect x="1" y="1" width="848" height="228" rx="4" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.2"/>
-  <line x1="1" y1="1" x2="849" y2="1" stroke="var(--primary)" stroke-width="2"/>
+  <!-- TOKYO MINIMAL CHASSIS (Sharp 90° corners, 1px Swiss frame, bold accent top banner) -->
+  <rect x="1" y="1" width="848" height="228" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.0"/>
+  <rect x="1" y="1" width="848" height="5" fill="var(--primary)"/>
+  <line x1="1" y1="228" x2="849" y2="228" stroke="var(--border-chassis)" stroke-width="1.0" stroke-dasharray="4,4" opacity="0.4"/>
 
 
   <!-- HEADER BAR -->
@@ -107,7 +109,7 @@
     <circle cx="800.0" cy="70.0" r="2.5" fill="var(--primary)"/>
     <!-- Peak Callout Tag -->
     <g transform="translate(760.0, 40.0)">
-      <rect x="0" y="0" width="76" height="22" rx="3" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
+      <rect x="0" y="0" width="76" height="22" rx="0" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
       <text x="38" y="15" fill="var(--accent)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">★ 2,400</text>
     </g>
 </svg>

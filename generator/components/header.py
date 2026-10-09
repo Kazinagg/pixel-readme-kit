@@ -7,9 +7,383 @@ from generator.layout import (
     clamp_text_to_width,
     normalize_specs,
     format_tag,
+    measure_sans_text_width,
+    clamp_sans_text_to_width,
 )
-from generator.components.base import escape_xml, validate_svg
+from generator.components.base import (
+    escape_xml,
+    validate_svg,
+    MODERN_BASE_STYLES,
+    render_modern_defs,
+    SKETCH_BASE_STYLES,
+    render_sketch_defs,
+    render_rough_line,
+    render_rough_rect,
+    render_rough_arrow,
+    render_rough_star,
+    coord_jitter,
+)
 from generator.font_engine import render_3d_text
+
+
+
+def _generate_modern_compact_header(style_name, theme_name, c, css_vars,
+                                     title="PIXEL-KIT", subtitle="CLEAN VECTOR DESIGN SYSTEM",
+                                     tag="SYSTEM_ACTIVE", width=850, height=None,
+                                     tag_url=None, close_url=None):
+    """Renders a modern low-profile vector compact banner (~76px height)."""
+    prim = c["primary"]
+    acc = c["accent"]
+    tertiary_col = c["tertiary"]
+    bg = c["bg"]
+    panel = c["panel"]
+    border = c["border"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    success = c["success"]
+    h = height if height else 76
+
+    title_clean = escape_xml(title)
+    sub_clean = escape_xml(subtitle)
+    tag_clean = escape_xml(tag)
+
+    tag_w = min(220, max(110, int(measure_sans_text_width(tag_clean, 11) + 36)))
+    tag_x = width - tag_w - 24
+    avail_title_w = max(100, tag_x - 64)
+    title_disp = clamp_sans_text_to_width(title_clean, avail_title_w, 20)
+    sub_disp = clamp_sans_text_to_width(sub_clean, avail_title_w - 20, 11)
+
+    tag_link_open = f'<a href="{escape_xml(tag_url)}" target="_blank" rel="noopener noreferrer" class="btn-hover">' if tag_url else ''
+    tag_link_close = '</a>' if tag_url else ''
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%">
+  <defs>
+    <style>
+      {css_vars}
+{MODERN_BASE_STYLES}
+      @keyframes pulseLiveDot {{
+        0%, 100% {{ opacity: 1; transform: scale(1); }}
+        50% {{ opacity: 0.35; transform: scale(0.8); }}
+      }}
+      .live-dot {{ animation: pulseLiveDot 2.2s infinite ease-in-out; }}
+    </style>
+{render_modern_defs("headerGrad", prim, acc, tertiary_col)}
+  </defs>
+
+  <!-- Modern Card Background with rounded corners & top glow highlight -->
+  <rect x="2" y="2" width="{width-4}" height="{h-4}" rx="12" fill="{bg}" stroke="{border}" stroke-width="1.2"/>
+  <path d="M 16 2 L {width-16} 2" stroke="url(#headerGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- Clean Vector Typography -->
+  <text x="32" y="34" font-size="20" font-weight="700" fill="url(#headerGrad)" class="font-sans" letter-spacing="-0.3">{title_disp}</text>
+  <g transform="translate(32, 52)">
+    <circle cx="4" cy="-3" r="3.5" fill="{success}" class="live-dot"/>
+    <text x="14" y="0" fill="{text_dim}" font-size="11" font-weight="500" class="font-sans">{sub_disp}</text>
+  </g>
+
+  <!-- Modern Pill Tag Badge -->
+  {tag_link_open}<g transform="translate({tag_x}, 24)">
+    <rect x="0" y="0" width="{tag_w}" height="28" rx="14" fill="{panel}" stroke="{border}" stroke-width="1"/>
+    <circle cx="14" cy="14" r="3" fill="{prim}"/>
+    <text x="{tag_w//2 + 4}" y="18" fill="{text_main}" font-size="11" font-weight="600" text-anchor="middle" class="font-sans">{tag_clean}</text>
+  </g>{tag_link_close}
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+
+def _generate_modern_header(style_name, theme_name, c, css_vars,
+                            title="PIXEL-KIT", subtitle="CLEAN VECTOR DESIGN SYSTEM",
+                            specs=None, spec1=None, spec2=None, spec3=None,
+                            tag="SYSTEM_ACTIVE", width=850, height=None,
+                            tag_url=None, close_url=None):
+    """Renders a flagship modern vector banner with clean typography and smooth cards."""
+    prim = c["primary"]
+    acc = c["accent"]
+    tertiary_col = c["tertiary"]
+    bg = c["bg"]
+    panel = c["panel"]
+    border = c["border"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    success = c["success"]
+
+    title_clean = escape_xml(title)
+    sub_clean = escape_xml(subtitle)
+    tag_clean = escape_xml(tag)
+    norm_specs = normalize_specs(specs=specs, spec1=spec1, spec2=spec2, spec3=spec3, default_color=None)
+
+    tag_w = min(240, max(120, int(measure_sans_text_width(tag_clean, 12) + 40)))
+    tag_x = width - tag_w - 32
+
+    avail_title_w = max(160, tag_x - 70)
+    title_disp = clamp_sans_text_to_width(title_clean, avail_title_w, 32)
+    sub_disp = clamp_sans_text_to_width(sub_clean, avail_title_w - 24, 13)
+
+    y_title = 68
+    y_sub = 98
+    h = height if height else (200 if norm_specs else 160)
+
+    tag_link_open = f'<a href="{escape_xml(tag_url)}" target="_blank" rel="noopener noreferrer" class="btn-hover">' if tag_url else ''
+    tag_link_close = '</a>' if tag_url else ''
+
+    specs_svg = []
+    if norm_specs:
+        cur_x = 36
+        spec_y = 132
+        for spec in norm_specs[:3]:
+            lbl = escape_xml(spec[0])
+            val = escape_xml(spec[1])
+            val_col = spec[2] if (len(spec) > 2 and spec[2]) else prim
+            lbl_w = measure_sans_text_width(lbl, 11)
+            val_w = measure_sans_text_width(val, 11)
+            pill_w = int(lbl_w + val_w + 32)
+            if cur_x + pill_w > width - 36:
+                break
+            specs_svg.append(f"""    <g transform="translate({cur_x}, {spec_y})">
+      <rect x="0" y="0" width="{pill_w}" height="28" rx="14" fill="{panel}" stroke="{border}" stroke-width="1"/>
+      <text x="14" y="18" fill="{text_dim}" font-size="11" font-weight="500" class="font-sans">{lbl}:</text>
+      <text x="{14 + int(lbl_w) + 6}" y="18" fill="{val_col}" font-size="11" font-weight="600" class="font-sans">{val}</text>
+    </g>""")
+            cur_x += pill_w + 12
+
+    specs_markup = "\n".join(specs_svg)
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%">
+  <defs>
+    <style>
+      {css_vars}
+{MODERN_BASE_STYLES}
+      @keyframes pulseLiveDot {{
+        0%, 100% {{ opacity: 1; transform: scale(1); }}
+        50% {{ opacity: 0.35; transform: scale(0.85); }}
+      }}
+      .live-dot {{ animation: pulseLiveDot 2.2s infinite ease-in-out; }}
+    </style>
+{render_modern_defs("modernHeaderGrad", prim, acc, tertiary_col)}
+  </defs>
+
+  <!-- Modern Card Background with rounded corners & top gradient highlight -->
+  <rect x="2" y="2" width="{width-4}" height="{h-4}" rx="16" fill="{bg}" stroke="{border}" stroke-width="1.2"/>
+  <path d="M 24 2 L {width-24} 2" stroke="url(#modernHeaderGrad)" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+
+  <!-- Clean Vector Typography Header -->
+  <text x="36" y="{y_title}" font-size="32" font-weight="700" fill="url(#modernHeaderGrad)" class="font-sans" letter-spacing="-0.5">{title_disp}</text>
+  
+  <!-- Subtitle with Pulse Live Dot -->
+  <g transform="translate(36, {y_sub})">
+    <circle cx="5" cy="-4" r="4" fill="{success}" class="live-dot"/>
+    <text x="18" y="0" fill="{text_dim}" font-size="13" font-weight="500" class="font-sans">{sub_disp}</text>
+  </g>
+
+  <!-- Modern Specs Pills -->
+{specs_markup}
+
+  <!-- Modern Upper-Right Tag Badge -->
+  {tag_link_open}<g transform="translate({tag_x}, 32)">
+    <rect x="0" y="0" width="{tag_w}" height="32" rx="16" fill="{panel}" stroke="{border}" stroke-width="1"/>
+    <circle cx="16" cy="16" r="3.5" fill="{prim}"/>
+    <text x="{tag_w//2 + 6}" y="20" fill="{text_main}" font-size="11" font-weight="600" text-anchor="middle" class="font-sans">{tag_clean}</text>
+  </g>{tag_link_close}
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+
+def _generate_sketch_compact_header(style_name, theme_name, c, css_vars,
+                                    title="PIXEL-KIT", subtitle="HAND-DRAWN SKETCH SYSTEM",
+                                    tag="DRAFT_ACTIVE", width=850, height=None,
+                                    tag_url=None, close_url=None):
+    """Renders a hand-drawn sketch compact banner (~80px height)."""
+    prim = c["primary"]
+    acc = c["accent"]
+    tertiary_col = c["tertiary"]
+    bg = c["bg"]
+    panel = c["panel"]
+    border = c["border"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    success = c["success"]
+    h = height if height else 80
+
+    title_clean = escape_xml(title)
+    sub_clean = escape_xml(subtitle)
+    tag_clean = escape_xml(tag)
+
+    tag_w = min(220, max(110, int(measure_sans_text_width(tag_clean, 11) + 36)))
+    tag_x = width - tag_w - 24
+    avail_title_w = max(100, tag_x - 64)
+    title_disp = clamp_sans_text_to_width(title_clean, avail_title_w, 20)
+    sub_disp = clamp_sans_text_to_width(sub_clean, avail_title_w - 20, 11)
+
+    tag_link_open = f'<a href="{escape_xml(tag_url)}" target="_blank" rel="noopener noreferrer" class="sketch-hover">' if tag_url else ''
+    tag_link_close = '</a>' if tag_url else ''
+
+    chassis = render_rough_rect(x=4, y=4, w=width-8, h=h-8, stroke=border, stroke_width=1.4, fill=bg, rx=6, seed=12)
+    tag_box = render_rough_rect(x=tag_x, y=24, w=tag_w, h=28, stroke=acc, stroke_width=1.2, fill=panel, rx=6, seed=22)
+    star_badge = render_rough_star(cx=tag_x + 14, cy=38, r=4.5, fill=tertiary_col, stroke=tertiary_col, seed=23)
+    underline_w = min(avail_title_w, int(measure_sans_text_width(title_disp, 20) * 1.05))
+    wavy_underline = render_rough_line(32, 42, 32 + underline_w, 42, stroke=acc, stroke_width=1.5, jitter=1.1, seed=15)
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%">
+  <defs>
+    <style>
+      {css_vars}
+{SKETCH_BASE_STYLES}
+    </style>
+{render_sketch_defs(c, "compactSketch")}
+  </defs>
+
+  <!-- Sketch Rough Card Chassis -->
+  {chassis}
+
+  <!-- Doodle Action Dots -->
+  <circle cx="18" cy="18" r="3.5" fill="{prim}" opacity="0.8"/>
+  <circle cx="28" cy="18" r="3.5" fill="{acc}" opacity="0.8"/>
+  <circle cx="38" cy="18" r="3.5" fill="{tertiary_col}" opacity="0.8"/>
+
+  <!-- Hand-Drawn Typography -->
+  <text x="32" y="36" font-size="20" font-weight="700" fill="{prim}" class="font-sketch">{title_disp}</text>
+  {wavy_underline}
+  <text x="32" y="62" fill="{text_dim}" font-size="11" font-weight="500" class="font-sketch">✏️ {sub_disp}</text>
+
+  <!-- Sketch Tag Badge -->
+  {tag_link_open}<g>
+    {tag_box}
+    {star_badge}
+    <text x="{tag_x + tag_w//2 + 6}" y="42" fill="{text_main}" font-size="11" font-weight="600" text-anchor="middle" class="font-sketch">{tag_clean}</text>
+  </g>{tag_link_close}
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+
+def _generate_sketch_header(style_name, theme_name, c, css_vars,
+                            title="PIXEL-KIT", subtitle="HAND-DRAWN SKETCH SYSTEM",
+                            specs=None, spec1=None, spec2=None, spec3=None,
+                            tag="DRAFT_ACTIVE", width=850, height=None,
+                            tag_url=None, close_url=None):
+    """Renders a flagship hand-drawn sketch banner with rough borders, pencil hatching, and doodle annotations."""
+    prim = c["primary"]
+    acc = c["accent"]
+    tertiary_col = c["tertiary"]
+    bg = c["bg"]
+    panel = c["panel"]
+    border = c["border"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    success = c["success"]
+
+    title_clean = escape_xml(title)
+    sub_clean = escape_xml(subtitle)
+    tag_clean = escape_xml(tag)
+
+    norm_specs = normalize_specs(specs=specs, spec1=spec1, spec2=spec2, spec3=spec3, default_color=None)
+
+    # Dynamic height calculation
+    specs_count = len(norm_specs[:3]) if norm_specs else 0
+    needed_h = 190 + (specs_count * 24)
+    h = max(height or 0, max(230, needed_h))
+
+    title_disp = clamp_sans_text_to_width(title_clean, 480, 26)
+    sub_disp = clamp_sans_text_to_width(sub_clean, 460, 12)
+
+    tag_w = min(220, max(120, int(measure_sans_text_width(tag_clean, 11) + 40)))
+    tag_x = width - tag_w - 24
+    tag_link_open = f'<a href="{escape_xml(tag_url)}" target="_blank" rel="noopener noreferrer" class="sketch-hover">' if tag_url else ''
+    tag_link_close = '</a>' if tag_url else ''
+
+    chassis = render_rough_rect(x=4, y=4, w=width-8, h=h-8, stroke=border, stroke_width=1.5, fill=bg, rx=6, seed=42)
+    tag_box = render_rough_rect(x=tag_x, y=14, w=tag_w, h=26, stroke=acc, stroke_width=1.2, fill=panel, rx=6, seed=63)
+    tag_star = render_rough_star(cx=tag_x + 14, cy=27, r=4.0, fill=tertiary_col, stroke=tertiary_col, seed=64)
+
+    title_w_est = min(480, int(measure_sans_text_width(title_disp, 26) * 1.05))
+    wavy_title_line = render_rough_line(40, 84, 40 + title_w_est, 84, stroke=acc, stroke_width=2.0, jitter=1.4, seed=70)
+
+    sub_highlight_w = min(480, int(measure_sans_text_width(sub_disp, 12) + 32))
+
+    # Spec bullet lines
+    spec_lines = []
+    if norm_specs:
+        y_specs_start = 138
+        for i, spec in enumerate(norm_specs[:3]):
+            lbl = escape_xml(spec[0])
+            val = escape_xml(spec[1])
+            val_col = spec[2] if (len(spec) > 2 and spec[2]) else text_main
+            y = y_specs_start + i * 22
+            arrow = render_rough_arrow(42, y - 4, 52, y - 4, stroke=acc, stroke_width=1.2, arrow_size=4.5, seed=80 + i * 7)
+            spec_lines.append(f"""  {arrow}
+  <text x="60" y="{y}" fill="{text_dim}" font-size="11" class="font-sketch">{lbl}: <tspan fill="{val_col}" font-weight="600">{val}</tspan></text>""")
+
+    specs_markup = "\n".join(spec_lines)
+
+    # Right side: Hand-drawn sticky note / architectural doodle card
+    note_w = 190
+    note_h = 136
+    note_x = width - note_w - 24
+    note_y = 52
+    note_rect = render_rough_rect(x=note_x, y=note_y, w=note_w, h=note_h, stroke=prim, stroke_width=1.4, fill=panel, rx=4, seed=90)
+    note_star = render_rough_star(cx=note_x + note_w // 2, cy=note_y + 44, r=22, fill=f"url(#headerSketch-hatch)", stroke=tertiary_col, stroke_width=1.8, seed=92)
+    note_line = render_rough_line(note_x + 20, note_y + 82, note_x + note_w - 20, note_y + 82, stroke=border, stroke_width=1.0, jitter=1.2, seed=94)
+
+    bottom_divider = render_rough_line(16, h - 26, width - 16, h - 26, stroke=border, stroke_width=1.0, jitter=0.8, seed=99)
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {h}" width="100%" height="100%">
+  <defs>
+    <style>
+      {css_vars}
+{SKETCH_BASE_STYLES}
+    </style>
+{render_sketch_defs(c, "headerSketch")}
+  </defs>
+
+  <!-- Sketch Hull Chassis -->
+  {chassis}
+
+  <!-- Header Meta Bar -->
+  <text x="24" y="28" fill="{text_dim}" font-size="11" font-weight="600" class="font-sketch">// ARCHITECTURE DRAFT • EXCALIDRAW CANVAS</text>
+
+  <!-- Tag Pill -->
+  {tag_link_open}<g>
+    {tag_box}
+    {tag_star}
+    <text x="{tag_x + tag_w//2 + 5}" y="31" fill="{text_main}" font-size="11" font-weight="600" text-anchor="middle" class="font-sketch">{tag_clean}</text>
+  </g>{tag_link_close}
+
+  <!-- Title & Underline -->
+  <text x="40" y="74" font-size="26" font-weight="700" fill="{prim}" class="font-sketch">{title_disp}</text>
+  {wavy_title_line}
+
+  <!-- Subtitle with Marker Highlighter -->
+  <rect x="40" y="98" width="{sub_highlight_w}" height="20" rx="3" fill="{tertiary_col}" fill-opacity="0.2" />
+  <text x="48" y="112" fill="{text_main}" font-size="12" font-weight="600" class="font-sketch">✏️ {sub_disp}</text>
+
+  <!-- Specs Checklist -->
+  {specs_markup}
+
+  <!-- Right Side Sticky Note with Washi Tape -->
+  <g>
+    <polygon points="{note_x + 65} {note_y - 8}, {note_x + 125} {note_y - 8}, {note_x + 117} {note_y + 6}, {note_x + 57} {note_y + 6}"
+             fill="url(#headerSketch-tape)" stroke="{tertiary_col}" stroke-width="0.8" opacity="0.85" />
+    {note_rect}
+    {note_star}
+    {note_line}
+    <text x="{note_x + note_w//2}" y="{note_y + 102}" fill="{text_main}" font-size="11" font-weight="600" text-anchor="middle" class="font-sketch">★ HANDMADE IN SVG</text>
+    <text x="{note_x + note_w//2}" y="{note_y + 118}" fill="{text_dim}" font-size="9" text-anchor="middle" class="font-sketch">deterministic physics</text>
+  </g>
+
+  <!-- Bottom Draft Notes Line -->
+  {bottom_divider}
+  <text x="24" y="{h-13}" fill="{text_dim}" font-size="10" class="font-sketch">STYLE // HAND-DRAWN SKETCH • ZERO-DEPENDENCY • NO EXTERNAL IMAGES</text>
+  <text x="{width-24}" y="{h-13}" fill="{prim}" font-size="10" font-weight="600" text-anchor="end" class="font-sketch">STATUS: DRAFT OK ✎</text>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
 
 def _generate_compact_header(style=None, primary=None, accent=None,
                              title="PIXEL-KIT", subtitle="TRANSLUCENT HUD DESIGN SYSTEM",
@@ -20,6 +394,18 @@ def _generate_compact_header(style=None, primary=None, accent=None,
     """
     style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
     c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+    if style_name == "modern":
+        return _generate_modern_compact_header(
+            style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars,
+            title=title, subtitle=subtitle, tag=tag, width=width, height=height,
+            tag_url=tag_url, close_url=close_url
+        )
+    elif style_name == "sketch":
+        return _generate_sketch_compact_header(
+            style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars,
+            title=title, subtitle=subtitle, tag=tag, width=width, height=height,
+            tag_url=tag_url, close_url=close_url
+        )
     prim = c["primary"]
     acc = c["accent"]
     tertiary_col = c["tertiary"]
@@ -30,6 +416,7 @@ def _generate_compact_header(style=None, primary=None, accent=None,
     text_dim = c["text_dim"]
     st = theme_name
     h = height if height else 84
+
 
     title_clean = escape_xml(title)
     sub_clean = escape_xml(subtitle)
@@ -105,6 +492,18 @@ def generate_header(style=None, primary=None, accent=None,
 
     style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
     c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+    if style_name == "modern":
+        return _generate_modern_header(
+            style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars,
+            title=title, subtitle=subtitle, specs=specs, spec1=spec1, spec2=spec2, spec3=spec3,
+            tag=tag, width=width, height=height, tag_url=tag_url, close_url=close_url
+        )
+    elif style_name == "sketch":
+        return _generate_sketch_header(
+            style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars,
+            title=title, subtitle=subtitle, specs=specs, spec1=spec1, spec2=spec2, spec3=spec3,
+            tag=tag, width=width, height=height, tag_url=tag_url, close_url=close_url
+        )
     prim = c["primary"]
     acc = c["accent"]
     tertiary_col = c["tertiary"]
@@ -574,3 +973,5 @@ def generate_header(style=None, primary=None, accent=None,
     validate_svg(svg)
     return svg
 
+
+generate_compact_header = _generate_compact_header

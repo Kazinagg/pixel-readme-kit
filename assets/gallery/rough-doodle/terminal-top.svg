@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 38" width="100%" height="100%">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(18, 18, 18, 0.95);
+        --bg-panel: rgba(28, 28, 28, 0.90);
+        --border-chassis: #E0E0E0;
+        --primary: #A78BFA;
+        --accent: #6EE7B7;
+        --tertiary: #FDE047;
+        --title-front: #F3F4F6;
+        --title-mid: #E0E0E0;
+        --title-dark: #A78BFA;
+        --text-main: #F3F4F6;
+        --text-dim: #9CA3AF;
+        --status: #6EE7B7;
+        --warning: #FDE047;
+        --grid-op: 0.06;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(18, 18, 18, 0.95);
+          --bg-panel: rgba(28, 28, 28, 0.90);
+          --border-chassis: #E0E0E0;
+          --primary: #A78BFA;
+          --accent: #6EE7B7;
+          --tertiary: #FDE047;
+          --title-front: #F3F4F6;
+          --title-mid: #E0E0E0;
+          --title-dark: #A78BFA;
+          --text-main: #F3F4F6;
+          --text-dim: #9CA3AF;
+          --status: #6EE7B7;
+          --warning: #FDE047;
+          --grid-op: 0.06;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #FDFDFD;
+          --bg-panel: #F4F4F5;
+          --border-chassis: #1F2937;
+          --primary: #4F46E5;
+          --accent: #059669;
+          --tertiary: #D97706;
+          --title-front: #111827;
+          --title-mid: #374151;
+          --title-dark: #4F46E5;
+          --text-main: #111827;
+          --text-dim: #4B5563;
+          --status: #059669;
+          --warning: #D97706;
+          --grid-op: 0.06;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #A78BFA));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+
+    .font-sketch { font-family: 'Virgil', 'Architects Daughter', 'Comic Shanns', 'Kalam', 'Chalkboard SE', 'Comic Sans MS', 'Casual', cursive, sans-serif; }
+    .font-sketch-mono { font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, monospace; }
+    .sketch-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .sketch-hover:hover { opacity: 0.85; transform: scale(1.01); }
+
+    </style>
+    <pattern id="frameSketchTop-hatch" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--primary)" stroke-width="1.3" opacity="0.45" />
+    </pattern>
+    <pattern id="frameSketchTop-crosshatch" width="12" height="12" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+      <line x1="0" y1="0" x2="12" y2="0" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+    </pattern>
+    <pattern id="frameSketchTop-hatch-accent" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--accent)" stroke-width="1.3" opacity="0.5" />
+    </pattern>
+    <linearGradient id="frameSketchTop-tape" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0.25" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sketch Top Cap -->
+  <rect x="2" y="2" width="846" height="36" rx="6" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M -0.76 2.72 Q 423.69 1.4 851.14 2.61" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M -0.45 2.93 Q 425.51 1.94 851.47 2.85" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 849.03 -1.9 Q 848.53 21.24 847.71 41.19" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 847.26 -1.36 Q 847.04 21.35 848.13 41.51" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 851.65 39.12 Q 425.88 39.59 -0.75 38.73" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 851.88 37.34 Q 423.76 39.07 -0.44 38.94" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 2.07 41.55 Q 0.89 19.6 2.89 -2.04" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 2.42 41.8 Q 2.35 19.78 1.15 -1.47" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+  <path d="M 0.93 38.41 Q 423.22 36.93 848.65 38.12" stroke="var(--border-chassis)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 1.3 38.68 Q 425.88 38.31 849.08 38.46" stroke="var(--border-chassis)" stroke-width="1.27" stroke-linecap="round" fill="none" opacity="0.75" />
+
+  <!-- Hand-drawn Doodle Dots -->
+  <circle cx="20" cy="19" r="3.5" fill="var(--primary)" opacity="0.85"/>
+  <circle cx="32" cy="19" r="3.5" fill="var(--accent)" opacity="0.85"/>
+  <circle cx="44" cy="19" r="3.5" fill="var(--tertiary)" opacity="0.85"/>
+
+  <!-- Title -->
+  <text x="64" y="23" fill="var(--text-main)" font-size="12" font-weight="600" class="font-sketch">$ BASH // PRODUCTION_DEPLOY</text>
+
+  <!-- Tag Pill -->
+  <g>
+    <rect x="750" y="8" width="80" height="22" rx="6" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 747.48 8.96 Q 788.52 7.23 832.49 7.97" stroke="var(--accent)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 747.74 7.2 Q 790.65 8.08 832.95 8.33" stroke="var(--accent)" stroke-width="0.94" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 829.89 5.37 Q 830.6 20.32 830.46 33.94" stroke="var(--accent)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 830.28 5.66 Q 828.98 20.29 830.73 32.19" stroke="var(--accent)" stroke-width="0.94" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 832.0 29.47 Q 789.2 29.91 746.48 29.96" stroke="var(--accent)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 832.56 29.94 Q 790.1 29.53 746.95 30.33" stroke="var(--accent)" stroke-width="0.94" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 749.48 32.95 Q 750.56 20.27 750.82 3.89" stroke="var(--accent)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 749.94 33.32 Q 749.01 20.32 749.09 4.47" stroke="var(--accent)" stroke-width="0.94" stroke-linecap="round" fill="none" opacity="0.75" />
+    <text x="790" y="23" fill="var(--primary)" font-size="10" font-weight="600" text-anchor="middle" class="font-sketch">ONLINE</text>
+  </g>
+</svg>

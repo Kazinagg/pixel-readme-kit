@@ -3,49 +3,171 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>README KIT // REPO & PROFILE STUDIO v5.0</title>
+  <title>READMEKIT // REPO & PROFILE STUDIO v6.5</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="/static/css/studio.css">
 </head>
-</head>
 <body>
-  <!-- TOP HUD BAR -->
+  <!-- TOP NAV BAR -->
   <header class="hud-nav">
     <div class="brand">
-      <span>README-KIT</span>
-      <span class="brand-badge">STUDIO v5.0</span>
+      <span class="glyph"></span>
+      <span>READMEKIT</span>
+      <span class="brand-badge">STUDIO v6.5</span>
     </div>
 
+    <!-- CENTER NAV ACTIONS -->
+    <div class="site-nav-group">
+      <button class="nav-btn btn-cyan" id="btn-toggle-catalog" onclick="toggleCatalogSidebar()" title="Toggle Component Catalog"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" style="vertical-align:-1px;margin-right:4px;"><path d="M1.5 2.5A.5.5 0 0 1 2 2h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-2zM2 1a1.5 1.5 0 0 0-1.5 1.5v2A1.5 1.5 0 0 0 2 6h12a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 14 1H2zm-.5 7.5A.5.5 0 0 1 2 8h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-2zM2 7a1.5 1.5 0 0 0-1.5 1.5v2A1.5 1.5 0 0 0 2 12h12a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 14 7H2zm-1.5 6.5a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-1z"/></svg>Catalog</button>
+      <button class="nav-btn btn-purple" id="btn-theme-studio" onclick="openThemeStudio()" title="Theme Creator & Harmonizer">Theme Studio</button>
+      <button class="nav-btn btn-green" id="btn-git-push" onclick="pushReadmeToGit()" title="Safely stage only README and assets and push to git"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" style="vertical-align:-1px;margin-right:4px;"><path d="M1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 13.25 15H2.75A1.75 1.75 0 0 1 1 13.25Zm7.75 2.5a.75.75 0 0 0-1.5 0v3.44l-1.22-1.22a.75.75 0 0 0-1.06 1.06l2.5 2.5a.75.75 0 0 0 1.06 0l2.5-2.5a.75.75 0 1 0-1.06-1.06L8.75 8.69Z"/></svg>Push to Git</button>
+      <button class="nav-btn btn-amber" id="btn-debug" onclick="toggleDebugMode()" title="Toggle Alignment Overlay">Grid</button>
+      <button class="nav-btn active-btn" id="btn-toggle-inspector" onclick="toggleInspector()" title="Toggle Block Inspector">Inspector</button>
+    </div>
+
+    <!-- STUDIO THEME CONTROLLER -->
+    <div class="site-control-pill" title="Studio UI Theme (Auto / Dark / Light)">
+      <span class="control-label">STUDIO:</span>
+      <div class="segmented-control" id="studio-theme-control">
+        <button class="seg-btn" id="btn-studio-theme-auto" onclick="setStudioTheme('auto')">Auto</button>
+        <button class="seg-btn active" id="btn-studio-theme-dark" onclick="setStudioTheme('dark')">Dark</button>
+        <button class="seg-btn" id="btn-studio-theme-light" onclick="setStudioTheme('light')">Light</button>
+      </div>
+    </div>
+
+    <!-- RIGHT STATUS & SAVE -->
     <div class="nav-status">
       <div class="status-indicator">
         <span class="pulse-dot"></span>
-        <span id="sse-status">STUDIO SYNC: ONLINE</span>
+        <span id="sse-status">SYNC: ONLINE</span>
       </div>
-
-      <div class="mode-switch-group">
-        <button class="mode-tab active" id="tab-mode-edit" onclick="setStudioMode('edit')" title="Edit Mode: click-to-edit blocks, hover HUD actions, add block dividers"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" style="vertical-align:-1px;margin-right:4px;"><path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25a1.75 1.75 0 0 1 .445-.758l8.61-8.61Zm1.414 1.06a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354l-1.086-1.086ZM11.189 6.25 9.75 4.81 3.292 11.268a.25.25 0 0 0-.063.108l-.547 1.912 1.912-.547a.25.25 0 0 0 .108-.063L11.189 6.25Z"/></svg>EDIT</button>
-        <button class="mode-tab" id="tab-mode-view" onclick="setStudioMode('view')" title="View Mode: 100% authentic GitHub render with inline chips"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" style="vertical-align:-1px;margin-right:4px;"><path d="M8 2c1.981 0 3.67.992 4.933 2.078 1.27 1.091 2.187 2.345 2.637 3.023a1.62 1.62 0 0 1 0 1.798c-.45.678-1.367 1.932-2.637 3.023C11.67 13.008 9.981 14 8 14c-1.981 0-3.67-.992-4.933-2.078C1.797 10.83.88 9.577.43 8.899a1.62 1.62 0 0 1 0-1.798c.45-.678 1.367-1.932 2.637-3.023C4.33 2.992 6.019 2 8 2ZM1.679 8c.373.534 1.144 1.554 2.21 2.47C4.945 11.379 6.37 12.25 8 12.25c1.63 0 3.055-.871 4.111-1.78 1.066-.916 1.837-1.936 2.21-2.47-.373-.534-1.144-1.554-2.21-2.47C10.945 4.621 9.52 3.75 8 3.75c-1.63 0-3.055.871-4.111 1.78C2.823 6.446 2.052 7.466 1.679 8ZM8 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 1.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>VIEW</button>
-      </div>
-
-      <div class="theme-switch-group">
-        <button class="theme-tab active" id="tab-dark" onclick="switchPreviewTheme('dark')"><svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor" style="vertical-align:-1px;margin-right:4px;"><path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.668 7.668 8.501 8.501 0 1 0 7.668-7.668Z"/></svg>DARK</button>
-        <button class="theme-tab" id="tab-light" onclick="switchPreviewTheme('light')"><svg viewBox="0 0 16 16" width="11" height="11" fill="currentColor" style="vertical-align:-1px;margin-right:4px;"><path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm0-8.5a.75.75 0 0 1 .75.75v1a.75.75 0 0 1-1.5 0v-1A.75.75 0 0 1 8 2Zm0 10.5a.75.75 0 0 1 .75.75v1a.75.75 0 0 1-1.5 0v-1a.75.75 0 0 1 .75-.75ZM2.75 7.25h1a.75.75 0 0 1 0 1.5h-1a.75.75 0 0 1 0-1.5Zm10.5 0h1a.75.75 0 0 1 0 1.5h-1a.75.75 0 0 1 0-1.5ZM4.28 4.28a.75.75 0 0 1 1.06 0l.707.707a.75.75 0 0 1-1.06 1.06l-.707-.707a.75.75 0 0 1 0-1.06Zm6.727 6.727a.75.75 0 0 1 1.06 0l.707.707a.75.75 0 1 1-1.06 1.06l-.707-.707a.75.75 0 0 1 0-1.06Zm-6.727 1.767a.75.75 0 0 1 0-1.06l.707-.707a.75.75 0 1 1 1.06 1.06l-.707.707a.75.75 0 0 1-1.06 0Zm6.727-6.727a.75.75 0 0 1 0-1.06l.707-.707a.75.75 0 1 1 1.06 1.06l-.707.707a.75.75 0 0 1 0-1.06Z"/></svg>LIGHT</button>
-      </div>
-
-      <button class="nav-btn btn-purple" id="btn-theme-studio" onclick="openThemeStudio()" title="Theme Creator & Color Harmonizer">[ THEME STUDIO ]</button>
-      <button class="nav-btn btn-green" id="btn-git-push" onclick="pushReadmeToGit()" title="Safely stage only README and assets and push to git"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" style="vertical-align:-1px;margin-right:4px;"><path d="M1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 13.25 15H2.75A1.75 1.75 0 0 1 1 13.25Zm7.75 2.5a.75.75 0 0 0-1.5 0v3.44l-1.22-1.22a.75.75 0 0 0-1.06 1.06l2.5 2.5a.75.75 0 0 0 1.06 0l2.5-2.5a.75.75 0 1 0-1.06-1.06L8.75 8.69Z"/></svg>[ PUSH README ]</button>
-      <button class="nav-btn btn-amber" id="btn-debug" onclick="toggleDebugMode()" title="Toggle Pixel Alignment & HUD Grid Overlay">[ HUD GRID ]</button>
-      <button class="nav-btn active-btn" id="btn-toggle-inspector" onclick="toggleInspector()">INSPECTOR [TAB]</button>
+      <span id="draft-dirty-badge" class="char-badge badge-warning" style="display:none;font-weight:700;">Unsaved Changes</span>
+      <button class="nav-btn btn-save" id="btn-save-file" onclick="saveTemplateToFile()" title="Write changes to template and recompile (Ctrl+S)"><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" style="vertical-align:-1px;margin-right:4px;"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>Save to File</button>
+      <button class="nav-btn btn-danger" id="btn-revert-file" style="display:none;" onclick="revertDraftChanges()" title="Revert all unsaved changes">Revert</button>
     </div>
   </header>
 
-  <!-- MAIN VIEWPORT SPLIT -->
+  <!-- MAIN VIEWPORT 3-COLUMN LAYOUT -->
   <div class="studio-container" id="main-studio-container">
-    <!-- LEFT: GITHUB-LIKE PREVIEW -->
+    <!-- LEFT: COMPONENT CATALOG SIDEBAR (16 BLOCKS WITH SVG PREVIEWS & DRAG & DROP) -->
+    <aside class="catalog-sidebar" id="catalog-sidebar">
+      <div class="catalog-header">
+        <div class="catalog-title">
+          <svg viewBox="0 0 16 16" width="15" height="15" fill="var(--studio-teal)"><path d="M1.5 2.5A.5.5 0 0 1 2 2h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-2zM2 1a1.5 1.5 0 0 0-1.5 1.5v2A1.5 1.5 0 0 0 2 6h12a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 14 1H2zm-.5 7.5A.5.5 0 0 1 2 8h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-2zM2 7a1.5 1.5 0 0 0-1.5 1.5v2A1.5 1.5 0 0 0 2 12h12a1.5 1.5 0 0 0 1.5-1.5v-2A1.5 1.5 0 0 0 14 7H2zm-1.5 6.5a.5.5 0 0 1 .5-.5h12a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-1z"/></svg>
+          <span>CATALOG</span>
+          <span class="char-badge badge-optimal" id="catalog-count-badge">16 BLOCKS</span>
+        </div>
+        <button class="nav-btn" onclick="toggleCatalogSidebar()" title="Collapse Catalog" style="padding:2px 6px;">&times;</button>
+      </div>
+
+      <div class="catalog-search-wrap">
+        <input type="text" id="catalog-search-inp" placeholder="Search blocks..." oninput="filterCatalogBlocks()">
+      </div>
+
+      <div class="catalog-filter-tags">
+        <button class="cat-tag-btn active" data-cat="all" onclick="filterCatalogCategory('all')">ALL</button>
+        <button class="cat-tag-btn" data-cat="hero" onclick="filterCatalogCategory('hero')">HERO</button>
+        <button class="cat-tag-btn" data-cat="containers" onclick="filterCatalogCategory('containers')">CONTAINERS</button>
+        <button class="cat-tag-btn" data-cat="navigation" onclick="filterCatalogCategory('navigation')">NAV</button>
+        <button class="cat-tag-btn" data-cat="content" onclick="filterCatalogCategory('content')">CONTENT</button>
+        <button class="cat-tag-btn" data-cat="metrics" onclick="filterCatalogCategory('metrics')">METRICS</button>
+        <button class="cat-tag-btn" data-cat="social" onclick="filterCatalogCategory('social')">PROFILES</button>
+      </div>
+
+      <div class="catalog-scroll-list" id="catalog-blocks-list">
+        <!-- Rendered dynamically in app.js with SVG previews -->
+      </div>
+    </aside>
+
+    <!-- CENTER: GITHUB-LIKE PREVIEW -->
     <main class="preview-pane" id="preview-scroll-area">
+      <!-- UNIFIED THEME & TEMPLATE CONFIGURATION BAR DIRECTLY ABOVE README -->
+      <div class="preview-config-strip" id="preview-config-strip">
+        <div class="preview-config-row">
+          <div class="preview-config-group">
+            <span class="preview-config-label">TEMPLATE:</span>
+            <select id="sel-template-file" class="nav-select" onchange="onTemplateFileSelect()" title="Select template file in directory">
+              <option value="README.template.md">README.template.md</option>
+            </select>
+          </div>
+
+          <div class="mode-switch-group">
+            <button class="mode-tab active" id="tab-mode-edit" onclick="setStudioMode('edit')" title="Edit Mode: click-to-edit blocks, drag & drop, add block dividers"><svg viewBox="0 0 16 16" width="12" height="12"><path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25a1.75 1.75 0 0 1 .445-.758l8.61-8.61Zm1.414 1.06a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354l-1.086-1.086ZM11.189 6.25 9.75 4.81 3.292 11.268a.25.25 0 0 0-.063.108l-.547 1.912 1.912-.547a.25.25 0 0 0 .108-.063L11.189 6.25Z"/></svg>EDIT</button>
+            <button class="mode-tab" id="tab-mode-view" onclick="setStudioMode('view')" title="View Mode: authentic GitHub render with inline chips"><svg viewBox="0 0 16 16" width="12" height="12"><path d="M8 2c1.981 0 3.67.992 4.933 2.078 1.27 1.091 2.187 2.345 2.637 3.023a1.62 1.62 0 0 1 0 1.798c-.45.678-1.367 1.932-2.637 3.023C11.67 13.008 9.981 14 8 14c-1.981 0-3.67-.992-4.933-2.078C1.797 10.83.88 9.577.43 8.899a1.62 1.62 0 0 1 0-1.798c.45-.678 1.367-1.932 2.637-3.023C4.33 2.992 6.019 2 8 2ZM1.679 8c.373.534 1.144 1.554 2.21 2.47C4.945 11.379 6.37 12.25 8 12.25c1.63 0 3.055-.871 4.111-1.78 1.066-.916 1.837-1.936 2.21-2.47-.373-.534-1.144-1.554-2.21-2.47C10.945 4.621 9.52 3.75 8 3.75c-1.63 0-3.055.871-4.111 1.78C2.823 6.446 2.052 7.466 1.679 8ZM8 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 1.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/></svg>VIEW</button>
+          </div>
+
+          <div class="preview-config-group">
+            <span class="preview-config-label">GITHUB BG:</span>
+            <div class="segmented-control" id="preview-theme-control">
+              <button class="seg-btn" id="tab-preview-sync" onclick="switchPreviewTheme('sync')" style="display:none;">SYNC</button>
+              <button class="seg-btn active" id="tab-dark" onclick="switchPreviewTheme('dark')">Dark</button>
+              <button class="seg-btn" id="tab-light" onclick="switchPreviewTheme('light')">Light</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-config-row">
+          <div class="preview-config-group">
+            <span class="preview-config-label">STYLE:</span>
+            <div class="segmented-control style-switch-group">
+              <button class="seg-btn active" id="btn-top-style-pixel" onclick="selectTopNavStyle('pixel')">Pixel</button>
+              <button class="seg-btn" id="btn-top-style-modern" onclick="selectTopNavStyle('modern')">Modern</button>
+              <button class="seg-btn" id="btn-top-style-sketch" onclick="selectTopNavStyle('sketch')">Sketch</button>
+            </div>
+          </div>
+
+          <div class="preview-config-group">
+            <span class="preview-config-label">THEME:</span>
+            <select id="top-nav-theme-select" class="nav-select" onchange="onTopNavThemeChange()"></select>
+          </div>
+
+          <div class="preview-config-group">
+            <span class="preview-config-label">COLOR:</span>
+            <select id="top-nav-preset-select" class="nav-select" onchange="onTopNavPresetChange()"></select>
+          </div>
+
+          <div class="preview-config-group">
+            <span class="preview-config-label">MODE:</span>
+            <select id="sel-global-mode" class="nav-select" onchange="onGlobalModeChange()">
+              <option value="auto">Auto</option>
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+              <option value="transparent">Transparent</option>
+            </select>
+          </div>
+
+          <button class="nav-btn btn-cyan" id="btn-apply-global-theme" onclick="applyGlobalThemeToAllBlocks(false)" title="Apply theme while preserving custom accents">SOFT APPLY</button>
+          <button class="nav-btn" onclick="applyGlobalThemeToAllBlocks(true)" title="Force apply theme to all blocks">FORCE ALL</button>
+        </div>
+
+        <div class="preview-config-row" style="padding-top:4px;border-top:1px solid rgba(255,255,255,0.05);">
+          <div class="preview-config-group">
+            <span class="preview-config-label">PRIMARY:</span>
+            <input type="color" id="picker-global-primary" value="#00e5b0" oninput="syncGlobalColor('primary', 'picker')" style="width:24px;height:24px;border:none;cursor:pointer;">
+            <input type="text" id="inp-global-primary" value="#00e5b0" oninput="syncGlobalColor('primary', 'text')" style="width:72px;font-family:var(--studio-font-mono);font-size:11px;" class="nav-select">
+          </div>
+          <div class="preview-config-group">
+            <span class="preview-config-label">ACCENT:</span>
+            <input type="color" id="picker-global-accent" value="#a855f7" oninput="syncGlobalColor('accent', 'picker')" style="width:24px;height:24px;border:none;cursor:pointer;">
+            <input type="text" id="inp-global-accent" value="#a855f7" oninput="syncGlobalColor('accent', 'text')" style="width:72px;font-family:var(--studio-font-mono);font-size:11px;" class="nav-select">
+          </div>
+          <div class="preview-config-group">
+            <span class="preview-config-label">TERTIARY:</span>
+            <input type="color" id="picker-global-tertiary" value="#ff0055" oninput="syncGlobalColor('tertiary', 'picker')" style="width:24px;height:24px;border:none;cursor:pointer;">
+            <input type="text" id="inp-global-tertiary" value="#ff0055" oninput="syncGlobalColor('tertiary', 'text')" style="width:72px;font-family:var(--studio-font-mono);font-size:11px;" class="nav-select">
+          </div>
+          <div style="display:none;">
+            <!-- Hidden backward-compatibility elements for legacy scripts -->
+            <select id="sel-global-style"></select>
+            <select id="sel-global-theme"></select>
+            <select id="sel-global-preset"><option value="custom">custom</option></select>
+          </div>
+        </div>
+      </div>
+
       <div class="gh-readme-wrapper">
         <div class="gh-card-header">
           <div class="gh-card-title">
@@ -56,7 +178,7 @@
             <span class="gh-badge">Preview</span>
           </div>
           <div class="gh-card-meta">
-            <span id="gh-stats-lines">-- lines</span> • <span id="gh-stats-bytes">-- KB</span>
+            <span id="gh-stats-lines">-- lines</span> | <span id="gh-stats-bytes">-- KB</span>
           </div>
         </div>
         <article class="markdown-body entry-content" id="readme-preview-content" data-color-mode="dark">
@@ -68,8 +190,8 @@
     <!-- RIGHT: HUD INSPECTOR DRAWER -->
     <aside class="inspector-pane" id="inspector-panel">
       <div class="pane-title">
-        <span id="lbl-inspector-heading">■ BLOCK INSPECTOR</span>
-        <button class="nav-btn" style="padding:2px 8px;font-size:10px;" onclick="toggleInspector()">✕</button>
+        <span id="lbl-inspector-heading">BLOCK INSPECTOR</span>
+        <button class="nav-btn" style="padding:4px 6px;" onclick="toggleInspector()" title="Close Inspector"><svg viewBox="0 0 16 16" width="10" height="10" fill="currentColor"><path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"/></svg></button>
       </div>
 
       <!-- Quick Template Blocks Jump Selector -->
@@ -78,83 +200,17 @@
           <span>Jump to Block</span>
           <span id="block-counter-badge" class="char-badge badge-optimal">0 blocks</span>
         </label>
-        <select id="sel-existing-block" onchange="onSelectExistingBlock()" style="border-color:var(--studio-cyan);font-weight:600;">
+        <select id="sel-existing-block" onchange="onSelectExistingBlock()" style="border-color:var(--studio-teal);font-weight:600;">
           <option value="">(Loading blocks...)</option>
         </select>
       </div>
 
-      <!-- SECTION 0: GLOBAL THEME CONTROLLER (Batch 1-Click Update) -->
-      <div class="inspector-section global-theme-card" id="section-global-theme">
-        <div class="section-header">
-          <span>// GLOBAL THEME CONTROLLER</span>
-          <span style="font-size:9.5px;color:var(--studio-purple);">ALL BLOCKS</span>
-        </div>
-        <div class="control-row">
-          <div class="control-group">
-            <label>Global Style</label>
-            <select id="sel-global-style" onchange="onGlobalThemeParamChange()">
-              <option value="cyberpunk">Cyberpunk</option>
-              <option value="tactical">Tactical</option>
-              <option value="minimal">Minimal Glass</option>
-            </select>
-          </div>
-          <div class="control-group">
-            <label>Global Preset</label>
-            <select id="sel-global-preset" onchange="onGlobalPresetChange()">
-              <option value="cyberpunk">Cyan / Purple</option>
-              <option value="amber">Amber Tactical</option>
-              <option value="matrix">Matrix Green</option>
-              <option value="tokyo">Tokyo Neon</option>
-              <option value="custom">Custom (Hex Pickers)</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="control-row">
-          <div class="control-group">
-            <label>Global Theme Mode</label>
-            <select id="sel-global-mode">
-              <option value="auto">Auto (Dark + Light)</option>
-              <option value="dark">Dark Only</option>
-              <option value="light">Light Only</option>
-              <option value="transparent">Transparent</option>
-            </select>
-          </div>
-          <div class="control-group">
-            <label>Primary Hex</label>
-            <div class="color-picker-row">
-              <input type="color" id="picker-global-primary" value="#00c8d7" oninput="syncGlobalColor('primary', 'picker')">
-              <input type="text" id="inp-global-primary" value="#00c8d7" oninput="syncGlobalColor('primary', 'text')" style="flex:1;">
-            </div>
-          </div>
-        </div>
-
-        <div class="control-row">
-          <div class="control-group">
-            <label>Accent Hex</label>
-            <div class="color-picker-row">
-              <input type="color" id="picker-global-accent" value="#a855f7" oninput="syncGlobalColor('accent', 'picker')">
-              <input type="text" id="inp-global-accent" value="#a855f7" oninput="syncGlobalColor('accent', 'text')" style="flex:1;">
-            </div>
-          </div>
-          <div class="control-group">
-            <label>Tertiary Hex</label>
-            <div class="color-picker-row">
-              <input type="color" id="picker-global-tertiary" value="#ff0055" oninput="syncGlobalColor('tertiary', 'picker')">
-              <input type="text" id="inp-global-tertiary" value="#ff0055" oninput="syncGlobalColor('tertiary', 'text')" style="flex:1;">
-            </div>
-          </div>
-        </div>
-
-        <div class="control-row" style="margin-top:6px;">
-          <div class="control-group" style="width:100%;">
-            <div style="display:flex;gap:6px;width:100%;">
-              <button class="nav-btn btn-cyan" style="flex:1;" onclick="applyGlobalThemeToAllBlocks(false)" title="Soft Apply: updates style and Primary, preserves block custom accents">[ SOFT APPLY ]</button>
-              <button class="nav-btn btn-purple" style="flex:1;" onclick="applyGlobalThemeToAllBlocks(true)" title="Force Apply: overrides all blocks, wiping custom colors">[ FORCE ALL ]</button>
-            </div>
-          </div>
-        </div>
+      <div id="inspector-empty-state" class="inspector-empty-state" style="display:none;">
+        <svg viewBox="0 0 24 24" width="36" height="36"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        <p>Select a block in the preview or catalog to inspect and edit its properties.</p>
       </div>
+
+      <div id="block-editor-container" style="display: flex; flex-direction: column; gap: 14px; width: 100%;">
 
       <!-- SECTION 1: CORE BLOCK TYPE & THEME -->
       <div class="inspector-section">
@@ -198,24 +254,27 @@
           <div class="control-row">
             <div class="control-group">
               <label>Style</label>
-              <select id="sel-style" onchange="debounceRender()">
-                <option value="cyberpunk">Cyberpunk</option>
-                <option value="tactical">Tactical</option>
-                <option value="minimal">Minimal Glass</option>
+              <select id="sel-style" onchange="onBlockStyleChange()">
+                <option value="pixel">Pixel / Retro-Tech</option>
+                <option value="modern">Modern Clean Vector</option>
+                <option value="sketch">Hand-Drawn Sketch</option>
               </select>
             </div>
             <div class="control-group">
-              <label>Palette Preset</label>
-              <select id="sel-preset" onchange="onBlockPresetChange()">
-                <option value="cyberpunk">Cyan / Purple</option>
-                <option value="amber">Amber Tactical</option>
-                <option value="matrix">Matrix Green</option>
-                <option value="tokyo">Tokyo Neon</option>
+              <label>Theme</label>
+              <select id="sel-theme" onchange="onBlockThemeChange()">
+                <!-- Populated dynamically based on sel-style -->
               </select>
             </div>
           </div>
 
           <div class="control-row">
+            <div class="control-group">
+              <label>Color Preset</label>
+              <select id="sel-preset" onchange="onBlockPresetChange()">
+                <!-- Populated dynamically based on sel-theme -->
+              </select>
+            </div>
             <div class="control-group">
               <label>Theme Mode</label>
               <select id="sel-mode" onchange="debounceRender()">
@@ -225,6 +284,9 @@
                 <option value="transparent">Transparent</option>
               </select>
             </div>
+          </div>
+
+          <div class="control-row">
             <div class="control-group">
               <label>Color Mode</label>
               <div style="display:flex;gap:12px;margin-top:7px;font-size:11px;">
@@ -665,7 +727,7 @@
         </div>
         <div class="control-group">
           <label>Nav Link Text</label>
-          <input type="text" id="inp-footer-nav" value="▲ RETURN TO TOP" oninput="debounceRender()">
+          <input type="text" id="inp-footer-nav" value="^ RETURN TO TOP" oninput="debounceRender()">
         </div>
         <div class="control-group">
           <label>Diagnostic Subtext</label>
@@ -725,15 +787,16 @@
         <textarea class="raw-directive-editor" id="txt-raw-directive" oninput="onRawDirectiveManualEdit()"></textarea>
 
         <div class="action-btn-row tri-btn" id="edit-mode-actions">
-          <button class="nav-btn btn-save" onclick="saveExistingBlockChanges()">[ SAVE ] (Ctrl+S)</button>
-          <button class="nav-btn btn-danger" onclick="deleteExistingBlock()">[ DELETE ]</button>
-          <button class="nav-btn" onclick="copyDirective()">[ COPY ]</button>
+          <button class="nav-btn btn-save" onclick="saveExistingBlockChanges()">Save Changes</button>
+          <button class="nav-btn btn-danger" onclick="deleteExistingBlock()">Delete Block</button>
+          <button class="nav-btn" onclick="copyDirective()">Copy</button>
         </div>
 
         <div class="action-btn-row" id="insert-mode-actions" style="display:none;">
-          <button class="nav-btn btn-save" onclick="executeInsertBlock()">[ INSERT ] (Ctrl+S)</button>
-          <button class="nav-btn" onclick="cancelInsertMode()">[ CANCEL ]</button>
+          <button class="nav-btn btn-save" onclick="executeInsertBlock()">Insert Block</button>
+          <button class="nav-btn" onclick="cancelInsertMode()">Cancel</button>
         </div>
+      </div>
       </div>
     </aside>
   </div>

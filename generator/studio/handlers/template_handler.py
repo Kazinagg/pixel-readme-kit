@@ -12,15 +12,15 @@ from generator.compiler import MarkdownCompiler, parse_directive_attrs
 
 def extract_template_blocks(template_content: str) -> List[Dict[str, Any]]:
     """
-    Parses all pixel-kit directives from markdown text with their exact span indices,
+    Parses all readme-kit and pixel-kit directives from markdown text with their exact span indices,
     attributes, and inner body contents.
     """
     block_pattern = re.compile(
-        r'(<!--\s*pixel-kit:(window|terminal|quote|metrics|timeline)\b(.*?)-->([\s\S]*?)<!--\s*/pixel-kit:\2\s*-->)',
+        r'(<!--\s*(?:pixel-kit|readme-kit):(window|terminal|quote|metrics|timeline)\b(.*?)-->([\s\S]*?)<!--\s*/(?:pixel-kit|readme-kit):\2\s*-->)',
         re.IGNORECASE
     )
     single_pattern = re.compile(
-        r'(<!--\s*pixel-kit:(header|footer|callout|frame|chip|divider|splitter|progress|techstack|social|starchart|profile)\b(.*?)-->)',
+        r'(<!--\s*(?:pixel-kit|readme-kit):(header|footer|callout|frame|chip|divider|splitter|progress|techstack|social|starchart|profile)\b(.*?)-->)',
         re.IGNORECASE
     )
 
@@ -59,8 +59,9 @@ def extract_template_blocks(template_content: str) -> List[Dict[str, Any]]:
 
 
 def apply_global_theme_to_content(content: str, req: Dict[str, Any]) -> str:
-    """Batch-updates style, preset, mode, primary, accent, tertiary across all directives."""
-    g_style = req.get("style", "cyberpunk")
+    """Batch-updates style, theme, preset, mode, primary, accent, tertiary across all directives."""
+    g_style = req.get("style", "pixel")
+    g_theme = req.get("theme", "")
     g_preset = req.get("preset", "cyberpunk")
     g_mode = req.get("mode", "auto")
     g_prim = req.get("primary", "")
@@ -78,7 +79,14 @@ def apply_global_theme_to_content(content: str, req: Dict[str, Any]) -> str:
         if re.search(r'\bstyle="[^"]*"', tag_content):
             tag_content = re.sub(r'\bstyle="[^"]*"', f'style="{g_style}"', tag_content)
         else:
-            tag_content = tag_content.replace(f"<!-- pixel-kit:{m.group(1)}", f'<!-- pixel-kit:{m.group(1)} style="{g_style}"')
+            tag_content = re.sub(r'<!--\s*(pixel-kit|readme-kit):([a-zA-Z0-9_\-]+)', rf'<!-- \1:\2 style="{g_style}"', tag_content)
+
+        # 1.1 Update theme if provided
+        if g_theme:
+            if re.search(r'\btheme="[^"]*"', tag_content):
+                tag_content = re.sub(r'\btheme="[^"]*"', f'theme="{g_theme}"', tag_content)
+            else:
+                tag_content = re.sub(r'(style="[^"]*")', rf'\1 theme="{g_theme}"', tag_content)
 
         # 2. Preset and Colors
         if g_preset == "custom":
@@ -136,7 +144,7 @@ def apply_global_theme_to_content(content: str, req: Dict[str, Any]) -> str:
 
         return tag_content
 
-    return re.sub(r'<!--\s*pixel-kit:([a-zA-Z0-9_\-]+)\b[\s\S]*?-->', update_dir, content)
+    return re.sub(r'<!--\s*(?:pixel-kit|readme-kit):([a-zA-Z0-9_\-]+)\b[\s\S]*?-->', update_dir, content)
 
 
 def render_preview_html(template_file: str, assets_dir: str, preview_theme: str = "auto", view_mode: bool = False) -> str:
@@ -184,7 +192,7 @@ def render_preview_html(template_file: str, assets_dir: str, preview_theme: str 
             blk_type = m.group(2).upper()
             top_divider = ""
             if blk_id == 0:
-                top_divider = '<div class="pk-insert-divider" data-after-id="-1"><button class="pk-insert-btn" onclick="openInsertAt(-1, event)">+ Add block at top</button></div>'
+                top_divider = '<div class="pk-insert-divider" data-after-id="-1" ondragover="onDividerDragOver(event)" ondragleave="onDividerDragLeave(event)" ondrop="onDividerDrop(event, -1)"><button class="pk-insert-btn" onclick="openInsertAt(-1, event)">+ Add block at top</button></div>'
             return f"""{top_divider}
 <div class="pk-block-wrapper" id="pk-block-{blk_id}" data-pk-id="{blk_id}" data-pk-type="{blk_type.lower()}" onclick="selectBlockFromPreview({blk_id}, event)">
   <div class="pk-block-hud-bar">
@@ -200,7 +208,7 @@ def render_preview_html(template_file: str, assets_dir: str, preview_theme: str 
             blk_id = int(m.group(1))
             return f"""  </div>
 </div>
-<div class="pk-insert-divider" data-after-id="{blk_id}"><button class="pk-insert-btn" onclick="openInsertAt({blk_id}, event)">+ Add block here</button></div>"""
+<div class="pk-insert-divider" data-after-id="{blk_id}" ondragover="onDividerDragOver(event)" ondragleave="onDividerDragLeave(event)" ondrop="onDividerDrop(event, {blk_id})"><button class="pk-insert-btn" onclick="openInsertAt({blk_id}, event)">+ Add block here</button></div>"""
 
         html = re.sub(r'<!--\s*PK_BLOCK_START:(\d+):(\w+)\s*-->', start_repl, html)
         html = re.sub(r'<!--\s*PK_BLOCK_END:(\d+):(\w+)\s*-->', end_repl, html)

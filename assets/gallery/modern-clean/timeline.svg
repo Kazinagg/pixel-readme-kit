@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 240" width="100%" height="100%">
+  <defs>
+        <linearGradient id="modern-timeline-accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--primary)" />
+      <stop offset="100%" stop-color="var(--accent)" />
+    </linearGradient>
+    <linearGradient id="modern-timeline-border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="var(--border-chassis)" stop-opacity="0.3" />
+    </linearGradient>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(15, 23, 42, 0.90);
+        --bg-panel: rgba(30, 41, 59, 0.85);
+        --border-chassis: rgba(51, 65, 85, 0.85);
+        --primary: #38BDF8;
+        --accent: #818CF8;
+        --tertiary: #06B6D4;
+        --title-front: #38BDF8;
+        --title-mid: #0284C7;
+        --title-dark: #0369A1;
+        --text-main: #F8FAFC;
+        --text-dim: #94A3B8;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.07;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(15, 23, 42, 0.90);
+          --bg-panel: rgba(30, 41, 59, 0.85);
+          --border-chassis: rgba(51, 65, 85, 0.85);
+          --primary: #38BDF8;
+          --accent: #818CF8;
+          --tertiary: #06B6D4;
+          --title-front: #38BDF8;
+          --title-mid: #0284C7;
+          --title-dark: #0369A1;
+          --text-main: #F8FAFC;
+          --text-dim: #94A3B8;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.07;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F8FAFC;
+          --bg-panel: #F1F5F9;
+          --border-chassis: #E2E8F0;
+          --primary: #0284C7;
+          --accent: #4F46E5;
+          --tertiary: #0891B2;
+          --title-front: #0284C7;
+          --title-mid: #0369A1;
+          --title-dark: #0C4A6E;
+          --text-main: #0F172A;
+          --text-dim: #64748B;
+          --status: #16A34A;
+          --warning: #D97706;
+          --grid-op: 0.08;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #38BDF8));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .font-mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', Menlo, monospace; }
+    .btn-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .btn-hover:hover { opacity: 0.85; }
+
+    </style>
+  </defs>
+
+  <!-- Vertical Continuous Axis -->
+  <line x1="36" y1="20" x2="36" y2="194" stroke="url(#modern-timeline-border-grad)" stroke-width="2"/>
+  <circle cx="36" cy="20" r="3.5" fill="var(--primary)"/>
+  <circle cx="36" cy="194" r="3.5" fill="var(--accent)"/>
+
+  <g id="modern-milestone-0">
+    <line x1="46" y1="38" x2="64" y2="38" stroke="var(--status)" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.6"/>
+    <circle cx="36" cy="38" r="6.5" fill="var(--status)"/>
+    <circle cx="36" cy="38" r="9" fill="none" stroke="var(--status)" stroke-width="1.2" opacity="0.3"/>
+    <path d="M 33.5 38 L 35.5 40 L 39 36" fill="none" stroke="var(--bg-glass)" stroke-width="1.4" stroke-linecap="round"/>
+    <rect x="64" y="14" width="774" height="54" rx="10" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <rect x="64" y="22" width="3" height="38" rx="1.5" fill="var(--status)"/>
+
+    <!-- Date Pill -->
+    <rect x="76" y="23" width="63" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="0.8"/>
+    <text x="107" y="36" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">2024-Q1</text>
+
+    <!-- Title -->
+    <text x="149" y="37" fill="var(--text-main)" font-size="12.5" font-weight="700" class="font-sans">v1.0 GENESIS</text>
+
+    <!-- Status Pill -->
+    <rect x="744" y="23" width="82" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--status)" stroke-width="0.8"/>
+    <circle cx="754" y="32" r="2.5" fill="var(--status)"/>
+    <text x="762" y="36" fill="var(--status)" font-size="10" font-weight="700" class="font-sans">COMPLETED</text>
+
+    <!-- Description -->
+    <text x="78" y="56" fill="var(--text-dim)" font-size="11" class="font-sans">Initial pixel engine and 8-bit typography</text>
+  </g>
+  <g id="modern-milestone-1">
+    <line x1="46" y1="110" x2="64" y2="110" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.6"/>
+    <circle cx="36" cy="110" r="6" fill="var(--accent)"/>
+    <circle cx="36" cy="110" r="10" fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="2 3"/>
+    <rect x="64" y="86" width="774" height="54" rx="10" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <rect x="64" y="94" width="3" height="38" rx="1.5" fill="var(--accent)"/>
+
+    <!-- Date Pill -->
+    <rect x="76" y="95" width="63" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="0.8"/>
+    <text x="107" y="108" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">2025-Q2</text>
+
+    <!-- Title -->
+    <text x="149" y="109" fill="var(--text-main)" font-size="12.5" font-weight="700" class="font-sans">v2.0 VECTOR</text>
+
+    <!-- Status Pill -->
+    <rect x="737" y="95" width="89" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--accent)" stroke-width="0.8"/>
+    <circle cx="747" y="104" r="2.5" fill="var(--accent)"/>
+    <text x="755" y="108" fill="var(--accent)" font-size="10" font-weight="700" class="font-sans">IN PROGRESS</text>
+
+    <!-- Description -->
+    <text x="78" y="128" fill="var(--text-dim)" font-size="11" class="font-sans">Modern clean vector paradigms and glass UI</text>
+  </g>
+  <g id="modern-milestone-2">
+    <line x1="46" y1="182" x2="64" y2="182" stroke="var(--text-dim)" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.6"/>
+    <circle cx="36" cy="182" r="5" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.5"/>
+    <rect x="64" y="158" width="774" height="54" rx="10" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <rect x="64" y="166" width="3" height="38" rx="1.5" fill="var(--text-dim)"/>
+
+    <!-- Date Pill -->
+    <rect x="76" y="167" width="63" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="0.8"/>
+    <text x="107" y="180" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">2026-Q4</text>
+
+    <!-- Title -->
+    <text x="149" y="181" fill="var(--text-main)" font-size="12.5" font-weight="700" class="font-sans">v3.0 HORIZON</text>
+
+    <!-- Status Pill -->
+    <rect x="752" y="167" width="74" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--text-dim)" stroke-width="0.8"/>
+    <circle cx="762" y="176" r="2.5" fill="var(--text-dim)"/>
+    <text x="770" y="180" fill="var(--text-dim)" font-size="10" font-weight="700" class="font-sans">PLANNED</text>
+
+    <!-- Description -->
+    <text x="78" y="200" fill="var(--text-dim)" font-size="11" class="font-sans">Universal 3-tier design system and studio stand</text>
+  </g>
+</svg>

@@ -1,19 +1,22 @@
 ---
 name: pixel-readme
-description: "Use this skill whenever the user asks to create, format, style, or upgrade a GitHub README, profile README, or repository documentation in the retro-cyberpunk / pixel-HUD aesthetic (Kazinagg signature style). Covers 3 Global Styles (Cyberpunk, Tactical Military, Minimal Glass), SVG generator CLI, markdown compiler with directives, multi-mode theming (auto, dark, light, transparent, gh, picture), 100% full-width table wrappers, quote headers, Camo-proxy compatibility, infographical components (metrics, progress, techstack, timeline, social cards), live preview studio, and native stdio MCP server."
+description: "Use this skill whenever the user asks to create, format, style, or upgrade a GitHub README, profile README, or repository documentation with ReadmeKit (formerly Pixel Readme Kit). Covers 4 Architectural Styles (Modern Clean Vector, Pixel Retro-Tech, Hand-Drawn Sketch, Corporate Minimalist), 13+ Themes, SVG generator CLI, markdown compiler with directives (<!-- readme-kit:... -->), multi-mode theming (auto, dark, light, transparent, gh, picture), 100% full-width table wrappers, quote headers, Camo-proxy compatibility, infographical components (metrics, progress, techstack, timeline, starchart, profile card, social cards), live preview studio, and native stdio MCP server. Canonical specification is in DESIGN_SYSTEM.md."
 ---
 
-# Pixel Readme Kit v4.0 — Signature HUD Design System, Generator & MCP Server
+# ReadmeKit — Universal Multi-Style Design System, Customization Engine & MCP Server
 
-Этот навык используется AI-агентом для проектирования, стилизации и автоматической сборки GitHub README и профилей в фирменной эстетике **Kazinagg Cyberpunk / Pixel HUD**.
+Этот навык используется AI-агентом для проектирования, стилизации и автоматической сборки GitHub README и профилей в рамках универсальной системы кастомизации **ReadmeKit** (ранее Pixel Readme Kit).
+
+> [!IMPORTANT]
+> **Единый источник правды по геометрии и палитрам**: [DESIGN_SYSTEM.md](file:///d:/ForWorkStudy/Projects/pixel-readme-kit/DESIGN_SYSTEM.md). Всегда сверяйтесь со спецификацией стилей и тем при подборе компонентов.
 
 ---
 
 ## 🏛️ Фундаментальные принципы архитектуры
 
-1. **Разделение Геометрии и Цвета**:
-   - Существует ровно **3 глобальных стиля геометрии**: `cyberpunk`, `tactical`, `minimal`.
-   - **Цветовая палитра (`primary` + `accent`)** полностью независима от формы: пользователь может выбрать тактический стиль и покрасить его в бирюзовый или фиолетовый.
+1. **Двухуровневая ортогональность Геометрии и Цвета**:
+   - **Стиль (`style`)**: `pixel` (Retro-Tech / 8-Bit), `modern` (Clean Vector / SaaS), `sketch` (Hand-Drawn / Excalidraw).
+   - **Цветовая палитра (`theme`)**: независима от формы и свободно комбинируется со стилями (`cyberpunk`, `tactical`, `tokyo`, `slate-dark`, `nordic-frost`, `linear-violet`, `emerald-clean`, `excali-dark`, `whiteboard` и др.).
 2. **Адаптивная мульти-режимность (Multi-Mode Theming)**:
    - `mode="auto"` (**по умолчанию**): единый автономный SVG с нативными CSS-переменными и медиа-запросом `@media (prefers-color-scheme: dark)`. Переключается мгновенно вместе с системной темой ОС или браузера, без дублирования файлов.
    - `mode="dark"`: всегда тёмная контрастная тема.
@@ -22,9 +25,9 @@ description: "Use this skill whenever the user asks to create, format, style, or
    - `mode="gh"`: официальный синтаксис GitHub с генерацией пары файлов (`-dark.svg` и `-light.svg`) и атрибутами `#gh-dark-mode-only` / `#gh-light-mode-only`.
    - `mode="picture"`: тег HTML5 `<picture>` с источниками `(prefers-color-scheme: dark)` и `(prefers-color-scheme: light)`.
 3. **Anti-Collision Engine (Защита от наложения текста)**:
-   - Интеллектуальный расчет раскладки шрифта: длинные заголовки плавно уменьшают размер пикселя (`px=6 ➔ 5 ➔ 4 ➔ 3`) и аккуратно переносятся на 2 строки по границам слов.
+   - Интеллектуальный расчет раскладки шрифта: длинные заголовки плавно уменьшают размер пикселя (`px=6 ➔ 5 ➔ 4 ➔ 3`) или кегль Sans (`34px ➔ 26px ➔ 20px`) и аккуратно переносятся на 2 строки по границам слов.
    - Плашка подзаголовка рассчитывается динамически по ширине текста.
-   - Тег статуса привязан к правому краю (`text-anchor="end"`), исключая столкновение с кнопками управления окна `[ _ ] [ □ ] [ × ]`.
+   - Тег статуса привязан к правому краю (`text-anchor="end"`), исключая столкновение с кнопками управления окна.
 4. **Mobile Readability (Безопасные шрифты >= 11px)**:
    - Все текстовые элементы (включая бейджи, подзаголовки, спецификации и футеры) используют размер шрифта $\ge 11$px, предотвращая микроскопический нечитаемый текст на мобильных экранах смартфонов.
 5. **100% Живой Markdown-текст**:
@@ -32,15 +35,17 @@ description: "Use this skill whenever the user asks to create, format, style, or
 
 ---
 
-## 📐 3 Глобальных стиля
+## 📐 3 Глобальных стиля дизайн-системы
 
-| Характеристика | 🟢 Cyberpunk Terminal | 🟡 Tactical Military HUD | 🟣 Minimal Glass |
+| Характеристика | 👾 Стиль 1: Pixel (`pixel`) | 💎 Стиль 2: Modern (`modern`) | ✏️ Стиль 3: Sketch (`sketch`) |
 | :--- | :--- | :--- | :--- |
-| **Геометрия формы** | Прямые углы, открытые скобы (Brackets), угловые пиксели `3×3` | 45° срезанные фаски (Chamfers), тактический октагон, шевроны `▲` | Ультратонкая волосяная рамка 1px (Hairline), зацепы `┌ ┐ └ ┘` |
-| **Стиль распада (Decay)** | **Матричный пиксельный дизеринг** (`3×3 ➔ 2×2 ➔ 1×1`) | **Диагональные полосы фасок `///`** (убывающие по высоте и alpha) | **Микроточечное рассеивание** (микро-stipple точки и тающая шина) |
-| **Интеграция таблицы** | Прямое накрытие 1-ячеечной таблицы зубцами `x=1..849` | Прямое накрытие таблицы фасками без адаптеров | Монолитная 3-строчная таблица без двойных рамок (`table_minimal`) |
-| **Анимация** | 360° радар, CRT-сканлайн, бегущий по плате PCB-пакет | Пульсирующий прицельный лазер, маркеры целей | Спектральный частотный эквалайзер, точечные маяки |
-| **Канонический цвет** | Cyan (`#00C8D7`) + Purple (`#A855F7`) | Amber (`#F59E0B`) + Orange (`#EA580C`) | Tokyo Blue (`#4F8BFF`) + Magenta (`#A855F7`) |
+| **Геометрия формы** | Скосы 45° (`chamfer`), 90° ступени, зацепы `┌ ┐ └ ┘` | Мягкие скругления `rx="8..16"`, pill-бейджи `rx="999"` | Неровные живые штрихи (Jitter), двойные линии, овершуты |
+| **Физика линий** | Контрастные рамки 1.5–2px, дизеринг-шины | Ультратонкие 1px границы с `top highlight` градиентом | Двойной карандашный штрих, легкое расхождение концов |
+| **Заливка областей** | Дизеринг-сетки (Dither 4x4 / 2x2) | Мягкие градиенты (`rgba`, Area Fill) | Карандашная штриховка (`hatch /////` или `XXXX`) |
+| **Типографика** | Псевдо-3D растровый (`render_3d_text`) + Mono | Пропорциональный Sans-Serif (`Inter`) + Mono | Рукописный архитектурный (`Virgil`, `Chalkboard`) |
+| **Графика данных** | Полигональные ломаные + прицелы | Smooth Cubic Bezier Spline + Area Fill | Hand-Drawn Star-History + штриховка + дудл-звезды |
+| **Спецэффекты** | Радар 360°, CRT-сканлайн, эквалайзер | macOS traffic lights, pulse live status | Хайлайтер, стикеры (Post-it), скотч (Washi tape) |
+| **Канонические темы** | `cyberpunk`, `tactical`, `tokyo`, `amber`, `matrix` | `slate-dark`, `nordic-frost`, `linear-violet`, `emerald-clean` | `excali-dark`, `whiteboard`, `notebook-graph`, `blueprint-sketch` |
 
 ---
 

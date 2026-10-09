@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 24" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(15, 18, 30, 0.85);
+        --bg-panel: rgba(22, 27, 46, 0.80);
+        --border-chassis: rgba(41, 46, 66, 0.85);
+        --primary: #4F8BFF;
+        --accent: #A855F7;
+        --tertiary: #06B6D4;
+        --title-front: #4F8BFF;
+        --title-mid: #2563EB;
+        --title-dark: #1E3A8A;
+        --text-main: #F1F5F9;
+        --text-dim: #94A3B8;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.08;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(15, 18, 30, 0.85);
+          --bg-panel: rgba(22, 27, 46, 0.80);
+          --border-chassis: rgba(41, 46, 66, 0.85);
+          --primary: #4F8BFF;
+          --accent: #A855F7;
+          --tertiary: #06B6D4;
+          --title-front: #4F8BFF;
+          --title-mid: #2563EB;
+          --title-dark: #1E3A8A;
+          --text-main: #F1F5F9;
+          --text-dim: #94A3B8;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F8FAFC;
+          --bg-panel: #F1F5F9;
+          --border-chassis: #E2E8F0;
+          --primary: #1D4ED8;
+          --accent: #6D28D9;
+          --tertiary: #0891B2;
+          --title-front: #1D4ED8;
+          --title-mid: #1E40AF;
+          --title-dark: #0F172A;
+          --text-main: #0F172A;
+          --text-dim: #64748B;
+          --status: #16A34A;
+          --warning: #D97706;
+          --grid-op: 0.10;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #4F8BFF));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+  <rect x="0" y="0" width="850" height="24" fill="var(--bg-glass)"/>
+  <path d="M 4 8 L 4 18 L 14 18" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
+  <path d="M 846 8 L 846 18 L 836 18" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+  <line x1="8" y1="2" x2="842" y2="2" stroke="var(--primary)" stroke-width="1" stroke-dasharray="4,4" opacity="0.35"/>
+  <text x="425" y="15" fill="var(--primary)" font-size="9" font-weight="bold" letter-spacing="1.5" text-anchor="middle" class="font-mono">[EXIT 0 // SESSION TERMINATED]</text>
+</svg>

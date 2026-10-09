@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 214" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(15, 18, 30, 0.85);
+        --bg-panel: rgba(22, 27, 46, 0.80);
+        --border-chassis: rgba(41, 46, 66, 0.85);
+        --primary: #4F8BFF;
+        --accent: #A855F7;
+        --tertiary: #06B6D4;
+        --title-front: #4F8BFF;
+        --title-mid: #2563EB;
+        --title-dark: #1E3A8A;
+        --text-main: #F1F5F9;
+        --text-dim: #94A3B8;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.08;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(15, 18, 30, 0.85);
+          --bg-panel: rgba(22, 27, 46, 0.80);
+          --border-chassis: rgba(41, 46, 66, 0.85);
+          --primary: #4F8BFF;
+          --accent: #A855F7;
+          --tertiary: #06B6D4;
+          --title-front: #4F8BFF;
+          --title-mid: #2563EB;
+          --title-dark: #1E3A8A;
+          --text-main: #F1F5F9;
+          --text-dim: #94A3B8;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F8FAFC;
+          --bg-panel: #F1F5F9;
+          --border-chassis: #E2E8F0;
+          --primary: #1D4ED8;
+          --accent: #6D28D9;
+          --tertiary: #0891B2;
+          --title-front: #1D4ED8;
+          --title-mid: #1E40AF;
+          --title-dark: #0F172A;
+          --text-main: #0F172A;
+          --text-dim: #64748B;
+          --status: #16A34A;
+          --warning: #D97706;
+          --grid-op: 0.10;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #4F8BFF));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      .font-time-date { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }
+      .font-time-title { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 12px; font-weight: bold; }
+      .font-time-stat { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }
+      .font-time-desc { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: normal; }
+    </style>
+  </defs>
+  <!-- Vertical Data PCB Bus -->
+  <line x1="42" y1="14" x2="42" y2="170" stroke="var(--border-chassis)" stroke-width="2"/>
+  <circle cx="42" cy="14" r="3" fill="var(--primary)"/>
+  <polygon points="42,176 46,170 38,170" fill="var(--primary)"/>
+  <g id="milestone-0">
+    <path d="M 48 28 L 70 28" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,22 48,28 42,34 36,28" fill="var(--status)"/>
+    <rect x="70" y="10" width="778" height="52" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <line x1="70" y1="10" x2="70" y2="62" stroke="var(--status)" stroke-width="2"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="19" width="64" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="114" y="30" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2024-Q1</text>
+    <text x="156" y="30" fill="var(--title-front)" class="font-time-title">V1.0 GENESIS</text>
+    <text x="834" y="30" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="50" fill="var(--text-dim)" class="font-time-desc">Initial pixel engine and 8-bit typography</text>
+  </g>
+  <g id="milestone-1">
+    <path d="M 48 94 L 70 94" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <circle cx="42" cy="94" r="6" fill="var(--accent)"/>
+    <circle cx="42" cy="94" r="10" fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="2 2"/>
+    <rect x="70" y="76" width="778" height="52" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <line x1="70" y1="76" x2="70" y2="128" stroke="var(--accent)" stroke-width="2"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="85" width="64" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="114" y="96" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2025-Q2</text>
+    <text x="156" y="96" fill="var(--title-front)" class="font-time-title">V2.0 VECTOR</text>
+    <text x="834" y="96" fill="var(--accent)" text-anchor="end" class="font-time-stat">◉ IN_PROGRESS</text>
+    <!-- Milestone Description -->
+    <text x="84" y="116" fill="var(--text-dim)" class="font-time-desc">Modern clean vector paradigms and glass UI</text>
+  </g>
+  <g id="milestone-2">
+    <path d="M 48 160 L 70 160" stroke="var(--text-dim)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <circle cx="42" cy="160" r="5" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.5"/>
+    <rect x="70" y="142" width="778" height="52" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <line x1="70" y1="142" x2="70" y2="194" stroke="var(--text-dim)" stroke-width="2"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="151" width="64" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="114" y="162" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026-Q4</text>
+    <text x="156" y="162" fill="var(--title-front)" class="font-time-title">V3.0 HORIZON</text>
+    <text x="834" y="162" fill="var(--text-dim)" text-anchor="end" class="font-time-stat">○ PLANNED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="182" fill="var(--text-dim)" class="font-time-desc">Universal 3-tier design system and studio stand</text>
+  </g>
+</svg>

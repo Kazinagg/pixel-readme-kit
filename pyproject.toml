@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pixel-readme-kit"
-version = "5.0.0"
-description = "Universal Design System, SVG Infographics Generator & HUD Studio for GitHub Repositories and Profiles"
+name = "readme-kit"
+version = "5.1.0"
+description = "Universal Customization Engine, Multi-Style Design System & SVG Infographics Studio for GitHub Repositories and Profiles"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
@@ -13,8 +13,8 @@ authors = [
     { name = "Kazinagg" }
 ]
 keywords = [
-    "github", "readme", "profile", "design-system", "svg",
-    "infographics", "cyberpunk", "hud", "minimalist", "cli", "wysiwyg"
+    "github", "readme", "github-profile", "customization-system", "design-system",
+    "svg-generator", "infographics", "mcp-server", "markdown", "cli", "starchart"
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -37,6 +37,8 @@ Issues = "https://github.com/Kazinagg/pixel-readme-kit/issues"
 Changelog = "https://github.com/Kazinagg/pixel-readme-kit/blob/main/TODO.md"
 
 [project.scripts]
+readme-kit = "generator.cli:main"
+readmekit = "generator.cli:main"
 pixel-kit = "generator.cli:main"
 pixel-readme = "generator.cli:main"
 pixel-readme-kit = "generator.cli:main"

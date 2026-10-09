@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 38" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(20, 14, 6, 0.88);
+        --bg-panel: rgba(30, 22, 10, 0.82);
+        --border-chassis: rgba(50, 36, 16, 0.85);
+        --primary: #F59E0B;
+        --accent: #EA580C;
+        --tertiary: #EF4444;
+        --title-front: #F59E0B;
+        --title-mid: #92400E;
+        --title-dark: #451A03;
+        --text-main: #FFFBEB;
+        --text-dim: #D97706;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.08;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(20, 14, 6, 0.88);
+          --bg-panel: rgba(30, 22, 10, 0.82);
+          --border-chassis: rgba(50, 36, 16, 0.85);
+          --primary: #F59E0B;
+          --accent: #EA580C;
+          --tertiary: #EF4444;
+          --title-front: #F59E0B;
+          --title-mid: #92400E;
+          --title-dark: #451A03;
+          --text-main: #FFFBEB;
+          --text-dim: #D97706;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #FFFBEB;
+          --bg-panel: #FEF3C7;
+          --border-chassis: #FDE68A;
+          --primary: #B45309;
+          --accent: #C2410C;
+          --tertiary: #B91C1C;
+          --title-front: #B45309;
+          --title-mid: #78350F;
+          --title-dark: #451A03;
+          --text-main: #1F2937;
+          --text-dim: #6B7280;
+          --status: #15803D;
+          --warning: #B45309;
+          --grid-op: 0.10;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #F59E0B));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+      @keyframes blinkLed { 0%, 100% { fill: var(--primary); opacity: 1; } 50% { fill: var(--border-chassis); opacity: 0.3; } }
+      .led { animation: blinkLed 1.8s infinite steps(1); }
+    </style>
+  </defs>
+
+  <!-- DUAL TACTICAL CHASSIS -->
+  <polygon points="12 4, 838 4, 849 15, 849 32, 1 32, 1 15"
+           fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="2"/>
+  <polygon points="14 7, 836 7, 846 16, 846 29, 4 29, 4 16"
+           fill="none" stroke="var(--primary)" stroke-width="1.5" opacity="0.85"/>
+  <line x1="20" y1="32" x2="830" y2="32" stroke="var(--accent)" stroke-width="1" stroke-dasharray="6,4" opacity="0.6"/>
+
+  <!-- DOWNWARD PRONGS (FLUSH TO EDGES x=1..849) -->
+  <line x1="1" y1="26" x2="1" y2="38" stroke="var(--primary)" stroke-width="2.5"/>
+  <rect x="0" y="32" width="4" height="6" fill="var(--primary)"/>
+  <line x1="849" y1="26" x2="849" y2="38" stroke="var(--primary)" stroke-width="2.5"/>
+  <rect x="846" y="32" width="4" height="6" fill="var(--primary)"/>
+
+  <!-- Status LED -->
+  <circle cx="24" cy="18" r="4" fill="var(--primary)" class="led"/>
+
+  <!-- Title Text -->
+  <text x="36" y="22" fill="var(--primary)" font-size="12" font-weight="bold" letter-spacing="1" class="font-mono">
+    <tspan fill="var(--accent)">[//] </tspan>CORE // ARCHITECTURE
+  </text>
+
+  <!-- Right Status Tag -->
+  <rect x="670" y="9" width="105" height="18" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1"/>
+  <text x="723" y="22" fill="var(--primary)" font-size="9" font-weight="bold" text-anchor="middle" class="font-mono">[SYS_LOG]</text>
+
+  <!-- Window controls [ _ ] [ □ ] [ × ] -->
+  <rect x="782" y="11" width="14" height="14" fill="var(--bg-panel)"/>
+  <text x="786" y="21" fill="var(--text-dim)" font-size="10" font-weight="bold" class="font-mono">_</text>
+  <rect x="800" y="11" width="14" height="14" fill="var(--bg-panel)"/>
+  <text x="803" y="22" fill="var(--text-dim)" font-size="10" font-weight="bold" class="font-mono">□</text>
+  <rect x="818" y="11" width="14" height="14" fill="var(--tertiary)"/>
+  <text x="822" y="22" fill="var(--text-main)" font-size="10" font-weight="bold" class="font-mono">×</text>
+</svg>

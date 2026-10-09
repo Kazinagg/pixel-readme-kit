@@ -1,10 +1,10 @@
-# 📦 README KIT — КАТАЛОГ КОМПОНЕНТОВ (РЕПОЗИТОРИИ И ПРОФИЛИ GITHUB)
+# 📦 READMEKIT — КАТАЛОГ КОМПОНЕНТОВ (РЕПОЗИТОРИИ И ПРОФИЛИ GITHUB)
 
 <div id="top"></div>
 
 <div align="center">
 
-<!-- pixel-kit:header style="minimal" primary="#4F8BFF" accent="#A855F7" title="COMPONENT CATALOG" subtitle="EXHAUSTIVE REPO & PROFILE COMPONENT LIBRARY // MULTI-STYLE" tag="CATALOG_v5.0" out="assets/generated/header-catalog-banner.svg" -->
+<!-- pixel-kit:header style="sketch" theme="rough-doodle" preset="notebook-graph" primary="#f3f4f6" accent="#facc15" tertiary="#fb923c" title="COMPONENT CATALOG" subtitle="EXHAUSTIVE REPO & PROFILE COMPONENT LIBRARY // MULTI-STYLE" tag="CATALOG_v5.0" out="assets/generated/header-catalog-banner.svg" -->
 
 <br/><br/>
 
@@ -47,6 +47,7 @@
 15. [Компактный режим шапки (Compact Header ~84px v4.0)](#15-компактный-режим-шапки-compact-header-84px-v40)
 16. [График динамики звёзд и роста (Star Growth Trend Chart v5.0)](#16-график-динамики-звёзд-и-роста-star-growth-trend-chart-v50)
 17. [Карточка разработчика для шапки профиля (Developer Dossier Profile Card v5.0)](#17-карточка-разработчика-для-шапки-профиля-developer-dossier-profile-card-v50)
+18. [Стиль Modern / Clean Vector (Парадигма SaaS & DevTools v6.0)](#18-стиль-modern--clean-vector-парадигма-saas--devtools-v60)
 
 ---
 
@@ -380,7 +381,55 @@ python -m generator.cli compile --input README.template.md --output README.md
 ### 17.3 Minimal Glass Profile Dossier
 <!-- pixel-kit:profile style="minimal" name="SARAH CHEN" role="STAFF SOFTWARE ENGINEER" bio="Crafting elegant APIs, developer tools and clean architecture." status="OPEN TO CHAT" location="SAN FRANCISCO // PST" badge="STAFF" out="assets/generated/profile-minimal.svg" -->
 
+---
+
+## 18. Стиль Modern / Clean Vector (Парадигма SaaS & DevTools v6.0)
+
+Вторая фундаментальная парадигма дизайн-системы — чистая векторная эстетика для современных OSS-библиотек и SaaS-инструментов (Linear, Vercel, Supabase, Raycast): скругления `rx="8"`..`16"`, pill-бейджи `rx="999"`, субтильные 1px границы, плавные градиенты, чистый векторный Sans-Serif и сплайны Безье.
+
+### 18.1 Modern Master Header (Slate Dark)
+<!-- pixel-kit:header style="modern" theme="slate-dark" title="MODERN VECTOR SUITE" subtitle="CLEAN SAAS AESTHETICS // LINEAR & VERCEL INPIRED" spec1="BORDER: 1PX SUBTLE" spec2="TYPE: VECTOR SANS" spec3="RADII: SMOOTH RX-14" out="assets/generated/header-modern-demo.svg" -->
+
+<br/>
+
+### 18.2 Modern Compact Header (Linear Violet)
+<!-- pixel-kit:header style="modern" theme="linear-violet" title="COMPACT VECTOR MODULE" subtitle="LIGHTWEIGHT SUBSECTION PROFILE" compact="true" out="assets/generated/header-modern-compact-demo.svg" -->
+
+<br/>
+
+### 18.3 Modern Callout (Emerald Clean Tip)
+<!-- pixel-kit:callout style="modern" theme="emerald-clean" type="tip" title="PRO TIP // VECTOR FIDELITY" subtitle="Pure vector paths render flawlessly across Retina and 4K displays" out="assets/generated/callout-modern-tip-demo.svg" -->
+
+<br/>
+
+### 18.4 Modern Starchart (Linear Violet Bezier Spline)
+<!-- pixel-kit:starchart style="modern" theme="linear-violet" repo="Kazinagg/pixel-readme-kit" points="40,150,520,1350,2800,4900" current="4,900" delta="+114% past 6m" title="OPEN SOURCE TRAJECTORY // CUBIC BEZIER" out="assets/generated/starchart-modern-demo.svg" -->
+
+<br/>
+
+### 18.5 Modern Developer Profile Card (Slate Dark)
+<!-- pixel-kit:profile style="modern" theme="slate-dark" name="ELENA VANCE" role="PRINCIPAL SYSTEMS ENGINEER" bio="Architecting deterministic devtools, high-throughput engines, and elegant developer UX." status="ONLINE // BUILDING" location="BERLIN // UTC+2" badge="STAFF" out="assets/generated/profile-modern-demo.svg" -->
+
+<br/>
+
+### 18.6 Modern Metrics & Progress (Emerald Clean)
+<!-- pixel-kit:metrics style="modern" theme="emerald-clean" out="assets/generated/metrics-modern-demo.svg" -->
+- label="ACTIVE CLUSTERS" value="128" delta="+12% weekly" trend="up"
+- label="UPTIME SLA" value="99.99%" status="STABLE"
+- label="LATENCY P99" value="1.8ms" delta="-0.4ms" trend="up"
+<!-- /pixel-kit:metrics -->
+
+<br/>
+
+<!-- pixel-kit:progress style="modern" theme="emerald-clean" value="88" label="PRODUCTION ROBUSTNESS" sub="CONTINUOUS GRADIENT PROGRESS" out="assets/generated/progress-modern-demo.svg" -->
+
+<br/>
+
+### 18.7 Modern Closing Footer (Slate Dark)
+<!-- pixel-kit:footer style="modern" theme="slate-dark" status="SYSTEM HEALTH // ALL SERVICES NOMINAL" nav="▲ RETURN TO TOP" out="assets/generated/footer-modern-demo.svg" -->
+
 <br/><br/>
 
-<!-- pixel-kit:footer style="cyberpunk" status="CATALOG_END // v5.0_ONLINE" nav="▲ НАВЕРХ" out="assets/generated/footer-bottom-nav.svg" -->
+<!-- pixel-kit:footer style="cyberpunk" status="CATALOG_END // v6.0_ONLINE" nav="▲ НАВЕРХ" out="assets/generated/footer-bottom-nav.svg" -->
+
 

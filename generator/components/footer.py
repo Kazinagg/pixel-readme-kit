@@ -1,15 +1,29 @@
 """Footer closing plate components for Pixel Readme Kit."""
 from typing import Optional, Any
 from generator.themes import resolve_theme, normalize_style_and_theme
-from generator.layout import measure_mono_text_width, clamp_text_to_width
-from generator.components.base import escape_xml, validate_svg
+from generator.layout import (
+    measure_mono_text_width,
+    clamp_text_to_width,
+    measure_sans_text_width,
+    clamp_sans_text_to_width,
+)
+from generator.components.base import (
+    escape_xml,
+    validate_svg,
+    MODERN_BASE_STYLES,
+    render_modern_defs,
+    SKETCH_BASE_STYLES,
+    render_sketch_defs,
+    render_rough_line,
+    render_rough_rect,
+    render_rough_star,
+)
 
-def generate_footer(style=None, primary=None, accent=None,
-                    status="SESSION_ACTIVE // STANDBY", nav_text="RETURN TO TOP",
-                    sub_text=None, width=850, height=76, mode="auto", preset=None, tertiary=None,
-                    theme=None):
-    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
-    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+
+def _generate_modern_footer(style_name, theme_name, c, css_vars,
+                            status="SESSION_ACTIVE // STANDBY", nav_text="RETURN TO TOP",
+                            sub_text=None, width=850, height=76):
+    """Renders clean vector footer plate with rounded card chassis and pill button."""
     prim = c["primary"]
     acc = c["accent"]
     tertiary_col = c["tertiary"]
@@ -18,6 +32,146 @@ def generate_footer(style=None, primary=None, accent=None,
     panel = c["panel"]
     text_main = c["text_main"]
     text_dim = c["text_dim"]
+    success = c["success"]
+
+    status_clean = escape_xml(status).lstrip("╔═ ").strip()
+    sub_default = "DEPLOYED TO GITHUB • MIT LICENSE • OPEN SOURCE"
+    sub_disp = escape_xml(sub_text if sub_text else sub_default)
+
+    clean_nav = escape_xml(str(nav_text).strip().lstrip("▲").strip())
+    nav_w = min(220, max(120, int(measure_sans_text_width(clean_nav, 11) + 48)))
+    nav_x = width - nav_w - 24
+
+    avail_status_w = max(120, nav_x - 70)
+    status_disp = clamp_sans_text_to_width(status_clean, avail_status_w, 13)
+    sub_disp_clamped = clamp_sans_text_to_width(sub_disp, avail_status_w + 30, 11)
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
+  <defs>
+    <style>
+      {css_vars}
+{MODERN_BASE_STYLES}
+      @keyframes pulseLiveDot {{
+        0%, 100% {{ opacity: 1; transform: scale(1); }}
+        50% {{ opacity: 0.35; transform: scale(0.8); }}
+      }}
+      .live-dot {{ animation: pulseLiveDot 2.2s infinite ease-in-out; }}
+    </style>
+{render_modern_defs("footerGrad", prim, acc, tertiary_col)}
+  </defs>
+
+  <!-- Modern Card Background with rounded corners & top glow highlight -->
+  <rect x="2" y="2" width="{width-4}" height="{height-4}" rx="14" fill="{bg}" stroke="{border}" stroke-width="1.2"/>
+  <path d="M 20 2 L {width-20} 2" stroke="url(#footerGrad)" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- Status Readout with Live Dot -->
+  <g transform="translate(28, 28)">
+    <circle cx="5" cy="-4" r="4" fill="{success}" class="live-dot"/>
+    <text x="18" y="0" fill="{text_main}" font-size="13" font-weight="600" class="font-sans">{status_disp}</text>
+  </g>
+  <text x="46" y="52" fill="{text_dim}" font-size="11" font-weight="500" class="font-sans">{sub_disp_clamped}</text>
+
+  <!-- Right Navigation Pill Button -->
+  <a href="#readme" class="btn-hover">
+    <g transform="translate({nav_x}, {(height-32)//2})">
+      <rect x="0" y="0" width="{nav_w}" height="32" rx="16" fill="{panel}" stroke="{border}" stroke-width="1"/>
+      <text x="{nav_w//2}" y="20" fill="{prim}" font-size="11" font-weight="600" text-anchor="middle" class="font-sans">▲ {clean_nav}</text>
+    </g>
+  </a>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+
+def _generate_sketch_footer(style_name, theme_name, c, css_vars,
+                            status="SESSION_ACTIVE // STANDBY", nav_text="RETURN TO TOP",
+                            sub_text=None, width=850, height=76):
+    """Renders hand-drawn sketch footer closing plate with rough chassis and doodle return button."""
+    prim = c["primary"]
+    acc = c["accent"]
+    tertiary_col = c["tertiary"]
+    bg = c["bg"]
+    border = c["border"]
+    panel = c["panel"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+    success = c["success"]
+
+    status_clean = escape_xml(status).lstrip("╔═ ").strip()
+    sub_default = "HANDMADE SVG • DETERMINISTIC JITTER • NO EXTERNAL IMAGES"
+    sub_disp = escape_xml(sub_text if sub_text else sub_default)
+
+    clean_nav = escape_xml(str(nav_text).strip().lstrip("▲").strip())
+    nav_w = min(220, max(120, int(measure_sans_text_width(clean_nav, 11) + 48)))
+    nav_x = width - nav_w - 24
+
+    avail_status_w = max(120, nav_x - 70)
+    status_disp = clamp_sans_text_to_width(status_clean, avail_status_w, 13)
+    sub_disp_clamped = clamp_sans_text_to_width(sub_disp, avail_status_w + 30, 11)
+
+    chassis = render_rough_rect(x=3, y=3, w=width-6, h=height-6, stroke=border, stroke_width=1.5, fill=bg, rx=6, seed=120)
+    star_icon = render_rough_star(cx=26, cy=28, r=5.0, fill=success, stroke=success, seed=125)
+    btn_rect = render_rough_rect(x=nav_x, y=(height-32)//2, w=nav_w, h=32, stroke=acc, stroke_width=1.2, fill=panel, rx=6, seed=130)
+
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="100%" height="100%">
+  <defs>
+    <style>
+      {css_vars}
+{SKETCH_BASE_STYLES}
+    </style>
+{render_sketch_defs(c, "footerSketch")}
+  </defs>
+
+  <!-- Sketch Hull Chassis -->
+  {chassis}
+
+  <!-- Washi Tape Corner Highlight -->
+  <polygon points="16 1, 46 1, 38 15, 8 15" fill="url(#footerSketch-tape)" stroke="{tertiary_col}" stroke-width="0.8" opacity="0.6"/>
+
+  <!-- Status Readout with Hand-drawn Doodle Star -->
+  {star_icon}
+  <text x="40" y="32" fill="{text_main}" font-size="13" font-weight="600" class="font-sketch">{status_disp}</text>
+  <text x="40" y="52" fill="{text_dim}" font-size="11" class="font-sketch">✎ {sub_disp_clamped}</text>
+
+  <!-- Right Navigation Button with Wobbly Border -->
+  <a href="#readme" class="sketch-hover">
+    <g>
+      {btn_rect}
+      <text x="{nav_x + nav_w//2}" y="{(height//2) + 4}" fill="{prim}" font-size="11" font-weight="600" text-anchor="middle" class="font-sketch">▲ {clean_nav}</text>
+    </g>
+  </a>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+
+def generate_footer(style=None, primary=None, accent=None,
+                    status="SESSION_ACTIVE // STANDBY", nav_text="RETURN TO TOP",
+                    sub_text=None, width=850, height=76, mode="auto", preset=None, tertiary=None,
+                    theme=None):
+    style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
+    c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+    if style_name == "modern":
+        return _generate_modern_footer(
+            style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars,
+            status=status, nav_text=nav_text, sub_text=sub_text, width=width, height=height
+        )
+    elif style_name == "sketch":
+        return _generate_sketch_footer(
+            style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars,
+            status=status, nav_text=nav_text, sub_text=sub_text, width=width, height=height
+        )
+    prim = c["primary"]
+    acc = c["accent"]
+    tertiary_col = c["tertiary"]
+    bg = c["bg"]
+    border = c["border"]
+    panel = c["panel"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+
 
     status_clean = escape_xml(status)
     nav_clean = escape_xml(nav_text)

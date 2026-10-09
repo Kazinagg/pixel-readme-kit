@@ -10,6 +10,9 @@ from generator.layout.text_layout import (
     format_tag,
     format_bottom_tag,
     estimate_chip_width,
+    measure_sans_text_width,
+    clamp_sans_text_to_width,
+    wrap_sans_text_to_lines,
 )
 
 __all__ = [
@@ -20,4 +23,8 @@ __all__ = [
     "format_tag",
     "format_bottom_tag",
     "estimate_chip_width",
+    "measure_sans_text_width",
+    "clamp_sans_text_to_width",
+    "wrap_sans_text_to_lines",
 ]
+

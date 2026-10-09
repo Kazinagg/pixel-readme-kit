@@ -1,4 +1,4 @@
-# 💡 PIXEL README KIT v4.0 — ПРИМЕРЫ И РАБОЧИЙ ПРОЦЕСС (WORKFLOW)
+# 💡 READMEKIT — ПРИМЕРЫ И РАБОЧИЙ ПРОЦЕСС (WORKFLOW)
 
 <div id="top"></div>
 

@@ -11,10 +11,26 @@
     let activePreviewTheme = 'dark';
 
     const PRESET_COLORS = {
-      cyberpunk: { primary: "#00c8d7", accent: "#a855f7", tertiary: "#ff0055" },
-      amber:     { primary: "#f59e0b", accent: "#ef4444", tertiary: "#ff0055" },
-      matrix:    { primary: "#00ff41", accent: "#008f11", tertiary: "#ff0055" },
-      tokyo:     { primary: "#f72585", accent: "#7209b7", tertiary: "#06b6d4" }
+      cyberpunk:        { primary: "#00c8d7", accent: "#a855f7", tertiary: "#ff0055" },
+      "neon-matrix":    { primary: "#00ff66", accent: "#79ffe1", tertiary: "#00dd44" },
+      matrix:           { primary: "#00ff66", accent: "#79ffe1", tertiary: "#00dd44" },
+      synthwave:        { primary: "#ff71ce", accent: "#01cdfe", tertiary: "#05ffa1" },
+      amber:            { primary: "#ffb000", accent: "#ffe57f", tertiary: "#ff8800" },
+      tactical:         { primary: "#f59e0b", accent: "#ea580c", tertiary: "#ef4444" },
+      minimal:          { primary: "#4f8bff", accent: "#a855f7", tertiary: "#06b6d4" },
+      tokyo:            { primary: "#7aa2f7", accent: "#7dcfff", tertiary: "#bb9af7" },
+      "clean-mono":     { primary: "#e2e8f0", accent: "#94a3b8", tertiary: "#cbd5e1" },
+      "slate-dark":     { primary: "#38bdf8", accent: "#818cf8", tertiary: "#06b6d4" },
+      "modern-clean":   { primary: "#38bdf8", accent: "#818cf8", tertiary: "#06b6d4" },
+      "nordic-frost":   { primary: "#e0f2fe", accent: "#38bdf8", tertiary: "#7dd3fc" },
+      "linear-violet":  { primary: "#8b5cf6", accent: "#c084fc", tertiary: "#a855f7" },
+      "emerald-clean":  { primary: "#10b981", accent: "#34d399", tertiary: "#059669" },
+      "modern-slate":   { primary: "#2dd4bf", accent: "#a78bfa", tertiary: "#f43f5e" },
+      "rough-doodle":   { primary: "#a78bfa", accent: "#6ee7b7", tertiary: "#fde047" },
+      "excali-dark":    { primary: "#a78bfa", accent: "#6ee7b7", tertiary: "#fde047" },
+      whiteboard:       { primary: "#38bdf8", accent: "#f87171", tertiary: "#fbbf24" },
+      "notebook-graph": { primary: "#f3f4f6", accent: "#facc15", tertiary: "#fb923c" },
+      "blueprint-sketch":{ primary: "#f8fafc", accent: "#38bdf8", tertiary: "#7dd3fc" }
     };
 
     function toggleInspector() {
@@ -57,44 +73,120 @@
       }
     }
 
+    // --- Global Studio Theme Controller (Auto / Dark / Light) ---
+    let currentStudioThemeMode = "dark";
+    const studioSystemThemeMedia = window.matchMedia("(prefers-color-scheme: light)");
+
+    function applyStudioTheme(isLight) {
+      if (isLight) {
+        document.documentElement.setAttribute("data-theme", "light");
+      } else {
+        document.documentElement.setAttribute("data-theme", "dark");
+      }
+    }
+
+    function handleStudioSystemThemeChange(e) {
+      if (currentStudioThemeMode === "auto") {
+        applyStudioTheme(e.matches);
+        switchPreviewTheme(e.matches ? "light" : "dark");
+      }
+    }
+    if (studioSystemThemeMedia.addEventListener) {
+      studioSystemThemeMedia.addEventListener("change", handleStudioSystemThemeChange);
+    } else if (studioSystemThemeMedia.addListener) {
+      studioSystemThemeMedia.addListener(handleStudioSystemThemeChange);
+    }
+
+    function setStudioTheme(mode) {
+      currentStudioThemeMode = mode;
+      try { localStorage.setItem("prk_studio_theme", mode); } catch (_) {}
+
+      const btnAuto = document.getElementById("btn-studio-theme-auto");
+      const btnDark = document.getElementById("btn-studio-theme-dark");
+      const btnLight = document.getElementById("btn-studio-theme-light");
+      if (btnAuto) btnAuto.classList.toggle("active", mode === "auto");
+      if (btnDark) btnDark.classList.toggle("active", mode === "dark");
+      if (btnLight) btnLight.classList.toggle("active", mode === "light");
+
+      const isLight = (mode === "auto") ? studioSystemThemeMedia.matches : (mode === "light");
+      applyStudioTheme(isLight);
+      if (activePreviewTheme === "sync") {
+        switchPreviewTheme("sync");
+      } else {
+        updateCatalogPreviews(true);
+      }
+    }
+
     function switchPreviewTheme(theme) {
       activePreviewTheme = theme;
       try { localStorage.setItem("pk_preview_theme", theme); } catch (_) {}
       const scrollArea = document.getElementById("preview-scroll-area");
       const mdBody = document.getElementById("readme-preview-content");
+      const tabSync = document.getElementById("tab-preview-sync");
       const tabDark = document.getElementById("tab-dark");
       const tabLight = document.getElementById("tab-light");
       const liveBox = document.getElementById("live-svg-box");
 
-      if (theme === "light") {
+      if (tabSync) tabSync.classList.toggle("active", theme === "sync");
+      if (tabDark) tabDark.classList.toggle("active", theme === "dark");
+      if (tabLight) tabLight.classList.toggle("active", theme === "light");
+
+      let effectiveTheme = theme;
+      if (theme === "sync") {
+        const isStudioLight = (currentStudioThemeMode === "auto")
+          ? studioSystemThemeMedia.matches
+          : (currentStudioThemeMode === "light");
+        effectiveTheme = isStudioLight ? "light" : "dark";
+      }
+
+      const readmeWrapper = document.querySelector(".gh-readme-wrapper");
+      if (effectiveTheme === "light") {
         if (scrollArea) {
+          scrollArea.classList.remove("dark-theme");
           scrollArea.classList.add("light-theme");
           scrollArea.setAttribute("data-color-mode", "light");
           scrollArea.setAttribute("data-theme", "light");
+        }
+        if (readmeWrapper) {
+          readmeWrapper.classList.remove("dark-theme");
+          readmeWrapper.classList.add("light-theme");
+          readmeWrapper.setAttribute("data-color-mode", "light");
+          readmeWrapper.setAttribute("data-theme", "light");
         }
         if (mdBody) {
           mdBody.setAttribute("data-color-mode", "light");
           mdBody.setAttribute("data-theme", "light");
         }
         if (liveBox) liveBox.classList.add("light-preview");
-        if (tabLight) tabLight.classList.add("active");
-        if (tabDark) tabDark.classList.remove("active");
       } else {
         if (scrollArea) {
           scrollArea.classList.remove("light-theme");
+          scrollArea.classList.add("dark-theme");
           scrollArea.setAttribute("data-color-mode", "dark");
           scrollArea.setAttribute("data-theme", "dark");
+        }
+        if (readmeWrapper) {
+          readmeWrapper.classList.remove("light-theme");
+          readmeWrapper.classList.add("dark-theme");
+          readmeWrapper.setAttribute("data-color-mode", "dark");
+          readmeWrapper.setAttribute("data-theme", "dark");
         }
         if (mdBody) {
           mdBody.setAttribute("data-color-mode", "dark");
           mdBody.setAttribute("data-theme", "dark");
         }
         if (liveBox) liveBox.classList.remove("light-preview");
-        if (tabDark) tabDark.classList.add("active");
-        if (tabLight) tabLight.classList.remove("active");
       }
+      const catSidebar = document.getElementById("catalog-sidebar");
+      if (catSidebar) {
+        catSidebar.classList.toggle("light-catalog", effectiveTheme === "light");
+      }
+      document.querySelectorAll(".catalog-card-preview").forEach(el => {
+        el.classList.toggle("light-preview", effectiveTheme === "light");
+      });
       loadCompiledPreview();
       renderCurrentBlock(false);
+      updateCatalogPreviews(true);
     }
 
     // --- View Mode vs Edit Mode Logic ---
@@ -133,9 +225,219 @@
       }
     }
 
+    // --- 3-Tier Architecture: Style (3) -> Theme (5) -> Color Preset ---
+    const STYLE_CANONICAL_THEMES_MAP = {
+      pixel: ["cyberpunk", "tactical", "minimal"],
+      modern: ["modern-clean"],
+      sketch: ["rough-doodle"]
+    };
+
+    const THEME_PRESETS_MAP = {
+      "cyberpunk": ["cyberpunk", "neon-matrix", "matrix", "synthwave", "amber"],
+      "tactical": ["tactical", "amber"],
+      "minimal": ["minimal", "tokyo", "clean-mono"],
+      "modern-clean": ["slate-dark", "nordic-frost", "linear-violet", "emerald-clean", "modern-slate", "clean-mono"],
+      "rough-doodle": ["excali-dark", "whiteboard", "notebook-graph", "blueprint-sketch"]
+    };
+
+    // Backward-compatible alias for existing extensions
+    const STYLE_THEMES_MAP = {
+      pixel: ["cyberpunk", "tactical", "minimal", "amber", "tokyo", "matrix"],
+      modern: ["modern-clean", "slate-dark", "nordic-frost", "linear-violet", "emerald-clean"],
+      sketch: ["rough-doodle", "excali-dark", "whiteboard", "notebook-graph", "blueprint-sketch"]
+    };
+
+    window.STYLE_CANONICAL_THEMES_MAP = STYLE_CANONICAL_THEMES_MAP;
+    window.THEME_PRESETS_MAP = THEME_PRESETS_MAP;
+    window.STYLE_THEMES_MAP = STYLE_THEMES_MAP;
+
+    function getStyleAndThemeForPreset(preset) {
+      if (!preset) return { style: "pixel", theme: "cyberpunk" };
+      for (const [theme, pList] of Object.entries(THEME_PRESETS_MAP)) {
+        if (pList.includes(preset) || theme === preset) {
+          for (const [st, thList] of Object.entries(STYLE_CANONICAL_THEMES_MAP)) {
+            if (thList.includes(theme)) {
+              return { style: st, theme: theme };
+            }
+          }
+        }
+      }
+      return { style: "pixel", theme: "cyberpunk" };
+    }
+
+    function getStyleForPreset(preset) {
+      return getStyleAndThemeForPreset(preset).style;
+    }
+
+    function updateThemeOptions(selectEl, style, selectedTheme = null) {
+      if (!selectEl) return;
+      const themes = STYLE_CANONICAL_THEMES_MAP[style] || STYLE_CANONICAL_THEMES_MAP.pixel;
+      selectEl.innerHTML = "";
+      themes.forEach(t => {
+        const opt = document.createElement("option");
+        opt.value = t;
+        opt.textContent = t.replace(/-/g, " ").toUpperCase();
+        selectEl.appendChild(opt);
+      });
+      if (selectedTheme && themes.includes(selectedTheme)) {
+        selectEl.value = selectedTheme;
+      } else {
+        selectEl.value = themes[0];
+      }
+    }
+
+    function updatePresetOptions(selectEl, theme, includeCustom = false, selectedPreset = null) {
+      if (!selectEl) return;
+      const presets = THEME_PRESETS_MAP[theme] || (THEME_PRESETS_MAP["cyberpunk"]);
+      selectEl.innerHTML = "";
+      presets.forEach(p => {
+        const opt = document.createElement("option");
+        opt.value = p;
+        opt.textContent = p.replace(/-/g, " ").toUpperCase();
+        selectEl.appendChild(opt);
+      });
+      if (includeCustom) {
+        const customOpt = document.createElement("option");
+        customOpt.value = "custom";
+        customOpt.textContent = "CUSTOM (HEX PICKERS)";
+        selectEl.appendChild(customOpt);
+      }
+      if (selectedPreset && (presets.includes(selectedPreset) || (includeCustom && selectedPreset === "custom"))) {
+        selectEl.value = selectedPreset;
+      } else {
+        selectEl.value = presets[0];
+      }
+    }
+
+    // 3-Tier Controls in Top Navbar
+    function selectTopNavStyle(style) {
+      // 1. Update Top Nav segmented buttons
+      ["pixel", "modern", "sketch"].forEach(s => {
+        const btn = document.getElementById(`btn-top-style-${s}`);
+        if (btn) {
+          if (s === style) btn.classList.add("active");
+          else btn.classList.remove("active");
+        }
+      });
+
+      // 2. Sync Inspector Global Style selector
+      const selGlobalStyle = document.getElementById("sel-global-style");
+      if (selGlobalStyle && selGlobalStyle.value !== style) {
+        selGlobalStyle.value = style;
+      }
+
+      // 3. Update Theme options for Top Nav and Inspector
+      const topNavThemeSelect = document.getElementById("top-nav-theme-select");
+      const selGlobalTheme = document.getElementById("sel-global-theme");
+      const currTheme = selGlobalTheme ? selGlobalTheme.value : null;
+
+      updateThemeOptions(topNavThemeSelect, style, currTheme);
+      updateThemeOptions(selGlobalTheme, style, currTheme);
+
+      const activeTheme = selGlobalTheme ? selGlobalTheme.value : STYLE_CANONICAL_THEMES_MAP[style][0];
+
+      // 4. Update Preset options for Top Nav and Inspector
+      const topNavPresetSelect = document.getElementById("top-nav-preset-select");
+      const selGlobalPreset = document.getElementById("sel-global-preset");
+      const currPreset = (selGlobalPreset && selGlobalPreset.value !== "custom") ? selGlobalPreset.value : null;
+
+      updatePresetOptions(topNavPresetSelect, activeTheme, false, currPreset);
+      updatePresetOptions(selGlobalPreset, activeTheme, true, currPreset);
+
+      onGlobalPresetChange();
+    }
+
+    function onTopNavThemeChange() {
+      const topNavThemeSelect = document.getElementById("top-nav-theme-select");
+      const selGlobalTheme = document.getElementById("sel-global-theme");
+      if (topNavThemeSelect && selGlobalTheme) {
+        selGlobalTheme.value = topNavThemeSelect.value;
+      }
+      const activeTheme = topNavThemeSelect ? topNavThemeSelect.value : "cyberpunk";
+
+      const topNavPresetSelect = document.getElementById("top-nav-preset-select");
+      const selGlobalPreset = document.getElementById("sel-global-preset");
+      updatePresetOptions(topNavPresetSelect, activeTheme, false);
+      updatePresetOptions(selGlobalPreset, activeTheme, true);
+
+      onGlobalPresetChange();
+    }
+
+    function onTopNavPresetChange() {
+      const topNavPresetSelect = document.getElementById("top-nav-preset-select");
+      const selGlobalPreset = document.getElementById("sel-global-preset");
+      if (topNavPresetSelect && selGlobalPreset) {
+        selGlobalPreset.value = topNavPresetSelect.value;
+        onGlobalPresetChange();
+      }
+    }
+
+    function onGlobalStyleChange() {
+      const selGlobalStyle = document.getElementById("sel-global-style");
+      if (selGlobalStyle) {
+        selectTopNavStyle(selGlobalStyle.value);
+      }
+    }
+
+    function onGlobalThemeChange() {
+      const selGlobalTheme = document.getElementById("sel-global-theme");
+      const topNavThemeSelect = document.getElementById("top-nav-theme-select");
+      if (selGlobalTheme && topNavThemeSelect) {
+        topNavThemeSelect.value = selGlobalTheme.value;
+      }
+      const activeTheme = selGlobalTheme ? selGlobalTheme.value : "cyberpunk";
+
+      const topNavPresetSelect = document.getElementById("top-nav-preset-select");
+      const selGlobalPreset = document.getElementById("sel-global-preset");
+      updatePresetOptions(topNavPresetSelect, activeTheme, false);
+      updatePresetOptions(selGlobalPreset, activeTheme, true);
+
+      onGlobalPresetChange();
+    }
+
+    function onBlockStyleChange() {
+      const selStyle = document.getElementById("sel-style");
+      const selTheme = document.getElementById("sel-theme");
+      const selPreset = document.getElementById("sel-preset");
+      if (selStyle && selTheme) {
+        updateThemeOptions(selTheme, selStyle.value);
+        const activeTheme = selTheme.value;
+        if (selPreset) {
+          updatePresetOptions(selPreset, activeTheme, false);
+        }
+        onBlockPresetChange();
+      }
+    }
+
+    function onBlockThemeChange() {
+      const selTheme = document.getElementById("sel-theme");
+      const selPreset = document.getElementById("sel-preset");
+      if (selTheme && selPreset) {
+        updatePresetOptions(selPreset, selTheme.value, false);
+        onBlockPresetChange();
+      }
+    }
+
+    function onBlockPresetChange() {
+      const selPreset = document.getElementById("sel-preset");
+      const preset = selPreset ? selPreset.value : "cyberpunk";
+      if (PRESET_COLORS[preset]) {
+        document.getElementById("inp-primary").value = PRESET_COLORS[preset].primary;
+        document.getElementById("picker-primary").value = PRESET_COLORS[preset].primary;
+        document.getElementById("inp-accent").value = PRESET_COLORS[preset].accent;
+        document.getElementById("picker-accent").value = PRESET_COLORS[preset].accent;
+        if (document.getElementById("inp-tertiary")) {
+          document.getElementById("inp-tertiary").value = PRESET_COLORS[preset].tertiary || "#ff0055";
+          document.getElementById("picker-tertiary").value = PRESET_COLORS[preset].tertiary || "#ff0055";
+        }
+      }
+      debounceRender();
+    }
+
     // --- Global Theme Logic ---
     function onGlobalPresetChange() {
-      const preset = document.getElementById("sel-global-preset").value;
+      const selGlobalPreset = document.getElementById("sel-global-preset");
+      const preset = selGlobalPreset ? selGlobalPreset.value : "cyberpunk";
       const primPicker = document.getElementById("picker-global-primary");
       const primText = document.getElementById("inp-global-primary");
       const accPicker = document.getElementById("picker-global-accent");
@@ -143,8 +445,14 @@
       const tertPicker = document.getElementById("picker-global-tertiary");
       const tertText = document.getElementById("inp-global-tertiary");
 
+      // Keep top nav preset select in sync if not custom
+      const topNavPresetSelect = document.getElementById("top-nav-preset-select");
+      if (topNavPresetSelect && preset !== "custom") {
+        topNavPresetSelect.value = preset;
+      }
+
       if (preset === "custom") {
-        primPicker.style.boxShadow = "0 0 6px var(--studio-cyan)";
+        primPicker.style.boxShadow = "0 0 6px var(--studio-teal)";
         accPicker.style.boxShadow = "0 0 6px var(--studio-purple)";
         if (tertPicker) tertPicker.style.boxShadow = "0 0 6px #ff0055";
         return;
@@ -163,6 +471,15 @@
           tertText.value = PRESET_COLORS[preset].tertiary || "#ff0055";
         }
       }
+      if (typeof updateCatalogPreviews === "function") {
+        updateCatalogPreviews();
+      }
+    }
+
+    function onGlobalModeChange() {
+      if (typeof updateCatalogPreviews === "function") {
+        updateCatalogPreviews();
+      }
     }
 
     function syncGlobalColor(type, from) {
@@ -179,13 +496,17 @@
       if (selPreset && selPreset.value !== "custom") {
         selPreset.value = "custom";
         onGlobalPresetChange();
+      } else if (typeof updateCatalogPreviews === "function") {
+        updateCatalogPreviews();
       }
     }
 
     async function applyGlobalThemeToAllBlocks(force = false) {
-      const gStyle = document.getElementById("sel-global-style").value;
-      const gPreset = document.getElementById("sel-global-preset").value;
-      const gMode = document.getElementById("sel-global-mode").value;
+      const activeStyleBtn = document.querySelector(".style-switch-group .seg-btn.active");
+      const gStyle = activeStyleBtn ? (activeStyleBtn.id.replace("btn-top-style-", "") || "pixel") : (document.getElementById("sel-global-style") ? document.getElementById("sel-global-style").value : "pixel");
+      const gTheme = document.getElementById("top-nav-theme-select") ? document.getElementById("top-nav-theme-select").value : (document.getElementById("sel-global-theme") ? document.getElementById("sel-global-theme").value : "cyberpunk");
+      const gPreset = document.getElementById("top-nav-preset-select") ? document.getElementById("top-nav-preset-select").value : (document.getElementById("sel-global-preset") ? document.getElementById("sel-global-preset").value : "cyberpunk");
+      const gMode = document.getElementById("sel-global-mode") ? document.getElementById("sel-global-mode").value : "auto";
       const gPrim = document.getElementById("inp-global-primary").value.trim();
       const gAcc = document.getElementById("inp-global-accent").value.trim();
       const gTert = document.getElementById("inp-global-tertiary") ? document.getElementById("inp-global-tertiary").value.trim() : "";
@@ -196,6 +517,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             style: gStyle,
+            theme: gTheme,
             preset: gPreset,
             mode: gMode,
             primary: gPrim,
@@ -205,7 +527,7 @@
           })
         });
         if (resp.ok) {
-          const msg = force ? "✓ FORCE OVERRIDE APPLIED TO ALL BLOCKS" : "✓ SOFT APPLY COMPLETED (ACCENTS PRESERVED)";
+          const msg = force ? "[OK] FORCE OVERRIDE APPLIED TO ALL BLOCKS" : "[OK] SOFT APPLY COMPLETED (ACCENTS PRESERVED)";
           flashNotification(msg, "var(--studio-green)");
           await loadTemplateBlocks(currentEditingBlockId);
           await loadCompiledPreview();
@@ -213,8 +535,9 @@
           const err = await resp.text();
           alert("Failed to apply global theme: " + err);
         }
-      } catch (e) {
-        alert("Error applying global theme: " + e);
+      } catch (err) {
+        console.error("Error applying global theme:", err);
+        alert("Error applying global theme: " + err);
       }
     }
 
@@ -226,21 +549,6 @@
         overrideBox.style.display = "none";
       } else {
         overrideBox.style.display = "block";
-      }
-      debounceRender();
-    }
-
-    function onBlockPresetChange() {
-      const preset = document.getElementById("sel-preset").value;
-      if (PRESET_COLORS[preset]) {
-        document.getElementById("picker-primary").value = PRESET_COLORS[preset].primary;
-        document.getElementById("inp-primary").value = PRESET_COLORS[preset].primary;
-        document.getElementById("picker-accent").value = PRESET_COLORS[preset].accent;
-        document.getElementById("inp-accent").value = PRESET_COLORS[preset].accent;
-        if (document.getElementById("picker-tertiary")) {
-          document.getElementById("picker-tertiary").value = PRESET_COLORS[preset].tertiary || "#ff0055";
-          document.getElementById("inp-tertiary").value = PRESET_COLORS[preset].tertiary || "#ff0055";
-        }
       }
       debounceRender();
     }
@@ -462,7 +770,7 @@
       switchEditorMode('insert');
 
       const heading = document.getElementById("lbl-inspector-heading");
-      heading.innerText = (afterId === -1) ? "■ INSERT BLOCK AT TOP" : `■ INSERT BLOCK AFTER #${afterId}`;
+      heading.innerText = (afterId === -1) ? "Insert Block at Top" : `Insert Block after #${afterId}`;
 
       document.getElementById("sel-type").value = "header";
       onTypeChange(true);
@@ -476,6 +784,11 @@
       switchEditorMode('edit');
       if (templateBlocks.length > 0) {
         onSelectExistingBlock();
+      } else {
+        const emptyState = document.getElementById("inspector-empty-state");
+        const editorContainer = document.getElementById("block-editor-container");
+        if (emptyState) emptyState.style.display = "flex";
+        if (editorContainer) editorContainer.style.display = "none";
       }
     }
 
@@ -487,15 +800,27 @@
       const heading = document.getElementById("lbl-inspector-heading");
       const selType = document.getElementById("sel-type");
       const badgeLock = document.getElementById("badge-lock-type");
+      const emptyState = document.getElementById("inspector-empty-state");
+      const editorContainer = document.getElementById("block-editor-container");
 
       if (mode === "edit") {
         grpExisting.style.display = "flex";
         editActions.style.display = "grid";
         insertActions.style.display = "none";
-        heading.innerText = "■ EDIT BLOCK PARAMETERS";
+        heading.innerText = "Block Parameters";
         selType.disabled = true;
         selType.title = "Block type cannot be changed after creation. To use another type, insert a new block.";
         if (badgeLock) badgeLock.style.display = "inline-block";
+        if (templateBlocks.length === 0 || currentEditingBlockId === null) {
+          if (emptyState) emptyState.style.display = "flex";
+          if (editorContainer) editorContainer.style.display = "none";
+        } else {
+          if (emptyState) emptyState.style.display = "none";
+          if (editorContainer) {
+            editorContainer.style.display = "flex";
+            editorContainer.style.flexDirection = "column";
+          }
+        }
       } else {
         grpExisting.style.display = "none";
         editActions.style.display = "none";
@@ -503,6 +828,11 @@
         selType.disabled = false;
         selType.title = "";
         if (badgeLock) badgeLock.style.display = "none";
+        if (emptyState) emptyState.style.display = "none";
+        if (editorContainer) {
+          editorContainer.style.display = "flex";
+          editorContainer.style.flexDirection = "column";
+        }
       }
     }
 
@@ -518,8 +848,14 @@
           const badge = document.getElementById("block-counter-badge");
           if (badge) badge.innerText = `${templateBlocks.length} blocks`;
 
+          const emptyState = document.getElementById("inspector-empty-state");
+          const editorContainer = document.getElementById("block-editor-container");
+
           if (templateBlocks.length === 0) {
-            sel.innerHTML = "<option value=''>No pixel-kit blocks found</option>";
+            sel.innerHTML = "<option value=''>No blocks found</option>";
+            currentEditingBlockId = null;
+            if (emptyState) emptyState.style.display = "flex";
+            if (editorContainer) editorContainer.style.display = "none";
             return;
           }
 
@@ -529,7 +865,7 @@
             const btype = blk.type.toUpperCase();
             const title = blk.attrs.title || blk.attrs.text || blk.attrs.label || blk.attrs.status || (blk.type === "divider" ? "DIVIDER" : "");
             const displayTitle = title ? ` // ${title.slice(0, 30)}` : "";
-            opt.innerText = `[#${blk.id}] ${btype}${displayTitle}`;
+            opt.innerText = `#${blk.id} ${btype}${displayTitle}`;
             sel.appendChild(opt);
           });
 
@@ -551,14 +887,28 @@
     function onSelectExistingBlock() {
       const sel = document.getElementById("sel-existing-block");
       const idx = parseInt(sel.value, 10);
-      if (isNaN(idx) || !templateBlocks[idx]) return;
+      const emptyState = document.getElementById("inspector-empty-state");
+      const editorContainer = document.getElementById("block-editor-container");
+
+      if (isNaN(idx) || !templateBlocks[idx]) {
+        currentEditingBlockId = null;
+        if (emptyState) emptyState.style.display = "flex";
+        if (editorContainer) editorContainer.style.display = "none";
+        return;
+      }
+
+      if (emptyState) emptyState.style.display = "none";
+      if (editorContainer) {
+        editorContainer.style.display = "flex";
+        editorContainer.style.flexDirection = "column";
+      }
 
       const blk = templateBlocks[idx];
       currentEditingBlockId = blk.id;
       currentEditingBlockOriginal = blk;
 
       const heading = document.getElementById("lbl-inspector-heading");
-      heading.innerText = `■ EDIT BLOCK #${blk.id}: ${blk.type.toUpperCase()}`;
+      heading.innerText = `#${blk.id} ${blk.type.toUpperCase()}`;
 
       const selType = document.getElementById("sel-type");
       selType.value = blk.type;
@@ -568,16 +918,27 @@
 
       // Check whether this block uses custom theme overrides or inherits
       const hasCustomStyle = !!attrs.style;
+      const hasCustomTheme = !!attrs.theme;
       const hasCustomPreset = !!attrs.preset;
       const hasCustomColors = !!(attrs.primary || attrs.accent || attrs.tertiary);
-      const isCustomOverride = hasCustomStyle || hasCustomPreset || hasCustomColors;
+      const isCustomOverride = hasCustomStyle || hasCustomTheme || hasCustomPreset || hasCustomColors;
 
       const chkInherit = document.getElementById("chk-inherit-theme");
       chkInherit.checked = !isCustomOverride;
       onInheritThemeToggle();
 
-      if (attrs.style) document.getElementById("sel-style").value = attrs.style;
-      if (attrs.preset) document.getElementById("sel-preset").value = attrs.preset;
+      const resolved = getStyleAndThemeForPreset(attrs.preset);
+      const blockStyle = attrs.style || resolved.style || "pixel";
+      const blockTheme = attrs.theme || resolved.theme || "cyberpunk";
+
+      const selStyle = document.getElementById("sel-style");
+      if (selStyle) selStyle.value = blockStyle;
+      const selTheme = document.getElementById("sel-theme");
+      if (selTheme) updateThemeOptions(selTheme, blockStyle, blockTheme);
+      const selPreset = document.getElementById("sel-preset");
+      if (selPreset) {
+        updatePresetOptions(selPreset, blockTheme, false, attrs.preset);
+      }
       if (attrs.mode) document.getElementById("sel-mode").value = attrs.mode;
 
       if (hasCustomColors) {
@@ -704,7 +1065,7 @@
 
       // 14. Footer
       document.getElementById("inp-footer-status").value = attrs.status || attrs.title || "SESSION_ACTIVE // STANDBY";
-      document.getElementById("inp-footer-nav").value = attrs.nav || attrs.tag || "▲ RETURN TO TOP";
+      document.getElementById("inp-footer-nav").value = attrs.nav || attrs.tag || "^ RETURN TO TOP";
       document.getElementById("inp-footer-sub").value = attrs.sub || attrs.subtitle || "";
 
       // 15. Social
@@ -770,6 +1131,7 @@
       const inheritTheme = document.getElementById("chk-inherit-theme").checked;
 
       let style = document.getElementById("sel-global-style").value;
+      let theme = document.getElementById("sel-global-theme") ? document.getElementById("sel-global-theme").value : "cyberpunk";
       let preset = document.getElementById("sel-global-preset").value;
       let mode = document.getElementById("sel-global-mode").value;
       let isCustomColors = false;
@@ -779,6 +1141,7 @@
 
       if (!inheritTheme) {
         style = document.getElementById("sel-style").value;
+        theme = document.getElementById("sel-theme") ? document.getElementById("sel-theme").value : "cyberpunk";
         preset = document.getElementById("sel-preset").value;
         mode = document.getElementById("sel-mode").value;
         isCustomColors = document.getElementById("rad-custom").checked;
@@ -794,6 +1157,7 @@
       let opening = `<!-- pixel-kit:${btype}`;
       if (!inheritTheme) {
         if (style) opening += ` style="${style}"`;
+        if (theme) opening += ` theme="${theme}"`;
         if (preset) opening += ` preset="${preset}"`;
         if (mode && mode !== "auto") opening += ` mode="${mode}"`;
         if (isCustomColors && prim) opening += ` primary="${prim}"`;
@@ -979,12 +1343,22 @@
           parsed[key] = val;
         }
 
-        const hasCustom = parsed.style || parsed.preset || parsed.primary || parsed.accent;
+        const hasCustom = parsed.style || parsed.theme || parsed.preset || parsed.primary || parsed.accent;
         document.getElementById("chk-inherit-theme").checked = !hasCustom;
         onInheritThemeToggle();
 
-        if (parsed.style) document.getElementById("sel-style").value = parsed.style;
-        if (parsed.preset) document.getElementById("sel-preset").value = parsed.preset;
+        const resolved = getStyleAndThemeForPreset(parsed.preset);
+        const blockStyle = parsed.style || resolved.style || "pixel";
+        const blockTheme = parsed.theme || resolved.theme || "cyberpunk";
+
+        const selStyle = document.getElementById("sel-style");
+        if (selStyle) selStyle.value = blockStyle;
+        const selTheme = document.getElementById("sel-theme");
+        if (selTheme) updateThemeOptions(selTheme, blockStyle, blockTheme);
+        const selPreset = document.getElementById("sel-preset");
+        if (selPreset) {
+          updatePresetOptions(selPreset, blockTheme, false, parsed.preset);
+        }
         if (parsed.mode) document.getElementById("sel-mode").value = parsed.mode;
         if (parsed.primary || parsed.accent) {
           document.getElementById("rad-custom").checked = true;
@@ -1072,6 +1446,7 @@
       const inheritTheme = document.getElementById("chk-inherit-theme").checked;
 
       let style = document.getElementById("sel-global-style").value;
+      let theme = document.getElementById("sel-global-theme") ? document.getElementById("sel-global-theme").value : "cyberpunk";
       let preset = document.getElementById("sel-global-preset").value;
       let mode = document.getElementById("sel-global-mode").value;
       let prim = "";
@@ -1080,6 +1455,7 @@
 
       if (!inheritTheme) {
         style = document.getElementById("sel-style").value;
+        theme = document.getElementById("sel-theme") ? document.getElementById("sel-theme").value : "cyberpunk";
         preset = document.getElementById("sel-preset").value;
         mode = document.getElementById("sel-mode").value;
         if (document.getElementById("rad-custom").checked) {
@@ -1103,6 +1479,7 @@
       const params = new URLSearchParams({
         block_type: btype,
         style: style,
+        theme: theme,
         preset: preset,
         mode: effectiveRenderMode
       });
@@ -1235,7 +1612,8 @@
           })
         });
         if (resp.ok) {
-          flashNotification("✓ BLOCK SAVED & RECOMPILED", "var(--studio-green)");
+          flashNotification("[OK] BLOCK SAVED & RECOMPILED", "var(--studio-green)");
+          markDraftDirty();
           const keepId = currentEditingBlockId;
           await loadTemplateBlocks(keepId);
           await loadCompiledPreview();
@@ -1261,7 +1639,8 @@
           })
         });
         if (resp.ok) {
-          flashNotification("✓ NEW BLOCK INSERTED", "var(--studio-green)");
+          flashNotification("[OK] NEW BLOCK INSERTED", "var(--studio-green)");
+          markDraftDirty();
           switchEditorMode('edit');
           await loadTemplateBlocks();
           await loadCompiledPreview();
@@ -1290,7 +1669,8 @@
           body: JSON.stringify({ id: currentEditingBlockId })
         });
         if (resp.ok) {
-          flashNotification("✓ BLOCK REMOVED", "var(--studio-amber)");
+          flashNotification("[OK] BLOCK REMOVED", "var(--studio-amber)");
+          markDraftDirty();
           currentEditingBlockId = null;
           currentEditingBlockOriginal = null;
           await loadTemplateBlocks(0);
@@ -1307,7 +1687,7 @@
     function copyDirective() {
       const code = document.getElementById("txt-raw-directive").value;
       navigator.clipboard.writeText(code).then(() => {
-        flashNotification("✓ COPIED TO CLIPBOARD", "var(--studio-cyan)");
+        flashNotification("[OK] COPIED TO CLIPBOARD", "var(--studio-cyan)");
       });
     }
 
@@ -1340,14 +1720,14 @@
         });
         const data = await resp.json();
         if (resp.ok && data.ok) {
-          flashNotification(data.committed ? "✓ README PUSHED TO GITHUB" : "✓ ALREADY UP TO DATE IN GIT", "var(--studio-green)");
+          flashNotification(data.committed ? "[OK] README PUSHED TO GITHUB" : "[OK] ALREADY UP TO DATE IN GIT", "var(--studio-green)");
           await loadCompiledPreview();
         } else {
-          flashNotification("✗ PUSH FAILED: " + (data.error || "Unknown error"), "var(--studio-danger)");
+          flashNotification("[ERR] PUSH FAILED: " + (data.error || "Unknown error"), "var(--studio-danger)");
           alert("Git Push Error: " + (data.error || "Failed to push to Git"));
         }
       } catch (err) {
-        flashNotification("✗ NETWORK ERROR DURING PUSH", "var(--studio-danger)");
+        flashNotification("[ERR] NETWORK ERROR DURING PUSH", "var(--studio-danger)");
         alert("Network / Server error: " + err);
       } finally {
         btn.disabled = false;
@@ -1414,12 +1794,16 @@
       });
     }
 
+    let sseReloadTimer = null;
     function initSSE() {
       if (sseSource) sseSource.close();
       sseSource = new EventSource("/events");
       sseSource.addEventListener("reload", () => {
-        loadTemplateBlocks(currentEditingBlockId);
-        loadCompiledPreview();
+        if (sseReloadTimer) clearTimeout(sseReloadTimer);
+        sseReloadTimer = setTimeout(() => {
+          loadTemplateBlocks(currentEditingBlockId);
+          loadCompiledPreview();
+        }, 200);
       });
       sseSource.onopen = () => {
         const el = document.getElementById("sse-status");
@@ -1429,6 +1813,443 @@
         const el = document.getElementById("sse-status");
         if (el) { el.innerText = "HUD STUDIO SYNC: RECONNECTING..."; el.style.color = "var(--studio-amber)"; }
       };
+    }
+
+    // ==============================================================================
+    // COMPONENT CATALOG & DRAG AND DROP
+    // ==============================================================================
+    const COMPONENT_CATALOG = [
+      {
+        id: "header",
+        name: "Header Banner",
+        category: "hero",
+        catName: "Hero & Banners",
+        desc: "Flagship master title banner with telemetry specs, status badge, and radar.",
+        snippet: '<!-- readme-kit:header title="READMEKIT // STUDIO" subtitle="Universal Customization System for GitHub" tag="[V5.1]" spec1="PYTHON 3.10+" spec2="100% SVG" spec3="NOMINAL" -->'
+      },
+      {
+        id: "window",
+        name: "Window Frame Monolith",
+        category: "containers",
+        catName: "Containers",
+        desc: "Seamless table container wrapper with 45° chamfers and status header.",
+        snippet: '<!-- readme-kit:window title="CORE // ARCHITECTURE" tag="[SYS_LOG]" -->\n\n| MODULE | STATUS | DESCRIPTION |\n| :--- | :--- | :--- |\n| Core Runtime | Online | Standard library architecture |\n\n<!-- /readme-kit:window -->'
+      },
+      {
+        id: "terminal",
+        name: "Terminal Shell",
+        category: "containers",
+        catName: "Containers",
+        desc: "Interactive details/summary terminal console for deployment commands and logs.",
+        snippet: '<!-- readme-kit:terminal title="BASH // PRODUCTION_DEPLOY" tag="[ONLINE]" -->\n\n```bash\n$ python -m generator.cli compile --clean-assets\n$ pytest tests/\n```\n\n<!-- /readme-kit:terminal -->'
+      },
+      {
+        id: "frame",
+        name: "Window Cap (Top/Bottom)",
+        category: "containers",
+        catName: "Containers",
+        desc: "Standalone top or bottom cap plate for enclosing custom tables.",
+        snippet: '<!-- readme-kit:frame frame_type="top" title="SYSTEM.CORE" tag="[OPEN_HUD]" -->'
+      },
+      {
+        id: "quote",
+        name: "Architectural Quote",
+        category: "content",
+        catName: "Callouts & Content",
+        desc: "Markdown-friendly quote box with 45° rail, dashed bottom, and alert badge.",
+        snippet: '<!-- readme-kit:quote title="ARCHITECTURAL NOTICE" subtitle="Component standard guarantees deterministic SVG rendering across modes." badge="NOTE" -->'
+      },
+      {
+        id: "callout",
+        name: "Alert Callout",
+        category: "content",
+        catName: "Callouts & Content",
+        desc: "Autonomous alert card with GitHub standard alert levels (NOTE, TIP, WARNING).",
+        snippet: '<!-- readme-kit:callout title="SECURITY ADVISORY" subtitle="Update dependency versions to latest patch to ensure integrity." callout_type="warning" -->'
+      },
+      {
+        id: "footer",
+        name: "Closing Footer Plate",
+        category: "navigation",
+        catName: "Navigation",
+        desc: "Monumental closing tray with session status, build info, and return-to-top button.",
+        snippet: '<!-- readme-kit:footer status="SYSTEM NOMINAL // ALL TESTS GREEN" nav_text="BACK TO TOP [^]" sub_text="BUILD 2026.10" -->'
+      },
+      {
+        id: "divider",
+        name: "Chapter Divider",
+        category: "navigation",
+        catName: "Navigation",
+        desc: "Vector chapter boundary line with grid ornaments and style accents.",
+        snippet: '<!-- readme-kit:divider -->'
+      },
+      {
+        id: "splitter",
+        name: "Sub-Module Splitter",
+        category: "navigation",
+        catName: "Navigation",
+        desc: "In-window section splitter line with centered telemetry badge.",
+        snippet: '<!-- readme-kit:splitter label="SECTION // TELEMETRY METRICS" -->'
+      },
+      {
+        id: "chip",
+        name: "Status Chip",
+        category: "badges",
+        catName: "Badges",
+        desc: "Holographic status pill badge with decay grid or live GitHub telemetry.",
+        snippet: '<!-- readme-kit:chip text="STATUS: 200 OK" type="decay" decay_dir="right" -->'
+      },
+      {
+        id: "metrics",
+        name: "Metrics KPI Row",
+        category: "metrics",
+        catName: "Metrics & Status",
+        desc: "Modular 3-metric KPI dashboard card with sparkline and percentage deltas.",
+        snippet: '<!-- readme-kit:metrics items="CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB" -->'
+      },
+      {
+        id: "progress",
+        name: "Progress HUD Bar",
+        category: "metrics",
+        catName: "Metrics & Status",
+        desc: "Multi-segment progress meter with percentage display and label.",
+        snippet: '<!-- readme-kit:progress label="ENGINE CORE UPGRADE" value="78" max_val="100" status="ACTIVE" -->'
+      },
+      {
+        id: "techstack",
+        name: "Tech Stack Matrix",
+        category: "metrics",
+        catName: "Metrics & Status",
+        desc: "Visual tech stack badges matrix organized by category.",
+        snippet: '<!-- readme-kit:techstack categories="LANGUAGES: Python, Rust, TypeScript | INFRA: Docker, K8s, Linux | FRAMEWORKS: React, FastAPI" -->'
+      },
+      {
+        id: "timeline",
+        name: "PCB Timeline / Roadmap",
+        category: "metrics",
+        catName: "Metrics & Status",
+        desc: "Milestone board with circuit traces and chronological phases.",
+        snippet: '<!-- readme-kit:timeline body=\'milestone title="ALPHA" date="2026-Q1" status="COMPLETED" desc="Testing"\\nmilestone title="BETA" date="2026-Q2" status="IN_PROGRESS" desc="Launch"\' -->'
+      },
+      {
+        id: "starchart",
+        name: "Star Growth Chart",
+        category: "social",
+        catName: "Profiles & Social",
+        desc: "Star history growth trend curve with coordinate grid, peaks, and gain metric.",
+        snippet: '<!-- readme-kit:starchart repo="Kazinagg/pixel-readme-kit" points="120, 240, 480, 890, 1450, 2100" labels="Jan, Feb, Mar, Apr, May, Jun" gain="+180%" -->'
+      },
+      {
+        id: "profile",
+        name: "Profile Dossier Card",
+        category: "social",
+        catName: "Profiles & Social",
+        desc: "Developer dossier profile card with cyber avatar, status LED, and tech badges.",
+        snippet: '<!-- readme-kit:profile name="KAZINAGG" role="SENIOR SYSTEMS ARCHITECT" status="ONLINE" location="TOKYO / BERLIN" badges="PYTHON,RUST,SYSTEMS" bio="Architecting deterministic SVG graphics and resilient systems." -->'
+      },
+      {
+        id: "social",
+        name: "OpenGraph Social Card",
+        category: "social",
+        catName: "Profiles & Social",
+        desc: "1280x640 OpenGraph social media preview banner with repo branding.",
+        snippet: '<!-- readme-kit:social title="READMEKIT" subtitle="Universal Customization System for GitHub" repo="Kazinagg/pixel-readme-kit" tags="PYTHON,SVG,CYBERPUNK" -->'
+      }
+    ];
+
+    let activeCatalogCategory = "all";
+    let catalogSearchQuery = "";
+    let draggedBlockType = null;
+    let draftIsDirty = false;
+
+    function toggleCatalogSidebar() {
+      const sidebar = document.getElementById("catalog-sidebar");
+      const btn = document.getElementById("btn-toggle-catalog");
+      if (!sidebar) return;
+      sidebar.classList.toggle("collapsed");
+      if (btn) btn.classList.toggle("active-btn", !sidebar.classList.contains("collapsed"));
+    }
+
+    // Backward-compatible alias
+    function toggleCatalogDrawer() {
+      toggleCatalogSidebar();
+    }
+
+    function getActiveThemeParams() {
+      const selStyleBtn = document.querySelector(".style-switch-group .seg-btn.active");
+      const style = selStyleBtn ? (selStyleBtn.id.replace("btn-top-style-", "") || "pixel") : "pixel";
+      const selTheme = document.getElementById("top-nav-theme-select");
+      const theme = selTheme ? selTheme.value : "cyberpunk";
+      const selPreset = document.getElementById("top-nav-preset-select");
+      const preset = selPreset ? selPreset.value : "cyberpunk";
+      const selMode = document.getElementById("sel-global-mode");
+      const mode = selMode ? selMode.value : "dark";
+      const prim = (document.getElementById("inp-global-primary") || {}).value || "";
+      const acc = (document.getElementById("inp-global-accent") || {}).value || "";
+      const tert = (document.getElementById("inp-global-tertiary") || {}).value || "";
+      return { style, theme, preset, mode, primary: prim, accent: acc, tertiary: tert };
+    }
+
+    function getBlockPreviewUrl(blockId, blockName) {
+      const p = getActiveThemeParams();
+      let effectiveMode = p.mode;
+      if (p.mode === "auto") {
+        let isLight = false;
+        if (activePreviewTheme === "light") {
+          isLight = true;
+        } else if (activePreviewTheme === "sync") {
+          isLight = (currentStudioThemeMode === "auto")
+            ? studioSystemThemeMedia.matches
+            : (currentStudioThemeMode === "light");
+        }
+        effectiveMode = isLight ? "light" : "dark";
+      }
+      let query = `block_type=${encodeURIComponent(blockId)}&style=${encodeURIComponent(p.style)}&theme=${encodeURIComponent(p.theme)}&preset=${encodeURIComponent(p.preset)}&mode=${encodeURIComponent(effectiveMode)}&width=280&title=${encodeURIComponent(blockName)}`;
+      if (p.primary && /^#[0-9A-Fa-f]{6}$/.test(p.primary)) query += `&primary=${encodeURIComponent(p.primary)}`;
+      if (p.accent && /^#[0-9A-Fa-f]{6}$/.test(p.accent)) query += `&accent=${encodeURIComponent(p.accent)}`;
+      if (p.tertiary && /^#[0-9A-Fa-f]{6}$/.test(p.tertiary)) query += `&tertiary=${encodeURIComponent(p.tertiary)}`;
+      return `/api/render?${query}`;
+    }
+
+    let catalogPreviewDebounce = null;
+    function updateCatalogPreviews(immediate = false) {
+      if (catalogPreviewDebounce) clearTimeout(catalogPreviewDebounce);
+      if (immediate) {
+        doUpdateCatalogPreviews();
+      } else {
+        catalogPreviewDebounce = setTimeout(doUpdateCatalogPreviews, 120);
+      }
+    }
+
+    function doUpdateCatalogPreviews() {
+      COMPONENT_CATALOG.forEach(b => {
+        const img = document.getElementById(`cat-thumb-${b.id}`);
+        if (img) {
+          img.src = getBlockPreviewUrl(b.id, b.name);
+        }
+      });
+    }
+
+    function renderCatalogDrawer() {
+      const listEl = document.getElementById("catalog-blocks-list");
+      if (!listEl) return;
+      const filtered = COMPONENT_CATALOG.filter(b => {
+        const matchCat = activeCatalogCategory === "all" || b.category === activeCatalogCategory;
+        const q = catalogSearchQuery.toLowerCase().trim();
+        const matchSearch = !q || b.name.toLowerCase().includes(q) || b.id.toLowerCase().includes(q) || b.desc.toLowerCase().includes(q);
+        return matchCat && matchSearch;
+      });
+
+      const badge = document.getElementById("catalog-count-badge");
+      if (badge) badge.innerText = `${filtered.length} BLOCKS`;
+
+      listEl.innerHTML = "";
+      filtered.forEach(b => {
+        const card = document.createElement("div");
+        card.className = "catalog-card";
+        card.setAttribute("draggable", "true");
+        card.setAttribute("data-block-id", b.id);
+        const thumbUrl = getBlockPreviewUrl(b.id, b.name);
+        card.innerHTML = `
+          <div class="catalog-card-header">
+            <span class="catalog-card-name">
+              <svg viewBox="0 0 16 16" width="12" height="12" fill="var(--studio-cyan)"><path d="M7.75 2a.75.75 0 0 1 .75.75V7h4.25a.75.75 0 0 1 0 1.5H8.5v4.25a.75.75 0 0 1-1.5 0V8.5H2.75a.75.75 0 0 1 0-1.5H7V2.75A.75.75 0 0 1 7.75 2Z"/></svg>
+              ${b.name}
+            </span>
+            <span class="catalog-card-cat">${b.catName}</span>
+          </div>
+          <div class="catalog-card-desc">${b.desc}</div>
+          <div class="${(activePreviewTheme === 'light' || (activePreviewTheme === 'sync' && ((currentStudioThemeMode === 'auto') ? studioSystemThemeMedia.matches : (currentStudioThemeMode === 'light')))) ? 'catalog-card-preview light-preview' : 'catalog-card-preview'}" title="Live SVG preview in active theme">
+            <img id="cat-thumb-${b.id}" src="${thumbUrl}" alt="${b.name}" loading="lazy" />
+          </div>
+          <div class="catalog-card-footer">
+            <span class="catalog-card-pill">drag or click &rarr;</span>
+            <button class="catalog-card-btn" onclick="insertBlockFromCatalog('${b.id}', -1, event)">+ Add</button>
+          </div>
+        `;
+        card.addEventListener("dragstart", (e) => onBlockDragStart(e, b.id));
+        card.addEventListener("dragend", onBlockDragEnd);
+        listEl.appendChild(card);
+      });
+    }
+
+    async function fetchTemplatesList() {
+      const sel = document.getElementById("sel-template-file");
+      if (!sel) return;
+      try {
+        const res = await fetch("/api/templates");
+        if (!res.ok) return;
+        const data = await res.json();
+        sel.innerHTML = "";
+        (data.templates || []).forEach(t => {
+          const opt = document.createElement("option");
+          opt.value = t.path;
+          opt.textContent = t.name;
+          if (t.is_active) opt.selected = true;
+          sel.appendChild(opt);
+        });
+        if (data.current) {
+          const filename = data.current.split("/").pop().split("\\").pop();
+          const lbl = document.getElementById("template-filename");
+          if (lbl) lbl.textContent = filename;
+        }
+      } catch (err) {
+        console.error("Failed to fetch templates:", err);
+      }
+    }
+
+    async function onTemplateFileSelect() {
+      const sel = document.getElementById("sel-template-file");
+      if (!sel || !sel.value) return;
+      const newPath = sel.value;
+      try {
+        const res = await fetch("/api/template/switch", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ file: newPath, path: newPath })
+        });
+        if (res.ok) {
+          const filename = newPath.split("/").pop().split("\\").pop();
+          flashNotification(`Active file: ${filename}`, "var(--studio-green)");
+          const lbl = document.getElementById("template-filename");
+          if (lbl) lbl.textContent = filename;
+          clearDraftDirty();
+          await loadTemplateBlocks();
+          await loadCompiledPreview();
+        } else {
+          const err = await res.text();
+          alert("Failed to switch template: " + err);
+        }
+      } catch (err) {
+        alert("Error switching template: " + err);
+      }
+    }
+
+    function filterCatalogBlocks() {
+      const inp = document.getElementById("catalog-search-inp");
+      catalogSearchQuery = inp ? inp.value : "";
+      renderCatalogDrawer();
+    }
+
+    function filterCatalogCategory(cat) {
+      activeCatalogCategory = cat;
+      document.querySelectorAll(".cat-tag-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.getAttribute("data-cat") === cat);
+      });
+      renderCatalogDrawer();
+    }
+
+    function onBlockDragStart(e, blockType) {
+      draggedBlockType = blockType;
+      e.dataTransfer.setData("text/plain", blockType);
+      e.dataTransfer.effectAllowed = "copy";
+      e.currentTarget.classList.add("dragging");
+      document.querySelectorAll(".pk-insert-divider").forEach(d => {
+        d.classList.add("drop-target-active");
+      });
+    }
+
+    function onBlockDragEnd(e) {
+      draggedBlockType = null;
+      document.querySelectorAll(".catalog-card").forEach(c => c.classList.remove("dragging"));
+      document.querySelectorAll(".pk-insert-divider").forEach(d => {
+        d.classList.remove("drop-target-active", "drag-over");
+      });
+    }
+
+    function onDividerDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "copy";
+      e.currentTarget.classList.add("drag-over");
+    }
+
+    function onDividerDragLeave(e) {
+      e.currentTarget.classList.remove("drag-over");
+    }
+
+    async function onDividerDrop(e, afterId) {
+      e.preventDefault();
+      e.currentTarget.classList.remove("drag-over");
+      const blockType = e.dataTransfer.getData("text/plain") || draggedBlockType;
+      if (!blockType) return;
+      await insertBlockFromCatalog(blockType, afterId);
+    }
+
+    async function insertBlockFromCatalog(blockType, afterId = -1, event = null) {
+      if (event) event.stopPropagation();
+      const item = COMPONENT_CATALOG.find(b => b.id === blockType);
+      if (!item) return;
+
+      const p = getActiveThemeParams();
+      const curStyle = p.style;
+      const curTheme = p.theme;
+
+      let directive = item.snippet;
+      if (!directive.includes('style="')) {
+        directive = item.snippet.replace(`<!-- readme-kit:${item.id}`, `<!-- readme-kit:${item.id} style="${curStyle}" theme="${curTheme}"`);
+      }
+
+      try {
+        const resp = await fetch("/api/template/insert_block", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            after_id: afterId,
+            directive_raw: directive
+          })
+        });
+        if (resp.ok) {
+          flashNotification(`Added ${item.name}`, "var(--studio-green)");
+          markDraftDirty();
+          await loadTemplateBlocks();
+          await loadCompiledPreview();
+        } else {
+          const err = await resp.text();
+          alert("Failed to insert block: " + err);
+        }
+      } catch (e) {
+        alert("Error inserting block: " + e);
+      }
+    }
+
+    function markDraftDirty() {
+      draftIsDirty = true;
+      const badge = document.getElementById("draft-dirty-badge");
+      const revBtn = document.getElementById("btn-revert-file");
+      if (badge) badge.style.display = "inline-flex";
+      if (revBtn) revBtn.style.display = "inline-flex";
+    }
+
+    function clearDraftDirty() {
+      draftIsDirty = false;
+      const badge = document.getElementById("draft-dirty-badge");
+      const revBtn = document.getElementById("btn-revert-file");
+      if (badge) badge.style.display = "none";
+      if (revBtn) revBtn.style.display = "none";
+    }
+
+    async function saveTemplateToFile() {
+      try {
+        const resp = await fetch("/api/recompile", { method: "POST" });
+        if (resp.ok) {
+          flashNotification("[OK] TEMPLATE & README SAVED TO DISK", "var(--studio-green)");
+          clearDraftDirty();
+          await loadTemplateBlocks(currentEditingBlockId);
+          await loadCompiledPreview();
+        } else {
+          alert("Recompile failed");
+        }
+      } catch (e) {
+        alert("Save failed: " + e);
+      }
+    }
+
+    async function revertDraftChanges() {
+      if (!confirm("Revert unsaved draft changes and reload template from disk?")) return;
+      clearDraftDirty();
+      await loadTemplateBlocks();
+      await loadCompiledPreview();
+      flashNotification("[OK] REVERTED TO DISK VERSION", "var(--studio-amber)");
     }
 
     // Global Keyboard Shortcuts
@@ -1449,15 +2270,18 @@
         if (savedMode === "view") {
           setStudioMode("view");
         }
-        const savedTheme = localStorage.getItem("pk_preview_theme");
-        if (savedTheme === "light") {
-          switchPreviewTheme("light");
-        }
+        const savedTheme = localStorage.getItem("pk_preview_theme") || "dark";
+        switchPreviewTheme(savedTheme);
+        const savedStudioTheme = localStorage.getItem("prk_studio_theme") || "dark";
+        setStudioTheme(savedStudioTheme);
       } catch (_) {}
-      onGlobalPresetChange();
-      onBlockPresetChange();
+      selectTopNavStyle("pixel");
+      onBlockStyleChange();
+      renderCatalogDrawer();
+      fetchTemplatesList();
       loadTemplateBlocks();
       loadCompiledPreview();
+      updateCatalogPreviews(true);
       attachPreviewClickInterceptor();
       initSSE();
     });

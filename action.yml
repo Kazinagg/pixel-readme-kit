@@ -1,5 +1,5 @@
-name: 'Pixel Readme Kit Auto-Sync & Compiler'
-description: 'Compile pixel-kit directives, auto-update GitHub stars and metrics, and generate vector SVG assets.'
+name: 'ReadmeKit Auto-Sync & Compiler'
+description: 'Compile readme-kit directives, auto-update GitHub stars and metrics, and generate adaptive vector SVG assets.'
 author: 'Kazinagg'
 branding:
   icon: 'layout'
@@ -39,11 +39,11 @@ runs:
       with:
         python-version: '3.11'
 
-    - name: Install Pixel Readme Kit
+    - name: Install ReadmeKit
       shell: bash
       run: |
         python -m pip install --upgrade pip
-        pip install pixel-readme-kit || pip install -e ${{ github.action_path }}
+        pip install readme-kit || pip install pixel-readme-kit || pip install -e ${{ github.action_path }}
 
     - name: Compile and Sync Template
       shell: bash

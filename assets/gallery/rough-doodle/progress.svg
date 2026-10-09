@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 76" width="100%" height="100%">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(18, 18, 18, 0.95);
+        --bg-panel: rgba(28, 28, 28, 0.90);
+        --border-chassis: #E0E0E0;
+        --primary: #A78BFA;
+        --accent: #6EE7B7;
+        --tertiary: #FDE047;
+        --title-front: #F3F4F6;
+        --title-mid: #E0E0E0;
+        --title-dark: #A78BFA;
+        --text-main: #F3F4F6;
+        --text-dim: #9CA3AF;
+        --status: #6EE7B7;
+        --warning: #FDE047;
+        --grid-op: 0.06;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(18, 18, 18, 0.95);
+          --bg-panel: rgba(28, 28, 28, 0.90);
+          --border-chassis: #E0E0E0;
+          --primary: #A78BFA;
+          --accent: #6EE7B7;
+          --tertiary: #FDE047;
+          --title-front: #F3F4F6;
+          --title-mid: #E0E0E0;
+          --title-dark: #A78BFA;
+          --text-main: #F3F4F6;
+          --text-dim: #9CA3AF;
+          --status: #6EE7B7;
+          --warning: #FDE047;
+          --grid-op: 0.06;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #FDFDFD;
+          --bg-panel: #F4F4F5;
+          --border-chassis: #1F2937;
+          --primary: #4F46E5;
+          --accent: #059669;
+          --tertiary: #D97706;
+          --title-front: #111827;
+          --title-mid: #374151;
+          --title-dark: #4F46E5;
+          --text-main: #111827;
+          --text-dim: #4B5563;
+          --status: #059669;
+          --warning: #D97706;
+          --grid-op: 0.06;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #A78BFA));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+
+    .font-sketch { font-family: 'Virgil', 'Architects Daughter', 'Comic Shanns', 'Kalam', 'Chalkboard SE', 'Comic Sans MS', 'Casual', cursive, sans-serif; }
+    .font-sketch-mono { font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, monospace; }
+    .sketch-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .sketch-hover:hover { opacity: 0.85; transform: scale(1.01); }
+
+    </style>
+    <pattern id="progSketch-hatch" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--primary)" stroke-width="1.3" opacity="0.45" />
+    </pattern>
+    <pattern id="progSketch-crosshatch" width="12" height="12" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+      <line x1="0" y1="0" x2="12" y2="0" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+    </pattern>
+    <pattern id="progSketch-hatch-accent" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--accent)" stroke-width="1.3" opacity="0.5" />
+    </pattern>
+    <linearGradient id="progSketch-tape" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0.25" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sketch Background Chassis -->
+  <rect x="2" y="2" width="846" height="72" rx="6" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M -1.99 1.48 Q 423.51 1.22 851.02 2.49" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M -1.43 1.95 Q 425.65 2.08 851.37 2.75" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 848.9 -2.02 Q 847.72 38.43 849.15 76.23" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 847.16 -1.46 Q 847.69 37.12 847.36 76.74" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 850.69 74.16 Q 424.44 74.15 -0.42 75.06" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 851.11 74.49 Q 424.91 73.34 -0.18 73.28" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 1.11 76.59 Q 2.01 38.72 1.65 -0.87" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 1.65 77.03 Q 1.45 36.88 2.08 -0.54" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+
+  <!-- Label & Percentage Tag -->
+  <text x="18" y="24" fill="var(--text-main)" font-size="12" font-weight="600" class="font-sketch">SPRINT COMPLETION</text>
+  <g>
+    <rect x="774" y="10" width="58" height="20" rx="4" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 772.06 9.13 Q 804.52 8.63 835.51 10.99" stroke="var(--accent)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 770.29 9.67 Q 804.13 10.56 835.77 9.23" stroke="var(--accent)" stroke-width="0.94" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 832.91 5.99 Q 833.77 18.88 832.99 32.07" stroke="var(--accent)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 831.17 6.55 Q 832.93 20.36 831.23 32.61" stroke="var(--accent)" stroke-width="0.94" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 834.53 30.0 Q 804.47 28.58 770.58 30.05" stroke="var(--accent)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 834.98 30.36 Q 804.17 30.6 771.02 30.4" stroke="var(--accent)" stroke-width="0.94" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 773.57 33.05 Q 775.06 21.77 772.99 6.47" stroke="var(--accent)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 774.02 33.4 Q 772.61 20.92 773.55 6.93" stroke="var(--accent)" stroke-width="0.94" stroke-linecap="round" fill="none" opacity="0.75" />
+    <text x="803" y="24" fill="var(--primary)" font-size="11" font-weight="700" text-anchor="middle" class="font-sketch">85%</text>
+  </g>
+
+  <!-- Track & Hatch-Filled Bar -->
+  <rect x="18" y="34" width="814" height="12" rx="4" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 15.79 32.87 Q 424.31 34.03 834.13 33.6" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 14.07 33.45 Q 425.01 33.44 834.66 34.04" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 831.53 31.0 Q 830.23 38.94 832.06 49.54" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 831.98 31.36 Q 832.88 40.31 832.41 49.79" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 836.0 45.07 Q 424.94 46.66 14.76 46.24" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 834.24 45.62 Q 424.51 44.94 15.17 46.55" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 17.76 47.95 Q 17.2 39.91 19.13 30.2" stroke="var(--border-chassis)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 17.14 48.52 Q 16.76 41.07 17.34 30.72" stroke="var(--border-chassis)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+  <rect x="18" y="34" width="691.9" height="12" rx="3" fill="url(#progSketch-hatch)"/>
+  <path d="M 709.51 33.8 Q 709.91 40.31 710.12 46.42" stroke="var(--primary)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+
+  <!-- Subtext & Legend -->
+  <text x="18" y="62" fill="var(--text-dim)" font-size="11" class="font-sketch">✏️ 34 OF 40 TASKS COMPLETED (85%)</text>
+  <text x="832" y="62" fill="var(--text-dim)" font-size="11" text-anchor="end" class="font-sketch">[0% — 100% draft]</text>
+</svg>

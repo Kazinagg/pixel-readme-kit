@@ -89,7 +89,7 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0")
             self.end_headers()
-            self.wfile.write(STUDIO_HTML.encode("utf-8"))
+            self.wfile.write(_load_studio_html().encode("utf-8"))
             return
 
         # 2. Static Assets Serving (/static/*)
@@ -205,6 +205,47 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
                 "count": len(blocks),
                 "blocks": blocks
             }
+            self.wfile.write(json.dumps(resp).encode("utf-8"))
+            return
+
+        # 8.5 List Available Templates and Readmes (/api/templates)
+        if path == "/api/templates":
+            items = []
+            seen = set()
+
+            # Scan root workspace directory
+            root_dir = PROJECT_ROOT if os.path.exists(PROJECT_ROOT) else "."
+            for f in sorted(os.listdir(root_dir)):
+                if f.endswith(".template.md"):
+                    items.append({"name": f, "path": f, "is_template": True})
+                    seen.add(f)
+                elif f.endswith(".md") and not f.endswith(".template.md") and f in ("README.md", "CATALOG.md", "EXAMPLES.md"):
+                    items.append({"name": f, "path": f, "is_template": False})
+                    seen.add(f)
+
+            # Check generator/templates for starter templates
+            gen_tpl_dir = os.path.join(PROJECT_ROOT, "generator", "templates")
+            if os.path.isdir(gen_tpl_dir):
+                for root, _, files in os.walk(gen_tpl_dir):
+                    for f in sorted(files):
+                        if f.endswith(".template.md"):
+                            rel_p = os.path.relpath(os.path.join(root, f), PROJECT_ROOT).replace("\\", "/")
+                            if rel_p not in seen:
+                                items.append({"name": rel_p, "path": rel_p, "is_template": True})
+                                seen.add(rel_p)
+
+            cur = getattr(self, "template_file", "README.template.md")
+            for item in items:
+                item["is_active"] = (item["path"] == cur)
+            resp = {
+                "status": "success",
+                "current": cur,
+                "templates": items
+            }
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Cache-Control", "no-cache")
+            self.end_headers()
             self.wfile.write(json.dumps(resp).encode("utf-8"))
             return
 
@@ -415,6 +456,55 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
             handle_theme_save(self, body)
             return
 
+        if path == "/api/template/switch":
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else "{}"
+            try:
+                req = json.loads(body)
+                target_path = (req.get("path") or req.get("file") or "").strip()
+                if not target_path:
+                    self.send_error(400, "Missing path in request")
+                    return
+                # Normalize relative to workspace root if needed
+                full_path = os.path.join(PROJECT_ROOT, target_path) if not os.path.isabs(target_path) else target_path
+                if not os.path.exists(full_path):
+                    # Check relative to cwd
+                    if os.path.exists(target_path):
+                        full_path = target_path
+                    else:
+                        self.send_error(404, f"File not found: {target_path}")
+                        return
+
+                rel_target = os.path.relpath(full_path, PROJECT_ROOT).replace("\\", "/") if full_path.startswith(PROJECT_ROOT) else target_path
+                StudioRequestHandler.template_file = rel_target
+                if rel_target.endswith(".template.md"):
+                    StudioRequestHandler.output_file = rel_target[:-len(".template.md")] + ".md"
+                elif rel_target.endswith(".md"):
+                    StudioRequestHandler.output_file = rel_target
+
+                # Trigger compile if template
+                if (rel_target.endswith(".template.md")
+                        and os.path.exists(StudioRequestHandler.template_file)
+                        and StudioRequestHandler.template_file != StudioRequestHandler.output_file):
+                    compiler = MarkdownCompiler(assets_dir=self.assets_dir, use_cache=True)
+                    compiler.compile_file(StudioRequestHandler.template_file, StudioRequestHandler.output_file)
+
+                # Broadcast reload to all connected clients
+                self.trigger_compile()
+
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                self.wfile.write(json.dumps({
+                    "status": "switched",
+                    "template": StudioRequestHandler.template_file,
+                    "output": StudioRequestHandler.output_file
+                }).encode("utf-8"))
+                return
+            except Exception as e:
+                self.send_error(500, f"Switch template error: {e}")
+                return
+
         if path == "/api/git/push_readme":
             handle_git_push(self)
             return
@@ -443,9 +533,15 @@ class StudioRequestHandler(SimpleHTTPRequestHandler):
     @classmethod
     def trigger_compile(cls):
         """Forces compilation and notifies all SSE clients."""
-        if os.path.exists(cls.template_file):
-            compiler = MarkdownCompiler(assets_dir=cls.assets_dir, use_cache=False, bust_cache=True)
-            compiler.compile_file(cls.template_file, cls.output_file)
+        # Only compile to disk if it is a template file and template != output to prevent circular rewrite loops
+        if (os.path.exists(cls.template_file)
+                and cls.template_file.endswith(".template.md")
+                and cls.template_file != cls.output_file):
+            try:
+                compiler = MarkdownCompiler(assets_dir=cls.assets_dir, use_cache=False, bust_cache=True)
+                compiler.compile_file(cls.template_file, cls.output_file)
+            except Exception as e:
+                print(f"[Studio] Compilation error: {e}", file=sys.stderr)
 
         with cls.subscribers_lock:
             dead = set()
@@ -471,23 +567,34 @@ class ThreadedStudioServer(ThreadingMixIn, HTTPServer):
         super().handle_error(request, client_address)
 
 
-def start_file_watcher(template_path: str, handler_class, poll_interval: float = 0.3):
-    """Background thread watching template file mtime to trigger auto-reloads."""
+def start_file_watcher(template_path: str, handler_class, poll_interval: float = 0.5):
+    """Background thread watching active template file mtime to trigger auto-reloads safely."""
     def watcher_loop():
-        last_mtime = 0
-        if os.path.exists(template_path):
-            last_mtime = os.path.getmtime(template_path)
+        known_mtimes = {}
+        last_tracked_path = None
 
         while True:
             time.sleep(poll_interval)
-            if os.path.exists(template_path):
-                try:
-                    mtime = os.path.getmtime(template_path)
-                    if mtime > last_mtime:
-                        last_mtime = mtime
-                        handler_class.trigger_compile()
-                except OSError:
-                    pass
+            active_path = getattr(handler_class, "template_file", template_path)
+            if not os.path.exists(active_path):
+                continue
+
+            try:
+                mtime = os.path.getmtime(active_path)
+            except OSError:
+                continue
+
+            # If active template changed, initialize its mtime baseline without triggering reload
+            if active_path != last_tracked_path:
+                last_tracked_path = active_path
+                known_mtimes[active_path] = mtime
+                continue
+
+            # Check if current active template was modified externally
+            prev_mtime = known_mtimes.get(active_path, 0)
+            if mtime > prev_mtime:
+                known_mtimes[active_path] = mtime
+                handler_class.trigger_compile()
 
     t = threading.Thread(target=watcher_loop, daemon=True)
     t.start()
@@ -516,7 +623,7 @@ def run_studio_server(template_path="README.template.md", output_path="README.md
     server = ThreadedStudioServer(("127.0.0.1", port), StudioRequestHandler)
     url = f"http://localhost:{port}/"
     print(f"[*] ╔═══════════════════════════════════════════════════════════╗")
-    print(f"[*] ║      PIXEL README KIT // HUD STUDIO LIVE PREVIEW v5.0     ║")
+    print(f"[*] ║        READMEKIT // HUD STUDIO LIVE PREVIEW v6.5          ║")
     print(f"[*] ╚═══════════════════════════════════════════════════════════╝")
     print(f"[*] ▶ Studio Web UI:     {url}")
     print(f"[*] ▶ Active Template:   {template_path}")

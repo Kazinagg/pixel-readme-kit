@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 102" width="100%" height="100%">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(6, 20, 16, 0.92);
+        --bg-panel: rgba(12, 34, 27, 0.86);
+        --border-chassis: rgba(20, 60, 48, 0.85);
+        --primary: #10B981;
+        --accent: #34D399;
+        --tertiary: #059669;
+        --title-front: #34D399;
+        --title-mid: #059669;
+        --title-dark: #047857;
+        --text-main: #ECFDF5;
+        --text-dim: #6EE7B7;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.07;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(6, 20, 16, 0.92);
+          --bg-panel: rgba(12, 34, 27, 0.86);
+          --border-chassis: rgba(20, 60, 48, 0.85);
+          --primary: #10B981;
+          --accent: #34D399;
+          --tertiary: #059669;
+          --title-front: #34D399;
+          --title-mid: #059669;
+          --title-dark: #047857;
+          --text-main: #ECFDF5;
+          --text-dim: #6EE7B7;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.07;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F0FDF4;
+          --bg-panel: #DCFCE7;
+          --border-chassis: #BBF7D0;
+          --primary: #15803D;
+          --accent: #16A34A;
+          --tertiary: #166534;
+          --title-front: #14532D;
+          --title-mid: #15803D;
+          --title-dark: #166534;
+          --text-main: #14532D;
+          --text-dim: #166534;
+          --status: #15803D;
+          --warning: #CA8A04;
+          --grid-op: 0.08;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #10B981));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .font-mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', Menlo, monospace; }
+    .btn-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .btn-hover:hover { opacity: 0.85; }
+
+    </style>
+  </defs>
+  <g id="metric-card-0">
+    <rect x="2" y="3" width="272" height="96" rx="12" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <text x="18" y="28" fill="var(--text-dim)" font-size="11" font-weight="600" class="font-sans">ACTIVE CLUSTERS</text>
+    
+    <text x="18" y="59" fill="var(--text-main)" font-size="26" font-weight="700" class="font-sans" letter-spacing="-0.5">128</text>
+    <text x="18" y="83" fill="var(--status)" font-size="10.5" font-weight="600" class="font-sans">↑ +12% weekly</text>
+    <path d="M 218 81 Q 230 73 242 77 T 262 71" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" opacity="0.65"/>
+    <circle cx="262" cy="71" r="2.5" fill="var(--accent)"/>
+  </g>
+  <g id="metric-card-1">
+    <rect x="288" y="3" width="272" height="96" rx="12" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <text x="304" y="28" fill="var(--text-dim)" font-size="11" font-weight="600" class="font-sans">UPTIME SLA</text>
+    <g transform="translate(495, 15)">
+      <rect x="0" y="0" width="53" height="18" rx="9" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+      <text x="26" y="12" fill="var(--primary)" font-size="9" font-weight="600" text-anchor="middle" class="font-sans">STABLE</text>
+    </g>
+    <text x="304" y="59" fill="var(--text-main)" font-size="26" font-weight="700" class="font-sans" letter-spacing="-0.5">99.99%</text>
+    
+    <path d="M 504 81 Q 516 73 528 77 T 548 71" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" opacity="0.65"/>
+    <circle cx="548" cy="71" r="2.5" fill="var(--accent)"/>
+  </g>
+  <g id="metric-card-2">
+    <rect x="574" y="3" width="272" height="96" rx="12" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <text x="590" y="28" fill="var(--text-dim)" font-size="11" font-weight="600" class="font-sans">LATENCY P99</text>
+    
+    <text x="590" y="59" fill="var(--text-main)" font-size="26" font-weight="700" class="font-sans" letter-spacing="-0.5">1.8ms</text>
+    <text x="590" y="83" fill="var(--status)" font-size="10.5" font-weight="600" class="font-sans">↑ -0.4ms</text>
+    <path d="M 790 81 Q 802 73 814 77 T 834 71" fill="none" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" opacity="0.65"/>
+    <circle cx="834" cy="71" r="2.5" fill="var(--accent)"/>
+  </g>
+</svg>

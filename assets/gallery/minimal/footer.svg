@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 76" width="100%" height="100%" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(15, 18, 30, 0.85);
+        --bg-panel: rgba(22, 27, 46, 0.80);
+        --border-chassis: rgba(41, 46, 66, 0.85);
+        --primary: #4F8BFF;
+        --accent: #A855F7;
+        --tertiary: #06B6D4;
+        --title-front: #4F8BFF;
+        --title-mid: #2563EB;
+        --title-dark: #1E3A8A;
+        --text-main: #F1F5F9;
+        --text-dim: #94A3B8;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.08;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(15, 18, 30, 0.85);
+          --bg-panel: rgba(22, 27, 46, 0.80);
+          --border-chassis: rgba(41, 46, 66, 0.85);
+          --primary: #4F8BFF;
+          --accent: #A855F7;
+          --tertiary: #06B6D4;
+          --title-front: #4F8BFF;
+          --title-mid: #2563EB;
+          --title-dark: #1E3A8A;
+          --text-main: #F1F5F9;
+          --text-dim: #94A3B8;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F8FAFC;
+          --bg-panel: #F1F5F9;
+          --border-chassis: #E2E8F0;
+          --primary: #1D4ED8;
+          --accent: #6D28D9;
+          --tertiary: #0891B2;
+          --title-front: #1D4ED8;
+          --title-mid: #1E40AF;
+          --title-dark: #0F172A;
+          --text-main: #0F172A;
+          --text-dim: #64748B;
+          --status: #16A34A;
+          --warning: #D97706;
+          --grid-op: 0.10;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #4F8BFF));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      .font-mono { font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace; }
+    </style>
+  </defs>
+  <!-- Hairline Glass Footer Chassis -->
+  <rect x="1" y="2" width="848" height="72" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.5"/>
+  <rect x="1" y="2" width="848" height="2" fill="var(--primary)" opacity="0.9"/>
+  <!-- Corner Hairline Hooks -->
+  <path d="M 6 16 L 6 6 L 16 6" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
+  <path d="M 844 16 L 844 6 L 834 6" fill="none" stroke="var(--primary)" stroke-width="1.5"/>
+  <path d="M 6 60 L 6 70 L 16 70" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+  <path d="M 844 60 L 844 70 L 834 70" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+
+  <!-- Top Micro-Header Line -->
+  <text x="24" y="16" fill="var(--text-dim)" font-size="11" class="font-mono">// TERMINAL_SESSION // KERNEL v3.0</text>
+  <line x1="220" y1="13" x2="630" y2="13" stroke="var(--border-chassis)" stroke-width="1"/>
+  <text x="826" y="16" fill="var(--text-dim)" font-size="11" text-anchor="end" class="font-mono">END_OF_PAGE</text>
+
+  <!-- Main Status Row -->
+  <circle cx="28" cy="38" r="4" fill="var(--primary)"/>
+  <circle cx="28" cy="38" r="7" fill="none" stroke="var(--primary)" stroke-width="1" opacity="0.4"/>
+  <text x="44" y="42" fill="var(--text-main)" font-size="11.5" font-weight="bold" class="font-mono">STATUS: <tspan fill="var(--primary)">SYSTEM NOMINAL // ALL TESTS GREEN</tspan></text>
+
+  <!-- Secondary Telemetry Line -->
+  <text x="24" y="62" fill="var(--text-dim)" font-size="11" class="font-mono">BUILD 2026.10</text>
+
+  <!-- Center Spectrum Waveform -->
+  <g transform="translate(405, 32)">
+    <rect x="0" y="4" width="3" height="12" fill="var(--primary)" opacity="0.6"/>
+    <rect x="6" y="1" width="3" height="18" fill="var(--accent)" opacity="0.8"/>
+    <rect x="12" y="7" width="3" height="9" fill="var(--primary)" opacity="0.5"/>
+    <rect x="18" y="0" width="3" height="20" fill="var(--tertiary)" opacity="1"/>
+    <rect x="24" y="5" width="3" height="11" fill="var(--primary)" opacity="0.7"/>
+    <rect x="30" y="2" width="3" height="16" fill="var(--accent)" opacity="0.8"/>
+    <rect x="36" y="6" width="3" height="10" fill="var(--primary)" opacity="0.5"/>
+  </g>
+
+  <!-- Right Clean Return Button -->
+  <g class="btn-hover">
+    <rect x="670" y="24" width="160" height="34" fill="rgba(79, 139, 255, 0.12)" stroke="var(--primary)" stroke-width="1"/>
+    <text x="750" y="45" fill="var(--primary)" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">BACK TO TOP [^]</text>
+  </g>
+</svg>

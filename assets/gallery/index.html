@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Readme Kit — Block & Theme Gallery Stand</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --surface: #0f172a;
+      --surface-border: #1e293b;
+      --text-main: #f8fafc;
+      --text-dim: #94a3b8;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.2);
+      --card-bg: #111827;
+      --preview-bg: #0d1117;
+    }
+    body[data-canvas-mode="light"] {
+      --preview-bg: #ffffff;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      padding: 32px 24px;
+      line-height: 1.5;
+    }
+    .gallery-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header.header {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--surface-border);
+    }
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .title-group h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    .title-group p {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+    .global-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f1f5f9;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn:hover {
+      background: #334155;
+      border-color: #475569;
+    }
+    .btn.active {
+      background: var(--accent);
+      color: #090d16;
+      border-color: var(--accent);
+    }
+    .filter-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      padding: 16px;
+      border-radius: 10px;
+      margin-bottom: 32px;
+    }
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      min-width: 90px;
+      font-weight: 600;
+    }
+    .theme-pills, .category-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .pill:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    .pill.active {
+      background: #38bdf8;
+      color: #090d16;
+      border-color: #38bdf8;
+    }
+    .stats-bar {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      background: rgba(15, 23, 42, 0.7);
+      border-bottom: 1px solid var(--surface-border);
+    }
+    .card-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge-theme {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    .badge-cat {
+      background: rgba(148, 163, 184, 0.15);
+      color: #94a3b8;
+    }
+    .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .card-body {
+      padding: 24px;
+      background: var(--preview-bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 120px;
+      transition: background 0.2s ease;
+      overflow-x: auto;
+    }
+    .card-body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .card-footer {
+      padding: 12px 20px;
+      background: #090d16;
+      border-top: 1px solid var(--surface-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .directive-snippet {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+    .copy-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f1f5f9;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .copy-btn:hover {
+      background: #38bdf8;
+      color: #090d16;
+      border-color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery-container">
+    <header class="header">
+      <div class="header-top">
+        <div class="title-group">
+          <h1>Pixel Readme Kit — Multi-Theme Visual Stand</h1>
+          <p>Full inspection of all 16 component blocks across 5 canonical geometric themes.</p>
+        </div>
+        <div class="global-controls">
+          <button class="btn active" id="btn-mode-dark" onclick="setCanvasMode('dark')">GitHub Dark</button>
+          <button class="btn" id="btn-mode-light" onclick="setCanvasMode('light')">GitHub Light</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="filter-bar">
+      <div class="filter-row">
+        <div class="filter-label">Theme:</div>
+        <div class="theme-pills">
+          <button class="pill active" onclick="filterByTheme('all', this)">ALL THEMES (5)</button>
+          <button class="pill" onclick="filterByTheme('cyberpunk', this)">CYBERPUNK</button>
+          <button class="pill" onclick="filterByTheme('tactical', this)">TACTICAL</button>
+          <button class="pill" onclick="filterByTheme('minimal', this)">MINIMAL</button>
+          <button class="pill" onclick="filterByTheme('modern-clean', this)">MODERN CLEAN</button>
+          <button class="pill" onclick="filterByTheme('rough-doodle', this)">ROUGH DOODLE</button>
+        </div>
+      </div>
+      <div class="filter-row">
+        <div class="filter-label">Block Type:</div>
+        <div class="category-pills">
+          <button class="pill active" onclick="filterByBlock('all', this)">ALL BLOCKS (16)</button>
+          <button class="pill" onclick="filterByBlock('header', this)">Header Banner</button>
+          <button class="pill" onclick="filterByBlock('window-top', this)">Window Frame (Top)</button>
+          <button class="pill" onclick="filterByBlock('window-bottom', this)">Window Frame (Bottom)</button>
+          <button class="pill" onclick="filterByBlock('terminal-top', this)">Terminal Shell (Top)</button>
+          <button class="pill" onclick="filterByBlock('terminal-bottom', this)">Terminal Shell (Bottom)</button>
+          <button class="pill" onclick="filterByBlock('quote', this)">Architectural Quote</button>
+          <button class="pill" onclick="filterByBlock('callout', this)">Alert Callout</button>
+          <button class="pill" onclick="filterByBlock('footer', this)">Footer Bar</button>
+          <button class="pill" onclick="filterByBlock('divider', this)">Divider Line</button>
+          <button class="pill" onclick="filterByBlock('splitter', this)">Section Splitter</button>
+          <button class="pill" onclick="filterByBlock('chip', this)">Status Chip</button>
+          <button class="pill" onclick="filterByBlock('metrics', this)">Metrics KPI Row</button>
+          <button class="pill" onclick="filterByBlock('progress', this)">Progress Gauge</button>
+          <button class="pill" onclick="filterByBlock('techstack', this)">Tech Stack Grid</button>
+          <button class="pill" onclick="filterByBlock('timeline', this)">Roadmap Timeline</button>
+          <button class="pill" onclick="filterByBlock('starchart', this)">Star Growth Chart</button>
+          <button class="pill" onclick="filterByBlock('profile', this)">Profile HUD Card</button>
+          <button class="pill" onclick="filterByBlock('social', this)">Social Preview Banner</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-bar" id="stats-counter">Showing 90 of 90 rendered components</div>
+
+    <div class="grid" id="gallery-grid">
+      <div class="card" data-theme="cyberpunk" data-block="header" data-category="Hero & Banners">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Header Banner</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Hero & Banners</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/header.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/header.svg" alt="Header Banner (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:header title="READMEKIT // STUDIO" subtitle="Universal Customization System for GitHub" tag="[V5.1]" spec1="PYTHON 3.10+" spec2="100% SVG" spec3="NOMINAL" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:header title=&quot;READMEKIT // STUDIO&quot; subtitle=&quot;Universal Customization System for GitHub&quot; tag=&quot;[V5.1]&quot; spec1=&quot;PYTHON 3.10+&quot; spec2=&quot;100% SVG&quot; spec3=&quot;NOMINAL&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="window-top" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Window Frame (Top)</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/window-top.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/window-top.svg" alt="Window Frame (Top) (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:window title="CORE // ARCHITECTURE" tag="[SYS_LOG]" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:window title=&quot;CORE // ARCHITECTURE&quot; tag=&quot;[SYS_LOG]&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="window-bottom" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Window Frame (Bottom)</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/window-bottom.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/window-bottom.svg" alt="Window Frame (Bottom) (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- /readme-kit:window --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- /readme-kit:window -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="terminal-top" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Terminal Shell (Top)</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/terminal-top.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/terminal-top.svg" alt="Terminal Shell (Top) (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:terminal title="BASH // PRODUCTION_DEPLOY" tag="[ONLINE]" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:terminal title=&quot;BASH // PRODUCTION_DEPLOY&quot; tag=&quot;[ONLINE]&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="terminal-bottom" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Terminal Shell (Bottom)</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/terminal-bottom.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/terminal-bottom.svg" alt="Terminal Shell (Bottom) (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- /readme-kit:terminal --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- /readme-kit:terminal -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="quote" data-category="Callouts & Content">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Architectural Quote</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Callouts & Content</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/quote.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/quote.svg" alt="Architectural Quote (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:quote title="ARCHITECTURAL NOTICE" subtitle="Component standard" badge="NOTE" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:quote title=&quot;ARCHITECTURAL NOTICE&quot; subtitle=&quot;Component standard&quot; badge=&quot;NOTE&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="callout" data-category="Callouts & Content">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Alert Callout</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Callouts & Content</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/callout.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/callout.svg" alt="Alert Callout (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:callout title="SECURITY ADVISORY" subtitle="Update dependency versions to latest patch" callout_type="warning" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:callout title=&quot;SECURITY ADVISORY&quot; subtitle=&quot;Update dependency versions to latest patch&quot; callout_type=&quot;warning&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="footer" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Footer Bar</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/footer.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/footer.svg" alt="Footer Bar (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:footer status="SYSTEM NOMINAL // ALL TESTS GREEN" nav_text="BACK TO TOP [^]" sub_text="BUILD 2026.10" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:footer status=&quot;SYSTEM NOMINAL // ALL TESTS GREEN&quot; nav_text=&quot;BACK TO TOP [^]&quot; sub_text=&quot;BUILD 2026.10&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="divider" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Divider Line</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/divider.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/divider.svg" alt="Divider Line (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:divider --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:divider -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="splitter" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Section Splitter</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/splitter.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/splitter.svg" alt="Section Splitter (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:splitter label="SECTION // TELEMETRY METRICS" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:splitter label=&quot;SECTION // TELEMETRY METRICS&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="chip" data-category="Badges">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Status Chip</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Badges</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/chip.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/chip.svg" alt="Status Chip (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:chip text="STATUS: 200 OK" type="decay" decay_dir="right" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:chip text=&quot;STATUS: 200 OK&quot; type=&quot;decay&quot; decay_dir=&quot;right&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="metrics" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Metrics KPI Row</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/metrics.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/metrics.svg" alt="Metrics KPI Row (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:metrics items="CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:metrics items=&quot;CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="progress" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Progress Gauge</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/progress.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/progress.svg" alt="Progress Gauge (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:progress value="85" label="SPRINT COMPLETION" sub="34 OF 40 TASKS COMPLETED" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:progress value=&quot;85&quot; label=&quot;SPRINT COMPLETION&quot; sub=&quot;34 OF 40 TASKS COMPLETED&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="techstack" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Tech Stack Grid</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/techstack.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/techstack.svg" alt="Tech Stack Grid (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:techstack items="python,rust,docker,git,typescript" columns="5" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:techstack items=&quot;python,rust,docker,git,typescript&quot; columns=&quot;5&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="timeline" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Roadmap Timeline</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/timeline.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/timeline.svg" alt="Roadmap Timeline (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:timeline --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:timeline -->&#10;milestone title=&quot;v1.0&quot; date=&quot;2024-Q1&quot; status=&quot;COMPLETED&quot; desc=&quot;Core pixel engine&quot;&#10;milestone title=&quot;v2.0&quot; date=&quot;2025-Q2&quot; status=&quot;ACTIVE&quot; desc=&quot;Modern clean vector&quot;&#10;milestone title=&quot;v3.0&quot; date=&quot;2026-Q4&quot; status=&quot;PLANNED&quot; desc=&quot;Universal 3-tier kit&quot;&#10;<!-- /readme-kit:timeline -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="starchart" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Star Growth Chart</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/starchart.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/starchart.svg" alt="Star Growth Chart (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:starchart repo="Kazinagg/pixel-readme-kit" title="TELEMETRY // STAR GROWTH" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:starchart repo=&quot;Kazinagg/pixel-readme-kit&quot; title=&quot;TELEMETRY // STAR GROWTH&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="profile" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Profile HUD Card</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/profile.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/profile.svg" alt="Profile HUD Card (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:profile name="CYBER_ARCHITECT" role="SYSTEM SPECIALIST" bio="Building modular pixel and vector HUD experiences" status="ONLINE" location="TOKYO / NET" badge="CORE_DEV" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:profile name=&quot;CYBER_ARCHITECT&quot; role=&quot;SYSTEM SPECIALIST&quot; bio=&quot;Building modular pixel and vector HUD experiences&quot; status=&quot;ONLINE&quot; location=&quot;TOKYO / NET&quot; badge=&quot;CORE_DEV&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="cyberpunk" data-block="social" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Social Preview Banner</span>
+            <span class="badge badge-theme">CYBERPUNK</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="cyberpunk/social.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="cyberpunk/social.svg" alt="Social Preview Banner (CYBERPUNK)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:social title="READMEKIT" subtitle="Universal Customization System for GitHub" repo="Kazinagg/pixel-readme-kit" tags="PYTHON,SVG,STUDIO,GITHUB" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:social title=&quot;READMEKIT&quot; subtitle=&quot;Universal Customization System for GitHub&quot; repo=&quot;Kazinagg/pixel-readme-kit&quot; tags=&quot;PYTHON,SVG,STUDIO,GITHUB&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="header" data-category="Hero & Banners">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Header Banner</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Hero & Banners</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/header.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/header.svg" alt="Header Banner (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:header title="READMEKIT // STUDIO" subtitle="Universal Customization System for GitHub" tag="[V5.1]" spec1="PYTHON 3.10+" spec2="100% SVG" spec3="NOMINAL" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:header title=&quot;READMEKIT // STUDIO&quot; subtitle=&quot;Universal Customization System for GitHub&quot; tag=&quot;[V5.1]&quot; spec1=&quot;PYTHON 3.10+&quot; spec2=&quot;100% SVG&quot; spec3=&quot;NOMINAL&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="window-top" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Window Frame (Top)</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/window-top.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/window-top.svg" alt="Window Frame (Top) (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:window title="CORE // ARCHITECTURE" tag="[SYS_LOG]" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:window title=&quot;CORE // ARCHITECTURE&quot; tag=&quot;[SYS_LOG]&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="window-bottom" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Window Frame (Bottom)</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/window-bottom.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/window-bottom.svg" alt="Window Frame (Bottom) (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- /readme-kit:window --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- /readme-kit:window -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="terminal-top" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Terminal Shell (Top)</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/terminal-top.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/terminal-top.svg" alt="Terminal Shell (Top) (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:terminal title="BASH // PRODUCTION_DEPLOY" tag="[ONLINE]" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:terminal title=&quot;BASH // PRODUCTION_DEPLOY&quot; tag=&quot;[ONLINE]&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="terminal-bottom" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Terminal Shell (Bottom)</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/terminal-bottom.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/terminal-bottom.svg" alt="Terminal Shell (Bottom) (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- /readme-kit:terminal --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- /readme-kit:terminal -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="quote" data-category="Callouts & Content">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Architectural Quote</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Callouts & Content</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/quote.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/quote.svg" alt="Architectural Quote (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:quote title="ARCHITECTURAL NOTICE" subtitle="Component standard" badge="NOTE" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:quote title=&quot;ARCHITECTURAL NOTICE&quot; subtitle=&quot;Component standard&quot; badge=&quot;NOTE&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="callout" data-category="Callouts & Content">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Alert Callout</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Callouts & Content</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/callout.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/callout.svg" alt="Alert Callout (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:callout title="SECURITY ADVISORY" subtitle="Update dependency versions to latest patch" callout_type="warning" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:callout title=&quot;SECURITY ADVISORY&quot; subtitle=&quot;Update dependency versions to latest patch&quot; callout_type=&quot;warning&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="footer" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Footer Bar</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/footer.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/footer.svg" alt="Footer Bar (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:footer status="SYSTEM NOMINAL // ALL TESTS GREEN" nav_text="BACK TO TOP [^]" sub_text="BUILD 2026.10" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:footer status=&quot;SYSTEM NOMINAL // ALL TESTS GREEN&quot; nav_text=&quot;BACK TO TOP [^]&quot; sub_text=&quot;BUILD 2026.10&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="divider" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Divider Line</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/divider.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/divider.svg" alt="Divider Line (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:divider --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:divider -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="splitter" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Section Splitter</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/splitter.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/splitter.svg" alt="Section Splitter (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:splitter label="SECTION // TELEMETRY METRICS" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:splitter label=&quot;SECTION // TELEMETRY METRICS&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="chip" data-category="Badges">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Status Chip</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Badges</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/chip.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/chip.svg" alt="Status Chip (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:chip text="STATUS: 200 OK" type="decay" decay_dir="right" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:chip text=&quot;STATUS: 200 OK&quot; type=&quot;decay&quot; decay_dir=&quot;right&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="metrics" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Metrics KPI Row</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/metrics.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/metrics.svg" alt="Metrics KPI Row (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:metrics items="CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:metrics items=&quot;CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="progress" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Progress Gauge</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/progress.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/progress.svg" alt="Progress Gauge (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:progress value="85" label="SPRINT COMPLETION" sub="34 OF 40 TASKS COMPLETED" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:progress value=&quot;85&quot; label=&quot;SPRINT COMPLETION&quot; sub=&quot;34 OF 40 TASKS COMPLETED&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="techstack" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Tech Stack Grid</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/techstack.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/techstack.svg" alt="Tech Stack Grid (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:techstack items="python,rust,docker,git,typescript" columns="5" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:techstack items=&quot;python,rust,docker,git,typescript&quot; columns=&quot;5&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="timeline" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Roadmap Timeline</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/timeline.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/timeline.svg" alt="Roadmap Timeline (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:timeline --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:timeline -->&#10;milestone title=&quot;v1.0&quot; date=&quot;2024-Q1&quot; status=&quot;COMPLETED&quot; desc=&quot;Core pixel engine&quot;&#10;milestone title=&quot;v2.0&quot; date=&quot;2025-Q2&quot; status=&quot;ACTIVE&quot; desc=&quot;Modern clean vector&quot;&#10;milestone title=&quot;v3.0&quot; date=&quot;2026-Q4&quot; status=&quot;PLANNED&quot; desc=&quot;Universal 3-tier kit&quot;&#10;<!-- /readme-kit:timeline -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="starchart" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Star Growth Chart</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/starchart.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/starchart.svg" alt="Star Growth Chart (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:starchart repo="Kazinagg/pixel-readme-kit" title="TELEMETRY // STAR GROWTH" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:starchart repo=&quot;Kazinagg/pixel-readme-kit&quot; title=&quot;TELEMETRY // STAR GROWTH&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="profile" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Profile HUD Card</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/profile.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/profile.svg" alt="Profile HUD Card (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:profile name="CYBER_ARCHITECT" role="SYSTEM SPECIALIST" bio="Building modular pixel and vector HUD experiences" status="ONLINE" location="TOKYO / NET" badge="CORE_DEV" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:profile name=&quot;CYBER_ARCHITECT&quot; role=&quot;SYSTEM SPECIALIST&quot; bio=&quot;Building modular pixel and vector HUD experiences&quot; status=&quot;ONLINE&quot; location=&quot;TOKYO / NET&quot; badge=&quot;CORE_DEV&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="tactical" data-block="social" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Social Preview Banner</span>
+            <span class="badge badge-theme">TACTICAL</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="tactical/social.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="tactical/social.svg" alt="Social Preview Banner (TACTICAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:social title="READMEKIT" subtitle="Universal Customization System for GitHub" repo="Kazinagg/pixel-readme-kit" tags="PYTHON,SVG,STUDIO,GITHUB" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:social title=&quot;READMEKIT&quot; subtitle=&quot;Universal Customization System for GitHub&quot; repo=&quot;Kazinagg/pixel-readme-kit&quot; tags=&quot;PYTHON,SVG,STUDIO,GITHUB&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="header" data-category="Hero & Banners">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Header Banner</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Hero & Banners</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/header.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/header.svg" alt="Header Banner (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:header title="READMEKIT // STUDIO" subtitle="Universal Customization System for GitHub" tag="[V5.1]" spec1="PYTHON 3.10+" spec2="100% SVG" spec3="NOMINAL" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:header title=&quot;READMEKIT // STUDIO&quot; subtitle=&quot;Universal Customization System for GitHub&quot; tag=&quot;[V5.1]&quot; spec1=&quot;PYTHON 3.10+&quot; spec2=&quot;100% SVG&quot; spec3=&quot;NOMINAL&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="window-top" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Window Frame (Top)</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/window-top.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/window-top.svg" alt="Window Frame (Top) (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:window title="CORE // ARCHITECTURE" tag="[SYS_LOG]" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:window title=&quot;CORE // ARCHITECTURE&quot; tag=&quot;[SYS_LOG]&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="window-bottom" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Window Frame (Bottom)</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/window-bottom.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/window-bottom.svg" alt="Window Frame (Bottom) (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- /readme-kit:window --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- /readme-kit:window -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="terminal-top" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Terminal Shell (Top)</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/terminal-top.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/terminal-top.svg" alt="Terminal Shell (Top) (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:terminal title="BASH // PRODUCTION_DEPLOY" tag="[ONLINE]" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:terminal title=&quot;BASH // PRODUCTION_DEPLOY&quot; tag=&quot;[ONLINE]&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="terminal-bottom" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Terminal Shell (Bottom)</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/terminal-bottom.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/terminal-bottom.svg" alt="Terminal Shell (Bottom) (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- /readme-kit:terminal --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- /readme-kit:terminal -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="quote" data-category="Callouts & Content">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Architectural Quote</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Callouts & Content</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/quote.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/quote.svg" alt="Architectural Quote (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:quote title="ARCHITECTURAL NOTICE" subtitle="Component standard" badge="NOTE" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:quote title=&quot;ARCHITECTURAL NOTICE&quot; subtitle=&quot;Component standard&quot; badge=&quot;NOTE&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="callout" data-category="Callouts & Content">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Alert Callout</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Callouts & Content</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/callout.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/callout.svg" alt="Alert Callout (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:callout title="SECURITY ADVISORY" subtitle="Update dependency versions to latest patch" callout_type="warning" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:callout title=&quot;SECURITY ADVISORY&quot; subtitle=&quot;Update dependency versions to latest patch&quot; callout_type=&quot;warning&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="footer" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Footer Bar</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/footer.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/footer.svg" alt="Footer Bar (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:footer status="SYSTEM NOMINAL // ALL TESTS GREEN" nav_text="BACK TO TOP [^]" sub_text="BUILD 2026.10" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:footer status=&quot;SYSTEM NOMINAL // ALL TESTS GREEN&quot; nav_text=&quot;BACK TO TOP [^]&quot; sub_text=&quot;BUILD 2026.10&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="divider" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Divider Line</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/divider.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/divider.svg" alt="Divider Line (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:divider --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:divider -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="splitter" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Section Splitter</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/splitter.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/splitter.svg" alt="Section Splitter (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:splitter label="SECTION // TELEMETRY METRICS" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:splitter label=&quot;SECTION // TELEMETRY METRICS&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="chip" data-category="Badges">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Status Chip</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Badges</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/chip.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/chip.svg" alt="Status Chip (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:chip text="STATUS: 200 OK" type="decay" decay_dir="right" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:chip text=&quot;STATUS: 200 OK&quot; type=&quot;decay&quot; decay_dir=&quot;right&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="metrics" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Metrics KPI Row</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/metrics.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/metrics.svg" alt="Metrics KPI Row (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:metrics items="CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:metrics items=&quot;CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="progress" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Progress Gauge</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/progress.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/progress.svg" alt="Progress Gauge (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:progress value="85" label="SPRINT COMPLETION" sub="34 OF 40 TASKS COMPLETED" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:progress value=&quot;85&quot; label=&quot;SPRINT COMPLETION&quot; sub=&quot;34 OF 40 TASKS COMPLETED&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="techstack" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Tech Stack Grid</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/techstack.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/techstack.svg" alt="Tech Stack Grid (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:techstack items="python,rust,docker,git,typescript" columns="5" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:techstack items=&quot;python,rust,docker,git,typescript&quot; columns=&quot;5&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="timeline" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Roadmap Timeline</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/timeline.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/timeline.svg" alt="Roadmap Timeline (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:timeline --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:timeline -->&#10;milestone title=&quot;v1.0&quot; date=&quot;2024-Q1&quot; status=&quot;COMPLETED&quot; desc=&quot;Core pixel engine&quot;&#10;milestone title=&quot;v2.0&quot; date=&quot;2025-Q2&quot; status=&quot;ACTIVE&quot; desc=&quot;Modern clean vector&quot;&#10;milestone title=&quot;v3.0&quot; date=&quot;2026-Q4&quot; status=&quot;PLANNED&quot; desc=&quot;Universal 3-tier kit&quot;&#10;<!-- /readme-kit:timeline -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="starchart" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Star Growth Chart</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/starchart.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/starchart.svg" alt="Star Growth Chart (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:starchart repo="Kazinagg/pixel-readme-kit" title="TELEMETRY // STAR GROWTH" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:starchart repo=&quot;Kazinagg/pixel-readme-kit&quot; title=&quot;TELEMETRY // STAR GROWTH&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="profile" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Profile HUD Card</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/profile.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/profile.svg" alt="Profile HUD Card (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:profile name="CYBER_ARCHITECT" role="SYSTEM SPECIALIST" bio="Building modular pixel and vector HUD experiences" status="ONLINE" location="TOKYO / NET" badge="CORE_DEV" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:profile name=&quot;CYBER_ARCHITECT&quot; role=&quot;SYSTEM SPECIALIST&quot; bio=&quot;Building modular pixel and vector HUD experiences&quot; status=&quot;ONLINE&quot; location=&quot;TOKYO / NET&quot; badge=&quot;CORE_DEV&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="minimal" data-block="social" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Social Preview Banner</span>
+            <span class="badge badge-theme">MINIMAL</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="minimal/social.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="minimal/social.svg" alt="Social Preview Banner (MINIMAL)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:social title="READMEKIT" subtitle="Universal Customization System for GitHub" repo="Kazinagg/pixel-readme-kit" tags="PYTHON,SVG,STUDIO,GITHUB" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:social title=&quot;READMEKIT&quot; subtitle=&quot;Universal Customization System for GitHub&quot; repo=&quot;Kazinagg/pixel-readme-kit&quot; tags=&quot;PYTHON,SVG,STUDIO,GITHUB&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="header" data-category="Hero & Banners">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Header Banner</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Hero & Banners</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/header.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/header.svg" alt="Header Banner (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:header title="READMEKIT // STUDIO" subtitle="Universal Customization System for GitHub" tag="[V5.1]" spec1="PYTHON 3.10+" spec2="100% SVG" spec3="NOMINAL" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:header title=&quot;READMEKIT // STUDIO&quot; subtitle=&quot;Universal Customization System for GitHub&quot; tag=&quot;[V5.1]&quot; spec1=&quot;PYTHON 3.10+&quot; spec2=&quot;100% SVG&quot; spec3=&quot;NOMINAL&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="window-top" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Window Frame (Top)</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/window-top.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/window-top.svg" alt="Window Frame (Top) (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:window title="CORE // ARCHITECTURE" tag="[SYS_LOG]" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:window title=&quot;CORE // ARCHITECTURE&quot; tag=&quot;[SYS_LOG]&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="window-bottom" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Window Frame (Bottom)</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/window-bottom.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/window-bottom.svg" alt="Window Frame (Bottom) (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- /readme-kit:window --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- /readme-kit:window -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="terminal-top" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Terminal Shell (Top)</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/terminal-top.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/terminal-top.svg" alt="Terminal Shell (Top) (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:terminal title="BASH // PRODUCTION_DEPLOY" tag="[ONLINE]" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:terminal title=&quot;BASH // PRODUCTION_DEPLOY&quot; tag=&quot;[ONLINE]&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="terminal-bottom" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Terminal Shell (Bottom)</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/terminal-bottom.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/terminal-bottom.svg" alt="Terminal Shell (Bottom) (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- /readme-kit:terminal --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- /readme-kit:terminal -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="quote" data-category="Callouts & Content">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Architectural Quote</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Callouts & Content</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/quote.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/quote.svg" alt="Architectural Quote (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:quote title="ARCHITECTURAL NOTICE" subtitle="Component standard" badge="NOTE" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:quote title=&quot;ARCHITECTURAL NOTICE&quot; subtitle=&quot;Component standard&quot; badge=&quot;NOTE&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="callout" data-category="Callouts & Content">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Alert Callout</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Callouts & Content</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/callout.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/callout.svg" alt="Alert Callout (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:callout title="SECURITY ADVISORY" subtitle="Update dependency versions to latest patch" callout_type="warning" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:callout title=&quot;SECURITY ADVISORY&quot; subtitle=&quot;Update dependency versions to latest patch&quot; callout_type=&quot;warning&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="footer" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Footer Bar</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/footer.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/footer.svg" alt="Footer Bar (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:footer status="SYSTEM NOMINAL // ALL TESTS GREEN" nav_text="BACK TO TOP [^]" sub_text="BUILD 2026.10" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:footer status=&quot;SYSTEM NOMINAL // ALL TESTS GREEN&quot; nav_text=&quot;BACK TO TOP [^]&quot; sub_text=&quot;BUILD 2026.10&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="divider" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Divider Line</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/divider.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/divider.svg" alt="Divider Line (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:divider --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:divider -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="splitter" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Section Splitter</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/splitter.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/splitter.svg" alt="Section Splitter (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:splitter label="SECTION // TELEMETRY METRICS" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:splitter label=&quot;SECTION // TELEMETRY METRICS&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="chip" data-category="Badges">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Status Chip</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Badges</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/chip.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/chip.svg" alt="Status Chip (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:chip text="STATUS: 200 OK" type="decay" decay_dir="right" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:chip text=&quot;STATUS: 200 OK&quot; type=&quot;decay&quot; decay_dir=&quot;right&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="metrics" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Metrics KPI Row</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/metrics.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/metrics.svg" alt="Metrics KPI Row (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:metrics items="CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:metrics items=&quot;CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="progress" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Progress Gauge</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/progress.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/progress.svg" alt="Progress Gauge (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:progress value="85" label="SPRINT COMPLETION" sub="34 OF 40 TASKS COMPLETED" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:progress value=&quot;85&quot; label=&quot;SPRINT COMPLETION&quot; sub=&quot;34 OF 40 TASKS COMPLETED&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="techstack" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Tech Stack Grid</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/techstack.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/techstack.svg" alt="Tech Stack Grid (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:techstack items="python,rust,docker,git,typescript" columns="5" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:techstack items=&quot;python,rust,docker,git,typescript&quot; columns=&quot;5&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="timeline" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Roadmap Timeline</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/timeline.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/timeline.svg" alt="Roadmap Timeline (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:timeline --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:timeline -->&#10;milestone title=&quot;v1.0&quot; date=&quot;2024-Q1&quot; status=&quot;COMPLETED&quot; desc=&quot;Core pixel engine&quot;&#10;milestone title=&quot;v2.0&quot; date=&quot;2025-Q2&quot; status=&quot;ACTIVE&quot; desc=&quot;Modern clean vector&quot;&#10;milestone title=&quot;v3.0&quot; date=&quot;2026-Q4&quot; status=&quot;PLANNED&quot; desc=&quot;Universal 3-tier kit&quot;&#10;<!-- /readme-kit:timeline -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="starchart" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Star Growth Chart</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/starchart.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/starchart.svg" alt="Star Growth Chart (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:starchart repo="Kazinagg/pixel-readme-kit" title="TELEMETRY // STAR GROWTH" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:starchart repo=&quot;Kazinagg/pixel-readme-kit&quot; title=&quot;TELEMETRY // STAR GROWTH&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="profile" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Profile HUD Card</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/profile.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/profile.svg" alt="Profile HUD Card (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:profile name="CYBER_ARCHITECT" role="SYSTEM SPECIALIST" bio="Building modular pixel and vector HUD experiences" status="ONLINE" location="TOKYO / NET" badge="CORE_DEV" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:profile name=&quot;CYBER_ARCHITECT&quot; role=&quot;SYSTEM SPECIALIST&quot; bio=&quot;Building modular pixel and vector HUD experiences&quot; status=&quot;ONLINE&quot; location=&quot;TOKYO / NET&quot; badge=&quot;CORE_DEV&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="modern-clean" data-block="social" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Social Preview Banner</span>
+            <span class="badge badge-theme">MODERN CLEAN</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="modern-clean/social.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="modern-clean/social.svg" alt="Social Preview Banner (MODERN CLEAN)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:social title="READMEKIT" subtitle="Universal Customization System for GitHub" repo="Kazinagg/pixel-readme-kit" tags="PYTHON,SVG,STUDIO,GITHUB" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:social title=&quot;READMEKIT&quot; subtitle=&quot;Universal Customization System for GitHub&quot; repo=&quot;Kazinagg/pixel-readme-kit&quot; tags=&quot;PYTHON,SVG,STUDIO,GITHUB&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="header" data-category="Hero & Banners">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Header Banner</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Hero & Banners</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/header.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/header.svg" alt="Header Banner (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:header title="READMEKIT // STUDIO" subtitle="Universal Customization System for GitHub" tag="[V5.1]" spec1="PYTHON 3.10+" spec2="100% SVG" spec3="NOMINAL" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:header title=&quot;READMEKIT // STUDIO&quot; subtitle=&quot;Universal Customization System for GitHub&quot; tag=&quot;[V5.1]&quot; spec1=&quot;PYTHON 3.10+&quot; spec2=&quot;100% SVG&quot; spec3=&quot;NOMINAL&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="window-top" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Window Frame (Top)</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/window-top.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/window-top.svg" alt="Window Frame (Top) (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:window title="CORE // ARCHITECTURE" tag="[SYS_LOG]" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:window title=&quot;CORE // ARCHITECTURE&quot; tag=&quot;[SYS_LOG]&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="window-bottom" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Window Frame (Bottom)</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/window-bottom.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/window-bottom.svg" alt="Window Frame (Bottom) (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- /readme-kit:window --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- /readme-kit:window -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="terminal-top" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Terminal Shell (Top)</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/terminal-top.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/terminal-top.svg" alt="Terminal Shell (Top) (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:terminal title="BASH // PRODUCTION_DEPLOY" tag="[ONLINE]" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:terminal title=&quot;BASH // PRODUCTION_DEPLOY&quot; tag=&quot;[ONLINE]&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="terminal-bottom" data-category="Containers">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Terminal Shell (Bottom)</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Containers</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/terminal-bottom.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/terminal-bottom.svg" alt="Terminal Shell (Bottom) (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- /readme-kit:terminal --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- /readme-kit:terminal -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="quote" data-category="Callouts & Content">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Architectural Quote</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Callouts & Content</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/quote.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/quote.svg" alt="Architectural Quote (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:quote title="ARCHITECTURAL NOTICE" subtitle="Component standard" badge="NOTE" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:quote title=&quot;ARCHITECTURAL NOTICE&quot; subtitle=&quot;Component standard&quot; badge=&quot;NOTE&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="callout" data-category="Callouts & Content">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Alert Callout</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Callouts & Content</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/callout.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/callout.svg" alt="Alert Callout (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:callout title="SECURITY ADVISORY" subtitle="Update dependency versions to latest patch" callout_type="warning" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:callout title=&quot;SECURITY ADVISORY&quot; subtitle=&quot;Update dependency versions to latest patch&quot; callout_type=&quot;warning&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="footer" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Footer Bar</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/footer.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/footer.svg" alt="Footer Bar (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:footer status="SYSTEM NOMINAL // ALL TESTS GREEN" nav_text="BACK TO TOP [^]" sub_text="BUILD 2026.10" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:footer status=&quot;SYSTEM NOMINAL // ALL TESTS GREEN&quot; nav_text=&quot;BACK TO TOP [^]&quot; sub_text=&quot;BUILD 2026.10&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="divider" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Divider Line</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/divider.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/divider.svg" alt="Divider Line (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:divider --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:divider -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="splitter" data-category="Navigation">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Section Splitter</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Navigation</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/splitter.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/splitter.svg" alt="Section Splitter (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:splitter label="SECTION // TELEMETRY METRICS" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:splitter label=&quot;SECTION // TELEMETRY METRICS&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="chip" data-category="Badges">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Status Chip</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Badges</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/chip.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/chip.svg" alt="Status Chip (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:chip text="STATUS: 200 OK" type="decay" decay_dir="right" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:chip text=&quot;STATUS: 200 OK&quot; type=&quot;decay&quot; decay_dir=&quot;right&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="metrics" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Metrics KPI Row</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/metrics.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/metrics.svg" alt="Metrics KPI Row (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:metrics items="CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:metrics items=&quot;CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="progress" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Progress Gauge</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/progress.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/progress.svg" alt="Progress Gauge (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:progress value="85" label="SPRINT COMPLETION" sub="34 OF 40 TASKS COMPLETED" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:progress value=&quot;85&quot; label=&quot;SPRINT COMPLETION&quot; sub=&quot;34 OF 40 TASKS COMPLETED&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="techstack" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Tech Stack Grid</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/techstack.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/techstack.svg" alt="Tech Stack Grid (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:techstack items="python,rust,docker,git,typescript" columns="5" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:techstack items=&quot;python,rust,docker,git,typescript&quot; columns=&quot;5&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="timeline" data-category="Metrics & Status">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Roadmap Timeline</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">Metrics & Status</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/timeline.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/timeline.svg" alt="Roadmap Timeline (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:timeline --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:timeline -->&#10;milestone title=&quot;v1.0&quot; date=&quot;2024-Q1&quot; status=&quot;COMPLETED&quot; desc=&quot;Core pixel engine&quot;&#10;milestone title=&quot;v2.0&quot; date=&quot;2025-Q2&quot; status=&quot;ACTIVE&quot; desc=&quot;Modern clean vector&quot;&#10;milestone title=&quot;v3.0&quot; date=&quot;2026-Q4&quot; status=&quot;PLANNED&quot; desc=&quot;Universal 3-tier kit&quot;&#10;<!-- /readme-kit:timeline -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="starchart" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Star Growth Chart</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/starchart.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/starchart.svg" alt="Star Growth Chart (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:starchart repo="Kazinagg/pixel-readme-kit" title="TELEMETRY // STAR GROWTH" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:starchart repo=&quot;Kazinagg/pixel-readme-kit&quot; title=&quot;TELEMETRY // STAR GROWTH&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="profile" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Profile HUD Card</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/profile.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/profile.svg" alt="Profile HUD Card (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:profile name="CYBER_ARCHITECT" role="SYSTEM SPECIALIST" bio="Building modular pixel and vector HUD experiences" status="ONLINE" location="TOKYO / NET" badge="CORE_DEV" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:profile name=&quot;CYBER_ARCHITECT&quot; role=&quot;SYSTEM SPECIALIST&quot; bio=&quot;Building modular pixel and vector HUD experiences&quot; status=&quot;ONLINE&quot; location=&quot;TOKYO / NET&quot; badge=&quot;CORE_DEV&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+      <div class="card" data-theme="rough-doodle" data-block="social" data-category="GitHub Social">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-title">Social Preview Banner</span>
+            <span class="badge badge-theme">ROUGH DOODLE</span>
+            <span class="badge badge-cat">GitHub Social</span>
+          </div>
+          <div class="card-actions">
+            <a href="rough-doodle/social.svg" target="_blank" class="copy-btn">Open SVG</a>
+          </div>
+        </div>
+        <div class="card-body">
+          <img src="rough-doodle/social.svg" alt="Social Preview Banner (ROUGH DOODLE)" loading="lazy" />
+        </div>
+        <div class="card-footer">
+          <div class="directive-snippet"><!-- readme-kit:social title="READMEKIT" subtitle="Universal Customization System for GitHub" repo="Kazinagg/pixel-readme-kit" tags="PYTHON,SVG,STUDIO,GITHUB" --></div>
+          <button class="copy-btn" onclick="copySnippet(this, `<!-- readme-kit:social title=&quot;READMEKIT&quot; subtitle=&quot;Universal Customization System for GitHub&quot; repo=&quot;Kazinagg/pixel-readme-kit&quot; tags=&quot;PYTHON,SVG,STUDIO,GITHUB&quot; -->`)">Copy Directive</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentThemeFilter = "all";
+    let currentBlockFilter = "all";
+
+    function setCanvasMode(mode) {
+      document.body.setAttribute("data-canvas-mode", mode);
+      document.getElementById("btn-mode-dark").classList.toggle("active", mode === "dark");
+      document.getElementById("btn-mode-light").classList.toggle("active", mode === "light");
+    }
+
+    function filterByTheme(theme, btn) {
+      currentThemeFilter = theme;
+      document.querySelectorAll(".theme-pills .pill").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      applyFilters();
+    }
+
+    function filterByBlock(blockId, btn) {
+      currentBlockFilter = blockId;
+      document.querySelectorAll(".category-pills .pill").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const cards = document.querySelectorAll("#gallery-grid .card");
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const cTheme = card.getAttribute("data-theme");
+        const cBlock = card.getAttribute("data-block");
+        const matchTheme = (currentThemeFilter === "all" || currentThemeFilter === cTheme);
+        const matchBlock = (currentBlockFilter === "all" || currentBlockFilter === cBlock);
+        if (matchTheme && matchBlock) {
+          card.style.display = "block";
+          visibleCount++;
+        } else {
+          card.style.display = "none";
+        }
+      });
+      document.getElementById("stats-counter").innerText = `Showing ${visibleCount} of ${cards.length} rendered components`;
+    }
+
+    function copySnippet(btn, code) {
+      navigator.clipboard.writeText(code).then(() => {
+        const orig = btn.innerText;
+        btn.innerText = "COPIED!";
+        btn.style.background = "#10b981";
+        btn.style.color = "#090d16";
+        setTimeout(() => {
+          btn.innerText = orig;
+          btn.style.background = "";
+          btn.style.color = "";
+        }, 1500);
+      });
+    }
+  </script>
+</body>
+</html>

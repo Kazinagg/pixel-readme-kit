@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 102" width="100%" height="100%">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(18, 18, 18, 0.95);
+        --bg-panel: rgba(28, 28, 28, 0.90);
+        --border-chassis: #E0E0E0;
+        --primary: #A78BFA;
+        --accent: #6EE7B7;
+        --tertiary: #FDE047;
+        --title-front: #F3F4F6;
+        --title-mid: #E0E0E0;
+        --title-dark: #A78BFA;
+        --text-main: #F3F4F6;
+        --text-dim: #9CA3AF;
+        --status: #6EE7B7;
+        --warning: #FDE047;
+        --grid-op: 0.06;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(18, 18, 18, 0.95);
+          --bg-panel: rgba(28, 28, 28, 0.90);
+          --border-chassis: #E0E0E0;
+          --primary: #A78BFA;
+          --accent: #6EE7B7;
+          --tertiary: #FDE047;
+          --title-front: #F3F4F6;
+          --title-mid: #E0E0E0;
+          --title-dark: #A78BFA;
+          --text-main: #F3F4F6;
+          --text-dim: #9CA3AF;
+          --status: #6EE7B7;
+          --warning: #FDE047;
+          --grid-op: 0.06;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #FDFDFD;
+          --bg-panel: #F4F4F5;
+          --border-chassis: #1F2937;
+          --primary: #4F46E5;
+          --accent: #059669;
+          --tertiary: #D97706;
+          --title-front: #111827;
+          --title-mid: #374151;
+          --title-dark: #4F46E5;
+          --text-main: #111827;
+          --text-dim: #4B5563;
+          --status: #059669;
+          --warning: #D97706;
+          --grid-op: 0.06;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #A78BFA));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+
+    .font-sketch { font-family: 'Virgil', 'Architects Daughter', 'Comic Shanns', 'Kalam', 'Chalkboard SE', 'Comic Sans MS', 'Casual', cursive, sans-serif; }
+    .font-sketch-mono { font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, monospace; }
+    .sketch-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .sketch-hover:hover { opacity: 0.85; transform: scale(1.01); }
+
+    </style>
+    <pattern id="metricsSketch-hatch" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--primary)" stroke-width="1.3" opacity="0.45" />
+    </pattern>
+    <pattern id="metricsSketch-crosshatch" width="12" height="12" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+      <line x1="0" y1="0" x2="12" y2="0" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+    </pattern>
+    <pattern id="metricsSketch-hatch-accent" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--accent)" stroke-width="1.3" opacity="0.5" />
+    </pattern>
+    <linearGradient id="metricsSketch-tape" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0.25" />
+    </linearGradient>
+  </defs>
+  <g id="sketch-metric-0">
+    <rect x="2" y="3" width="272" height="96" rx="6" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M -1.49 2.98 Q 136.82 2.53 278.05 2.12" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M -1.04 3.34 Q 138.41 2.84 276.28 2.66" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 273.05 -0.47 Q 272.44 50.16 274.83 100.9" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 273.6 -0.02 Q 274.7 51.14 273.99 102.37" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 277.48 99.95 Q 139.31 97.43 -1.28 99.19" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 277.74 98.2 Q 139.29 99.72 -0.87 99.51" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 1.54 102.01 Q 3.54 49.65 1.66 0.14" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 1.99 102.37 Q 3.11 51.54 2.09 0.47" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <text x="18" y="28" fill="var(--text-dim)" font-size="11" font-weight="600" class="font-sketch">CORE UPTIME</text>
+      <rect x="201" y="13" width="61" height="18" rx="4" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 198.19 13.67 Q 231.91 14.13 264.91 13.39" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 198.51 13.89 Q 230.63 14.44 265.29 13.67" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 262.31 10.79 Q 262.5 23.21 261.91 34.38" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 262.61 9.07 Q 261.06 23.37 262.28 34.66" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 265.84 29.92 Q 231.14 31.35 198.62 32.1" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 264.11 30.49 Q 231.25 30.18 198.86 30.32" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 201.62 35.09 Q 200.4 22.11 201.53 11.0" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 201.85 33.31 Q 200.94 21.37 201.78 9.24" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+  <text x="232" y="25" fill="var(--primary)" font-size="9" font-weight="600" text-anchor="middle" class="font-sketch">NOMINAL</text>
+    <text x="18" y="59" fill="var(--text-main)" font-size="26" font-weight="700" class="font-sketch">99.98%</text>
+    <text x="18" y="83" fill="var(--text-dim)" font-size="10.5" font-weight="600" class="font-sketch">+0.02%</text>
+    <path d="M 217.49 80.85 Q 225.76 77.29 236.31 75.67" stroke="var(--primary)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 235.58 74.94 Q 246.37 72.9 257.23 70.59" stroke="var(--primary)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 258.0,68.0 L 260.1,74.1 L 255.8,70.0 L 260.4,70.0 L 256.1,74.0 L 257.4,67.9" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="var(--accent)" />
+  </g>
+  <g id="sketch-metric-1">
+    <rect x="288" y="3" width="272" height="96" rx="6" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M 285.76 1.84 Q 424.97 4.68 563.08 2.27" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 284.05 2.43 Q 422.68 3.99 562.4 2.78" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 559.2 -0.32 Q 558.67 50.38 560.97 101.05" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 559.72 0.1 Q 560.52 50.96 559.22 101.6" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 562.51 98.99 Q 425.54 97.65 284.69 99.16" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 562.97 99.35 Q 425.11 99.54 285.11 99.49" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 287.69 102.16 Q 289.76 49.87 289.1 -0.83" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 288.11 102.49 Q 288.93 51.36 287.32 -0.3" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <text x="304" y="28" fill="var(--text-dim)" font-size="11" font-weight="600" class="font-sketch">LATENCY</text>
+      <rect x="487" y="13" width="61" height="18" rx="4" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 483.75 11.94 Q 518.93 11.54 551.59 14.06" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 483.13 12.51 Q 518.7 13.63 551.83 12.29" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 548.99 9.06 Q 549.52 20.62 548.58 35.06" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 547.23 9.61 Q 549.13 22.56 548.82 33.28" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 550.12 30.59 Q 518.15 32.36 482.9 30.37" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 550.65 31.03 Q 516.44 32.25 483.48 30.86" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 485.89 33.37 Q 487.41 23.12 485.8 9.28" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 486.47 33.85 Q 486.13 20.56 486.4 9.78" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+  <text x="518" y="25" fill="var(--primary)" font-size="9" font-weight="600" text-anchor="middle" class="font-sketch">OPTIMAL</text>
+    <text x="304" y="59" fill="var(--text-main)" font-size="26" font-weight="700" class="font-sketch">12ms</text>
+    <text x="304" y="83" fill="var(--text-dim)" font-size="10.5" font-weight="600" class="font-sketch">-3ms</text>
+    <path d="M 504.0 81.35 Q 512.52 78.05 522.82 74.38" stroke="var(--primary)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 522.09 75.44 Q 533.12 73.66 543.74 71.1" stroke="var(--primary)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 544.4,68.3 L 546.4,73.1 L 540.8,70.4 L 546.8,69.7 L 542.5,73.8 L 544.6,67.6" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="var(--accent)" />
+  </g>
+  <g id="sketch-metric-2">
+    <rect x="574" y="3" width="272" height="96" rx="6" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M 571.91 1.98 Q 711.2 1.31 849.23 3.71" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 570.17 2.55 Q 711.39 3.82 849.55 3.93" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 846.64 1.11 Q 846.82 52.53 846.01 102.48" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 846.87 -0.67 Q 844.8 52.11 846.37 102.75" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 849.95 98.02 Q 710.09 99.8 572.12 98.2" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 848.2 98.58 Q 709.39 97.82 570.34 98.72" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 575.12 101.2 Q 574.31 52.03 572.85 -0.68" stroke="var(--border-chassis)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 573.34 101.72 Q 573.21 49.64 573.44 -0.18" stroke="var(--border-chassis)" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+    <text x="590" y="28" fill="var(--text-dim)" font-size="11" font-weight="600" class="font-sketch">BUFFER</text>
+      <rect x="781" y="13" width="53" height="18" rx="4" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 779.14 12.22 Q 808.8 11.42 837.15 13.62" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 777.35 12.73 Q 808.8 13.73 837.48 13.86" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 834.55 11.02 Q 834.86 23.57 834.14 34.62" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 834.8 9.26 Q 832.78 23.09 834.47 34.85" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 838.08 30.15 Q 808.02 32.23 777.17 30.64" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 836.3 30.68 Q 806.54 32.35 777.7 31.07" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 780.17 33.64 Q 781.82 23.53 780.08 9.55" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 780.69 34.07 Q 779.8 23.11 780.62 10.0" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+  <text x="808" y="25" fill="var(--primary)" font-size="9" font-weight="600" text-anchor="middle" class="font-sketch">STABLE</text>
+    <text x="590" y="59" fill="var(--text-main)" font-size="26" font-weight="700" class="font-sketch">256MB</text>
+    <text x="590" y="83" fill="var(--text-dim)" font-size="10.5" font-weight="600" class="font-sketch">+14MB</text>
+    <path d="M 789.67 81.03 Q 798.02 77.56 808.49 75.85" stroke="var(--primary)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 807.76 75.12 Q 818.63 73.16 829.41 70.77" stroke="var(--primary)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 830.1,68.1 L 832.2,72.8 L 826.5,70.2 L 832.5,69.5 L 828.2,73.5 L 830.3,67.4" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="var(--accent)" />
+  </g>
+</svg>

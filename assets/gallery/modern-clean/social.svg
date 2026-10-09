@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 640" width="100%" height="100%">
+  <defs>
+        <linearGradient id="modern-social-accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--primary)" />
+      <stop offset="100%" stop-color="var(--accent)" />
+    </linearGradient>
+    <linearGradient id="modern-social-border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="var(--border-chassis)" stop-opacity="0.3" />
+    </linearGradient>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(15, 23, 42, 0.90);
+        --bg-panel: rgba(30, 41, 59, 0.85);
+        --border-chassis: rgba(51, 65, 85, 0.85);
+        --primary: #38BDF8;
+        --accent: #818CF8;
+        --tertiary: #06B6D4;
+        --title-front: #38BDF8;
+        --title-mid: #0284C7;
+        --title-dark: #0369A1;
+        --text-main: #F8FAFC;
+        --text-dim: #94A3B8;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.07;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(15, 23, 42, 0.90);
+          --bg-panel: rgba(30, 41, 59, 0.85);
+          --border-chassis: rgba(51, 65, 85, 0.85);
+          --primary: #38BDF8;
+          --accent: #818CF8;
+          --tertiary: #06B6D4;
+          --title-front: #38BDF8;
+          --title-mid: #0284C7;
+          --title-dark: #0369A1;
+          --text-main: #F8FAFC;
+          --text-dim: #94A3B8;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.07;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F8FAFC;
+          --bg-panel: #F1F5F9;
+          --border-chassis: #E2E8F0;
+          --primary: #0284C7;
+          --accent: #4F46E5;
+          --tertiary: #0891B2;
+          --title-front: #0284C7;
+          --title-mid: #0369A1;
+          --title-dark: #0C4A6E;
+          --text-main: #0F172A;
+          --text-dim: #64748B;
+          --status: #16A34A;
+          --warning: #D97706;
+          --grid-op: 0.08;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #38BDF8));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .font-mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', Menlo, monospace; }
+    .btn-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .btn-hover:hover { opacity: 0.85; }
+
+    </style>
+    <radialGradient id="modern-social-glow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.12"/>
+      <stop offset="60%" stop-color="var(--accent)" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="var(--bg-glass)" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- BACKGROUND & CHASSIS -->
+  <rect x="2" y="2" width="846" height="636" rx="20" fill="var(--bg-glass)" stroke="url(#modern-social-border-grad)" stroke-width="1.5"/>
+  <rect x="2" y="2" width="846" height="636" rx="20" fill="url(#modern-social-glow)"/>
+  <path d="M 28 2 L 822 2" stroke="url(#modern-social-accent-grad)" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- REPO PILL & STATUS BADGE -->
+  <g transform="translate(80, 68)">
+    <rect x="0" y="0" width="266" height="36" rx="18" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <circle cx="18" cy="18" r="4.5" fill="var(--primary)"/>
+    <text x="32" y="23" fill="var(--text-main)" font-size="14" font-weight="600" class="font-sans">repo // Kazinagg/pixel-readme-kit</text>
+  </g>
+
+  <g transform="translate(620, 68)">
+    <rect x="0" y="0" width="150" height="36" rx="18" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <circle cx="20" cy="18" r="4" fill="var(--status)"/>
+    <text x="34" y="23" fill="var(--status)" font-size="13" font-weight="700" class="font-sans">ACTIVE // v6.0</text>
+  </g>
+
+  <!-- TITLE & SUBTITLE -->
+  <text x="80" y="230" fill="url(#modern-social-accent-grad)" font-size="54" font-weight="800" letter-spacing="-0.02em" class="font-sans">READMEKIT</text>
+  <text x="80" y="285" fill="var(--text-dim)" font-size="20" font-weight="400" class="font-sans">Universal Customization System for GitHub</text>
+
+  <!-- TAG PILLS -->
+      <g transform="translate(80, 370)">
+      <rect x="0" y="0" width="84" height="32" rx="16" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+      <circle cx="14" cy="16" r="3.5" fill="var(--accent)"/>
+      <text x="26" y="21" fill="var(--text-main)" font-size="13" font-weight="600" class="font-sans">PYTHON</text>
+    </g>    <g transform="translate(176, 370)">
+      <rect x="0" y="0" width="80" height="32" rx="16" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+      <circle cx="14" cy="16" r="3.5" fill="var(--accent)"/>
+      <text x="26" y="21" fill="var(--text-main)" font-size="13" font-weight="600" class="font-sans">SVG</text>
+    </g>    <g transform="translate(268, 370)">
+      <rect x="0" y="0" width="84" height="32" rx="16" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+      <circle cx="14" cy="16" r="3.5" fill="var(--accent)"/>
+      <text x="26" y="21" fill="var(--text-main)" font-size="13" font-weight="600" class="font-sans">STUDIO</text>
+    </g>    <g transform="translate(364, 370)">
+      <rect x="0" y="0" width="84" height="32" rx="16" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+      <circle cx="14" cy="16" r="3.5" fill="var(--accent)"/>
+      <text x="26" y="21" fill="var(--text-main)" font-size="13" font-weight="600" class="font-sans">GITHUB</text>
+    </g>
+
+  <!-- FEATURE CARDS -->
+      <g transform="translate(80, 470)">
+      <rect x="0" y="0" width="216" height="90" rx="12" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+      <circle cx="20" cy="28" r="4" fill="var(--primary)"/>
+      <text x="32" y="32" fill="var(--accent)" font-size="12" font-weight="700" letter-spacing="0.05em" class="font-sans">DETERMINISTIC SVG</text>
+      <text x="20" y="60" fill="var(--text-dim)" font-size="11" class="font-sans">Zero-drift layout &amp; verified pixel a...</text>
+    </g>    <g transform="translate(316, 470)">
+      <rect x="0" y="0" width="216" height="90" rx="12" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+      <circle cx="20" cy="28" r="4" fill="var(--primary)"/>
+      <text x="32" y="32" fill="var(--accent)" font-size="12" font-weight="700" letter-spacing="0.05em" class="font-sans">HIGH PERFORMANCE</text>
+      <text x="20" y="60" fill="var(--text-dim)" font-size="11" class="font-sans">Pure browser-native rendering, 0 d...</text>
+    </g>    <g transform="translate(552, 470)">
+      <rect x="0" y="0" width="216" height="90" rx="12" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+      <circle cx="20" cy="28" r="4" fill="var(--primary)"/>
+      <text x="32" y="32" fill="var(--accent)" font-size="12" font-weight="700" letter-spacing="0.05em" class="font-sans">DYNAMIC MODES</text>
+      <text x="20" y="60" fill="var(--text-dim)" font-size="11" class="font-sans">Automated system dark/light sync...</text>
+    </g>
+</svg>

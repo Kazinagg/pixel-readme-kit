@@ -1,0 +1,239 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 256" width="100%" height="100%">
+  <defs>
+        <pattern id="timelineSketch-hatch" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--primary)" stroke-width="1.3" opacity="0.45" />
+    </pattern>
+    <pattern id="timelineSketch-crosshatch" width="12" height="12" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+      <line x1="0" y1="0" x2="12" y2="0" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+    </pattern>
+    <pattern id="timelineSketch-hatch-accent" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--accent)" stroke-width="1.3" opacity="0.5" />
+    </pattern>
+    <linearGradient id="timelineSketch-tape" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0.25" />
+    </linearGradient>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(18, 18, 18, 0.95);
+        --bg-panel: rgba(28, 28, 28, 0.90);
+        --border-chassis: #E0E0E0;
+        --primary: #A78BFA;
+        --accent: #6EE7B7;
+        --tertiary: #FDE047;
+        --title-front: #F3F4F6;
+        --title-mid: #E0E0E0;
+        --title-dark: #A78BFA;
+        --text-main: #F3F4F6;
+        --text-dim: #9CA3AF;
+        --status: #6EE7B7;
+        --warning: #FDE047;
+        --grid-op: 0.06;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(18, 18, 18, 0.95);
+          --bg-panel: rgba(28, 28, 28, 0.90);
+          --border-chassis: #E0E0E0;
+          --primary: #A78BFA;
+          --accent: #6EE7B7;
+          --tertiary: #FDE047;
+          --title-front: #F3F4F6;
+          --title-mid: #E0E0E0;
+          --title-dark: #A78BFA;
+          --text-main: #F3F4F6;
+          --text-dim: #9CA3AF;
+          --status: #6EE7B7;
+          --warning: #FDE047;
+          --grid-op: 0.06;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #FDFDFD;
+          --bg-panel: #F4F4F5;
+          --border-chassis: #1F2937;
+          --primary: #4F46E5;
+          --accent: #059669;
+          --tertiary: #D97706;
+          --title-front: #111827;
+          --title-mid: #374151;
+          --title-dark: #4F46E5;
+          --text-main: #111827;
+          --text-dim: #4B5563;
+          --status: #059669;
+          --warning: #D97706;
+          --grid-op: 0.06;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #A78BFA));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      
+    .font-sketch { font-family: 'Virgil', 'Architects Daughter', 'Comic Shanns', 'Kalam', 'Chalkboard SE', 'Comic Sans MS', 'Casual', cursive, sans-serif; }
+    .font-sketch-mono { font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, monospace; }
+    .sketch-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .sketch-hover:hover { opacity: 0.85; transform: scale(1.01); }
+
+    </style>
+  </defs>
+
+  <!-- Vertical Continuous Sketch Axis -->
+  <path d="M 35.65 16.04 Q 36.74 112.34 36.97 205.37" stroke="var(--border-chassis)" stroke-width="2.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 36.02 16.33 Q 34.95 111.88 35.48 205.8" stroke="var(--border-chassis)" stroke-width="1.7" stroke-linecap="round" fill="none" opacity="0.75" />
+  <path d="M 35.71 200.18 Q 37.37 205.48 35.27 213.74" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 36.12 200.5 Q 37.25 207.68 35.77 214.15" stroke="var(--primary)" stroke-width="1.53" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 36.31 214.62 Q 32.81 210.04 31.3 207.16" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 36.27 214.59 Q 37.42 210.38 40.36 207.63" stroke="var(--primary)" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="1.0" />
+
+  <g id="sketch-milestone-0">
+    <path d="M 44.39 37.7 Q 53.93 37.9 63.55 37.87" stroke="var(--status)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 44.75 38.0 Q 54.6 37.72 63.88 38.13" stroke="var(--status)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <circle cx="36" cy="38" r="6.5" fill="var(--status)"/>
+    <circle cx="36" cy="38" r="9.5" fill="none" stroke="var(--status)" stroke-width="1.2" opacity="0.4"/>
+    <path d="M 33 38 L 35.5 40.5 L 39.5 35.5" fill="none" stroke="var(--bg-glass)" stroke-width="1.6" stroke-linecap="round"/>
+    <rect x="64" y="13" width="772" height="56" rx="4.0" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 62.66 14.14 Q 451.71 11.82 839.16 12.24" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 62.89 12.35 Q 450.98 13.41 837.37 12.75" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 835.5 10.97 Q 834.65 40.36 836.65 72.13" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 835.96 11.34 Q 836.54 40.97 836.88 70.34" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 837.34 68.82 Q 450.4 70.11 62.74 67.81" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 837.83 69.21 Q 449.14 67.57 62.95 68.41" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 64.4 71.88 Q 63.7 41.41 65.15 10.22" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 64.68 70.14 Q 63.7 40.13 63.36 10.74" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 66.64 16.88 Q 66.87 41.22 66.96 65.19" stroke="var(--status)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 66.89 17.08 Q 66.84 40.55 67.14 65.34" stroke="var(--status)" stroke-width="2.12" stroke-linecap="round" fill="none" opacity="0.75" />
+    <polygon points="92 8, 122 8, 118 21, 88 21" fill="url(#timelineSketch-tape)"/>
+
+    <!-- Date Pill -->
+    <rect x="76" y="21" width="67" height="18" rx="4.0" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M 75.44 21.92 Q 110.43 22.64 144.34 21.82" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 75.71 20.17 Q 108.22 22.03 144.63 20.09" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 142.01 19.48 Q 144.41 28.52 143.03 40.5" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 142.57 19.95 Q 144.21 30.64 143.38 40.76" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 142.87 38.34 Q 109.64 39.86 75.87 37.95" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 143.46 38.84 Q 108.85 37.78 74.14 38.52" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 76.2 40.68 Q 75.5 30.22 77.09 19.16" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 76.52 40.9 Q 75.86 29.29 75.31 19.69" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <text x="109" y="34" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sketch">2026-Q1</text>
+
+    <!-- Title -->
+    <text x="153" y="35" fill="var(--primary)" font-size="12.5" font-weight="700" class="font-sketch">ALPHA SPECIFICATION</text>
+
+    <!-- Status Pill -->
+    <rect x="739" y="21" width="83" height="18" rx="4.0" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M 738.47 21.95 Q 778.94 20.15 822.4 20.87" stroke="var(--status)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 738.74 20.2 Q 781.21 21.14 822.88 21.26" stroke="var(--status)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 822.47 20.94 Q 822.0 30.71 821.08 39.56" stroke="var(--status)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 822.73 19.19 Q 821.46 28.89 821.63 40.01" stroke="var(--status)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 823.33 39.8 Q 781.76 37.37 738.9 37.98" stroke="var(--status)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 823.62 38.08 Q 781.83 39.76 737.16 38.54" stroke="var(--status)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 739.24 40.71 Q 738.55 30.26 740.12 19.19" stroke="var(--status)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 739.55 40.93 Q 738.82 29.25 738.33 19.71" stroke="var(--status)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <text x="781" y="34" fill="var(--status)" font-size="10" font-weight="700" text-anchor="middle" class="font-sketch">COMPLETED</text>
+
+    <!-- Description -->
+    <text x="78" y="56" fill="var(--text-dim)" font-size="11.5" class="font-sketch">Исследование физики Excalidraw и rough линий</text>
+  </g>
+  <g id="sketch-milestone-1">
+    <path d="M 45.1 114.42 Q 55.0 114.97 64.26 114.58" stroke="var(--accent)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 45.32 114.57 Q 53.74 114.78 64.45 113.42" stroke="var(--accent)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 36.2,106.2 L 41.3,120.0 L 27.9,111.7 L 43.4,111.0 L 31.4,120.7 L 36.5,105.5" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="var(--accent)" />
+    <rect x="64" y="89" width="772" height="56" rx="4.0" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 62.23 89.71 Q 451.06 90.77 838.73 87.81" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 62.55 89.92 Q 448.61 89.92 838.94 88.4" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 835.07 86.54 Q 837.6 115.71 836.22 147.69" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 835.61 86.99 Q 837.06 117.49 836.54 147.92" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 836.91 144.39 Q 449.75 145.46 62.31 145.78" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 837.49 144.87 Q 449.66 144.09 62.61 144.07" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 63.97 147.45 Q 63.06 116.77 64.72 88.2" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 64.34 147.72 Q 64.21 116.65 64.94 86.4" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 66.88 93.11 Q 67.22 117.57 67.19 141.43" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 67.08 93.27 Q 66.56 117.71 67.33 140.56" stroke="var(--accent)" stroke-width="2.12" stroke-linecap="round" fill="none" opacity="0.75" />
+    
+
+    <!-- Date Pill -->
+    <rect x="76" y="97" width="67" height="18" rx="4.0" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M 75.36 97.84 Q 110.3 98.52 144.26 97.73" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 75.65 96.11 Q 108.32 98.13 144.57 97.95" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 141.92 95.4 Q 144.29 104.4 142.94 116.42" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 142.5 95.88 Q 144.31 106.74 143.31 116.7" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 145.19 114.26 Q 109.52 115.73 75.79 113.86" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 143.39 114.77 Q 108.94 113.87 74.07 114.45" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 76.12 116.6 Q 75.38 106.09 77.0 95.08" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 76.46 116.84 Q 75.95 105.39 75.24 95.62" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <text x="109" y="110" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sketch">2026-Q2</text>
+
+    <!-- Title -->
+    <text x="153" y="111" fill="var(--primary)" font-size="12.5" font-weight="700" class="font-sketch">SKETCH RENDER ENGINE</text>
+
+    <!-- Status Pill -->
+    <rect x="732" y="97" width="90" height="18" rx="4.0" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M 730.27 96.74 Q 777.7 98.41 821.81 96.29" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 730.77 97.15 Q 775.9 98.21 822.41 96.79" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 821.88 96.36 Q 821.13 105.84 822.9 114.98" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 822.26 96.65 Q 822.16 105.59 821.16 115.54" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 822.75 115.22 Q 776.92 115.63 730.7 115.17" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 823.16 115.54 Q 776.52 113.95 731.12 115.5" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 731.03 115.5 Q 733.34 104.46 731.91 96.39" stroke="var(--accent)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 731.58 115.96 Q 733.27 106.7 732.29 96.67" stroke="var(--accent)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <text x="777" y="110" fill="var(--accent)" font-size="10" font-weight="700" text-anchor="middle" class="font-sketch">IN PROGRESS</text>
+
+    <!-- Description -->
+    <text x="78" y="132" fill="var(--text-dim)" font-size="11.5" class="font-sketch">Внедрение карандашной штриховки и 4 специализированных тем</text>
+  </g>
+  <g id="sketch-milestone-2">
+    <path d="M 44.22 189.53 Q 53.67 189.64 63.38 189.69" stroke="var(--text-dim)" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 44.61 189.87 Q 54.81 189.93 63.74 189.99" stroke="var(--text-dim)" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <circle cx="36" cy="190" r="5" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.5"/>
+    <rect x="64" y="165" width="772" height="56" rx="4.0" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 61.8 165.28 Q 450.41 166.13 837.02 164.49" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 62.2 165.58 Q 449.13 166.44 837.57 164.95" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 835.75 163.22 Q 835.02 192.74 836.9 221.98" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 836.16 163.54 Q 836.24 192.67 835.16 222.54" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 837.59 221.07 Q 449.11 220.82 61.88 221.35" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 838.03 221.41 Q 450.18 222.15 62.26 221.64" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 63.54 223.02 Q 62.41 192.13 64.29 163.77" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 63.99 223.37 Q 64.73 193.16 64.59 162.05" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 67.11 169.35 Q 67.57 192.13 67.43 216.46" stroke="var(--text-dim)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 67.27 169.46 Q 67.71 193.43 66.56 216.75" stroke="var(--text-dim)" stroke-width="2.12" stroke-linecap="round" fill="none" opacity="0.75" />
+    
+
+    <!-- Date Pill -->
+    <rect x="76" y="173" width="67" height="18" rx="4.0" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M 75.28 173.75 Q 110.18 174.39 144.18 173.65" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 75.58 172.04 Q 108.42 174.23 144.5 173.88" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 141.84 171.32 Q 144.17 180.28 142.86 192.34" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 142.44 171.81 Q 144.41 182.84 143.25 192.63" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 145.11 190.18 Q 109.4 191.61 75.71 192.18" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 143.32 190.7 Q 109.04 189.97 75.93 190.39" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 76.04 192.51 Q 75.26 181.97 76.92 171.0" stroke="var(--border-chassis)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 76.39 192.77 Q 76.05 181.48 75.18 171.56" stroke="var(--border-chassis)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <text x="109" y="186" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sketch">2026-Q3</text>
+
+    <!-- Title -->
+    <text x="153" y="187" fill="var(--primary)" font-size="12.5" font-weight="700" class="font-sketch">HUD STUDIO INTEGRATION</text>
+
+    <!-- Status Pill -->
+    <rect x="744" y="173" width="78" height="18" rx="4.0" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M 743.87 171.94 Q 781.7 172.41 822.35 172.82" stroke="var(--text-dim)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 742.13 172.51 Q 783.5 172.93 822.84 173.22" stroke="var(--text-dim)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 822.41 172.89 Q 821.92 182.63 821.03 191.51" stroke="var(--text-dim)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 822.69 171.15 Q 821.52 180.95 821.59 191.97" stroke="var(--text-dim)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 823.28 191.75 Q 784.52 189.63 741.9 190.37" stroke="var(--text-dim)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 823.58 190.04 Q 784.13 191.56 742.48 190.86" stroke="var(--text-dim)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 744.63 193.1 Q 744.14 182.86 743.11 171.59" stroke="var(--text-dim)" stroke-width="1.0" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 744.86 191.32 Q 743.35 180.78 743.65 172.03" stroke="var(--text-dim)" stroke-width="0.85" stroke-linecap="round" fill="none" opacity="0.75" />
+    <text x="783" y="186" fill="var(--text-dim)" font-size="10" font-weight="700" text-anchor="middle" class="font-sketch">PLANNED</text>
+
+    <!-- Description -->
+    <text x="78" y="208" fill="var(--text-dim)" font-size="11.5" class="font-sketch">Интерактивный предпросмотр рукописного стиля в веб-студии</text>
+  </g>
+</svg>

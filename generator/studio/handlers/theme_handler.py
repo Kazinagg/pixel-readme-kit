@@ -5,7 +5,7 @@ Handles listing presets, querying active design tokens, and creating/saving cust
 
 import json
 from typing import Dict, Any
-from generator.themes import theme_registry, theme_creator, BASE_THEME_PALETTES
+from generator.themes import theme_registry, theme_creator, BASE_THEME_PALETTES, VALID_STYLES, CANONICAL_THEMES
 from generator.icons import list_available_icons
 
 
@@ -22,10 +22,15 @@ def handle_presets_list(handler) -> None:
 
 
 def handle_themes_list(handler) -> None:
-    """GET /api/themes - Full dictionary of available themes with dark/light tokens."""
+    """GET /api/themes - Full dictionary of available themes with dark/light tokens and style mapping."""
     data = {
         "themes": theme_registry.theme_palettes,
         "presets": theme_registry.list_presets(),
+        "styles": [s for s in VALID_STYLES if s != "corporate"],
+        "style_themes": {s: theme_registry.get_canonical_themes_for_style(s) for s in VALID_STYLES},
+        "all_style_themes": {s: theme_registry.get_themes_for_style(s) for s in VALID_STYLES},
+        "canonical_themes": list(CANONICAL_THEMES),
+        "theme_presets": {t: theme_registry.get_presets_for_theme(t) for t in CANONICAL_THEMES},
     }
     handler.send_response(200)
     handler.send_header("Content-Type", "application/json")

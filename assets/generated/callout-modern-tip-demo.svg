@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 52" width="100%" height="100%">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(6, 20, 16, 0.92);
+        --bg-panel: rgba(12, 34, 27, 0.86);
+        --border-chassis: rgba(20, 60, 48, 0.85);
+        --primary: #10B981;
+        --accent: #34D399;
+        --tertiary: #059669;
+        --title-front: #34D399;
+        --title-mid: #059669;
+        --title-dark: #047857;
+        --text-main: #ECFDF5;
+        --text-dim: #6EE7B7;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.07;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(6, 20, 16, 0.92);
+          --bg-panel: rgba(12, 34, 27, 0.86);
+          --border-chassis: rgba(20, 60, 48, 0.85);
+          --primary: #10B981;
+          --accent: #34D399;
+          --tertiary: #059669;
+          --title-front: #34D399;
+          --title-mid: #059669;
+          --title-dark: #047857;
+          --text-main: #ECFDF5;
+          --text-dim: #6EE7B7;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.07;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F0FDF4;
+          --bg-panel: #DCFCE7;
+          --border-chassis: #BBF7D0;
+          --primary: #15803D;
+          --accent: #16A34A;
+          --tertiary: #166534;
+          --title-front: #14532D;
+          --title-mid: #15803D;
+          --title-dark: #166534;
+          --text-main: #14532D;
+          --text-dim: #166534;
+          --status: #15803D;
+          --warning: #CA8A04;
+          --grid-op: 0.08;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #10B981));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .font-mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', Menlo, monospace; }
+    .btn-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .btn-hover:hover { opacity: 0.85; }
+
+    </style>
+  </defs>
+
+  <!-- Modern Card with rounded corners and left vertical accent pill -->
+  <rect x="2" y="2" width="846" height="48" rx="10" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+  <rect x="4" y="6" width="4" height="40" rx="2" fill="#238636"/>
+
+  <!-- Type Pill Badge -->
+  <g transform="translate(18, 14)">
+    <rect x="0" y="0" width="70" height="22" rx="11" fill="var(--bg-panel)" stroke="#238636" stroke-width="1"/>
+    <text x="35" y="15" fill="#238636" font-size="10" font-weight="600" text-anchor="middle" class="font-sans">TIP</text>
+  </g>
+
+  <!-- Title & Subtitle -->
+  <text x="102" y="26" fill="var(--text-main)" font-size="12" font-weight="600" class="font-sans">PRO TIP // VECTOR FIDELITY</text>
+  <text x="102" y="44" fill="var(--text-dim)" font-size="11" font-weight="400" class="font-sans">Pure vector paths render flawlessly across Retina and 4K displays</text>
+</svg>

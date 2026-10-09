@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 193 26" width="193" height="26" shape-rendering="crispEdges">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(10, 14, 23, 0.85);
+        --bg-panel: rgba(15, 23, 38, 0.82);
+        --border-chassis: rgba(30, 41, 59, 0.85);
+        --primary: #00C8D7;
+        --accent: #A855F7;
+        --tertiary: #FF0055;
+        --title-front: #00C8D7;
+        --title-mid: #006B74;
+        --title-dark: #002B2F;
+        --text-main: #F8F8F2;
+        --text-dim: #94A3B8;
+        --status: #00D26A;
+        --warning: #F59E0B;
+        --grid-op: 0.08;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(10, 14, 23, 0.85);
+          --bg-panel: rgba(15, 23, 38, 0.82);
+          --border-chassis: rgba(30, 41, 59, 0.85);
+          --primary: #00C8D7;
+          --accent: #A855F7;
+          --tertiary: #FF0055;
+          --title-front: #00C8D7;
+          --title-mid: #006B74;
+          --title-dark: #002B2F;
+          --text-main: #F8F8F2;
+          --text-dim: #94A3B8;
+          --status: #00D26A;
+          --warning: #F59E0B;
+          --grid-op: 0.08;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #F6F8FA;
+          --bg-panel: #EAEFF5;
+          --border-chassis: #D0D7DE;
+          --primary: #0969DA;
+          --accent: #8250DF;
+          --tertiary: #CF222E;
+          --title-front: #0969DA;
+          --title-mid: #0550AE;
+          --title-dark: #033D8B;
+          --text-main: #1F2328;
+          --text-dim: #57606A;
+          --status: #1A7F37;
+          --warning: #9A6700;
+          --grid-op: 0.10;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #00C8D7));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
+    </style>
+  </defs>
+  <path d="M 165 1 L 1 1 L 1 25 L 165 25" fill="var(--bg-glass)"/>
+  <path d="M 165 1 L 1 1 L 1 25 L 165 25" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="var(--primary)"/>
+  <rect x="1" y="22" width="3" height="3" fill="var(--primary)"/>
+  <rect x="7" y="8" width="3" height="10" fill="var(--primary)"/>
+  <g fill="var(--primary)">
+    <rect x="167" y="3" width="3" height="3"/><rect x="167" y="9" width="3" height="3"/><rect x="167" y="15" width="3" height="3"/><rect x="167" y="20" width="3" height="3"/>
+    <rect x="173" y="5" width="2" height="2"/><rect x="173" y="12" width="2" height="2"/><rect x="173" y="18" width="2" height="2"/>
+    <rect x="179" y="7" width="2" height="2" opacity="0.7"/><rect x="179" y="15" width="2" height="2" opacity="0.7"/>
+    <rect x="185" y="10" width="1.5" height="1.5" opacity="0.45"/><rect x="189" y="6" width="1" height="1" opacity="0.3"/>
+  </g>
+  <text x="84" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">STATUS: 200 OK</text>
+</svg>

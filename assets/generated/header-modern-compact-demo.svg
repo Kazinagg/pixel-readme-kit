@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 76" width="100%" height="100%">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(8, 9, 13, 0.94);
+        --bg-panel: rgba(18, 19, 29, 0.88);
+        --border-chassis: rgba(45, 43, 67, 0.85);
+        --primary: #8B5CF6;
+        --accent: #C084FC;
+        --tertiary: #A855F7;
+        --title-front: #A78BFA;
+        --title-mid: #7C3AED;
+        --title-dark: #4C1D95;
+        --text-main: #F5F3FF;
+        --text-dim: #A78BFA;
+        --status: #10B981;
+        --warning: #F59E0B;
+        --grid-op: 0.07;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(8, 9, 13, 0.94);
+          --bg-panel: rgba(18, 19, 29, 0.88);
+          --border-chassis: rgba(45, 43, 67, 0.85);
+          --primary: #8B5CF6;
+          --accent: #C084FC;
+          --tertiary: #A855F7;
+          --title-front: #A78BFA;
+          --title-mid: #7C3AED;
+          --title-dark: #4C1D95;
+          --text-main: #F5F3FF;
+          --text-dim: #A78BFA;
+          --status: #10B981;
+          --warning: #F59E0B;
+          --grid-op: 0.07;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #FAF5FF;
+          --bg-panel: #F3E8FF;
+          --border-chassis: #E9D5FF;
+          --primary: #6D28D9;
+          --accent: #7C3AED;
+          --tertiary: #8B5CF6;
+          --title-front: #5B21B6;
+          --title-mid: #6D28D9;
+          --title-dark: #7C3AED;
+          --text-main: #2E1065;
+          --text-dim: #6B21A8;
+          --status: #16A34A;
+          --warning: #D97706;
+          --grid-op: 0.08;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #8B5CF6));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .font-mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', Menlo, monospace; }
+    .btn-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .btn-hover:hover { opacity: 0.85; }
+
+      @keyframes pulseLiveDot {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.35; transform: scale(0.8); }
+      }
+      .live-dot { animation: pulseLiveDot 2.2s infinite ease-in-out; }
+    </style>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="var(--primary)" />
+      <stop offset="100%" stop-color="var(--accent)" />
+    </linearGradient>
+  </defs>
+
+  <!-- Modern Card Background with rounded corners & top glow highlight -->
+  <rect x="2" y="2" width="846" height="72" rx="12" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+  <path d="M 16 2 L 834 2" stroke="url(#headerGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- Clean Vector Typography -->
+  <text x="32" y="34" font-size="20" font-weight="700" fill="url(#headerGrad)" class="font-sans" letter-spacing="-0.3">COMPACT VECTOR MODULE</text>
+  <g transform="translate(32, 52)">
+    <circle cx="4" cy="-3" r="3.5" fill="var(--status)" class="live-dot"/>
+    <text x="14" y="0" fill="var(--text-dim)" font-size="11" font-weight="500" class="font-sans">LIGHTWEIGHT SUBSECTION PROFILE</text>
+  </g>
+
+  <!-- Modern Pill Tag Badge -->
+  <g transform="translate(700, 24)">
+    <rect x="0" y="0" width="126" height="28" rx="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <circle cx="14" cy="14" r="3" fill="var(--primary)"/>
+    <text x="67" y="18" fill="var(--text-main)" font-size="11" font-weight="600" text-anchor="middle" class="font-sans">SYSTEM_ACTIVE</text>
+  </g>
+</svg>

@@ -3,7 +3,7 @@ SVG generation components package for Pixel Readme Kit.
 """
 
 from generator.components.base import escape_xml, validate_svg
-from generator.components.header import generate_header, _generate_compact_header
+from generator.components.header import generate_header, _generate_compact_header, generate_compact_header
 from generator.components.footer import generate_footer
 from generator.components.callout import generate_callout, GITHUB_ALERT_COLORS
 from generator.components.frame import generate_frame
@@ -18,6 +18,7 @@ __all__ = [
     "validate_svg",
     "generate_header",
     "_generate_compact_header",
+    "generate_compact_header",
     "generate_footer",
     "generate_callout",
     "GITHUB_ALERT_COLORS",

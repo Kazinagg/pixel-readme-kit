@@ -589,6 +589,210 @@ BASE_THEME_PALETTES: Dict[str, Dict[str, Dict[str, str]]] = {
             "warning": "#D97706",
             "grid_op": "0.08"
         }
+    },
+    "excali-dark": {
+        "dark": {
+            "bg": "rgba(18, 18, 18, 0.95)",
+            "panel": "rgba(28, 28, 28, 0.90)",
+            "border": "#E0E0E0",
+            "primary": "#A78BFA",
+            "accent": "#6EE7B7",
+            "tertiary": "#FDE047",
+            "title_front": "#F3F4F6",
+            "title_mid": "#E0E0E0",
+            "title_dark": "#A78BFA",
+            "text_main": "#F3F4F6",
+            "text_dim": "#9CA3AF",
+            "success": "#6EE7B7",
+            "warning": "#FDE047",
+            "grid_op": "0.06"
+        },
+        "light": {
+            "bg": "#FDFDFD",
+            "panel": "#F4F4F5",
+            "border": "#1F2937",
+            "primary": "#4F46E5",
+            "accent": "#059669",
+            "tertiary": "#D97706",
+            "title_front": "#111827",
+            "title_mid": "#374151",
+            "title_dark": "#4F46E5",
+            "text_main": "#111827",
+            "text_dim": "#4B5563",
+            "success": "#059669",
+            "warning": "#D97706",
+            "grid_op": "0.06"
+        }
+    },
+    "whiteboard": {
+        "dark": {
+            "bg": "rgba(24, 24, 27, 0.94)",
+            "panel": "rgba(39, 39, 42, 0.90)",
+            "border": "#FAFAFA",
+            "primary": "#38BDF8",
+            "accent": "#F87171",
+            "tertiary": "#FBBF24",
+            "title_front": "#FAFAFA",
+            "title_mid": "#E4E4E7",
+            "title_dark": "#38BDF8",
+            "text_main": "#FAFAFA",
+            "text_dim": "#A1A1AA",
+            "success": "#34D399",
+            "warning": "#FBBF24",
+            "grid_op": "0.06"
+        },
+        "light": {
+            "bg": "#FFFFFF",
+            "panel": "#F8FAFC",
+            "border": "#18181B",
+            "primary": "#2563EB",
+            "accent": "#DC2626",
+            "tertiary": "#D97706",
+            "title_front": "#0F172A",
+            "title_mid": "#1E293B",
+            "title_dark": "#2563EB",
+            "text_main": "#0F172A",
+            "text_dim": "#64748B",
+            "success": "#16A34A",
+            "warning": "#DC2626",
+            "grid_op": "0.06"
+        }
+    },
+    "notebook-graph": {
+        "dark": {
+            "bg": "rgba(23, 25, 30, 0.94)",
+            "panel": "rgba(33, 37, 44, 0.90)",
+            "border": "#CBD5E1",
+            "primary": "#F3F4F6",
+            "accent": "#FACC15",
+            "tertiary": "#FB923C",
+            "title_front": "#F3F4F6",
+            "title_mid": "#E2E8F0",
+            "title_dark": "#FACC15",
+            "text_main": "#F8FAFC",
+            "text_dim": "#94A3B8",
+            "success": "#4ADE80",
+            "warning": "#FACC15",
+            "grid_op": "0.08"
+        },
+        "light": {
+            "bg": "#FAF7F2",
+            "panel": "#F3EFEA",
+            "border": "#78716C",
+            "primary": "#1E3A8A",
+            "accent": "#D97706",
+            "tertiary": "#DC2626",
+            "title_front": "#1C1917",
+            "title_mid": "#44403C",
+            "title_dark": "#1E3A8A",
+            "text_main": "#1C1917",
+            "text_dim": "#78716C",
+            "success": "#15803D",
+            "warning": "#D97706",
+            "grid_op": "0.08"
+        }
+    },
+    "blueprint-sketch": {
+        "dark": {
+            "bg": "rgba(15, 23, 42, 0.94)",
+            "panel": "rgba(24, 35, 60, 0.90)",
+            "border": "#38BDF8",
+            "primary": "#F8FAFC",
+            "accent": "#38BDF8",
+            "tertiary": "#7DD3FC",
+            "title_front": "#F8FAFC",
+            "title_mid": "#BAE6FD",
+            "title_dark": "#0284C7",
+            "text_main": "#F8FAFC",
+            "text_dim": "#94A3B8",
+            "success": "#34D399",
+            "warning": "#FBBF24",
+            "grid_op": "0.10"
+        },
+        "light": {
+            "bg": "#F0F9FF",
+            "panel": "#E0F2FE",
+            "border": "#0369A1",
+            "primary": "#0369A1",
+            "accent": "#0284C7",
+            "tertiary": "#075985",
+            "title_front": "#0C4A6E",
+            "title_mid": "#075985",
+            "title_dark": "#0369A1",
+            "text_main": "#0C4A6E",
+            "text_dim": "#0369A1",
+            "success": "#059669",
+            "warning": "#D97706",
+            "grid_op": "0.10"
+        }
+    },
+    "modern-clean": {
+        "dark": {
+            "bg": "rgba(15, 23, 42, 0.90)",
+            "panel": "rgba(30, 41, 59, 0.85)",
+            "border": "rgba(51, 65, 85, 0.85)",
+            "primary": "#38BDF8",
+            "accent": "#818CF8",
+            "tertiary": "#06B6D4",
+            "title_front": "#38BDF8",
+            "title_mid": "#0284C7",
+            "title_dark": "#0369A1",
+            "text_main": "#F8FAFC",
+            "text_dim": "#94A3B8",
+            "success": "#10B981",
+            "warning": "#F59E0B",
+            "grid_op": "0.07"
+        },
+        "light": {
+            "bg": "#F8FAFC",
+            "panel": "#F1F5F9",
+            "border": "#E2E8F0",
+            "primary": "#0284C7",
+            "accent": "#4F46E5",
+            "tertiary": "#0891B2",
+            "title_front": "#0284C7",
+            "title_mid": "#0369A1",
+            "title_dark": "#0C4A6E",
+            "text_main": "#0F172A",
+            "text_dim": "#64748B",
+            "success": "#16A34A",
+            "warning": "#D97706",
+            "grid_op": "0.08"
+        }
+    },
+    "rough-doodle": {
+        "dark": {
+            "bg": "rgba(18, 18, 18, 0.95)",
+            "panel": "rgba(28, 28, 28, 0.90)",
+            "border": "#E0E0E0",
+            "primary": "#A78BFA",
+            "accent": "#6EE7B7",
+            "tertiary": "#FDE047",
+            "title_front": "#F3F4F6",
+            "title_mid": "#E0E0E0",
+            "title_dark": "#A78BFA",
+            "text_main": "#F3F4F6",
+            "text_dim": "#9CA3AF",
+            "success": "#6EE7B7",
+            "warning": "#FDE047",
+            "grid_op": "0.06"
+        },
+        "light": {
+            "bg": "#FDFDFD",
+            "panel": "#F4F4F5",
+            "border": "#1F2937",
+            "primary": "#4F46E5",
+            "accent": "#059669",
+            "tertiary": "#D97706",
+            "title_front": "#111827",
+            "title_mid": "#374151",
+            "title_dark": "#4F46E5",
+            "text_main": "#111827",
+            "text_dim": "#4B5563",
+            "success": "#059669",
+            "warning": "#D97706",
+            "grid_op": "0.06"
+        }
     }
 }
 
@@ -618,18 +822,108 @@ THEME_ALIASES: Dict[str, str] = {
     "enterprise_navy": "enterprise-navy",
     "swiss_mono": "swiss-mono",
     "executive_slate": "executive-slate",
+    "excali": "excali-dark",
+    "excalidraw": "excali-dark",
+    "excali_dark": "excali-dark",
+    "notebook": "notebook-graph",
+    "notebook_graph": "notebook-graph",
+    "blueprint": "blueprint-sketch",
+    "blueprint_sketch": "blueprint-sketch",
+    "modern": "modern-clean",
+    "sketch": "rough-doodle",
+    "doodle": "rough-doodle",
 }
 
-# 2-level architectural classification: Styles (geometry) vs Themes (palettes)
-VALID_STYLES: List[str] = ["pixel", "modern", "corporate"]
+# 3-level architectural classification:
+# 1. Styles (3 visual paradigms)
+VALID_STYLES: List[str] = ["pixel", "modern", "sketch", "corporate"]
 
-STYLE_THEMES: Dict[str, List[str]] = {
+# 2. Canonical Themes (5 geometric flavors across styles)
+# In style pixel: 3 themes (cyberpunk, tactical, minimal)
+# In style modern: 1 theme (modern-clean)
+# In style sketch: 1 theme (rough-doodle)
+STYLE_CANONICAL_THEMES: Dict[str, List[str]] = {
     "pixel": [
         "cyberpunk",
         "tactical",
-        "tokyo",
+        "minimal",
     ],
     "modern": [
+        "modern-clean",
+    ],
+    "sketch": [
+        "rough-doodle",
+    ],
+    "corporate": [
+        "academic-paper",
+    ],
+}
+STYLE_THEMES: Dict[str, List[str]] = STYLE_CANONICAL_THEMES
+
+
+# All themes and presets accessible per style
+STYLE_ALL_THEMES: Dict[str, List[str]] = {
+    "pixel": [
+        "cyberpunk",
+        "tactical",
+        "minimal",
+        "amber",
+        "tokyo",
+        "matrix",
+        "clean-mono",
+    ],
+    "modern": [
+        "modern-clean",
+        "slate-dark",
+        "nordic-frost",
+        "linear-violet",
+        "emerald-clean",
+        "modern-slate",
+    ],
+    "sketch": [
+        "rough-doodle",
+        "excali-dark",
+        "whiteboard",
+        "notebook-graph",
+        "blueprint-sketch",
+    ],
+    "corporate": [
+        "corporate-blue",
+        "academic-paper",
+        "enterprise-navy",
+        "swiss-mono",
+        "executive-slate",
+    ],
+}
+
+# The 5 canonical themes across all styles
+CANONICAL_THEMES: List[str] = [
+    "cyberpunk",
+    "tactical",
+    "minimal",
+    "modern-clean",
+    "rough-doodle",
+]
+
+# 3. Presets / Color Palettes per Theme (Расцветки)
+THEME_PRESETS: Dict[str, List[str]] = {
+    "cyberpunk": [
+        "cyberpunk",
+        "neon-matrix",
+        "matrix",
+        "synthwave",
+        "amber",
+    ],
+    "tactical": [
+        "tactical",
+        "amber",
+    ],
+    "minimal": [
+        "minimal",
+        "tokyo",
+        "clean-mono",
+    ],
+    "modern-clean": [
         "slate-dark",
         "nordic-frost",
         "linear-violet",
@@ -637,13 +931,11 @@ STYLE_THEMES: Dict[str, List[str]] = {
         "modern-slate",
         "clean-mono",
     ],
-    "corporate": [
-        "academic-paper",
-        "enterprise-navy",
-        "swiss-mono",
-        "executive-slate",
-        "corporate-blue",
-        "clean-mono",
+    "rough-doodle": [
+        "excali-dark",
+        "whiteboard",
+        "notebook-graph",
+        "blueprint-sketch",
     ],
 }
 
@@ -747,11 +1039,27 @@ class ThemeRegistry:
         return sorted(list(names))
 
     def get_themes_for_style(self, style: str) -> List[str]:
-        """Returns sorted list of theme slugs recommended for a specific visual paradigm style."""
+        """Returns list of themes and presets available for a specific visual paradigm style."""
         st = (style or "pixel").lower().strip()
-        if st in STYLE_THEMES:
-            return list(STYLE_THEMES[st])
-        return self.list_presets()
+        themes = list(STYLE_ALL_THEMES.get(st, []))
+        return themes if themes else ["cyberpunk"]
+
+    def get_canonical_themes_for_style(self, style: str) -> List[str]:
+        """Returns list of the canonical geometric themes for a style."""
+        st = (style or "pixel").lower().strip()
+        themes = list(STYLE_CANONICAL_THEMES.get(st, []))
+        return themes if themes else ["cyberpunk"]
+
+    def get_presets_for_theme(self, theme: str) -> List[str]:
+        """Returns list of color preset slugs (расцветки) for a specific theme."""
+        t = (theme or "cyberpunk").lower().strip()
+        t = THEME_ALIASES.get(t, t)
+        if t in THEME_PRESETS:
+            return list(THEME_PRESETS[t])
+        for can_theme, presets in THEME_PRESETS.items():
+            if t in presets:
+                return list(presets)
+        return ["cyberpunk"]
 
     def normalize_style_and_theme(
         self,
@@ -759,32 +1067,44 @@ class ThemeRegistry:
         theme: Optional[str] = None,
     ) -> Tuple[str, str]:
         """
-        Normalizes style (geometric paradigm: pixel|modern|corporate) and theme (palette slug).
-        Guarantees 100% backward compatibility when legacy theme name was passed in `style`.
+        Normalizes style (pixel|modern|sketch) and theme/preset.
+        Guarantees 100% backward compatibility:
+        - If style and theme are provided, preserves both with alias resolution.
+        - If theme is provided without style, infers style from theme or preset.
+        - If style is provided without theme, returns canonical theme for style.
+        - If legacy theme name was passed in style parameter, maps to proper style and theme.
         """
         if theme:
-            t = str(theme).lower().strip()
-            t = THEME_ALIASES.get(t, t)
-            s = str(style).lower().strip() if style else "pixel"
-            if s not in VALID_STYLES and s in self._palettes:
-                # E.g. style="tactical", theme="cyberpunk" -> explicit theme wins, style defaults to pixel
-                s = "pixel"
-            elif s not in VALID_STYLES:
-                s = "pixel"
-            return s, t
+            t_raw = str(theme).lower().strip()
+            t = THEME_ALIASES.get(t_raw, t_raw)
+
+            if style and str(style).lower().strip() in VALID_STYLES:
+                target_style = str(style).lower().strip()
+            else:
+                target_style = "pixel"
+                for st, themes_list in STYLE_ALL_THEMES.items():
+                    if t in themes_list or t_raw in themes_list:
+                        target_style = st
+                        break
+            return target_style, t
 
         if not style:
             return "pixel", "cyberpunk"
 
         s_clean = str(style).lower().strip()
         if s_clean in VALID_STYLES:
-            # Default theme for this style
-            def_theme = STYLE_THEMES.get(s_clean, ["cyberpunk"])[0]
+            def_theme = STYLE_CANONICAL_THEMES.get(s_clean, ["cyberpunk"])[0]
             return s_clean, def_theme
 
-        # Legacy case: style was a theme name like "cyberpunk", "tactical", "minimal"
-        s_clean = THEME_ALIASES.get(s_clean, s_clean)
-        return "pixel", s_clean
+        # Legacy case: style was a theme/preset name passed in style parameter
+        s_alias = THEME_ALIASES.get(s_clean, s_clean)
+        target_style = "pixel"
+        for st, themes_list in STYLE_ALL_THEMES.items():
+            if s_alias in themes_list or s_clean in themes_list:
+                target_style = st
+                break
+
+        return target_style, s_alias
 
     def resolve_theme(
         self,
@@ -964,6 +1284,8 @@ STYLE_PALETTES = {k: v["dark"] for k, v in THEME_PALETTES.items()}
 resolve_theme = theme_registry.resolve_theme
 normalize_style_and_theme = theme_registry.normalize_style_and_theme
 get_themes_for_style = theme_registry.get_themes_for_style
+get_canonical_themes_for_style = theme_registry.get_canonical_themes_for_style
+get_presets_for_theme = theme_registry.get_presets_for_theme
 
 def resolve_colors(style=None, primary=None, accent=None, mode="auto", preset=None, tertiary=None, theme=None):
     c, _ = resolve_theme(style=style, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary, theme=theme)

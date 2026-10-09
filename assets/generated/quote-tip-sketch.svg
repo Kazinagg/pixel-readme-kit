@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 54" width="100%" height="100%">
+  <defs>
+    <style>
+      
+      :root {
+        --bg-glass: rgba(18, 18, 18, 0.95);
+        --bg-panel: rgba(28, 28, 28, 0.90);
+        --border-chassis: #E0E0E0;
+        --primary: #A78BFA;
+        --accent: #6EE7B7;
+        --tertiary: #FDE047;
+        --title-front: #F3F4F6;
+        --title-mid: #E0E0E0;
+        --title-dark: #A78BFA;
+        --text-main: #F3F4F6;
+        --text-dim: #9CA3AF;
+        --status: #6EE7B7;
+        --warning: #FDE047;
+        --grid-op: 0.06;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-glass: rgba(18, 18, 18, 0.95);
+          --bg-panel: rgba(28, 28, 28, 0.90);
+          --border-chassis: #E0E0E0;
+          --primary: #A78BFA;
+          --accent: #6EE7B7;
+          --tertiary: #FDE047;
+          --title-front: #F3F4F6;
+          --title-mid: #E0E0E0;
+          --title-dark: #A78BFA;
+          --text-main: #F3F4F6;
+          --text-dim: #9CA3AF;
+          --status: #6EE7B7;
+          --warning: #FDE047;
+          --grid-op: 0.06;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-glass: #FDFDFD;
+          --bg-panel: #F4F4F5;
+          --border-chassis: #1F2937;
+          --primary: #4F46E5;
+          --accent: #059669;
+          --tertiary: #D97706;
+          --title-front: #111827;
+          --title-mid: #374151;
+          --title-dark: #4F46E5;
+          --text-main: #111827;
+          --text-dim: #4B5563;
+          --status: #059669;
+          --warning: #D97706;
+          --grid-op: 0.06;
+        }
+      }
+      @media (hover: hover) {
+        .btn-hover:hover, a:hover polygon, a:hover rect {
+          filter: drop-shadow(0 0 6px var(--primary, #A78BFA));
+          cursor: pointer;
+          transition: filter 0.2s ease;
+        }
+      }
+
+
+    .font-sketch { font-family: 'Virgil', 'Architects Daughter', 'Comic Shanns', 'Kalam', 'Chalkboard SE', 'Comic Sans MS', 'Casual', cursive, sans-serif; }
+    .font-sketch-mono { font-family: 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, monospace; }
+    .sketch-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .sketch-hover:hover { opacity: 0.85; transform: scale(1.01); }
+
+    </style>
+    <pattern id="calloutSketch-hatch" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--primary)" stroke-width="1.3" opacity="0.45" />
+    </pattern>
+    <pattern id="calloutSketch-crosshatch" width="12" height="12" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+      <line x1="0" y1="0" x2="12" y2="0" stroke="var(--accent)" stroke-width="1.2" opacity="0.4" />
+    </pattern>
+    <pattern id="calloutSketch-hatch-accent" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="var(--accent)" stroke-width="1.3" opacity="0.5" />
+    </pattern>
+    <linearGradient id="calloutSketch-tape" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0.25" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sticky Note Rough Chassis -->
+  <rect x="4" y="4" width="842" height="46" rx="6" fill="var(--bg-glass)" fill-opacity="1.0" />
+    <path d="M 1.05 4.53 Q 423.4 3.11 848.77 4.24" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 1.4 4.78 Q 425.74 4.17 849.17 4.55" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 846.17 1.65 Q 845.87 27.58 846.49 53.96" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 846.5 1.88 Q 845.57 25.99 846.75 52.21" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 848.03 49.5 Q 425.64 51.36 1.1 50.57" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 848.58 49.96 Q 423.95 51.26 1.44 50.82" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 4.09 53.57 Q 4.7 28.41 4.39 1.86" stroke="var(--border-chassis)" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 4.43 53.81 Q 2.9 28.21 4.67 0.13" stroke="var(--border-chassis)" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.75" />
+
+  <!-- Washi Tape Strip -->
+  <polygon points="20 1, 60 1, 52 13, 12 13" fill="url(#calloutSketch-tape)" stroke="var(--tertiary)" stroke-width="0.8" opacity="0.85" />
+
+  <!-- Left Accent Marker Line -->
+  <path d="M 11.75 8.07 Q 10.96 26.43 12.15 46.47" stroke="#238636" stroke-width="3.2" stroke-linecap="round" fill="none" opacity="1.0" />
+
+  <!-- Type Badge -->
+  <g>
+    <rect x="22" y="14" width="70" height="22" rx="4" fill="var(--bg-panel)" fill-opacity="1.0" />
+    <path d="M 18.24 13.71 Q 56.59 14.3 94.76 14.24" stroke="#238636" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 18.75 14.13 Q 56.79 13.22 95.17 14.55" stroke="#238636" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 92.16 11.64 Q 93.0 26.72 92.73 37.8" stroke="#238636" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 92.49 11.87 Q 90.66 25.96 92.94 38.4" stroke="#238636" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 94.27 35.74 Q 57.27 36.98 19.64 37.12" stroke="#238636" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 94.77 36.15 Q 56.25 34.68 19.87 35.33" stroke="#238636" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 22.64 40.11 Q 20.7 24.41 21.58 11.05" stroke="#238636" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="1.0" />
+    <path d="M 22.87 38.33 Q 22.5 24.93 22.02 11.4" stroke="#238636" stroke-width="1.02" stroke-linecap="round" fill="none" opacity="0.75" />
+    <path d="M 30.6,21.8 L 31.8,28.0 L 26.2,24.4 L 33.8,23.7 L 28.3,28.7 L 29.4,21.1" stroke="#238636" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="#238636" />
+    <text x="57" y="29" fill="#238636" font-size="10" font-weight="600" text-anchor="middle" class="font-sketch">TIP</text>
+  </g>
+
+  <!-- Title & Subtitle in Handwriting -->
+  <text x="106" y="26" fill="var(--text-main)" font-size="12" font-weight="600" class="font-sketch">“ СТИКЕР СО СКОТЧЕМ (WASHI TAPE)</text>
+  <text x="106" y="44" fill="var(--text-dim)" font-size="11" class="font-sketch">Крафтовые заметки и выделения маркером оживляют техническую документацию</text>
+</svg>

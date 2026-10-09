@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 230" width="100%" height="100%">
+  <defs>
+        <linearGradient id="modern-starchart-accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+    <linearGradient id="modern-starchart-border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#E2E8F0" stop-opacity="0.3" />
+    </linearGradient>
+    <style>
+      
+      
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+    .font-mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', Menlo, monospace; }
+    .btn-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
+    .btn-hover:hover { opacity: 0.85; }
+
+    </style>
+    <linearGradient id="modern-star-area" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#0284C7" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- MODERN CHASSIS -->
+  <rect x="2" y="2" width="846" height="226" rx="14" fill="#F8FAFC" stroke="url(#modern-starchart-border-grad)" stroke-width="1.2"/>
+  <path d="M 16 2 L 834 2" stroke="url(#modern-starchart-accent-grad)" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- HEADER -->
+  <g transform="translate(20, 18)">
+    <circle cx="8" cy="14" r="3.5" fill="#16A34A"/>
+    <text x="18" y="18" fill="#0F172A" font-size="12" font-weight="700" letter-spacing="0.03em" class="font-sans">STAR GROWTH TRAJECTORY</text>
+    <text x="187" y="18" fill="#64748B" font-size="11" class="font-mono">/ Kazinagg/pixel-readme-kit</text>
+  </g>
+
+  <!-- STATS PILLS -->
+  <g transform="translate(650, 18)">
+    <rect x="0" y="0" width="86" height="24" rx="12" fill="#F1F5F9" stroke="#0284C7" stroke-width="1"/>
+    <text x="43" y="16" fill="#0284C7" font-size="11" font-weight="700" text-anchor="middle" class="font-sans">★ 1,450</text>
+    <rect x="94" y="0" width="86" height="24" rx="12" fill="#F1F5F9" stroke="#4F46E5" stroke-width="1"/>
+    <text x="137" y="16" fill="#4F46E5" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">+120% 6m</text>
+  </g>
+
+  <!-- GRID & AXES -->
+  <line x1="65" y1="186.0" x2="810" y2="186.0" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/><line x1="65" y1="146.7" x2="810" y2="146.7" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/><line x1="65" y1="107.3" x2="810" y2="107.3" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/><line x1="65" y1="68.0" x2="810" y2="68.0" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"/>
+  <text x="55" y="189.5" fill="#64748B" font-size="10" text-anchor="end" class="font-mono">0</text><text x="55" y="150.2" fill="#64748B" font-size="10" text-anchor="end" class="font-mono">483</text><text x="55" y="110.8" fill="#64748B" font-size="10" text-anchor="end" class="font-mono">966</text><text x="55" y="71.5" fill="#64748B" font-size="10" text-anchor="end" class="font-mono">1.4k</text>
+  <text x="65.0" y="204" fill="#64748B" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">M-5</text><text x="214.0" y="204" fill="#64748B" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">M-4</text><text x="363.0" y="204" fill="#64748B" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">M-3</text><text x="512.0" y="204" fill="#64748B" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">M-2</text><text x="661.0" y="204" fill="#64748B" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">M-1</text><text x="810.0" y="204" fill="#64748B" font-size="10.5" font-weight="500" text-anchor="middle" class="font-sans">NOW</text>
+
+  <!-- CHART AREA & BEZIER SPLINE -->
+  <path d="M 65.0 186 L 65.0 185.0 C 132.1 185.0, 146.9 182.3, 214.0 182.3 C 281.1 182.3, 295.9 176.2, 363.0 176.2 C 430.1 176.2, 444.9 155.1, 512.0 155.1 C 579.0 155.1, 594.0 119.3, 661.0 119.3 C 728.0 119.3, 743.0 68.0, 810.0 68.0 L 810.0 186 Z" fill="url(#modern-star-area)" shape-rendering="geometricPrecision"/>
+  <path d="M 65.0 185.0 C 132.1 185.0, 146.9 182.3, 214.0 182.3 C 281.1 182.3, 295.9 176.2, 363.0 176.2 C 430.1 176.2, 444.9 155.1, 512.0 155.1 C 579.0 155.1, 594.0 119.3, 661.0 119.3 C 728.0 119.3, 743.0 68.0, 810.0 68.0" fill="none" stroke="url(#modern-starchart-accent-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" shape-rendering="geometricPrecision"/>
+
+  <!-- DATA VERTICES -->
+  <circle cx="65.0" cy="185.0" r="3" fill="#F1F5F9" stroke="#0284C7" stroke-width="1.5"/><circle cx="214.0" cy="182.3" r="3" fill="#F1F5F9" stroke="#0284C7" stroke-width="1.5"/><circle cx="363.0" cy="176.2" r="3" fill="#F1F5F9" stroke="#0284C7" stroke-width="1.5"/><circle cx="512.0" cy="155.1" r="3" fill="#F1F5F9" stroke="#0284C7" stroke-width="1.5"/><circle cx="661.0" cy="119.3" r="3" fill="#F1F5F9" stroke="#0284C7" stroke-width="1.5"/>
+    <!-- Peak Milestone Marker -->
+    <circle cx="810.0" cy="68.0" r="8" fill="#4F46E5" opacity="0.2"/>
+    <circle cx="810.0" cy="68.0" r="5" fill="#F8FAFC" stroke="#4F46E5" stroke-width="2"/>
+    <circle cx="810.0" cy="68.0" r="2" fill="#0284C7"/>
+    <!-- Peak Callout Pill -->
+    <g transform="translate(760.0, 38.0)">
+      <rect x="0" y="0" width="76" height="22" rx="11" fill="#F1F5F9" stroke="#4F46E5" stroke-width="1.2"/>
+      <text x="38" y="15" fill="#4F46E5" font-size="11" font-weight="700" text-anchor="middle" class="font-sans">★ 1,450</text>
+    </g>
+</svg>

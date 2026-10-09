@@ -6,11 +6,11 @@
     </style>
   </defs>
   <!-- Body Chassis -->
-  <rect x="2" y="2" width="846" height="44" fill="#F8FAFC" stroke="#238636" stroke-width="1.5"/><rect x="2" y="2" width="5" height="5" fill="#238636"/><rect x="843" y="2" width="5" height="5" fill="#238636"/><rect x="2" y="41" width="5" height="5" fill="#238636"/><rect x="843" y="41" width="5" height="5" fill="#238636"/>
+  <rect x="1" y="2" width="848" height="44" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
   <!-- Badges & Accents -->
-  <rect x="14" y="10" width="140" height="28" fill="#F1F5F9" stroke="#238636" stroke-width="1.5"/><circle cx="26" cy="24" r="3.5" fill="#238636"/><text x="90" y="28" fill="#238636" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">SUCCESS // 0x01</text>
-  <rect x="815" y="14" width="20" height="20" fill="#F1F5F9"/><text x="825" y="28" fill="#238636" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">ℹ</text>
+  <rect x="16" y="11" width="140" height="26" fill="#F1F5F9" stroke="#238636" stroke-width="1"/><text x="86" y="28" fill="#238636" font-size="11" font-weight="bold" text-anchor="middle" class="font-mono">SUCCESS // MINIMAL</text>
+  <path d="M 5 12 L 5 5 L 14 5" fill="none" stroke="#1D4ED8" stroke-width="1.5"/><path d="M 845 12 L 845 5 L 836 5" fill="none" stroke="#1D4ED8" stroke-width="1.5"/>
   <!-- Text Content (Properly offset past badge edge) -->
-  <text x="168" y="22" fill="#0F172A" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">STATIC LIGHT THEME</text>
-  <text x="168" y="36" fill="#6D28D9" font-size="11" class="font-mono">High contrast deep tones for light backgrounds</text>
+  <text x="170" y="22" fill="#0F172A" font-size="11" font-weight="bold" letter-spacing="0.5" class="font-mono">STATIC LIGHT THEME</text>
+  <text x="170" y="36" fill="#6D28D9" font-size="11" class="font-mono">High contrast deep tones for light backgrounds</text>
 </svg>

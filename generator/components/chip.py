@@ -1,14 +1,177 @@
 """Chip badge components for Pixel Readme Kit."""
 from typing import Optional, Any
 from generator.themes import resolve_theme, normalize_style_and_theme
-from generator.layout import measure_mono_text_width, clamp_text_to_width, estimate_chip_width
-from generator.components.base import escape_xml, validate_svg
+from generator.layout import (
+    measure_mono_text_width,
+    clamp_text_to_width,
+    estimate_chip_width,
+    measure_sans_text_width,
+    clamp_sans_text_to_width,
+)
+from generator.components.base import (
+    escape_xml,
+    validate_svg,
+    MODERN_BASE_STYLES,
+    SKETCH_BASE_STYLES,
+    render_sketch_defs,
+    render_rough_line,
+    render_rough_rect,
+    render_rough_star,
+)
+
+
+def _generate_modern_chip(style_name, theme_name, c, css_vars,
+                          text="CHIP_LABEL", width=None, height=26):
+    """Renders sleek vector pill badge for metadata and GitHub counters."""
+    prim = c["primary"]
+    acc = c["accent"]
+    tertiary_col = c["tertiary"]
+    bg = c["bg"]
+    border = c["border"]
+    panel = c["panel"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+
+    raw_text = str(text).strip()
+    h = height if height else 26
+    rx = h // 2
+
+    if ":" in raw_text:
+        parts = raw_text.split(":", 1)
+        lbl = escape_xml(parts[0].strip())
+        val = escape_xml(parts[1].strip())
+        lbl_w = measure_sans_text_width(lbl, 10)
+        val_w = measure_sans_text_width(val, 10.5)
+        calc_w = int(lbl_w + val_w + 38)
+        w = width if width is not None else calc_w
+        mid_sep = int(lbl_w + 20)
+
+        svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}">
+  <defs>
+    <style>
+      {css_vars}
+{MODERN_BASE_STYLES}
+    </style>
+  </defs>
+
+  <!-- Modern Dual-Segment Pill Badge -->
+  <rect x="1" y="1" width="{w-2}" height="{h-2}" rx="{rx-1}" fill="{bg}" stroke="{border}" stroke-width="1.2"/>
+  <path d="M 1 {rx} Q 1 1 {rx} 1 L {mid_sep} 1 L {mid_sep} {h-1} L {rx} {h-1} Q 1 {h-1} 1 {h-rx} Z" fill="{panel}"/>
+  <line x1="{mid_sep}" y1="1" x2="{mid_sep}" y2="{h-1}" stroke="{border}" stroke-width="1"/>
+
+  <!-- Label & Value -->
+  <text x="{mid_sep//2 + 1}" y="{h//2 + 4}" fill="{text_dim}" font-size="10" font-weight="600" text-anchor="middle" class="font-sans">{lbl}</text>
+  <text x="{mid_sep + (w - mid_sep)//2}" y="{h//2 + 4}" fill="{prim}" font-size="10.5" font-weight="700" text-anchor="middle" class="font-sans">{val}</text>
+</svg>"""
+
+    else:
+        text_clean = escape_xml(raw_text)
+        text_w = measure_sans_text_width(text_clean, 10.5)
+        calc_w = int(text_w + 36)
+        w = width if width is not None else calc_w
+
+        svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}">
+  <defs>
+    <style>
+      {css_vars}
+{MODERN_BASE_STYLES}
+    </style>
+  </defs>
+
+  <!-- Modern Single Pill Badge with dot -->
+  <rect x="1" y="1" width="{w-2}" height="{h-2}" rx="{rx-1}" fill="{panel}" stroke="{border}" stroke-width="1.2"/>
+  <circle cx="12" cy="{h//2}" r="3" fill="{prim}"/>
+  <text x="{w//2 + 5}" y="{h//2 + 4}" fill="{text_main}" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">{text_clean}</text>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
+
+def _generate_sketch_chip(style_name, theme_name, c, css_vars,
+                          text="CHIP_LABEL", width=None, height=26):
+    """Renders hand-drawn sketch badge for metadata and GitHub counters."""
+    prim = c["primary"]
+    acc = c["accent"]
+    tertiary_col = c.get("tertiary", "#FDE047")
+    bg = c["bg"]
+    border = c["border"]
+    panel = c["panel"]
+    text_main = c["text_main"]
+    text_dim = c["text_dim"]
+
+    raw_text = str(text).strip()
+    h = height if height else 26
+
+    if ":" in raw_text:
+        parts = raw_text.split(":", 1)
+        lbl = escape_xml(parts[0].strip())
+        val = escape_xml(parts[1].strip())
+        lbl_w = measure_sans_text_width(lbl, 10)
+        val_w = measure_sans_text_width(val, 10.5)
+        calc_w = int(lbl_w + val_w + 38)
+        w = width if width is not None else calc_w
+        mid_sep = int(lbl_w + 20)
+
+        outer_rect = render_rough_rect(x=1, y=1, w=w-2, h=h-2, stroke=border, stroke_width=1.3, fill=bg, rx=6, seed=190)
+        divider_line = render_rough_line(mid_sep, 2, mid_sep, h-2, stroke=border, stroke_width=1.1, jitter=0.6, double_stroke=False, seed=192)
+
+        svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}">
+  <defs>
+    <style>
+      {css_vars}
+{SKETCH_BASE_STYLES}
+    </style>
+{render_sketch_defs(c, "chipSketchDual")}
+  </defs>
+
+  <!-- Sketch Dual-Segment Badge -->
+  {outer_rect}
+  <rect x="2" y="2" width="{mid_sep-3}" height="{h-4}" rx="4" fill="{panel}" />
+  {divider_line}
+
+  <!-- Label & Value -->
+  <text x="{mid_sep//2 + 1}" y="{h//2 + 4}" fill="{text_dim}" font-size="10" font-weight="600" text-anchor="middle" class="font-sketch">{lbl}</text>
+  <text x="{mid_sep + (w - mid_sep)//2}" y="{h//2 + 4}" fill="{prim}" font-size="10.5" font-weight="700" text-anchor="middle" class="font-sketch">{val}</text>
+</svg>"""
+
+    else:
+        text_clean = escape_xml(raw_text)
+        text_w = measure_sans_text_width(text_clean, 10.5)
+        calc_w = int(text_w + 36)
+        w = width if width is not None else calc_w
+
+        outer_rect = render_rough_rect(x=1, y=1, w=w-2, h=h-2, stroke=acc, stroke_width=1.3, fill=panel, rx=6, seed=195)
+        doodle_icon = render_rough_star(cx=12, cy=h//2, r=3.2, fill=prim, stroke=prim, seed=197)
+
+        svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}">
+  <defs>
+    <style>
+      {css_vars}
+{SKETCH_BASE_STYLES}
+    </style>
+{render_sketch_defs(c, "chipSketchSingle")}
+  </defs>
+
+  <!-- Sketch Single Badge -->
+  {outer_rect}
+  {doodle_icon}
+  <text x="{w//2 + 5}" y="{h//2 + 4}" fill="{text_main}" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sketch">{text_clean}</text>
+</svg>"""
+
+    validate_svg(svg)
+    return svg
+
 
 def generate_chip(style=None, primary=None, accent=None,
                   chip_type="closed", text="CHIP_LABEL", width=None, height=26, mode="auto", preset=None,
                   decay_dir="right", tertiary=None, theme=None):
     style_name, theme_name = normalize_style_and_theme(style=style, theme=theme)
     c, css_vars = resolve_theme(style=style_name, theme=theme_name, mode=mode, primary=primary, accent=accent, preset=preset, tertiary=tertiary)
+    if style_name == "modern":
+        return _generate_modern_chip(style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars, text=text, width=width, height=height)
+    elif style_name == "sketch":
+        return _generate_sketch_chip(style_name=style_name, theme_name=theme_name, c=c, css_vars=css_vars, text=text, width=width, height=height)
     prim = c["primary"]
     acc = c["accent"]
     bg = c["bg"]
@@ -16,6 +179,7 @@ def generate_chip(style=None, primary=None, accent=None,
     panel = c["panel"]
     text_main = c["text_main"]
     text_dim = c["text_dim"]
+
 
     text_clean = escape_xml(text)
     if theme_name in ("tactical", "amber", "amber_crt"):

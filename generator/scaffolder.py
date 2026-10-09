@@ -25,10 +25,14 @@ TEMPLATE_REGISTRY = {
     "repo/cli": os.path.join("repo", "cli.template.md"),
     "repo/study": os.path.join("repo", "study.template.md"),
     "repo/minimal": os.path.join("repo", "minimal.template.md"),
+    "repo/modern": os.path.join("repo", "modern.template.md"),
+    "repo/sketch": os.path.join("repo", "sketch.template.md"),
     # Profiles
     "profile/developer": os.path.join("profile", "developer.template.md"),
     "profile/minimal": os.path.join("profile", "minimal.template.md"),
     "profile/cyberpunk": os.path.join("profile", "cyberpunk.template.md"),
+    "profile/modern": os.path.join("profile", "modern.template.md"),
+    "profile/sketch": os.path.join("profile", "sketch.template.md"),
 }
 
 # Aliases for convenience and backward compatibility
@@ -38,15 +42,21 @@ ALIASES = {
     "cli": "repo/cli",
     "study": "repo/study",
     "minimal": "repo/minimal",
+    "modern": "repo/modern",
+    "sketch": "repo/sketch",
     # Dash-separated aliases
     "repo-library": "repo/library",
     "repo-cli": "repo/cli",
     "repo-study": "repo/study",
     "repo-minimal": "repo/minimal",
+    "repo-modern": "repo/modern",
+    "repo-sketch": "repo/sketch",
     "profile": "profile/developer",
     "profile-developer": "profile/developer",
     "profile-minimal": "profile/minimal",
     "profile-cyberpunk": "profile/cyberpunk",
+    "profile-modern": "profile/modern",
+    "profile-sketch": "profile/sketch",
 }
 
 def get_available_templates(category=None):

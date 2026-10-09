@@ -376,7 +376,7 @@ class MarkdownCompiler:
         # <!-- /pixel-kit:window -->
         # ---------------------------------------------------------------
         window_regex = re.compile(
-            r'<!--\s*pixel-kit:window\s+(.*?)\s*-->([\s\S]*?)<!--\s*/pixel-kit:window\s*-->',
+            r'<!--\s*(?:pixel-kit|readme-kit):window\s+(.*?)\s*-->([\s\S]*?)<!--\s*/(?:pixel-kit|readme-kit):window\s*-->',
             re.IGNORECASE
         )
 
@@ -421,7 +421,7 @@ class MarkdownCompiler:
                 is_full_width=True
             )
 
-            if style.lower() == "minimal" or theme.lower() in ("minimal", "clean-mono", "academic-paper", "corporate-blue", "swiss-mono", "executive-slate"):
+            if style.lower() in ("minimal", "modern", "sketch") or theme.lower() in ("minimal", "clean-mono", "academic-paper", "corporate-blue", "swiss-mono", "executive-slate", "slate-dark", "nordic-frost", "linear-violet", "emerald-clean", "modern-slate", "excali-dark", "whiteboard", "notebook-graph", "blueprint-sketch"):
                 # Integrated 3-row single table monolith
                 return f"""<table width="100%">
 <tr>
@@ -467,7 +467,7 @@ class MarkdownCompiler:
         # <!-- /pixel-kit:terminal -->
         # ---------------------------------------------------------------
         terminal_regex = re.compile(
-            r'<!--\s*pixel-kit:terminal\s+(.*?)\s*-->([\s\S]*?)<!--\s*/pixel-kit:terminal\s*-->',
+            r'<!--\s*(?:pixel-kit|readme-kit):terminal\s+(.*?)\s*-->([\s\S]*?)<!--\s*/(?:pixel-kit|readme-kit):terminal\s*-->',
             re.IGNORECASE
         )
 
@@ -542,7 +542,7 @@ class MarkdownCompiler:
         # <!-- /pixel-kit:quote -->
         # ---------------------------------------------------------------
         quote_regex = re.compile(
-            r'<!--\s*pixel-kit:quote\s+(.*?)\s*-->([\s\S]*?)<!--\s*/pixel-kit:quote\s*-->',
+            r'<!--\s*(?:pixel-kit|readme-kit):quote\s+(.*?)\s*-->([\s\S]*?)<!--\s*/(?:pixel-kit|readme-kit):quote\s*-->',
             re.IGNORECASE
         )
 
@@ -584,7 +584,7 @@ class MarkdownCompiler:
         # <!-- /pixel-kit:metrics -->
         # ---------------------------------------------------------------
         metrics_regex = re.compile(
-            r'<!--\s*pixel-kit:metrics\s*(.*?)\s*-->([\s\S]*?)<!--\s*/pixel-kit:metrics\s*-->',
+            r'<!--\s*(?:pixel-kit|readme-kit):metrics\s*(.*?)\s*-->([\s\S]*?)<!--\s*/(?:pixel-kit|readme-kit):metrics\s*-->',
             re.IGNORECASE
         )
 
@@ -632,7 +632,7 @@ class MarkdownCompiler:
         # <!-- /pixel-kit:timeline -->
         # ---------------------------------------------------------------
         timeline_regex = re.compile(
-            r'<!--\s*pixel-kit:timeline\s*(.*?)\s*-->([\s\S]*?)<!--\s*/pixel-kit:timeline\s*-->',
+            r'<!--\s*(?:pixel-kit|readme-kit):timeline\s*(.*?)\s*-->([\s\S]*?)<!--\s*/(?:pixel-kit|readme-kit):timeline\s*-->',
             re.IGNORECASE
         )
 
@@ -676,7 +676,7 @@ class MarkdownCompiler:
         # 4. STANDALONE: HEADER
         # <!-- pixel-kit:header style="..." title="..." subtitle="..." [tag="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        header_regex = re.compile(r'<!--\s*pixel-kit:header\s+(.*?)\s*-->', re.IGNORECASE)
+        header_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):header\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_header(m):
             attrs = parse_directive_attrs(m.group(1))
@@ -718,7 +718,7 @@ class MarkdownCompiler:
         # 5. STANDALONE: FOOTER
         # <!-- pixel-kit:footer style="..." status="..." [nav="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        footer_regex = re.compile(r'<!--\s*pixel-kit:footer\s+(.*?)\s*-->', re.IGNORECASE)
+        footer_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):footer\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_footer(m):
             attrs = parse_directive_attrs(m.group(1))
@@ -747,7 +747,7 @@ class MarkdownCompiler:
         # 6. STANDALONE: CALLOUT (Autonomous)
         # <!-- pixel-kit:callout style="..." type="..." title="..." [subtitle="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        callout_regex = re.compile(r'<!--\s*pixel-kit:callout\s+(.*?)\s*-->', re.IGNORECASE)
+        callout_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):callout\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_callout(m):
             attrs = parse_directive_attrs(m.group(1))
@@ -775,7 +775,7 @@ class MarkdownCompiler:
         # 7. STANDALONE: DIVIDER
         # <!-- pixel-kit:divider style="..." [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        divider_regex = re.compile(r'<!--\s*pixel-kit:divider\s+(.*?)\s*-->', re.IGNORECASE)
+        divider_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):divider\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_divider(m):
             attrs = parse_directive_attrs(m.group(1))
@@ -799,7 +799,7 @@ class MarkdownCompiler:
         # 8. STANDALONE: SPLITTER
         # <!-- pixel-kit:splitter style="..." label="..." [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        splitter_regex = re.compile(r'<!--\s*pixel-kit:splitter\s+(.*?)\s*-->', re.IGNORECASE)
+        splitter_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):splitter\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_splitter(m):
             attrs = parse_directive_attrs(m.group(1))
@@ -824,7 +824,7 @@ class MarkdownCompiler:
         # 9. STANDALONE: CHIP
         # <!-- pixel-kit:chip style="..." [type="closed|decay|pulse"] [text="..."] [github="stars|forks|issues|license|watchers|version|release"] [repo="owner/repo"] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        chip_regex = re.compile(r'<!--\s*pixel-kit:chip\s+(.*?)\s*-->', re.IGNORECASE)
+        chip_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):chip\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_chip(m):
             attrs = parse_directive_attrs(m.group(1))
@@ -867,7 +867,7 @@ class MarkdownCompiler:
         # 9.5 STANDALONE: METRICS
         # <!-- pixel-kit:metrics style="..." [items="..."] [repo="..."] [auto_fetch="true"] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        metrics_regex = re.compile(r'<!--\s*pixel-kit:metrics\s+(.*?)\s*-->', re.IGNORECASE)
+        metrics_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):metrics\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_metrics(m):
             attrs = parse_directive_attrs(m.group(1))
@@ -922,7 +922,7 @@ class MarkdownCompiler:
         # 10. STANDALONE: PROGRESS
         # <!-- pixel-kit:progress style="..." value="80" label="..." [sub="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        progress_regex = re.compile(r'<!--\s*pixel-kit:progress\s+(.*?)\s*-->', re.IGNORECASE)
+        progress_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):progress\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_progress(m):
             attrs = parse_directive_attrs(m.group(1))
@@ -949,7 +949,7 @@ class MarkdownCompiler:
         # 11. STANDALONE: TECHSTACK
         # <!-- pixel-kit:techstack style="..." items="cpp,opengl,delphi,git,docker" [columns="5"] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        techstack_regex = re.compile(r'<!--\s*pixel-kit:techstack\s+(.*?)\s*-->', re.IGNORECASE)
+        techstack_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):techstack\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_techstack(m):
             attrs = parse_directive_attrs(m.group(1))
@@ -975,7 +975,7 @@ class MarkdownCompiler:
         # 12. STANDALONE: SOCIAL PREVIEW (OpenGraph 1280x640)
         # <!-- pixel-kit:social style="..." title="..." subtitle="..." repo="..." tags="..." [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        social_regex = re.compile(r'<!--\s*pixel-kit:social\s+(.*?)\s*-->', re.IGNORECASE)
+        social_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):social\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_social(m):
             attrs = parse_directive_attrs(m.group(1))
@@ -1003,7 +1003,7 @@ class MarkdownCompiler:
         # 13. STANDALONE: STARCHART (Star Growth Trend)
         # <!-- pixel-kit:starchart style="..." repo="..." points="..." [current="..."] [delta="..."] [title="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        starchart_regex = re.compile(r'<!--\s*pixel-kit:starchart\s+(.*?)\s*-->', re.IGNORECASE)
+        starchart_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):starchart\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_starchart(m):
             attrs = parse_directive_attrs(m.group(1))
@@ -1048,7 +1048,7 @@ class MarkdownCompiler:
         # 14. STANDALONE: PROFILE (Developer Dossier Card)
         # <!-- pixel-kit:profile style="..." name="..." role="..." bio="..." [status="..."] [location="..."] [badge="..."] [primary="..."] [accent="..."] [preset="..."] [mode="..."] [out="..."] -->
         # ---------------------------------------------------------------
-        profile_regex = re.compile(r'<!--\s*pixel-kit:profile\s+(.*?)\s*-->', re.IGNORECASE)
+        profile_regex = re.compile(r'<!--\s*(?:pixel-kit|readme-kit):profile\s+(.*?)\s*-->', re.IGNORECASE)
 
         def repl_profile(m):
             attrs = parse_directive_attrs(m.group(1))
