@@ -98,8 +98,8 @@
   <polygon points="380 0, 470 0, 461 13, 371 13" fill="url(#starSketch-tape)" stroke="var(--tertiary)" stroke-width="0.8" opacity="0.8"/>
 
   <!-- Header Info -->
-  <text x="24" y="32" fill="var(--primary)" font-size="14" font-weight="700" class="font-sketch">★ OPEN SOURCE STARS TRAJECTORY // Kazinagg/pixel-readme-kit</text>
-  <text x="826" y="32" fill="var(--status)" font-size="12" font-weight="600" text-anchor="end" class="font-sketch">↑ +900% past 6m</text>
+  <text x="24" y="32" fill="var(--primary)" font-size="14" font-weight="700" class="font-sketch">★ OPEN SOURCE STARS TRAJECTORY // Kazinagg/readme-kit</text>
+  <text x="826" y="32" fill="var(--status)" font-size="12" font-weight="600" text-anchor="end" class="font-sketch">↑ +78% past 6m</text>
 
   <!-- Axes & Ticks -->
   <path d="M 59.56 186.03 Q 441.25 185.96 822.99 185.46" stroke="var(--border-chassis)" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="1.0" />

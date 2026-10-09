@@ -14,11 +14,11 @@
 &nbsp;&nbsp;
 <!-- readme-kit:chip style="pixel" theme="cyberpunk" type="pulse" text="● v5.1.0 STABLE" href="#top" out="assets/generated/chip-readme-version.svg" -->
 &nbsp;&nbsp;
-<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="closed" github="stars" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-stars.svg" -->
+<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="closed" github="stars" repo="Kazinagg/readme-kit" out="assets/generated/chip-readme-stars.svg" -->
 &nbsp;&nbsp;
-<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="closed" github="forks" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-forks.svg" -->
+<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="closed" github="forks" repo="Kazinagg/readme-kit" out="assets/generated/chip-readme-forks.svg" -->
 &nbsp;&nbsp;
-<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="pulse" github="license" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-license.svg" -->
+<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="pulse" github="license" repo="Kazinagg/readme-kit" out="assets/generated/chip-readme-license.svg" -->
 
 <br/><br/>
 
@@ -73,7 +73,7 @@
 ### 2. Hand-Drawn Sketch Style — График динамики звёзд
 > ✏️ **Стиль Sketch (`style="sketch" theme="excali-dark"`):** Живой рукописный штрих (Rough Jitter), двойные контуры, карандашная штриховка и шрифт заметок.
 
-<!-- readme-kit:starchart style="sketch" theme="excali-dark" repo="Kazinagg/pixel-readme-kit" points="15,65,190,480,950,1650" current="1,650" delta="+78% past 6m" title="OPEN SOURCE STARS TRAJECTORY" out="assets/generated/starchart-readme-demo.svg" -->
+<!-- readme-kit:starchart style="sketch" theme="excali-dark" repo="Kazinagg/readme-kit" points="15,65,190,480,950,1650" current="1,650" delta="+78% past 6m" title="OPEN SOURCE STARS TRAJECTORY" out="assets/generated/starchart-readme-demo.svg" -->
 
 <br/>
 
@@ -173,7 +173,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: Kazinagg/pixel-readme-kit@v5
+      - uses: Kazinagg/readme-kit@v5
         with:
           fetch-github: 'true'
           bust-cache: 'true'
@@ -216,8 +216,8 @@ jobs:
 
 ```bash
 # Клонирование и запуск студии кастомизации
-git clone https://github.com/Kazinagg/pixel-readme-kit.git
-cd pixel-readme-kit
+git clone https://github.com/Kazinagg/readme-kit.git
+cd readme-kit
 python -m generator.cli studio
 ```
 <!-- /readme-kit:window -->

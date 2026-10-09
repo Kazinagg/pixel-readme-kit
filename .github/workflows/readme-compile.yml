@@ -1,4 +1,4 @@
-name: Pixel Kit Test & Auto-Compiler
+name: ReadmeKit Test & Auto-Compiler
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - 'generator/**'
       - 'presets/**'
       - 'tests/**'
-      - '.github/workflows/pixel-compile.yml'
+      - '.github/workflows/readme-compile.yml'
   pull_request:
     branches:
       - main

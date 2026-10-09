@@ -14,11 +14,11 @@
 &nbsp;&nbsp;
 <a href="#top"><img src="assets/generated/chip-readme-version.svg?v=84695b95" alt="● v5.1.0 STABLE" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg?v=7f5510c1" alt="★ 2" /></a>
+<a href="https://github.com/Kazinagg/readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg?v=7f5510c1" alt="★ 2" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg?v=d2425c76" alt="FORKS: 0" /></a>
+<a href="https://github.com/Kazinagg/readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg?v=d2425c76" alt="FORKS: 0" /></a>
 &nbsp;&nbsp;
-<a href="https://github.com/Kazinagg/pixel-readme-kit"><img src="assets/generated/chip-readme-license.svg?v=487b25dc" alt="LICENSE: MIT" /></a>
+<a href="https://github.com/Kazinagg/readme-kit"><img src="assets/generated/chip-readme-license.svg?v=487b25dc" alt="LICENSE: MIT" /></a>
 
 <br/><br/>
 
@@ -51,7 +51,7 @@
      - Модульные окна контента с копируемым Markdown внутри, сворачиваемые интерактивные терминалы, матрицы стека технологий, плашки алертов, KPI-метрики и футеры.
   2. **Оформление профилей разработчиков (Developer Profiles & Portfolios)**:
      - Флагманские досье-карточки профиля (`<img src="assets/generated/profile-cyberpunk-1.svg?v=f70c16ef" width="100%" alt="ALEX DEVELOPER" />`) с аватаром, LED-индикатором статуса, специализацией, локацией и био.
-     - График динамики звёзд и активности (`<img src="assets/generated/starchart-cyberpunk-1.svg?v=bd2f3a79" width="100%" alt="STAR GROWTH TRAJECTORY" />`) с гладкими кривыми Безье, координатной сеткой и градиентной заливкой.
+     - График динамики звёзд и активности (`<img src="assets/generated/starchart-cyberpunk-1.svg?v=b423427d" width="100%" alt="STAR GROWTH TRAJECTORY" />`) с гладкими кривыми Безье, координатной сеткой и градиентной заливкой.
      - Витрины ключевых проектов, OpenGraph превью-карточки (1280x640) и социальные чипы.
 
 <br/>
@@ -68,7 +68,7 @@
 ### 2. Hand-Drawn Sketch Style — График динамики звёзд
 > ✏️ **Стиль Sketch (`style="sketch" theme="excali-dark"`):** Живой рукописный штрих (Rough Jitter), двойные контуры, карандашная штриховка и шрифт заметок.
 
-<img src="assets/generated/starchart-readme-demo.svg?v=7ec8f196" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
+<img src="assets/generated/starchart-readme-demo.svg?v=6c3eeec7" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
 
 <br/>
 
@@ -161,7 +161,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - uses: Kazinagg/pixel-readme-kit@v5
+      - uses: Kazinagg/readme-kit@v5
         with:
           fetch-github: 'true'
           bust-cache: 'true'
@@ -209,8 +209,8 @@ jobs:
 
 ```bash
 # Клонирование и запуск студии кастомизации
-git clone https://github.com/Kazinagg/pixel-readme-kit.git
-cd pixel-readme-kit
+git clone https://github.com/Kazinagg/readme-kit.git
+cd readme-kit
 python -m generator.cli studio
 ```
 

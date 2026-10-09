@@ -31,10 +31,10 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/Kazinagg/pixel-readme-kit"
-Repository = "https://github.com/Kazinagg/pixel-readme-kit"
-Issues = "https://github.com/Kazinagg/pixel-readme-kit/issues"
-Changelog = "https://github.com/Kazinagg/pixel-readme-kit/blob/main/TODO.md"
+Homepage = "https://github.com/Kazinagg/readme-kit"
+Repository = "https://github.com/Kazinagg/readme-kit"
+Issues = "https://github.com/Kazinagg/readme-kit/issues"
+Changelog = "https://github.com/Kazinagg/readme-kit/blob/main/TODO.md"
 
 [project.scripts]
 readme-kit = "generator.cli:main"
