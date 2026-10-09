@@ -1,8 +1,40 @@
-<img src="assets/generated/metrics-modern-clean-1.svg?v=b065ba33" width="100%" alt="Metrics" />
+# README KIT — UNIVERSAL DESIGN SYSTEM FOR GITHUB REPOSITORIES & DEVELOPER PROFILES
+
+<div id="top"></div>
+
+<div align="center">
+
+<img src="assets/generated/header-readme.svg?v=c50c81a4" width="100%" alt="README KIT" />
+
+<br/><br/>
+
+<a href="CATALOG.md"><img src="assets/generated/chip-readme-catalog.svg?v=83d4d58f" alt="[DOCS] КАТАЛОГ СТИЛЕЙ И БЛОКОВ" /></a>
+&nbsp;&nbsp;
+<a href="EXAMPLES.md"><img src="assets/generated/chip-readme-examples.svg?v=77a0e908" alt="[SPEC] СИСТЕМА КАСТОМИЗАЦИИ" /></a>
+&nbsp;&nbsp;
+<a href="#top"><img src="assets/generated/chip-readme-version.svg?v=84695b95" alt="● v5.1.0 STABLE" /></a>
+&nbsp;&nbsp;
+<a href="https://github.com/Kazinagg/pixel-readme-kit/stargazers"><img src="assets/generated/chip-readme-stars.svg?v=7f5510c1" alt="★ 2" /></a>
+&nbsp;&nbsp;
+<a href="https://github.com/Kazinagg/pixel-readme-kit/network/members"><img src="assets/generated/chip-readme-forks.svg?v=d2425c76" alt="FORKS: 0" /></a>
+&nbsp;&nbsp;
+<a href="https://github.com/Kazinagg/pixel-readme-kit"><img src="assets/generated/chip-readme-license.svg?v=487b25dc" alt="LICENSE: MIT" /></a>
+
+<br/><br/>
+
+<img src="assets/generated/divider-readme.svg?v=82027b94" width="100%" alt="Divider cyberpunk" />
+
+</div>
 
 <br/>
 
-<img src="assets/generated/progress-readme.svg?v=a62d0fcd" width="100%" alt="UNIVERSAL CUSTOMIZATION SYSTEM &amp; DESIGN ENGINE COMPLETE" />
+## 01 // Телеметрия системы (System Telemetry)
+
+<img src="assets/generated/metrics-readme.svg?v=c734944a" width="100%" alt="Metrics" />
+
+<br/>
+
+<img src="assets/generated/progress-readme.svg?v=4e2c3192" width="100%" alt="UNIVERSAL CUSTOMIZATION SYSTEM &amp; DESIGN ENGINE COMPLETE" />
 
 <br/>
 
@@ -18,59 +50,62 @@
      - Оформление библиотек, CLI-утилит, веб-сервисов, монорепозиториев и аналитических отчетов.
      - Модульные окна контента с копируемым Markdown внутри, сворачиваемые интерактивные терминалы, матрицы стека технологий, плашки алертов, KPI-метрики и футеры.
   2. **Оформление профилей разработчиков (Developer Profiles & Portfolios)**:
-     - Флагманские досье-карточки профиля (`&lt;!-- readme-kit:profile ... --&gt;`) с аватаром, LED-индикатором статуса, специализацией, локацией и био.
-     - График динамики звёзд и активности (`&lt;!-- readme-kit:starchart ... --&gt;`) с гладкими кривыми Безье, координатной сеткой и градиентной заливкой.
+     - Флагманские досье-карточки профиля (`<img src="assets/generated/profile-cyberpunk-1.svg?v=f70c16ef" width="100%" alt="ALEX DEVELOPER" />`) с аватаром, LED-индикатором статуса, специализацией, локацией и био.
+     - График динамики звёзд и активности (`<img src="assets/generated/starchart-cyberpunk-1.svg?v=b423427d" width="100%" alt="STAR GROWTH TRAJECTORY" />`) с гладкими кривыми Безье, координатной сеткой и градиентной заливкой.
      - Витрины ключевых проектов, OpenGraph превью-карточки (1280x640) и социальные чипы.
 
 <br/>
 
 ## 03 // Флагманские компоненты v5.1 (Showcase)
 
-### Карточка профиля разработчика (Developer Dossier Card)
+### 1. Modern Vector Style — Карточка профиля разработчика
+> 🔵 **Стиль Modern (`style="modern" theme="slate-dark"`):** Четкие 1px векторные контуры, сглаженные скругления, бейджи специализации и кривые Безье.
 
-<img src="assets/generated/profile-readme-demo.svg?v=a96de362" width="100%" alt="ALEX DEVELOPER" />
-
-<br/>
-
-### График динамики звёзд (Star Growth Trajectory)
-
-<img src="assets/generated/starchart-readme-demo.svg?v=ade7acad" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
+<img src="assets/generated/profile-readme-demo.svg?v=50ee92fa" width="100%" alt="ALEX DEVELOPER" />
 
 <br/>
 
-<img src="assets/generated/callout-readme-arch.svg?v=16977a67" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
+### 2. Hand-Drawn Sketch Style — График динамики звёзд
+> ✏️ **Стиль Sketch (`style="sketch" theme="excali-dark"`):** Живой рукописный штрих (Rough Jitter), двойные контуры, карандашная штриховка и шрифт заметок.
+
+<img src="assets/generated/starchart-readme-demo.svg?v=b02d1570" width="100%" alt="OPEN SOURCE STARS TRAJECTORY" />
+
+<br/>
+
+### 3. Retro-Tech Pixel Style — Архитектурный инлайн-алерт
+> 👾 **Стиль Pixel (`style="pixel" theme="cyberpunk"`):** Фирменный неоновый HUD, пиксельные рамки, CRT-сканлайны и скобы 45°.
+
+<img src="assets/generated/callout-readme-arch.svg?v=d4a490b9" width="100%" alt="АРХИТЕКТУРНЫЙ ПРИНЦИП" />
 
 ---
 
-## 04 // Мульти-стилевая архитектура (4 Дизайн-парадигмы)
+## 04 // Мульти-стилевая архитектура (3 Дизайн-парадигмы)
 
-Дизайн-система предлагает 4 глобальные визуальные парадигмы с ортогональным разделением **Геометрии (`style`)** и **Цветовых палитр (`theme`)**:
+Дизайн-система предлагает 3 глобальные визуальные парадигмы с ортогональным разделением **Геометрии (`style`)** и **Цветовых палитр (`theme`)**:
 
 | Парадигма (Стиль `style`) | Канонические темы (`theme`) | Основная палитра | Особенности геометрии | Статус готовности |
 | :--- | :--- | :--- | :--- | :--- |
-| **Clean / Modern Vector** (`modern`) | `slate-dark`, `nordic-frost`, `linear-violet`, `emerald-clean` | Matte Graphite, Nordic Frost, Linear Violet, Emerald Clean | Четкие векторные контуры 1px, сглаженные скругления, pill-бейджи, кривые Безье | ● **READY (CORE)** |
 | **Pixel / Retro-Tech** (`pixel`) | `cyberpunk`, `tactical`, `tokyo`, `matrix`, `amber` | Cyan / Magenta, Phosphor Amber, Tokyo Neon, Matrix Green | 3D пиксельный шрифт, радары 360°, CRT-сканлайн, скобы 45°, дизеринг | ● **READY (CORE)** |
+| **Clean / Modern Vector** (`modern`) | `slate-dark`, `nordic-frost`, `linear-violet`, `emerald-clean` | Matte Graphite, Nordic Frost, Linear Violet, Emerald Clean | Четкие векторные контуры 1px, сглаженные скругления, pill-бейджи, кривые Безье | ● **READY (CORE)** |
 | **Hand-Drawn / Sketch** (`sketch`) | `excali-dark`, `whiteboard`, `notebook-graph`, `blueprint-sketch` | Excali Dark, Clean Whiteboard, Graph Paper, Blueprint Blue | Живой штрих руки (Jitter), двойные контуры, карандашная штриховка, шрифт заметок | ● **READY (CORE)** |
-| **Minimalist / Corporate** (`corporate`) | `academic-paper`, `enterprise-navy`, `swiss-mono` | Academic Paper, Enterprise Navy, Swiss Monochrome | Сдержанная типографика, 1px строгая геометрия, швейцарский модернизм | ● **READY (CORE)** |
 
 > [!NOTE]
 > **Канонические темы по стилям**:
-> 1. **Modern Vector Style**: `slate-dark` (графит + циан), `nordic-frost` (арктический лед), `linear-violet` (Linear App космос), `emerald-clean` (Supabase/Vercel изумруд).
-> 2. **Pixel Style**: `cyberpunk` (неон), `tactical` (янтарь), `tokyo` (ночной Токио), `matrix` (зеленый монохром), `amber` (янтарь CRT).
+> 1. **Pixel Style**: `cyberpunk` (неон), `tactical` (янтарь), `tokyo` (ночной Токио), `matrix` (зеленый монохром), `amber` (янтарь CRT).
+> 2. **Modern Vector Style**: `slate-dark` (графит + циан), `nordic-frost` (арктический лед), `linear-violet` (Linear App космос), `emerald-clean` (Supabase/Vercel изумруд).
 > 3. **Sketch Style**: `excali-dark` (тёмный Excalidraw), `whiteboard` (белая доска), `notebook-graph` (тетрадь в клетку), `blueprint-sketch` (чертёж).
-> 4. **Corporate Style**: `academic-paper` (академический монохром), `enterprise-navy` (корпоративный синий), `swiss-mono` (швейцарская сетка).
 
 <br/>
 
 ## 05 // Стек технологий и поддерживаемое окружение
 
-<img src="assets/generated/techstack-readme.svg?v=63e58b7e" width="100%" alt="Tech Stack" />
+<img src="assets/generated/techstack-readme.svg?v=507e6c25" width="100%" alt="Tech Stack" />
 
 <br/>
 
 ## 06 // Дорожная карта развития (Roadmap)
 
-<img src="assets/generated/timeline-readme.svg?v=4f7c33c4" width="100%" alt="Timeline" />
+<img src="assets/generated/timeline-readme.svg?v=e1ae05f0" width="100%" alt="Timeline" />
 
 <br/>
 
@@ -155,12 +190,9 @@ jobs:
 
 ## 08 // Интерактивный пример окна контента
 
+<img src="assets/generated/frame-readme-top.svg?v=ea3c280f" width="100%" />
+
 <table width="100%">
-<tr>
-<td width="100%" align="center">
-<img src="assets/generated/frame-readme-top.svg?v=77197807" width="100%" />
-</td>
-</tr>
 <tr>
 <td width="2000">
 
@@ -170,10 +202,10 @@ jobs:
 
 | Подсистема | Протокол | Статус | Задержка |
 | :--- | :--- | :--- | :--- |
-| **Multi-Style Engine** | `VECTOR + PIXEL + SKETCH + CORP` | `● QUAD-PARADIGM` | `0.00 ms` |
+| **Multi-Style Engine** | `PIXEL + MODERN + SKETCH` | `● TRI-PARADIGM` | `0.00 ms` |
 | **Theme Engine** | `CSS_VARS_MEDIA_QUERY` | `● AUTO_ADAPTIVE` | `0.00 ms` |
 | **Incremental Cache** | `SHA-256 DIGEST` | `● 98% HIT_RATE` | `0.02 s` |
-| **Live Studio** | `SSE REALTIME SYNC` | `● 300ms INTERVAL` | `< 50 ms` |
+| **Live Studio v6.5** | `SSE REALTIME SYNC` | `● 300ms INTERVAL` | `< 50 ms` |
 
 ```bash
 # Клонирование и запуск студии кастомизации
@@ -184,16 +216,13 @@ python -m generator.cli studio
 
 </td>
 </tr>
-<tr>
-<td width="100%" align="center">
-<img src="assets/generated/frame-readme-bottom.svg?v=06f08ce7" width="100%" />
-</td>
-</tr>
 </table>
+
+<img src="assets/generated/frame-readme-bottom.svg?v=1fabd4f1" width="100%" />
 
 <br/>
 
-> <img src="assets/generated/callout-quote-readme.svg?v=b45e22ae" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
+> <img src="assets/generated/callout-quote-readme.svg?v=7e33599c" width="100%" alt="РУКОВОДСТВО ПО СТИЛЮ" />
 >
 > > **Навигация по документации**:
 > > - Полный каталог всех компонентов во всех стилях доступен в **[CATALOG.md](CATALOG.md)**.
@@ -207,7 +236,7 @@ python -m generator.cli studio
 
 <br/>
 
-<img src="assets/generated/term-top-readme.svg?v=0eb73b9e" width="100%" />
+<img src="assets/generated/term-top-readme.svg?v=8c1b3913" width="100%" />
 
 <table width="100%">
 <tr>
@@ -239,10 +268,10 @@ python -m generator.cli splitter --help  # Сплиттеры подмодуле
 </tr>
 </table>
 
-<img src="assets/generated/term-bottom-readme.svg?v=4515d6ef" width="100%" />
+<img src="assets/generated/term-bottom-readme.svg?v=715dbd2d" width="100%" />
 
 </details>
 
 <br/><br/>
 
-<a href="#top"><img src="assets/generated/footer-readme.svg?v=d4702d82" width="100%" alt="▲ НАВЕРХ" /></a>
+<a href="#top"><img src="assets/generated/footer-readme.svg?v=5390a594" width="100%" alt="▲ НАВЕРХ" /></a>

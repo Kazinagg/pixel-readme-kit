@@ -1,225 +1,165 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 456" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 412" width="100%" height="100%" shape-rendering="crispEdges">
   <defs>
-        <linearGradient id="modern-timeline-accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="var(--primary)" />
-      <stop offset="100%" stop-color="var(--accent)" />
-    </linearGradient>
-    <linearGradient id="modern-timeline-border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.6" />
-      <stop offset="100%" stop-color="var(--border-chassis)" stop-opacity="0.3" />
-    </linearGradient>
     <style>
       
       :root {
-        --bg-glass: rgba(15, 23, 42, 0.90);
-        --bg-panel: rgba(30, 41, 59, 0.85);
-        --border-chassis: rgba(51, 65, 85, 0.85);
-        --primary: #00e5b0;
-        --accent: #e50035;
-        --tertiary: #06B6D4;
-        --title-front: #00e5b0;
-        --title-mid: #00674f;
-        --title-dark: #00221a;
-        --text-main: #F8FAFC;
+        --bg-glass: rgba(10, 14, 23, 0.85);
+        --bg-panel: rgba(15, 23, 38, 0.82);
+        --border-chassis: rgba(30, 41, 59, 0.85);
+        --primary: #00C8D7;
+        --accent: #A855F7;
+        --tertiary: #FF0055;
+        --title-front: #00C8D7;
+        --title-mid: #006B74;
+        --title-dark: #002B2F;
+        --text-main: #F8F8F2;
         --text-dim: #94A3B8;
-        --status: #10B981;
+        --status: #00D26A;
         --warning: #F59E0B;
-        --grid-op: 0.07;
+        --grid-op: 0.08;
       }
       @media (prefers-color-scheme: dark) {
         :root {
-          --bg-glass: rgba(15, 23, 42, 0.90);
-          --bg-panel: rgba(30, 41, 59, 0.85);
-          --border-chassis: rgba(51, 65, 85, 0.85);
-          --primary: #00e5b0;
-          --accent: #e50035;
-          --tertiary: #06B6D4;
-          --title-front: #00e5b0;
-          --title-mid: #00674f;
-          --title-dark: #00221a;
-          --text-main: #F8FAFC;
+          --bg-glass: rgba(10, 14, 23, 0.85);
+          --bg-panel: rgba(15, 23, 38, 0.82);
+          --border-chassis: rgba(30, 41, 59, 0.85);
+          --primary: #00C8D7;
+          --accent: #A855F7;
+          --tertiary: #FF0055;
+          --title-front: #00C8D7;
+          --title-mid: #006B74;
+          --title-dark: #002B2F;
+          --text-main: #F8F8F2;
           --text-dim: #94A3B8;
-          --status: #10B981;
+          --status: #00D26A;
           --warning: #F59E0B;
-          --grid-op: 0.07;
+          --grid-op: 0.08;
         }
       }
       @media (prefers-color-scheme: light) {
         :root {
-          --bg-glass: #F8FAFC;
-          --bg-panel: #F1F5F9;
-          --border-chassis: #E2E8F0;
-          --primary: #00a07b;
-          --accent: #e50035;
-          --tertiary: #0891B2;
-          --title-front: #00a07b;
-          --title-mid: #006049;
-          --title-dark: #003024;
-          --text-main: #0F172A;
-          --text-dim: #64748B;
-          --status: #16A34A;
-          --warning: #D97706;
-          --grid-op: 0.08;
+          --bg-glass: #F6F8FA;
+          --bg-panel: #EAEFF5;
+          --border-chassis: #D0D7DE;
+          --primary: #0969DA;
+          --accent: #8250DF;
+          --tertiary: #CF222E;
+          --title-front: #0969DA;
+          --title-mid: #0550AE;
+          --title-dark: #033D8B;
+          --text-main: #1F2328;
+          --text-dim: #57606A;
+          --status: #1A7F37;
+          --warning: #9A6700;
+          --grid-op: 0.10;
         }
       }
       @media (hover: hover) {
         .btn-hover:hover, a:hover polygon, a:hover rect {
-          filter: drop-shadow(0 0 6px var(--primary, #00e5b0));
+          filter: drop-shadow(0 0 6px var(--primary, #00C8D7));
           cursor: pointer;
           transition: filter 0.2s ease;
         }
       }
 
-      
-    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; }
-    .font-mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', Menlo, monospace; }
-    .btn-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
-    .btn-hover:hover { opacity: 0.85; }
-
+      .font-time-date { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }
+      .font-time-title { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 12px; font-weight: bold; }
+      .font-time-stat { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: bold; }
+      .font-time-desc { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; font-weight: normal; }
     </style>
   </defs>
-
-  <!-- Vertical Continuous Axis -->
-  <line x1="36" y1="20" x2="36" y2="410" stroke="url(#modern-timeline-border-grad)" stroke-width="2"/>
-  <circle cx="36" cy="20" r="3.5" fill="var(--primary)"/>
-  <circle cx="36" cy="410" r="3.5" fill="var(--accent)"/>
-
-  <g id="modern-milestone-0">
-    <line x1="46" y1="38" x2="64" y2="38" stroke="var(--status)" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.6"/>
-    <circle cx="36" cy="38" r="6.5" fill="var(--status)"/>
-    <circle cx="36" cy="38" r="9" fill="none" stroke="var(--status)" stroke-width="1.2" opacity="0.3"/>
-    <path d="M 33.5 38 L 35.5 40 L 39 36" fill="none" stroke="var(--bg-glass)" stroke-width="1.4" stroke-linecap="round"/>
-    <rect x="64" y="14" width="774" height="54" rx="10" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-    <rect x="64" y="22" width="3" height="38" rx="1.5" fill="var(--status)"/>
-
-    <!-- Date Pill -->
-    <rect x="76" y="23" width="56" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="0.8"/>
-    <text x="104" y="36" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">2026</text>
-
-    <!-- Title -->
-    <text x="142" y="37" fill="var(--text-main)" font-size="12.5" font-weight="700" class="font-sans">v1.0 - SVG HUD BANNER FOUNDATION</text>
-
-    <!-- Status Pill -->
-    <rect x="744" y="23" width="82" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--status)" stroke-width="0.8"/>
-    <circle cx="754" y="32" r="2.5" fill="var(--status)"/>
-    <text x="762" y="36" fill="var(--status)" font-size="10" font-weight="700" class="font-sans">COMPLETED</text>
-
-    <!-- Description -->
-    <text x="78" y="56" fill="var(--text-dim)" font-size="11" class="font-sans"></text>
+  <!-- Vertical Data PCB Bus -->
+  <line x1="42" y1="14" x2="42" y2="368" stroke="var(--border-chassis)" stroke-width="2"/>
+  <circle cx="42" cy="14" r="3" fill="var(--primary)"/>
+  <polygon points="42,374 46,368 38,368" fill="var(--primary)"/>
+  <g id="milestone-0">
+    <path d="M 48 28 L 70 28" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,22 48,28 42,34 36,28" fill="var(--status)"/>
+    <rect x="70" y="10" width="778" height="52" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <line x1="70" y1="10" x2="78" y2="10" stroke="var(--status)" stroke-width="2"/>
+    <line x1="70" y1="10" x2="70" y2="18" stroke="var(--status)" stroke-width="2"/>
+    <rect x="843" y="12" width="3" height="3" fill="var(--status)"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="19" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="112" y="30" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026</text>
+    <text x="152" y="30" fill="var(--title-front)" class="font-time-title">V1.0 - SVG HUD BANNER FOUNDATION</text>
+    <text x="834" y="30" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="50" fill="var(--text-dim)" class="font-time-desc"></text>
   </g>
-  <g id="modern-milestone-1">
-    <line x1="46" y1="110" x2="64" y2="110" stroke="var(--status)" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.6"/>
-    <circle cx="36" cy="110" r="6.5" fill="var(--status)"/>
-    <circle cx="36" cy="110" r="9" fill="none" stroke="var(--status)" stroke-width="1.2" opacity="0.3"/>
-    <path d="M 33.5 110 L 35.5 112 L 39 108" fill="none" stroke="var(--bg-glass)" stroke-width="1.4" stroke-linecap="round"/>
-    <rect x="64" y="86" width="774" height="54" rx="10" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-    <rect x="64" y="94" width="3" height="38" rx="1.5" fill="var(--status)"/>
-
-    <!-- Date Pill -->
-    <rect x="76" y="95" width="56" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="0.8"/>
-    <text x="104" y="108" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">2026</text>
-
-    <!-- Title -->
-    <text x="142" y="109" fill="var(--text-main)" font-size="12.5" font-weight="700" class="font-sans">v2.0 - MODULAR WINDOW CHASSIS</text>
-
-    <!-- Status Pill -->
-    <rect x="744" y="95" width="82" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--status)" stroke-width="0.8"/>
-    <circle cx="754" y="104" r="2.5" fill="var(--status)"/>
-    <text x="762" y="108" fill="var(--status)" font-size="10" font-weight="700" class="font-sans">COMPLETED</text>
-
-    <!-- Description -->
-    <text x="78" y="128" fill="var(--text-dim)" font-size="11" class="font-sans"></text>
+  <g id="milestone-1">
+    <path d="M 48 94 L 70 94" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,88 48,94 42,100 36,94" fill="var(--status)"/>
+    <rect x="70" y="76" width="778" height="52" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <line x1="70" y1="76" x2="78" y2="76" stroke="var(--status)" stroke-width="2"/>
+    <line x1="70" y1="76" x2="70" y2="84" stroke="var(--status)" stroke-width="2"/>
+    <rect x="843" y="78" width="3" height="3" fill="var(--status)"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="85" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="112" y="96" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026</text>
+    <text x="152" y="96" fill="var(--title-front)" class="font-time-title">V2.0 - MODULAR WINDOW CHASSIS</text>
+    <text x="834" y="96" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="116" fill="var(--text-dim)" class="font-time-desc"></text>
   </g>
-  <g id="modern-milestone-2">
-    <line x1="46" y1="182" x2="64" y2="182" stroke="var(--status)" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.6"/>
-    <circle cx="36" cy="182" r="6.5" fill="var(--status)"/>
-    <circle cx="36" cy="182" r="9" fill="none" stroke="var(--status)" stroke-width="1.2" opacity="0.3"/>
-    <path d="M 33.5 182 L 35.5 184 L 39 180" fill="none" stroke="var(--bg-glass)" stroke-width="1.4" stroke-linecap="round"/>
-    <rect x="64" y="158" width="774" height="54" rx="10" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-    <rect x="64" y="166" width="3" height="38" rx="1.5" fill="var(--status)"/>
-
-    <!-- Date Pill -->
-    <rect x="76" y="167" width="56" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="0.8"/>
-    <text x="104" y="180" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">2026</text>
-
-    <!-- Title -->
-    <text x="142" y="181" fill="var(--text-main)" font-size="12.5" font-weight="700" class="font-sans">v3.0 - MULTI-THEMING &amp; ANTI-COLLISION</text>
-
-    <!-- Status Pill -->
-    <rect x="744" y="167" width="82" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--status)" stroke-width="0.8"/>
-    <circle cx="754" y="176" r="2.5" fill="var(--status)"/>
-    <text x="762" y="180" fill="var(--status)" font-size="10" font-weight="700" class="font-sans">COMPLETED</text>
-
-    <!-- Description -->
-    <text x="78" y="200" fill="var(--text-dim)" font-size="11" class="font-sans"></text>
+  <g id="milestone-2">
+    <path d="M 48 160 L 70 160" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,154 48,160 42,166 36,160" fill="var(--status)"/>
+    <rect x="70" y="142" width="778" height="52" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <line x1="70" y1="142" x2="78" y2="142" stroke="var(--status)" stroke-width="2"/>
+    <line x1="70" y1="142" x2="70" y2="150" stroke="var(--status)" stroke-width="2"/>
+    <rect x="843" y="144" width="3" height="3" fill="var(--status)"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="151" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="112" y="162" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026</text>
+    <text x="152" y="162" fill="var(--title-front)" class="font-time-title">V3.0 - MULTI-THEMING &amp; ANTI-COLLISION</text>
+    <text x="834" y="162" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="182" fill="var(--text-dim)" class="font-time-desc"></text>
   </g>
-  <g id="modern-milestone-3">
-    <line x1="46" y1="254" x2="64" y2="254" stroke="var(--status)" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.6"/>
-    <circle cx="36" cy="254" r="6.5" fill="var(--status)"/>
-    <circle cx="36" cy="254" r="9" fill="none" stroke="var(--status)" stroke-width="1.2" opacity="0.3"/>
-    <path d="M 33.5 254 L 35.5 256 L 39 252" fill="none" stroke="var(--bg-glass)" stroke-width="1.4" stroke-linecap="round"/>
-    <rect x="64" y="230" width="774" height="54" rx="10" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-    <rect x="64" y="238" width="3" height="38" rx="1.5" fill="var(--status)"/>
-
-    <!-- Date Pill -->
-    <rect x="76" y="239" width="56" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="0.8"/>
-    <text x="104" y="252" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">2026</text>
-
-    <!-- Title -->
-    <text x="142" y="253" fill="var(--text-main)" font-size="12.5" font-weight="700" class="font-sans">v4.0 - DATA VIZ, LIVE STUDIO &amp; MCP</text>
-
-    <!-- Status Pill -->
-    <rect x="744" y="239" width="82" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--status)" stroke-width="0.8"/>
-    <circle cx="754" y="248" r="2.5" fill="var(--status)"/>
-    <text x="762" y="252" fill="var(--status)" font-size="10" font-weight="700" class="font-sans">COMPLETED</text>
-
-    <!-- Description -->
-    <text x="78" y="272" fill="var(--text-dim)" font-size="11" class="font-sans"></text>
+  <g id="milestone-3">
+    <path d="M 48 226 L 70 226" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,220 48,226 42,232 36,226" fill="var(--status)"/>
+    <rect x="70" y="208" width="778" height="52" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <line x1="70" y1="208" x2="78" y2="208" stroke="var(--status)" stroke-width="2"/>
+    <line x1="70" y1="208" x2="70" y2="216" stroke="var(--status)" stroke-width="2"/>
+    <rect x="843" y="210" width="3" height="3" fill="var(--status)"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="217" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="112" y="228" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026</text>
+    <text x="152" y="228" fill="var(--title-front)" class="font-time-title">V4.0 - DATA VIZ, LIVE STUDIO &amp; MCP</text>
+    <text x="834" y="228" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="248" fill="var(--text-dim)" class="font-time-desc"></text>
   </g>
-  <g id="modern-milestone-4">
-    <line x1="46" y1="326" x2="64" y2="326" stroke="var(--status)" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.6"/>
-    <circle cx="36" cy="326" r="6.5" fill="var(--status)"/>
-    <circle cx="36" cy="326" r="9" fill="none" stroke="var(--status)" stroke-width="1.2" opacity="0.3"/>
-    <path d="M 33.5 326 L 35.5 328 L 39 324" fill="none" stroke="var(--bg-glass)" stroke-width="1.4" stroke-linecap="round"/>
-    <rect x="64" y="302" width="774" height="54" rx="10" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-    <rect x="64" y="310" width="3" height="38" rx="1.5" fill="var(--status)"/>
-
-    <!-- Date Pill -->
-    <rect x="76" y="311" width="56" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="0.8"/>
-    <text x="104" y="324" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">2026</text>
-
-    <!-- Title -->
-    <text x="142" y="325" fill="var(--text-main)" font-size="12.5" font-weight="700" class="font-sans">v5.0 - REPOSITORIES &amp; DEVELOPER PROFILES</text>
-
-    <!-- Status Pill -->
-    <rect x="744" y="311" width="82" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--status)" stroke-width="0.8"/>
-    <circle cx="754" y="320" r="2.5" fill="var(--status)"/>
-    <text x="762" y="324" fill="var(--status)" font-size="10" font-weight="700" class="font-sans">COMPLETED</text>
-
-    <!-- Description -->
-    <text x="78" y="344" fill="var(--text-dim)" font-size="11" class="font-sans"></text>
+  <g id="milestone-4">
+    <path d="M 48 292 L 70 292" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,286 48,292 42,298 36,292" fill="var(--status)"/>
+    <rect x="70" y="274" width="778" height="52" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <line x1="70" y1="274" x2="78" y2="274" stroke="var(--status)" stroke-width="2"/>
+    <line x1="70" y1="274" x2="70" y2="282" stroke="var(--status)" stroke-width="2"/>
+    <rect x="843" y="276" width="3" height="3" fill="var(--status)"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="283" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="112" y="294" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026</text>
+    <text x="152" y="294" fill="var(--title-front)" class="font-time-title">V5.0 - REPOSITORIES &amp; DEVELOPER PROFILES</text>
+    <text x="834" y="294" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="314" fill="var(--text-dim)" class="font-time-desc"></text>
   </g>
-  <g id="modern-milestone-5">
-    <line x1="46" y1="398" x2="64" y2="398" stroke="var(--status)" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.6"/>
-    <circle cx="36" cy="398" r="6.5" fill="var(--status)"/>
-    <circle cx="36" cy="398" r="9" fill="none" stroke="var(--status)" stroke-width="1.2" opacity="0.3"/>
-    <path d="M 33.5 398 L 35.5 400 L 39 396" fill="none" stroke="var(--bg-glass)" stroke-width="1.4" stroke-linecap="round"/>
-    <rect x="64" y="374" width="774" height="54" rx="10" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
-    <rect x="64" y="382" width="3" height="38" rx="1.5" fill="var(--status)"/>
-
-    <!-- Date Pill -->
-    <rect x="76" y="383" width="56" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--border-chassis)" stroke-width="0.8"/>
-    <text x="104" y="396" fill="var(--text-dim)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">2026</text>
-
-    <!-- Title -->
-    <text x="142" y="397" fill="var(--text-main)" font-size="12.5" font-weight="700" class="font-sans">v5.1 - REBRAND TO READMEKIT</text>
-
-    <!-- Status Pill -->
-    <rect x="744" y="383" width="82" height="18" rx="9" fill="var(--bg-glass)" stroke="var(--status)" stroke-width="0.8"/>
-    <circle cx="754" y="392" r="2.5" fill="var(--status)"/>
-    <text x="762" y="396" fill="var(--status)" font-size="10" font-weight="700" class="font-sans">COMPLETED</text>
-
-    <!-- Description -->
-    <text x="78" y="416" fill="var(--text-dim)" font-size="11" class="font-sans"></text>
+  <g id="milestone-5">
+    <path d="M 48 358 L 70 358" stroke="var(--status)" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="42,352 48,358 42,364 36,358" fill="var(--status)"/>
+    <rect x="70" y="340" width="778" height="52" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+    <line x1="70" y1="340" x2="78" y2="340" stroke="var(--status)" stroke-width="2"/>
+    <line x1="70" y1="340" x2="70" y2="348" stroke="var(--status)" stroke-width="2"/>
+    <rect x="843" y="342" width="3" height="3" fill="var(--status)"/>
+    <!-- Milestone Header -->
+    <rect x="82" y="349" width="60" height="14" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+    <text x="112" y="360" fill="var(--text-dim)" text-anchor="middle" class="font-time-date">2026</text>
+    <text x="152" y="360" fill="var(--title-front)" class="font-time-title">V6.5 - STUDIO OVERHAUL &amp; MULTI-STYLE ARCH</text>
+    <text x="834" y="360" fill="var(--status)" text-anchor="end" class="font-time-stat">● COMPLETED</text>
+    <!-- Milestone Description -->
+    <text x="84" y="380" fill="var(--text-dim)" class="font-time-desc"></text>
   </g>
 </svg>

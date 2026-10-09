@@ -1,78 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58 26" width="58" height="26">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 158 26" width="158" height="26" shape-rendering="crispEdges">
   <defs>
     <style>
       
       :root {
-        --bg-glass: rgba(15, 23, 42, 0.90);
-        --bg-panel: rgba(30, 41, 59, 0.85);
-        --border-chassis: rgba(51, 65, 85, 0.85);
-        --primary: #00e5b0;
-        --accent: #e50035;
-        --tertiary: #06B6D4;
-        --title-front: #00e5b0;
-        --title-mid: #00674f;
-        --title-dark: #00221a;
-        --text-main: #F8FAFC;
+        --bg-glass: rgba(10, 14, 23, 0.85);
+        --bg-panel: rgba(15, 23, 38, 0.82);
+        --border-chassis: rgba(30, 41, 59, 0.85);
+        --primary: #00C8D7;
+        --accent: #A855F7;
+        --tertiary: #FF0055;
+        --title-front: #00C8D7;
+        --title-mid: #006B74;
+        --title-dark: #002B2F;
+        --text-main: #F8F8F2;
         --text-dim: #94A3B8;
-        --status: #10B981;
+        --status: #00D26A;
         --warning: #F59E0B;
-        --grid-op: 0.07;
+        --grid-op: 0.08;
       }
       @media (prefers-color-scheme: dark) {
         :root {
-          --bg-glass: rgba(15, 23, 42, 0.90);
-          --bg-panel: rgba(30, 41, 59, 0.85);
-          --border-chassis: rgba(51, 65, 85, 0.85);
-          --primary: #00e5b0;
-          --accent: #e50035;
-          --tertiary: #06B6D4;
-          --title-front: #00e5b0;
-          --title-mid: #00674f;
-          --title-dark: #00221a;
-          --text-main: #F8FAFC;
+          --bg-glass: rgba(10, 14, 23, 0.85);
+          --bg-panel: rgba(15, 23, 38, 0.82);
+          --border-chassis: rgba(30, 41, 59, 0.85);
+          --primary: #00C8D7;
+          --accent: #A855F7;
+          --tertiary: #FF0055;
+          --title-front: #00C8D7;
+          --title-mid: #006B74;
+          --title-dark: #002B2F;
+          --text-main: #F8F8F2;
           --text-dim: #94A3B8;
-          --status: #10B981;
+          --status: #00D26A;
           --warning: #F59E0B;
-          --grid-op: 0.07;
+          --grid-op: 0.08;
         }
       }
       @media (prefers-color-scheme: light) {
         :root {
-          --bg-glass: #F8FAFC;
-          --bg-panel: #F1F5F9;
-          --border-chassis: #E2E8F0;
-          --primary: #00a07b;
-          --accent: #e50035;
-          --tertiary: #0891B2;
-          --title-front: #00a07b;
-          --title-mid: #006049;
-          --title-dark: #003024;
-          --text-main: #0F172A;
-          --text-dim: #64748B;
-          --status: #16A34A;
-          --warning: #D97706;
-          --grid-op: 0.08;
+          --bg-glass: #F6F8FA;
+          --bg-panel: #EAEFF5;
+          --border-chassis: #D0D7DE;
+          --primary: #0969DA;
+          --accent: #8250DF;
+          --tertiary: #CF222E;
+          --title-front: #0969DA;
+          --title-mid: #0550AE;
+          --title-dark: #033D8B;
+          --text-main: #1F2328;
+          --text-dim: #57606A;
+          --status: #1A7F37;
+          --warning: #9A6700;
+          --grid-op: 0.10;
         }
       }
       @media (hover: hover) {
         .btn-hover:hover, a:hover polygon, a:hover rect {
-          filter: drop-shadow(0 0 6px var(--primary, #00e5b0));
+          filter: drop-shadow(0 0 6px var(--primary, #00C8D7));
           cursor: pointer;
           transition: filter 0.2s ease;
         }
       }
 
-
-    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; }
-    .font-mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', Menlo, monospace; }
-    .btn-hover { transition: opacity 0.2s ease, transform 0.2s ease; cursor: pointer; }
-    .btn-hover:hover { opacity: 0.85; }
-
+      .chip-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 10px; font-weight: bold; letter-spacing: 0.5px; }
     </style>
   </defs>
-
-  <!-- Modern Single Pill Badge with dot -->
-  <rect x="1" y="1" width="56" height="24" rx="12" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
-  <circle cx="12" cy="13" r="3" fill="var(--primary)"/>
-  <text x="34" y="17" fill="var(--text-main)" font-size="10.5" font-weight="600" text-anchor="middle" class="font-sans">★ 2</text>
+  <rect x="1" y="1" width="156" height="24" fill="var(--bg-glass)"/>
+  <rect x="1" y="1" width="156" height="24" fill="var(--bg-panel)" stroke="var(--primary)" stroke-width="1.5"/>
+  <rect x="1" y="1" width="3" height="3" fill="var(--primary)"/>
+  <rect x="154" y="1" width="3" height="3" fill="var(--primary)"/>
+  <rect x="1" y="22" width="3" height="3" fill="var(--primary)"/>
+  <rect x="154" y="22" width="3" height="3" fill="var(--primary)"/>
+  <rect x="8" y="8" width="4" height="10" fill="var(--primary)"/>
+  <text x="82" y="17" fill="var(--primary)" text-anchor="middle" class="chip-text">★ 2</text>
 </svg>

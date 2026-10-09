@@ -1,30 +1,28 @@
-<!-- readme-kit:metrics style="modern" theme="modern-clean" items="CORE UPTIME: 99.98% | LATENCY: 12ms | BUFFER: 256MB" -->
-
-# READMEKIT — UNIVERSAL DESIGN SYSTEM & CUSTOMIZATION ENGINE FOR GITHUB REPOSITORIES & DEVELOPER PROFILES
+# README KIT — UNIVERSAL DESIGN SYSTEM FOR GITHUB REPOSITORIES & DEVELOPER PROFILES
 
 <div id="top"></div>
 
 <div align="center">
 
-<!-- readme-kit:header style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" title="READMEKIT" subtitle="UNIVERSAL CUSTOMIZATION SYSTEM FOR GITHUB REPOSITORIES & PROFILES" spec1="DUAL TARGET: REPOSITORIES // DEVELOPER PROFILES" spec2="MULTI-STYLE: RETRO-PIXEL // MODERN CLEAN // SKETCH // CORPORATE" spec3="FULL SUITE: LIVE STUDIO // MARKDOWN COMPILER // AI MCP SERVER" tag="v5.1.0 STABLE" out="assets/generated/header-readme.svg" -->
+<!-- readme-kit:header style="pixel" theme="cyberpunk" primary="#00E5FF" accent="#FF0055" tertiary="#9D00FF" title="README KIT" subtitle="UNIVERSAL DESIGN SYSTEM FOR GITHUB REPOSITORIES & PROFILES" spec1="DUAL TARGET: REPOSITORIES // DEVELOPER PROFILES" spec2="MULTI-STYLE: RETRO-PIXEL // MODERN CLEAN // SKETCH" spec3="FULL SUITE: LIVE STUDIO // MARKDOWN COMPILER // AI MCP SERVER" tag="v5.1.0 STABLE" out="assets/generated/header-readme.svg" -->
 
 <br/><br/>
 
-<!-- readme-kit:chip style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" type="closed" text="[DOCS] КАТАЛОГ СТИЛЕЙ И БЛОКОВ" href="CATALOG.md" out="assets/generated/chip-readme-catalog.svg" -->
+<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="closed" text="[DOCS] КАТАЛОГ СТИЛЕЙ И БЛОКОВ" href="CATALOG.md" out="assets/generated/chip-readme-catalog.svg" -->
 &nbsp;&nbsp;
-<!-- readme-kit:chip style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" type="closed" text="[SPEC] СИСТЕМА КАСТОМИЗАЦИИ" href="EXAMPLES.md" out="assets/generated/chip-readme-examples.svg" -->
+<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="closed" text="[SPEC] СИСТЕМА КАСТОМИЗАЦИИ" href="EXAMPLES.md" out="assets/generated/chip-readme-examples.svg" -->
 &nbsp;&nbsp;
-<!-- readme-kit:chip style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" type="pulse" text="● v5.1.0 STABLE" href="#top" out="assets/generated/chip-readme-version.svg" -->
+<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="pulse" text="● v5.1.0 STABLE" href="#top" out="assets/generated/chip-readme-version.svg" -->
 &nbsp;&nbsp;
-<!-- readme-kit:chip style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" type="closed" github="stars" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-stars.svg" -->
+<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="closed" github="stars" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-stars.svg" -->
 &nbsp;&nbsp;
-<!-- readme-kit:chip style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" type="closed" github="forks" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-forks.svg" -->
+<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="closed" github="forks" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-forks.svg" -->
 &nbsp;&nbsp;
-<!-- readme-kit:chip style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" type="pulse" github="license" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-license.svg" -->
+<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="pulse" github="license" repo="Kazinagg/pixel-readme-kit" out="assets/generated/chip-readme-license.svg" -->
 
 <br/><br/>
 
-<!-- readme-kit:divider style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" out="assets/generated/divider-readme.svg" -->
+<!-- readme-kit:divider style="pixel" theme="cyberpunk" primary="#00E5FF" out="assets/generated/divider-readme.svg" -->
 
 </div>
 
@@ -32,16 +30,16 @@
 
 ## 01 // Телеметрия системы (System Telemetry)
 
-<!-- readme-kit:metrics style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" out="assets/generated/metrics-readme.svg" -->
-- label="CUSTOMIZATION" value="4 STYLES" delta="Vector, Pixel, Sketch, Corp" trend="up"
+<!-- readme-kit:metrics style="pixel" theme="cyberpunk" out="assets/generated/metrics-readme.svg" -->
+- label="CUSTOMIZATION" value="3 STYLES" delta="Pixel, Modern, Sketch" trend="up"
 - label="THEME PALETTES" value="13+ THEMES" delta="Adaptive Dark/Light" trend="up"
-- label="COMPONENTS SUITE" value="15 BLOCKS" delta="Dossier & StarChart" trend="up"
+- label="TEST SUITE" value="176 PASS" status="100% GREEN"
 - label="RUNTIME DEPS" value="0 EXT" status="STD-LIB ONLY"
 <!-- /readme-kit:metrics -->
 
 <br/>
 
-<!-- readme-kit:progress style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" value="100" label="UNIVERSAL CUSTOMIZATION SYSTEM & DESIGN ENGINE COMPLETE" sub="MULTI-STYLE ARCHITECTURE // STAR CHART // DOSSIER // STUDIO // MCP" out="assets/generated/progress-readme.svg" -->
+<!-- readme-kit:progress style="pixel" theme="cyberpunk" value="100" label="UNIVERSAL CUSTOMIZATION SYSTEM & DESIGN ENGINE COMPLETE" sub="MULTI-STYLE ARCHITECTURE // STAR CHART // DOSSIER // STUDIO // MCP" out="assets/generated/progress-readme.svg" -->
 
 <br/>
 
@@ -57,65 +55,68 @@
      - Оформление библиотек, CLI-утилит, веб-сервисов, монорепозиториев и аналитических отчетов.
      - Модульные окна контента с копируемым Markdown внутри, сворачиваемые интерактивные терминалы, матрицы стека технологий, плашки алертов, KPI-метрики и футеры.
   2. **Оформление профилей разработчиков (Developer Profiles & Portfolios)**:
-     - Флагманские досье-карточки профиля (`&lt;!-- readme-kit:profile ... --&gt;`) с аватаром, LED-индикатором статуса, специализацией, локацией и био.
-     - График динамики звёзд и активности (`&lt;!-- readme-kit:starchart ... --&gt;`) с гладкими кривыми Безье, координатной сеткой и градиентной заливкой.
+     - Флагманские досье-карточки профиля (`<!-- readme-kit:profile ... -->`) с аватаром, LED-индикатором статуса, специализацией, локацией и био.
+     - График динамики звёзд и активности (`<!-- readme-kit:starchart ... -->`) с гладкими кривыми Безье, координатной сеткой и градиентной заливкой.
      - Витрины ключевых проектов, OpenGraph превью-карточки (1280x640) и социальные чипы.
 
 <br/>
 
 ## 03 // Флагманские компоненты v5.1 (Showcase)
 
-### Карточка профиля разработчика (Developer Dossier Card)
+### 1. Modern Vector Style — Карточка профиля разработчика
+> 🔵 **Стиль Modern (`style="modern" theme="slate-dark"`):** Четкие 1px векторные контуры, сглаженные скругления, бейджи специализации и кривые Безье.
 
-<!-- readme-kit:profile style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" name="ALEX DEVELOPER" role="FULLSTACK & SYSTEMS ARCHITECT" bio="Building high-performance runtimes and resilient developer tooling." status="AVAILABLE FOR HIRE" location="REMOTE // UTC+3" badge="LEVEL_99" out="assets/generated/profile-readme-demo.svg" -->
-
-<br/>
-
-### График динамики звёзд (Star Growth Trajectory)
-
-<!-- readme-kit:starchart style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" repo="Kazinagg/pixel-readme-kit" points="15,65,190,480,950,1650" current="1,650" delta="+78% past 6m" title="OPEN SOURCE STARS TRAJECTORY" out="assets/generated/starchart-readme-demo.svg" -->
+<!-- readme-kit:profile style="modern" theme="slate-dark" name="ALEX DEVELOPER" role="FULLSTACK & SYSTEMS ARCHITECT" bio="Building high-performance runtimes and resilient developer tooling." status="AVAILABLE FOR HIRE" location="REMOTE // UTC+3" badge="LEVEL_99" out="assets/generated/profile-readme-demo.svg" -->
 
 <br/>
 
-<!-- readme-kit:callout style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" type="note" title="АРХИТЕКТУРНЫЙ ПРИНЦИП" subtitle="Ортогональное разделение формы (4 парадигмы) и цвета (13+ тем)" out="assets/generated/callout-readme-arch.svg" -->
+### 2. Hand-Drawn Sketch Style — График динамики звёзд
+> ✏️ **Стиль Sketch (`style="sketch" theme="excali-dark"`):** Живой рукописный штрих (Rough Jitter), двойные контуры, карандашная штриховка и шрифт заметок.
+
+<!-- readme-kit:starchart style="sketch" theme="excali-dark" repo="Kazinagg/pixel-readme-kit" points="15,65,190,480,950,1650" current="1,650" delta="+78% past 6m" title="OPEN SOURCE STARS TRAJECTORY" out="assets/generated/starchart-readme-demo.svg" -->
+
+<br/>
+
+### 3. Retro-Tech Pixel Style — Архитектурный инлайн-алерт
+> 👾 **Стиль Pixel (`style="pixel" theme="cyberpunk"`):** Фирменный неоновый HUD, пиксельные рамки, CRT-сканлайны и скобы 45°.
+
+<!-- readme-kit:callout style="pixel" theme="cyberpunk" type="note" title="АРХИТЕКТУРНЫЙ ПРИНЦИП" subtitle="Ортогональное разделение формы (3 стиля) и цвета (13+ тем)" out="assets/generated/callout-readme-arch.svg" -->
 
 ---
 
-## 04 // Мульти-стилевая архитектура (4 Дизайн-парадигмы)
+## 04 // Мульти-стилевая архитектура (3 Дизайн-парадигмы)
 
-Дизайн-система предлагает 4 глобальные визуальные парадигмы с ортогональным разделением **Геометрии (`style`)** и **Цветовых палитр (`theme`)**:
+Дизайн-система предлагает 3 глобальные визуальные парадигмы с ортогональным разделением **Геометрии (`style`)** и **Цветовых палитр (`theme`)**:
 
 | Парадигма (Стиль `style`) | Канонические темы (`theme`) | Основная палитра | Особенности геометрии | Статус готовности |
 | :--- | :--- | :--- | :--- | :--- |
-| **Clean / Modern Vector** (`modern`) | `slate-dark`, `nordic-frost`, `linear-violet`, `emerald-clean` | Matte Graphite, Nordic Frost, Linear Violet, Emerald Clean | Четкие векторные контуры 1px, сглаженные скругления, pill-бейджи, кривые Безье | ● **READY (CORE)** |
 | **Pixel / Retro-Tech** (`pixel`) | `cyberpunk`, `tactical`, `tokyo`, `matrix`, `amber` | Cyan / Magenta, Phosphor Amber, Tokyo Neon, Matrix Green | 3D пиксельный шрифт, радары 360°, CRT-сканлайн, скобы 45°, дизеринг | ● **READY (CORE)** |
+| **Clean / Modern Vector** (`modern`) | `slate-dark`, `nordic-frost`, `linear-violet`, `emerald-clean` | Matte Graphite, Nordic Frost, Linear Violet, Emerald Clean | Четкие векторные контуры 1px, сглаженные скругления, pill-бейджи, кривые Безье | ● **READY (CORE)** |
 | **Hand-Drawn / Sketch** (`sketch`) | `excali-dark`, `whiteboard`, `notebook-graph`, `blueprint-sketch` | Excali Dark, Clean Whiteboard, Graph Paper, Blueprint Blue | Живой штрих руки (Jitter), двойные контуры, карандашная штриховка, шрифт заметок | ● **READY (CORE)** |
-| **Minimalist / Corporate** (`corporate`) | `academic-paper`, `enterprise-navy`, `swiss-mono` | Academic Paper, Enterprise Navy, Swiss Monochrome | Сдержанная типографика, 1px строгая геометрия, швейцарский модернизм | ● **READY (CORE)** |
 
 > [!NOTE]
 > **Канонические темы по стилям**:
-> 1. **Modern Vector Style**: `slate-dark` (графит + циан), `nordic-frost` (арктический лед), `linear-violet` (Linear App космос), `emerald-clean` (Supabase/Vercel изумруд).
-> 2. **Pixel Style**: `cyberpunk` (неон), `tactical` (янтарь), `tokyo` (ночной Токио), `matrix` (зеленый монохром), `amber` (янтарь CRT).
+> 1. **Pixel Style**: `cyberpunk` (неон), `tactical` (янтарь), `tokyo` (ночной Токио), `matrix` (зеленый монохром), `amber` (янтарь CRT).
+> 2. **Modern Vector Style**: `slate-dark` (графит + циан), `nordic-frost` (арктический лед), `linear-violet` (Linear App космос), `emerald-clean` (Supabase/Vercel изумруд).
 > 3. **Sketch Style**: `excali-dark` (тёмный Excalidraw), `whiteboard` (белая доска), `notebook-graph` (тетрадь в клетку), `blueprint-sketch` (чертёж).
-> 4. **Corporate Style**: `academic-paper` (академический монохром), `enterprise-navy` (корпоративный синий), `swiss-mono` (швейцарская сетка).
 
 <br/>
 
 ## 05 // Стек технологий и поддерживаемое окружение
 
-<!-- readme-kit:techstack style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" items="python,docker,git,linux,github" columns="5" out="assets/generated/techstack-readme.svg" -->
+<!-- readme-kit:techstack style="pixel" theme="cyberpunk" items="python,docker,git,linux,github" columns="5" out="assets/generated/techstack-readme.svg" -->
 
 <br/>
 
 ## 06 // Дорожная карта развития (Roadmap)
 
-<!-- readme-kit:timeline style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" out="assets/generated/timeline-readme.svg" -->
+<!-- readme-kit:timeline style="pixel" theme="cyberpunk" out="assets/generated/timeline-readme.svg" -->
 - title="v1.0 - SVG HUD BANNER FOUNDATION" sub="Флагманские адаптивные шапки, 3D пиксельные шрифты, радары 360°" status="COMPLETED"
 - title="v2.0 - MODULAR WINDOW CHASSIS" sub="Оконные рамки, чипы со статистикой GitHub, инлайн-алерты, разделители" status="COMPLETED"
 - title="v3.0 - MULTI-THEMING & ANTI-COLLISION" sub="Автоматическая смена dark/light тем через CSS, безопасные зоны" status="COMPLETED"
 - title="v4.0 - DATA VIZ, LIVE STUDIO & MCP" sub="Метрики, прогресс, стек, таймлайн, веб-студия, MCP сервер, кэш" status="COMPLETED"
 - title="v5.0 - REPOSITORIES & DEVELOPER PROFILES" sub="Мульти-стили, график звезд, карточки профилей, шаблоны repo/ и profile/" status="COMPLETED"
-- title="v5.1 - REBRAND TO READMEKIT" sub="Универсальная система кастомизации: 4 парадигмы, 13+ тем, полный инструментарий" status="COMPLETED"
+- title="v6.5 - STUDIO OVERHAUL & MULTI-STYLE ARCH" sub="3 стиля (Pixel, Modern, Sketch), каталог компонентов, полная изоляция тем" status="COMPLETED"
 <!-- /readme-kit:timeline -->
 
 <br/>
@@ -201,17 +202,17 @@ jobs:
 
 ## 08 // Интерактивный пример окна контента
 
-<!-- readme-kit:window style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" title="╔═ RUNTIME.SYS // MODULE_INTERFACE" tag="[ONLINE]" out_top="assets/generated/frame-readme-top.svg" out_bottom="assets/generated/frame-readme-bottom.svg" -->
+<!-- readme-kit:window style="pixel" theme="cyberpunk" title="╔═ RUNTIME.SYS // MODULE_INTERFACE" tag="[ONLINE]" out_top="assets/generated/frame-readme-top.svg" out_bottom="assets/generated/frame-readme-bottom.svg" -->
 ### [SPEC] Спецификация подсистем ядра ReadmeKit
 
 Контент внутри окон остаётся полноценным копируемым Markdown:
 
 | Подсистема | Протокол | Статус | Задержка |
 | :--- | :--- | :--- | :--- |
-| **Multi-Style Engine** | `VECTOR + PIXEL + SKETCH + CORP` | `● QUAD-PARADIGM` | `0.00 ms` |
+| **Multi-Style Engine** | `PIXEL + MODERN + SKETCH` | `● TRI-PARADIGM` | `0.00 ms` |
 | **Theme Engine** | `CSS_VARS_MEDIA_QUERY` | `● AUTO_ADAPTIVE` | `0.00 ms` |
 | **Incremental Cache** | `SHA-256 DIGEST` | `● 98% HIT_RATE` | `0.02 s` |
-| **Live Studio** | `SSE REALTIME SYNC` | `● 300ms INTERVAL` | `< 50 ms` |
+| **Live Studio v6.5** | `SSE REALTIME SYNC` | `● 300ms INTERVAL` | `< 50 ms` |
 
 ```bash
 # Клонирование и запуск студии кастомизации
@@ -223,7 +224,7 @@ python -m generator.cli studio
 
 <br/>
 
-<!-- readme-kit:quote style="modern" primary="#00e5b0" theme="modern-clean" accent="#e50035" tertiary="#4400ff" title="РУКОВОДСТВО ПО СТИЛЮ" subtitle="Где найти полные справочники и примеры" badge="NOTE" out="assets/generated/callout-quote-readme.svg" -->
+<!-- readme-kit:quote style="pixel" theme="cyberpunk" title="РУКОВОДСТВО ПО СТИЛЮ" subtitle="Где найти полные справочники и примеры" badge="NOTE" out="assets/generated/callout-quote-readme.svg" -->
 > **Навигация по документации**:
 > - Полный каталог всех компонентов во всех стилях доступен в **[CATALOG.md](CATALOG.md)**.
 > - Детальный разбор «сырой шаблон $\rightarrow$ скомпилированный результат» приведён в **[EXAMPLES.md](EXAMPLES.md)**.
@@ -232,7 +233,7 @@ python -m generator.cli studio
 
 <br/>
 
-<!-- readme-kit:terminal style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" title="CLI_COMMANDS.LIST" state="closed" out_top="assets/generated/term-top-readme.svg" out_bottom="assets/generated/term-bottom-readme.svg" -->
+<!-- readme-kit:terminal style="pixel" theme="cyberpunk" title="CLI_COMMANDS.LIST" state="closed" out_top="assets/generated/term-top-readme.svg" out_bottom="assets/generated/term-bottom-readme.svg" -->
 ```bash
 # Список всех доступных команд генератора:
 python -m generator.cli studio --help    # Запуск HUD Studio с Live Reload
@@ -258,4 +259,4 @@ python -m generator.cli splitter --help  # Сплиттеры подмодуле
 
 <br/><br/>
 
-<!-- readme-kit:footer style="modern" tertiary="#4400ff" accent="#e50035" primary="#00e5b0" theme="modern-clean" status="SESSION_ONLINE // READY" nav="▲ НАВЕРХ" out="assets/generated/footer-readme.svg" -->
+<!-- readme-kit:footer style="pixel" theme="cyberpunk" status="SESSION_ONLINE // READY" nav="▲ НАВЕРХ" out="assets/generated/footer-readme.svg" -->
