@@ -76,10 +76,10 @@
 
 
   <!-- TOP REPOSITORY HEADER -->
-  <rect x="80" y="56" width="365" height="34" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
-  <text x="96" y="78" fill="var(--primary)" font-size="13" font-weight="bold" letter-spacing="1px" class="font-mono">■ REPOSITORY // KAZINAGG/PIXEL-README-KIT</text>
-  <rect x="459" y="56" width="140" height="34" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
-  <text x="529" y="78" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PUBLIC // v5.0</text>
+  <rect x="80" y="56" width="360" height="34" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1.2"/>
+  <text x="96" y="78" fill="var(--primary)" font-size="13" font-weight="bold" letter-spacing="1px" class="font-mono">■ REPOSITORY // KAZINAGG/README-KIT</text>
+  <rect x="454" y="56" width="140" height="34" fill="var(--bg-panel)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="524" y="78" fill="var(--accent)" font-size="12" font-weight="bold" text-anchor="middle" class="font-mono">PUBLIC // v5.0</text>
 
   <!-- 3D PIXEL TITLE -->
   <g class="pixel-text-3d">

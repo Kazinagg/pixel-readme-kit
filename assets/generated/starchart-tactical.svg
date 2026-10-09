@@ -79,10 +79,10 @@
 
 
   <!-- HEADER BAR -->
-  <rect x="20" y="16" width="492" height="28" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
+  <rect x="20" y="16" width="452" height="28" fill="var(--bg-panel)" stroke="var(--border-chassis)" stroke-width="1"/>
   <rect x="20" y="16" width="4" height="28" fill="var(--primary)"/>
   <text x="32" y="35" fill="var(--primary)" font-size="11.5" font-weight="bold" letter-spacing="0.5px" class="font-mono">★ TACTICAL METRICS // GROWTH CURVE</text>
-  <text x="291" y="35" fill="var(--text-dim)" font-size="11" class="font-mono">// Kazinagg/pixel-readme-kit</text>
+  <text x="291" y="35" fill="var(--text-dim)" font-size="11" class="font-mono">// Kazinagg/readme-kit</text>
 
   <!-- STATS BADGES -->
   <g transform="translate(628, 16)">

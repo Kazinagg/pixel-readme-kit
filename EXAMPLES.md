@@ -184,7 +184,7 @@ neo-kernel init --profile=cyberpunk
 ```yaml
 # neo-kernel.config.yaml
 runtime:
-  engine: "pixel-readme-kit-v4.0"
+  engine: "readme-kit-v4.0"
   style: "cyberpunk"
   theme:
     mode: "auto"
@@ -367,7 +367,7 @@ neo-kernel init --profile=cyberpunk
 ```yaml
 # neo-kernel.config.yaml
 runtime:
-  engine: "pixel-readme-kit-v4.0"
+  engine: "readme-kit-v4.0"
   style: "cyberpunk"
   theme:
     mode: "auto"
@@ -438,7 +438,7 @@ python -m generator.mcp_server
     "pixel-readme": {
       "command": "python",
       "args": ["-m", "generator.mcp_server"],
-      "cwd": "/path/to/pixel-readme-kit"
+      "cwd": "/path/to/readme-kit"
     }
   }
 }
@@ -499,7 +499,7 @@ jobs:
           python -m generator.cli compile --input README.template.md --output README.md --assets-dir assets/generated
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: auto-compile pixel-readme-kit templates [skip ci]"
+          commit_message: "chore: auto-compile readme-kit templates [skip ci]"
 ```
 
 ---

@@ -127,7 +127,7 @@ neo-kernel init --profile=cyberpunk
 ```yaml
 # neo-kernel.config.yaml
 runtime:
-  engine: "pixel-readme-kit-v4.0"
+  engine: "readme-kit-v5.1"
   style: "cyberpunk"
   theme:
     mode: "auto"

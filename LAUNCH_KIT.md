@@ -14,7 +14,7 @@
 ```markdown
 Hey HN,
 
-I built Pixel Readme Kit (https://github.com/Kazinagg/pixel-readme-kit) because I was tired of two things with GitHub README widgets and profile cards:
+I built Pixel Readme Kit (https://github.com/Kazinagg/readme-kit) because I was tired of two things with GitHub README widgets and profile cards:
 1. They almost always depend on third-party serverless endpoints (Vercel, Heroku) that frequently hit GitHub API rate limits, throw 504 gateway timeouts, or break when you visit the repo.
 2. Most badges and cards look disjointed and template-generic.
 
@@ -24,16 +24,16 @@ Key features:
 - Zero external runtime dependencies: Written in pure Python standard library (no headless Chrome, Cairo, or Pillow). Renders vector SVGs in < 50ms.
 - Tri-Paradigm Design: Supports retro-tech / cyberpunk HUD (radar, scanlines), modern clean vector (matte graphite, 1px borders), and corporate/academic blue.
 - Adaptive Theming: SVGs adapt to GitHub dark/light mode using native SVG CSS `@media (prefers-color-scheme)`.
-- Interactive Local Studio: Run `pipx run pixel-readme-kit studio --open` for an SSE live-reloading visual block builder.
+- Interactive Local Studio: Run `pipx run readme-kit studio --open` for an SSE live-reloading visual block builder.
 - Star Growth & Profile Dossiers: Dynamic star growth curves and profile dossiers with auto-fetching via GitHub API.
 - Reusable GitHub Action: A single scheduled cron workflow to auto-update stars and KPI metrics daily without server maintenance.
 - AI Agent Native: Built-in Model Context Protocol (MCP) server for Cursor and Claude Desktop.
 
 Try it in one line:
-$ pipx run pixel-readme-kit studio --open
+$ pipx run readme-kit studio --open
 
-Repo: https://github.com/Kazinagg/pixel-readme-kit
-Web Demo: https://kazinagg.github.io/pixel-readme-kit/
+Repo: https://github.com/Kazinagg/readme-kit
+Web Demo: https://kazinagg.github.io/readme-kit/
 
 Feedback, aesthetic critique, and PRs are very welcome!
 ```
@@ -50,7 +50,7 @@ Feedback, aesthetic critique, and PRs are very welcome!
 ```markdown
 Hey everyone!
 
-Wanted to share a project I've been working on: **Pixel Readme Kit** (https://github.com/Kazinagg/pixel-readme-kit).
+Wanted to share a project I've been working on: **Pixel Readme Kit** (https://github.com/Kazinagg/readme-kit).
 
 ### The Problem
 Most dynamic GitHub README widgets (like star graphs, KPI counters, and profile banners) rely on hosted web endpoints. When those third-party servers experience downtime or hit GitHub rate limits, your repository displays broken image icons.
@@ -64,12 +64,12 @@ I wanted a toolkit that:
 
 ### How to test:
 ```bash
-pipx run pixel-readme-kit studio --open
+pipx run readme-kit studio --open
 ```
 
 It opens a local web UI where you can tweak palettes (with WCAG contrast calculation), configure widgets (headers, timelines, developer dossier cards, star trend curves), and copy the resulting Markdown.
 
-GitHub: https://github.com/Kazinagg/pixel-readme-kit
+GitHub: https://github.com/Kazinagg/readme-kit
 
 Would love to hear your thoughts on the code and architecture!
 ```
@@ -96,10 +96,10 @@ I built **Pixel Readme Kit**: a complete design system for GitHub READMEs that c
 - **Visual Studio**: Local WYSIWYG studio with instant preview.
 
 One-command run:
-`pipx run pixel-readme-kit studio --open`
+`pipx run readme-kit studio --open`
 
-GitHub: https://github.com/Kazinagg/pixel-readme-kit
-Live showcase: https://kazinagg.github.io/pixel-readme-kit/
+GitHub: https://github.com/Kazinagg/readme-kit
+Live showcase: https://kazinagg.github.io/readme-kit/
 ```
 
 ---
@@ -138,11 +138,11 @@ I built **Pixel Readme Kit** v5.0 — a zero-dependency vector design system and
 
 3/5 🖥️ **Interactive Web Studio**:
 Change colors, live-preview cards, and test GitHub dark/light mode with SSE live reload:
-`pipx run pixel-readme-kit studio --open`
+`pipx run readme-kit studio --open`
 
 4/5 📈 **Auto-Updating Star Charts**:
 Generate beautiful area-fill star trajectories and profile dossiers. Set up a 10-second GitHub Action cron to keep stats fresh daily!
 
 5/5 🌟 100% Open Source under MIT.
-Star the project on GitHub: https://github.com/Kazinagg/pixel-readme-kit
+Star the project on GitHub: https://github.com/Kazinagg/readme-kit
 RTs appreciated! ❤️

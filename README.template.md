@@ -8,6 +8,8 @@
 
 <br/><br/>
 
+<!-- readme-kit:chip style="pixel" theme="cyberpunk" type="pulse" text="🌐 ИНТЕРАКТИВНЫЙ САЙТ / ДЕМО" href="https://kazinagg.github.io/readme-kit/" out="assets/generated/chip-readme-demo.svg" -->
+&nbsp;&nbsp;
 <!-- readme-kit:chip style="pixel" theme="cyberpunk" type="closed" text="[DOCS] КАТАЛОГ СТИЛЕЙ И БЛОКОВ" href="CATALOG.md" out="assets/generated/chip-readme-catalog.svg" -->
 &nbsp;&nbsp;
 <!-- readme-kit:chip style="pixel" theme="cyberpunk" type="closed" text="[SPEC] СИСТЕМА КАСТОМИЗАЦИИ" href="EXAMPLES.md" out="assets/generated/chip-readme-examples.svg" -->
@@ -123,7 +125,10 @@
 
 ## 07 // Руководство по началу работы (Quick Start Guide)
 
-### 1. Мгновенный запуск Студии в браузере (Zero-Install)
+### 0. Онлайн-витрина и симулятор (GitHub Pages)
+Опробуйте все стили, темы и генерацию SVG прямо в браузере: **[https://kazinagg.github.io/readme-kit/](https://kazinagg.github.io/readme-kit/)**
+
+### 1. Мгновенный запуск Студии локально (Zero-Install)
 ```bash
 # Запуск через pipx без предварительного клонирования (рекомендуется):
 pipx run readme-kit studio --open
@@ -226,6 +231,7 @@ python -m generator.cli studio
 
 <!-- readme-kit:quote style="pixel" theme="cyberpunk" title="РУКОВОДСТВО ПО СТИЛЮ" subtitle="Где найти полные справочники и примеры" badge="NOTE" out="assets/generated/callout-quote-readme.svg" -->
 > **Навигация по документации**:
+> - 🌐 **Интерактивный веб-сайт и симулятор**: [kazinagg.github.io/readme-kit](https://kazinagg.github.io/readme-kit/)
 > - Полный каталог всех компонентов во всех стилях доступен в **[CATALOG.md](CATALOG.md)**.
 > - Детальный разбор «сырой шаблон $\rightarrow$ скомпилированный результат» приведён в **[EXAMPLES.md](EXAMPLES.md)**.
 > - Лицензия проекта: [LICENSE](LICENSE) (MIT).

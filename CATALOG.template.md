@@ -166,8 +166,8 @@
 ### 6.1 Cyberpunk Terminal
 <!-- pixel-kit:terminal style="cyberpunk" title="HUD.TERMINAL // DEPLOY.SYS" state="open" out_top="assets/generated/terminal-top-cyberpunk.svg" out_bottom="assets/generated/terminal-bottom-cyberpunk.svg" -->
 ```bash
-git clone https://github.com/Kazinagg/pixel-readme-kit.git
-cd pixel-readme-kit
+git clone https://github.com/Kazinagg/readme-kit.git
+cd readme-kit
 python -m generator.cli --help
 ```
 <!-- /pixel-kit:terminal -->
@@ -312,17 +312,17 @@ python -m generator.cli compile --input README.template.md --output README.md
 Премиальные баннеры для превью репозитория при шеринге в Twitter, LinkedIn, Telegram и Discord:
 
 ### 14.1 Cyberpunk Social Card
-<!-- pixel-kit:social style="cyberpunk" title="PIXEL-KIT v5.0" subtitle="RETRO-CYBERPUNK HUD DESIGN SYSTEM" repo="Kazinagg/pixel-readme-kit" tags="PYTHON,SVG,CYBERPUNK,MCP" out="assets/generated/social-catalog-cyberpunk.svg" -->
+<!-- pixel-kit:social style="cyberpunk" title="PIXEL-KIT v5.0" subtitle="RETRO-CYBERPUNK HUD DESIGN SYSTEM" repo="Kazinagg/readme-kit" tags="PYTHON,SVG,CYBERPUNK,MCP" out="assets/generated/social-catalog-cyberpunk.svg" -->
 
 <br/>
 
 ### 14.2 Tactical Military Social Card
-<!-- pixel-kit:social style="tactical" title="DEFENSE-KIT v5.0" subtitle="TACTICAL MILITARY HUD SYSTEM" repo="Kazinagg/pixel-readme-kit" tags="RUST,LINUX,TACTICAL,OPS" out="assets/generated/social-catalog-tactical.svg" -->
+<!-- pixel-kit:social style="tactical" title="DEFENSE-KIT v5.0" subtitle="TACTICAL MILITARY HUD SYSTEM" repo="Kazinagg/readme-kit" tags="RUST,LINUX,TACTICAL,OPS" out="assets/generated/social-catalog-tactical.svg" -->
 
 <br/>
 
 ### 14.3 Minimal Glass Social Card
-<!-- pixel-kit:social style="minimal" title="STUDIO-KIT v5.0" subtitle="MINIMAL GLASS WORKSPACE" repo="Kazinagg/pixel-readme-kit" tags="TYPESCRIPT,REACT,DESIGN,UI" out="assets/generated/social-catalog-minimal.svg" -->
+<!-- pixel-kit:social style="minimal" title="STUDIO-KIT v5.0" subtitle="MINIMAL GLASS WORKSPACE" repo="Kazinagg/readme-kit" tags="TYPESCRIPT,REACT,DESIGN,UI" out="assets/generated/social-catalog-minimal.svg" -->
 
 ---
 
@@ -350,17 +350,17 @@ python -m generator.cli compile --input README.template.md --output README.md
 Полноширинный векторный SVG-график (850×230) с координатной сеткой, градиентной заливкой области (Area Fill), пиковыми метками и индикацией темпа прироста для репозиториев и профилей:
 
 ### 16.1 Cyberpunk Star History
-<!-- pixel-kit:starchart style="cyberpunk" repo="Kazinagg/pixel-readme-kit" points="20,80,240,650,1200,2100" current="2,100" delta="+92% past 6m" title="OPEN SOURCE TRAJECTORY // TELEMETRY" out="assets/generated/starchart-cyberpunk.svg" -->
+<!-- pixel-kit:starchart style="cyberpunk" repo="Kazinagg/readme-kit" points="20,80,240,650,1200,2100" current="2,100" delta="+92% past 6m" title="OPEN SOURCE TRAJECTORY // TELEMETRY" out="assets/generated/starchart-cyberpunk.svg" -->
 
 <br/>
 
 ### 16.2 Tactical Military Star History
-<!-- pixel-kit:starchart style="tactical" repo="Kazinagg/pixel-readme-kit" points="15,60,180,450,920,1650" current="1,650" delta="+78% past 6m" title="TACTICAL METRICS // GROWTH CURVE" out="assets/generated/starchart-tactical.svg" -->
+<!-- pixel-kit:starchart style="tactical" repo="Kazinagg/readme-kit" points="15,60,180,450,920,1650" current="1,650" delta="+78% past 6m" title="TACTICAL METRICS // GROWTH CURVE" out="assets/generated/starchart-tactical.svg" -->
 
 <br/>
 
 ### 16.3 Minimal Glass Star History
-<!-- pixel-kit:starchart style="minimal" repo="Kazinagg/pixel-readme-kit" points="30,110,320,780,1400,2400" current="2,400" delta="+85% past 6m" title="ANALYTICS // REPO EXPANSION" out="assets/generated/starchart-minimal.svg" -->
+<!-- pixel-kit:starchart style="minimal" repo="Kazinagg/readme-kit" points="30,110,320,780,1400,2400" current="2,400" delta="+85% past 6m" title="ANALYTICS // REPO EXPANSION" out="assets/generated/starchart-minimal.svg" -->
 
 ---
 
@@ -403,7 +403,7 @@ python -m generator.cli compile --input README.template.md --output README.md
 <br/>
 
 ### 18.4 Modern Starchart (Linear Violet Bezier Spline)
-<!-- pixel-kit:starchart style="modern" theme="linear-violet" repo="Kazinagg/pixel-readme-kit" points="40,150,520,1350,2800,4900" current="4,900" delta="+114% past 6m" title="OPEN SOURCE TRAJECTORY // CUBIC BEZIER" out="assets/generated/starchart-modern-demo.svg" -->
+<!-- pixel-kit:starchart style="modern" theme="linear-violet" repo="Kazinagg/readme-kit" points="40,150,520,1350,2800,4900" current="4,900" delta="+114% past 6m" title="OPEN SOURCE TRAJECTORY // CUBIC BEZIER" out="assets/generated/starchart-modern-demo.svg" -->
 
 <br/>
 

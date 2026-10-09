@@ -212,8 +212,8 @@
 <td width="2000">
 
 ```bash
-git clone https://github.com/Kazinagg/pixel-readme-kit.git
-cd pixel-readme-kit
+git clone https://github.com/Kazinagg/readme-kit.git
+cd readme-kit
 python -m generator.cli --help
 ```
 
@@ -373,17 +373,17 @@ python -m generator.cli compile --input README.template.md --output README.md
 Премиальные баннеры для превью репозитория при шеринге в Twitter, LinkedIn, Telegram и Discord:
 
 ### 14.1 Cyberpunk Social Card
-<img src="assets/generated/social-catalog-cyberpunk.svg?v=0f72b5ae" width="100%" alt="PIXEL-KIT v5.0" />
+<img src="assets/generated/social-catalog-cyberpunk.svg?v=30c89d48" width="100%" alt="PIXEL-KIT v5.0" />
 
 <br/>
 
 ### 14.2 Tactical Military Social Card
-<img src="assets/generated/social-catalog-tactical.svg?v=4dd74999" width="100%" alt="DEFENSE-KIT v5.0" />
+<img src="assets/generated/social-catalog-tactical.svg?v=66740175" width="100%" alt="DEFENSE-KIT v5.0" />
 
 <br/>
 
 ### 14.3 Minimal Glass Social Card
-<img src="assets/generated/social-catalog-minimal.svg?v=ad240257" width="100%" alt="STUDIO-KIT v5.0" />
+<img src="assets/generated/social-catalog-minimal.svg?v=a3f7941a" width="100%" alt="STUDIO-KIT v5.0" />
 
 ---
 
@@ -411,17 +411,17 @@ python -m generator.cli compile --input README.template.md --output README.md
 Полноширинный векторный SVG-график (850×230) с координатной сеткой, градиентной заливкой области (Area Fill), пиковыми метками и индикацией темпа прироста для репозиториев и профилей:
 
 ### 16.1 Cyberpunk Star History
-<img src="assets/generated/starchart-cyberpunk.svg?v=08877d32" width="100%" alt="OPEN SOURCE TRAJECTORY // TELEMETRY" />
+<img src="assets/generated/starchart-cyberpunk.svg?v=0516e3af" width="100%" alt="OPEN SOURCE TRAJECTORY // TELEMETRY" />
 
 <br/>
 
 ### 16.2 Tactical Military Star History
-<img src="assets/generated/starchart-tactical.svg?v=ed17db94" width="100%" alt="TACTICAL METRICS // GROWTH CURVE" />
+<img src="assets/generated/starchart-tactical.svg?v=9a890c94" width="100%" alt="TACTICAL METRICS // GROWTH CURVE" />
 
 <br/>
 
 ### 16.3 Minimal Glass Star History
-<img src="assets/generated/starchart-minimal.svg?v=1ed06503" width="100%" alt="ANALYTICS // REPO EXPANSION" />
+<img src="assets/generated/starchart-minimal.svg?v=997f1296" width="100%" alt="ANALYTICS // REPO EXPANSION" />
 
 ---
 
@@ -464,7 +464,7 @@ python -m generator.cli compile --input README.template.md --output README.md
 <br/>
 
 ### 18.4 Modern Starchart (Linear Violet Bezier Spline)
-<img src="assets/generated/starchart-modern-demo.svg?v=a817f4a0" width="100%" alt="OPEN SOURCE TRAJECTORY // CUBIC BEZIER" />
+<img src="assets/generated/starchart-modern-demo.svg?v=00229f36" width="100%" alt="OPEN SOURCE TRAJECTORY // CUBIC BEZIER" />
 
 <br/>
 
